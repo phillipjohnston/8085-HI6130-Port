@@ -324,4 +324,23 @@ rt1d->RxM->C21->ctrlWord  // defined Rx mode code 21
 */
 
 
+/************************
+* Function Declarations *
+************************/
+
+void RT_bus_addressing_examples(void);
+void modify_RT_status_bits(void);
+
+
+void initialize_6130_RT1(void);
+//void initialize_613x_RT2(void);
+char RTAddr_okay(char RTnum);
+
+
+void write_dummy_tx_data_RT1(void);
+void write_dummy_tx_data_RT2(void);
+
+void RTstatusUpdate(void);
+
 #endif //_HI6130_RT_H
+

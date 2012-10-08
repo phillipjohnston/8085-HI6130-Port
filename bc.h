@@ -9,7 +9,7 @@
 #ifndef _HI6130_BC_H
 #define _HI6130_BC_H
 
-#define STARTING_ADDR 0x60000000
+#define BC_STARTING_ADDR 0x60000000
 #message "FIX ME:  GPQ_BASE_BUS_ADDR for actual starting address in bc.h"
 
 
@@ -341,14 +341,5 @@ void initialize_bc_instruction_list(void);
 void bc_disable(void);
 void bc_enable(void);
 void bc_start(void);
-
-void BC_bus_addressing_examples(void);
-void bc_trigger(void);
-void bc_switch_tests(void);
-void SW2_BCtest (void);
-char SW1_BC_Trigger(void);
-
-
-// End of File 
 
 #endif //_HI6130_BC_H

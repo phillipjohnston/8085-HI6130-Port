@@ -6,6 +6,8 @@
 * 8 October 2012
 */
 
+#ifndef _HI6130_REGDEFS_H
+#define _HI6130_REGDEFS_H
 
 //------------------------------------------------------------------------------
 //   Macro Definitions for HI-613x Registers
@@ -341,4 +343,4 @@
 #define True ((char)1)
 
 
-// end of file
+#endif //_HI6130_REGDEFS_H

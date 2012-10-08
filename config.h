@@ -6,6 +6,9 @@
 * 6 October 2012
 */
 
+#ifndef _HI6130_CONFIG_H
+#define _HI6130_CONFIG_H
+
 /*******************************
 * Configuration Definitions *
 *******************************/
@@ -16,9 +19,9 @@
 /*********************************
 * Operational Mode Options *
 *********************************/ 
-//#define I_AM_BC
+#define I_AM_BC
 //#define I_AM_BM
-#define I_AM_RT
+//#define I_AM_RT
 
 #ifdef I_AM_BC
 #ifdef I_AM_BM
@@ -52,3 +55,6 @@
 //#define IMT_ena 0 // IRIG-106 Monitor Terminal *   One or both of these 2 must be 0.  *
 #message "Compiling software for simple BM mode."
 #endif
+
+
+#endif //_HI6130_CONFIG_H

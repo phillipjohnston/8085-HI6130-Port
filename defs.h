@@ -6,6 +6,9 @@
 *	6 October 2012
 */
 
+#ifndef _HI6130_DEFS_H
+#define _HI6130_DEFS_H
+
 #include "config.h"
 
 /***************
@@ -168,3 +171,6 @@ struct test_reg_map_t
 	unsigned int CHECKSUM_FAIL_ADDRESS_REG;
 };
 #endif
+
+
+#endif //_HI6130_DEFS_H

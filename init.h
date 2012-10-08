@@ -6,6 +6,9 @@
 *	6 October 2012
 */
 
+#ifndef _HI6130_INIT_H
+#define _HI6130_INIT_H
+
 #include config.h
 
 /************************
@@ -85,3 +88,6 @@
 #define USE_SMCP NO			//  NO = descriptor table is initialized to store mode command
 												//  results in assigned RAM buffers
 #endif
+
+
+#endif //_HI6130_H

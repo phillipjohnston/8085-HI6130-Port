@@ -1,10 +1,6 @@
 /*
 *   HI-6130 Definitions
-*
 *	6130defs.h
-*
-*	MICRO-C Port, 8-bit xfers
-*	For the 8085 Microcontroller
 *
 *	Phillip Johnston
 *	6 October 2012

@@ -1,6 +1,5 @@
 /*
 *	HI-6130 Initialization Settings / Macros
-*
 *	6130_initialization.h
 *
 *	Phillip Johnston

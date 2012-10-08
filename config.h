@@ -1,14 +1,15 @@
 /*
 * HI-6130 Operational Configuration Options
-*
 * 6130_config.h
 *
 * Phillip Johnston
 * 6 October 2012
 */
 
+/*******************************
+* Configuration Definitions *
+*******************************/
 //#define USE_TEST_REGS
-
 //#define SMCP_OK 
 //For description of this, look in 6130_initialization.h
 

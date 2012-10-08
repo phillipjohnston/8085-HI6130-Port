@@ -1,33 +1,9 @@
-/* ----------------------------------------------------------------------------
-*                            HOLT Integrated Circuits 
-* ----------------------------------------------------------------------------
+/*
+* Bus Monitor Library
+* bm.h
 *
-*    file	613x_mt.h
-*    brief     This file contains prototype functions and
-* 	        definitions used by functions in 613x_mt.c file. 
-*
-*		IMPORTANT: Edit file 613x_initialization.h to define either:
-*
-*		HOST_BUS_INTERFACE  YES  sets compilation for HI-6130 (bus)
-*		 		    NO   sets compilation for HI-6131 (SPI)
-*
-*		Most functional procedures in this project are written for
-*		both parallel bus or SPI host interface schemes, this runtime 
-*		switch determines which are procedures are compiled.
-* 
-*
-*	   	HOLT DISCLAIMER
-*      	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
-*      	KIND, EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
-*      	WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
-*      	PURPOSE AND NONINFRINGEMENT. 
-*      	IN NO EVENT SHALL HOLT, INC BE LIABLE FOR ANY CLAIM, DAMAGES
-*      	OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
-*      	OTHERWISE,ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
-*      	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-*
-*              Copyright (C) 2009-2011 by  HOLT, Inc.
-*              All Rights Reserved
+* Phillip Johnston
+* 8 October 2012
 */
 
 

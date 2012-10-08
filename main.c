@@ -1,5 +1,9 @@
 /*
-*	main.c
+* Main Program
+* main.c
+*
+* Phillip Johnston
+* 6 October 2012
 */
 
 #include "6130_initialization.h"

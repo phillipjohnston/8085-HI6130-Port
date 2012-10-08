@@ -1,6 +1,6 @@
 /*
-*
-*
+* Bus Controller Library
+* bc.h
 *
 * Phillip Johnston
 * 8 October 2012

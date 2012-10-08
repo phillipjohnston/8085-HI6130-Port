@@ -19,9 +19,9 @@
 /*********************************
 * Operational Mode Options *
 *********************************/ 
-#define I_AM_BC
+//#define I_AM_BC
 //#define I_AM_BM
-//#define I_AM_RT
+#define I_AM_RT
 
 #ifdef I_AM_BC
 #ifdef I_AM_BM

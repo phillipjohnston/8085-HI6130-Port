@@ -8,84 +8,20 @@
 
 
 // Holt project headers
-#include "613x_initialization.h"
-#include "613x_regs.h"
-#include "613x_rt.h"
-#include "board_613x.h"
+#include "rt.h"
+#include "regdefs.h"
 
-#include "board_6130.h"
-#include "device_6130.h"
-extern const H6130 pH6130;
+extern struct rt_reg_map_t * pH6130; //This pointer originally went to the master reg struct.  We just need inidividuals.
 
 #if(RT1_ena)
-extern const struct rt1_d_table pRT1d;
-extern const struct rt1_illcmd_table pRT1i;
+extern struct rt1_d_table * pRT1d;
+extern struct rt1_illcmd_table * pRT1i;
 #endif // (RT1_ena)
 
 #if(RT2_ena)
-extern const struct rt2_d_table pRT2d;
-extern const struct rt2_illcmd_table pRT2i;
+extern struct rt2_d_table * pRT2d;
+extern struct rt2_illcmd_table * pRT2i;
 #endif // (RT2_ena)
-
-
-#if (RT1_ena||RT2_ena)    
-
-// this function applies for HI-6130 only
-void RT_bus_addressing_examples(void) {
-	
-	unsigned int j,k;
-	volatile unsigned int *address;
-	
-	// ----------------------------------------------------------------
-	// RT1 or RT2 Command Illegalization Table bus addressing examples
-	// ----------------------------------------------------------------
-	// see the full breakdown of bus addressing options for this table near the end of file 613x_rt.h
-	// The illegalization table base addresses are declared in file 613x_rt.h
-	
-	// RT command illegalization table addressing examples using nested structure definitions
-	#if(RT1_ena)
-	j = pRT1i->BTx.SA22._3words;   // read RT1 illegal bit: for broadcast Tx subaddress 22, 3 data words
-	k = pRT1i->Rx.SA31._mcode21;   // read RT1 illegal bit: non-broadcast Tx subaddress 31, mode code 21
-	#endif // (RT1_ena)
-	
-	#if(RT2_ena)
-	j = pRT2i->BTx.SA5._32words;   // read RT2 illegal bit: for broadcast Tx subaddress 5, 32 data words
-	k = pRT2i->Rx.SA0._mcode2;     // read RT2 illegal bit: non-broadcast Tx subaddress 31, mode code 2
-	#endif // (RT2_ena)
-	
-	// ----------------------------------------------------
-	// RT1 or RT2 Descriptor Table bus addressing examples
-	// ----------------------------------------------------
-	// see the full breakdown of bus addressing options for this table near the end of file 613x_rt.h
-	// The descriptor table base addresses are declared in file 613x_rt.h
-	
-	// RT descriptor table addressing examples using nested structure definitions                              
-	#if(RT1_ena)
-	j = pRT1d->RxS.A0.ctrlWord;           // read descriptor table Control Word for RT1 Rx subaddress 0
-	k = pRT1d->RxS.A4.ctrlWord;           // read descriptor table Control Word for RT1 Rx subaddress 4
-	pRT1d->RxS.A4.descWord3 = 0x1234;     // write descriptor word 3 for RT1 Rx subaddress 4
-	address = &(pRT1d->RxS.A0.descWord4); // get address for descriptor word 4 for RT1 Rx subaddress 0
-	*address = 0x5A5A;                    // write addressed descriptor table location
-	#endif // (RT1_ena)
-	
-	#if(RT2_ena)
-	pRT2d->RxM.C21.descWord2 = 0x1234;    // write descriptor word 2 for RT2 Rx mode code 21
-	pRT2d->TxM.C3.descWord2 = 0x5678;     // write descriptor word 2 for RT2 Tx mode code 2    
-	#endif // (RT2_ena)
-	
-	// preempt warnings: variable was set but never used
-	j=j;
-	k=k;
-	
-}   // end RT_bus_addressing_examples()
-
-#endif // (RT1_ena||RT2_ena)    
-
-
-
-
-// the initialization functions below do not use the addressing methods shown above.
-// instead, they demonstrate alternative addressing methods...
 
 
 #if (RT1_ena)    //------------ RT1 ENABLED ------------
@@ -97,13 +33,13 @@ void RT_bus_addressing_examples(void) {
 // 	initialize_613x_shared() to initialize the common parameters
 //	shared by BC, RT1, RT2 and/or Bus Monitor
 //
-void initialize_613x_RT1(void) {
+void initialize_6130_RT1(void) {
 	
 
 	unsigned int k;
 	unsigned int i,j;
 	
-	unsigned int descr_table_RT1[512] = {
+	static unsigned int descr_table_RT1[512] = {
 		/* this array is used to initialize the Descriptor Table. For subaddress-
 	receive and subaddress-transmit commands, the array sets the desired data 
 	buffer style and initializes data pointer values. 
@@ -282,8 +218,8 @@ void initialize_613x_RT1(void) {
 
 	/* end of descr_table_RT1[512] declaration */
 
-
-	unsigned int illegal_table[256] = {
+#if (ILLEGAL_CMD_DETECT)
+	static unsigned int illegal_table[256] = {
 		/* This array is loaded by the initialization function only when the terminal
 	uses "illegal command detection", that is, when the macro ILLEGAL_CMD_DETECT 
 	= YES in the header file 613x_initialization.h. 
@@ -634,7 +570,7 @@ void initialize_613x_RT1(void) {
 		/*                Low    High   Low    High   Low    High   Low    High   */
 		/*  RAM address	 0x01F8 0x01F9 0x01FA 0x01FB 0x01FC 0x01FD 0x01FE 0x01FF  */
 		0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFE09,0xFFF2 };	
-
+#endif
 	//  End of illegal_table[256] declaration
 
 
@@ -719,20 +655,20 @@ void initialize_613x_RT1(void) {
 	#if (USE_SMCP)
 
 	// in subaddress command half of table, every word is written
-	for ( i = 0, k = (0x60000000 + j); i < 256; i++) {
-		*((volatile unsigned int *)(k)) = descr_table_RT1[i];
+	for ( i = 0, k = (STARTING_ADDR + j); i < 256; i++) {
+		*((unsigned int *)(k)) = descr_table_RT1[i];
 		k += 2;
 	}
 	// in mode command half of table, just write Control Words, every 4th word
 	for ( ; i < 512; i++) {
 		//  just write 4 host-maintained Control Word bits
-		*((volatile unsigned int *)(k)) = descr_table_RT1[i] & 0xF000; // desc word 1
+		*((unsigned int *)(k)) = descr_table_RT1[i] & 0xF000; // desc word 1
 		k += 2;
-		*((volatile unsigned int *)(k)) = 0; // desc word 2 = 0
+		*((unsigned int *)(k)) = 0; // desc word 2 = 0
 		k += 2;
-		*((volatile unsigned int *)(k)) = 0; // desc word 3 = 0
+		*((unsigned int *)(k)) = 0; // desc word 3 = 0
 		k += 2;
-		*((volatile unsigned int *)(k)) = 0; // desc word 4 = 0
+		*((unsigned int *)(k)) = 0; // desc word 4 = 0
 		k += 2;
 		i += 3;
 	}		
@@ -740,8 +676,8 @@ void initialize_613x_RT1(void) {
 	#else // not using SMCP
 
 	// every word in table is written 
-	for ( i = 0, k = (0x60000000 + j); i < 512; i++) {
-		*((volatile unsigned int *)(k)) = descr_table_RT1[i];
+	for ( i = 0, k = (STARTING_ADDR + j); i < 512; i++) {
+		*((unsigned int *)(k)) = descr_table_RT1[i];
 		k += 2;
 	}
 
@@ -752,10 +688,10 @@ void initialize_613x_RT1(void) {
 	// load Illegalization Table for RT1
 	
 	// write address k starts at table base address 
-	k = 0x60000000 + (RT1_ILLEGAL_TABLE_BASE_ADDR << 1);
+	k = STARTING_ADDR + (RT1_ILLEGAL_TABLE_BASE_ADDR << 1);
 	
 	for ( i = 0; i < 256; i++) {	
-		*((volatile unsigned int *)(k)) = illegal_table[i];
+		*((unsigned int *)(k)) = illegal_table[i];
 		k = k + 2;
 	}
 
@@ -774,12 +710,12 @@ void initialize_613x_RT1(void) {
 void write_dummy_tx_data_RT1(void) {
 	
 	unsigned int i, j;
-	unsigned int a_data[32] = {0x0101,0x0202,0x0303,0x0404,0x0505,0x0606,0x0707,0x0808,
+	static unsigned int a_data[32] = {0x0101,0x0202,0x0303,0x0404,0x0505,0x0606,0x0707,0x0808,
 		0x0909,0x1010,0x1111,0x1212,0x1313,0x1414,0x1515,0x1616,
 		0x1717,0x1818,0x1919,0x2020,0x2121,0x2222,0x2323,0x2424,
 		0x2525,0x2626,0x2727,0x2828,0x2929,0x3030,0x3131,0x3232};
 
-	unsigned int b_data[32] = {0xF001,0xF002,0xF003,0xF004,0xF005,0xF006,0xF007,0xF008,
+	static unsigned int b_data[32] = {0xF001,0xF002,0xF003,0xF004,0xF005,0xF006,0xF007,0xF008,
 		0xF009,0xF00A,0xF00B,0xF00C,0xF00D,0xF00E,0xF00F,0xF010,
 		0xF011,0xF012,0xF013,0xF014,0xF015,0xF016,0xF017,0xF018,
 		0xF019,0xF01A,0xF01B,0xF01C,0xF01D,0xF01E,0xF01F,0xF020};
@@ -791,22 +727,22 @@ void write_dummy_tx_data_RT1(void) {
 	// SPACE FOR MSG INFO WORD AND TIME TAG WORD, PLUS 32 DATA WORDS 
 	
 	// first a 32-word buffer starting at offset = 0x0866 
-	k = (0x60000000 + (0x0866 << 1));
+	k = (STARTING_ADDR + (0x0866 << 1));
 	// skip 2 addresses for MsgInfo Word and TimeTag word
 	k = k + 4;
 	// write the 32 data words...
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = a_data[i];
+		*((unsigned int *)(k)) = a_data[i];
 		k = k + 2;
 	}
 	
 	// next a 32-word buffer starting at offset = 0x0888 
-	k = (0x60000000 + (0x0888 << 1));
+	k = (STARTING_ADDR + (0x0888 << 1));
 	// skip 2 addresses for MsgInfo Word and TimeTag word
 	k = k + 4;
 	// write the 32 data words...
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = b_data[i];
+		*((unsigned int *)(k)) = b_data[i];
 		k = k + 2;
 	}
 
@@ -817,13 +753,13 @@ void write_dummy_tx_data_RT1(void) {
 
 	// total 1088-word buffer starting at offset = 0x0D32 
 	// this is 32 contiguous segments of 34 words each, 
-	k = (0x60000000 + (0x0D32 << 1));
+	k = (STARTING_ADDR + (0x0D32 << 1));
 	for ( j = 0; j < 32; j++) {
 		// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
 		k = k + 4; 
 		// write the 32 data words...					
 		for ( i = 0; i < 32; i++) {	
-			*((volatile unsigned int *)(k)) = b_data[i];
+			*((unsigned int *)(k)) = b_data[i];
 			k = k + 2;
 		}
 	}
@@ -835,19 +771,19 @@ void write_dummy_tx_data_RT1(void) {
 
 	// total 1088-word buffer starting at offset = 0x15D6 
 	// this is 32 contiguous segments of 34 words each, 
-	k = (0x60000000 + (0x15D6 << 1));
+	k = (STARTING_ADDR + (0x15D6 << 1));
 	for ( j = 0; j < 32; j++) {
 		// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
 		k = k + 4; 
 		// write the 32 data words...					
 		for ( i = 0; i < 32; i++) {	
-			*((volatile unsigned int *)(k)) = a_data[i];
+			*((unsigned int *)(k)) = a_data[i];
 			k = k + 2;
 		}
 	}
 	// follow with a 32-word safety pad in case of circ-1 buffer overrun
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = 0xBADD;
+		*((unsigned int *)(k)) = 0xBADD;
 		k = k + 2;
 	}
 	
@@ -856,22 +792,22 @@ void write_dummy_tx_data_RT1(void) {
 	// FOR TESTING CIRCULAR MODE 2, A CONTIGUOUS 32 X 32-WORD DATA BLOCK 
 	
 	// total 8192-word buffer with offset range from 0x1E00 to 0x3DFF 
-	k = (0x60000000 + (0x1E00 << 1));
+	k = (STARTING_ADDR + (0x1E00 << 1));
 	// write the 8192 data words using incrementing data pattern...
 	for ( i = 0, j = 0; i < 8192; i++, j++) {	
-		*((volatile unsigned int *)(k)) = j;
+		*((unsigned int *)(k)) = j;
 		k = k + 2;
 	}
 	
 	// ================================================================================= 
 
 	// for unimplemented transmit SA's. a 32-word buffer starting at offset = 0x1A58 
-	k = (0x60000000 + (0x1A58 << 1));
+	k = (STARTING_ADDR + (0x1A58 << 1));
 	// skip 2 addresses for MsgInfo Word and TimeTag word
 	k = k + 4;
 	// write the 32 data words...
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = 0xDEAD;
+		*((unsigned int *)(k)) = 0xDEAD;
 		k = k + 2;
 	}
 	
@@ -898,13 +834,13 @@ void write_dummy_tx_data_RT1(void) {
 // 	initialize_613x_shared() to initialize the common parameters
 //	shared by BC, RT1, RT2 and/or Bus Monitor
 //
-void initialize_613x_RT2(void) {
+void initialize_6130_RT2(void) {
 	
 	unsigned int k;
 
 	unsigned int i,j;
 	
-	unsigned int descr_table_RT2[512] = {
+	static unsigned int descr_table_RT2[512] = {
 		/* this array is used to initialize the Descriptor Table. For subaddress-
 	receive and subaddress-transmit commands, the array sets the desired data 
 	buffer style and initializes data pointer values. 
@@ -1084,7 +1020,7 @@ void initialize_613x_RT2(void) {
 	// end of descr_table_RT2[512] declaration
 
 
-	unsigned int illegal_table[256] = {
+	static unsigned int illegal_table[256] = {
 		/* This array is loaded by the initialization function only when the terminal
 	uses "illegal command detection", that is, when the macro ILLEGAL_CMD_DETECT 
 	= YES in the header file 613x_initialization.h. 
@@ -1520,20 +1456,20 @@ void initialize_613x_RT2(void) {
 	#if (USE_SMCP)
 
 	// in subaddress command half of table, every word is written 
-	for ( i = 0, k = (0x60000000 + j); i < 256; i++) {
-		*((volatile unsigned int *)(k)) = descr_table_RT2[i];
+	for ( i = 0, k = (STARTING_ADDR + j); i < 256; i++) {
+		*((unsigned int *)(k)) = descr_table_RT2[i];
 		k += 2;
 	}
 	// in mode command half of table, just write Control Words, every 4th word 
 	for ( ; i < 512; i++) {
 		//  just write 4 host-maintained Control Word bits 
-		*((volatile unsigned int *)(k)) = descr_table_RT2[i] & 0xF000; // desc word 1
+		*((unsigned int *)(k)) = descr_table_RT2[i] & 0xF000; // desc word 1
 		k += 2;
-		*((volatile unsigned int *)(k)) = 0; // desc word 2 = 0
+		*((unsigned int *)(k)) = 0; // desc word 2 = 0
 		k += 2;
-		*((volatile unsigned int *)(k)) = 0; // desc word 3 = 0
+		*((unsigned int *)(k)) = 0; // desc word 3 = 0
 		k += 2;
-		*((volatile unsigned int *)(k)) = 0; // desc word 4 = 0
+		*((unsigned int *)(k)) = 0; // desc word 4 = 0
 		k += 2;
 		i += 3;
 	}		
@@ -1541,8 +1477,8 @@ void initialize_613x_RT2(void) {
 	#else // not using SMCP
 
 	// every word in table is written 
-	for ( i = 0, k = (0x60000000 + j); i < 512; i++) {
-		*((volatile unsigned int *)(k)) = descr_table_RT2[i];
+	for ( i = 0, k = (STARTING_ADDR + j); i < 512; i++) {
+		*((unsigned int *)(k)) = descr_table_RT2[i];
 		k += 2;
 	}
 
@@ -1555,10 +1491,10 @@ void initialize_613x_RT2(void) {
 	// (declared above) into the HI-6130 RAM for RT2 
 
 	// write address k starts at table base address 
-	k = 0x60000000 + (RT2_ILLEGAL_TABLE_BASE_ADDR << 1);
+	k = STARTING_ADDR + (RT2_ILLEGAL_TABLE_BASE_ADDR << 1);
 	
 	for ( i = 0; i < 256; i++) {	
-		*((volatile unsigned int *)(k)) = illegal_table[i];
+		*((unsigned int *)(k)) = illegal_table[i];
 		k += 2;
 	}
 
@@ -1579,12 +1515,12 @@ void initialize_613x_RT2(void) {
 void write_dummy_tx_data_RT2(void) {
 	
 	unsigned int i, j;
-	unsigned int a_data[32] = {0x0101,0x0202,0x0303,0x0404,0x0505,0x0606,0x0707,0x0808,
+	static unsigned int a_data[32] = {0x0101,0x0202,0x0303,0x0404,0x0505,0x0606,0x0707,0x0808,
 		0x0909,0x1010,0x1111,0x1212,0x1313,0x1414,0x1515,0x1616,
 		0x1717,0x1818,0x1919,0x2020,0x2121,0x2222,0x2323,0x2424,
 		0x2525,0x2626,0x2727,0x2828,0x2929,0x3030,0x3131,0x3232};
 
-	unsigned int b_data[32] = {0xF001,0xF002,0xF003,0xF004,0xF005,0xF006,0xF007,0xF008,
+	static unsigned int b_data[32] = {0xF001,0xF002,0xF003,0xF004,0xF005,0xF006,0xF007,0xF008,
 		0xF009,0xF00A,0xF00B,0xF00C,0xF00D,0xF00E,0xF00F,0xF010,
 		0xF011,0xF012,0xF013,0xF014,0xF015,0xF016,0xF017,0xF018,
 		0xF019,0xF01A,0xF01B,0xF01C,0xF01D,0xF01E,0xF01F,0xF020};
@@ -1596,22 +1532,22 @@ void write_dummy_tx_data_RT2(void) {
 	// SPACE FOR MSG INFO WORD AND TIME TAG WORD, PLUS 32 DATA WORDS 
 	
 	// first a 32-word buffer starting at offset = 0x4066 
-	k = (0x60000000 + (0x4066 << 1));
+	k = (STARTING_ADDR + (0x4066 << 1));
 	// skip 2 addresses for MsgInfo Word and TimeTag word
 	k = k + 4;
 	// write the 32 data words...
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = a_data[i];
+		*((unsigned int *)(k)) = a_data[i];
 		k = k + 2;
 	}
 	
 	// next a 32-word buffer starting at offset = 0x4088 
-	k = (0x60000000 + (0x4088 << 1));
+	k = (STARTING_ADDR + (0x4088 << 1));
 	// skip 2 addresses for MsgInfo Word and TimeTag word
 	k = k + 4;
 	// write the 32 data words...
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = b_data[i];
+		*((unsigned int *)(k)) = b_data[i];
 		k = k + 2;
 	}
 
@@ -1622,13 +1558,13 @@ void write_dummy_tx_data_RT2(void) {
 
 	// total 1088-word buffer starting at offset = 0x4532 
 	// this is 32 contiguous segments of 34 words each, 
-	k = (0x60000000 + (0x4532 << 1));
+	k = (STARTING_ADDR + (0x4532 << 1));
 	for ( j = 0; j < 32; j++) {
 		// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
 		k = k + 4; 
 		// write the 32 data words...					
 		for ( i = 0; i < 32; i++) {	
-			*((volatile unsigned int *)(k)) = b_data[i];
+			*((unsigned int *)(k)) = b_data[i];
 			k = k + 2;
 		}
 	}
@@ -1640,19 +1576,19 @@ void write_dummy_tx_data_RT2(void) {
 
 	// total 1088-word buffer starting at offset = 0x4DD6 
 	// this is 32 contiguous segments of 34 words each, 
-	k = (0x60000000 + (0x4DD6 << 1));
+	k = (STARTING_ADDR + (0x4DD6 << 1));
 	for ( j = 0; j < 32; j++) {
 		// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
 		k = k + 4; 
 		// write the 32 data words...					
 		for ( i = 0; i < 32; i++) {	
-			*((volatile unsigned int *)(k)) = a_data[i];
+			*((unsigned int *)(k)) = a_data[i];
 			k = k + 2;
 		}
 	}
 	// follow with a 32-word safety pad in case of circ-1 buffer overrun
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = 0xBADD;
+		*((unsigned int *)(k)) = 0xBADD;
 		k = k + 2;
 	}
 	
@@ -1661,22 +1597,22 @@ void write_dummy_tx_data_RT2(void) {
 	// FOR TESTING CIRCULAR MODE 2, A CONTIGUOUS 32 X 32-WORD DATA BLOCK 
 	
 	// total 8192-word buffer with offset range from 0x5600 to 0x75FF 
-	k = (0x60000000 + (0x5600 << 1));
+	k = (STARTING_ADDR + (0x5600 << 1));
 	// write the 8192 data words using incrementing data pattern...
 	for ( i = 0, j = 0; i < 8192; i++, j++) {	
-		*((volatile unsigned int *)(k)) = j;
+		*((unsigned int *)(k)) = j;
 		k = k + 2;
 	}
 	
 	// ================================================================================= 
 
 	// for unimplemented transmit SA's. a 32-word buffer starting at offset = 0x5258 
-	k = (0x60000000 + (0x5258 << 1));
+	k = (STARTING_ADDR + (0x5258 << 1));
 	// skip 2 addresses for MsgInfo Word and TimeTag word
 	k = k + 4;
 	// write the 32 data words...
 	for ( i = 0; i < 32; i++) {	
-		*((volatile unsigned int *)(k)) = 0xDEAD;
+		*((unsigned int *)(k)) = 0xDEAD;
 		k = k + 2;
 	}
 
@@ -1701,8 +1637,8 @@ char RTAddr_okay(char RTnum) {
 
 	unsigned int k,j;
 
-	if ((!RTnum)||(RTnum > 2))  error_trap(2); // invalid parameter
-
+	//if ((!RTnum)||(RTnum > 2))  error_trap(2); FIXME
+	#message "RTAddr_OKAY() Needs some form of error trapping"
 	// Check whether Operational Status register indicates RT 
 	// address parity error
 
@@ -1732,7 +1668,8 @@ char RTAddr_okay(char RTnum) {
 		d) If the Op Status register LOCK bit equals 0, the host may have 
 		written an RT address with parity error.
 		For all 4 cases, perpetual red LED double-blink until reset occurs */
-		error_trap(2);	
+		//error_trap(2);	
+		#message "Another error trap was here!"
 
 		return 0;	// execution will not get here
 	}
@@ -1754,6 +1691,7 @@ char RTAddr_okay(char RTnum) {
 //	primary purpose: during RT validation tests, it is desirable to have a simple way
 //	to set/reset these status bits
 // 
+/*
 void modify_RT_status_bits(void) {
 
 	const Pin pinNSW1 = PIN_NSW1;
@@ -1772,6 +1710,7 @@ void modify_RT_status_bits(void) {
 	Delay_x100ms(4);
 	AT91C_BASE_PIOA->PIO_SODR = nLEDG;
 }
+*/
 
 
 //
@@ -1781,6 +1720,7 @@ void modify_RT_status_bits(void) {
 //	IF (TFLAG switch = 1) THEN (set TERMFLAG bit), ELSE (reset TERMFLAG bit)
 //
 //
+/*
 void RTstatusUpdate(void) {
 
 	unsigned int out_rt1,out_rt2;
@@ -1806,8 +1746,5 @@ void RTstatusUpdate(void) {
 
 	
 }  // end RTstatusUpdate()
-
-
-
-// end of file
+*/
 

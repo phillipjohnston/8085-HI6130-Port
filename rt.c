@@ -8,6 +8,7 @@
 
 
 // Holt project headers
+#include "defs.h"
 #include "rt.h"
 #include "regdefs.h"
 

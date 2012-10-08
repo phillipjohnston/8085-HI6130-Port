@@ -21,7 +21,7 @@
 //#define I_AM_RT
 
 #ifdef I_AM_BC
-#define  BC_ena 1 // Bus Controller
+#define BC_ena 1 // Bus Controller
 #endif
 
 #ifdef I_AM_RT

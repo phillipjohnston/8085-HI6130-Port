@@ -1,0 +1,96 @@
+!!! NOTE !!! - As of early 2010, Dunfield Development Services has begun
+making it's products available free of charge - there is *NO* technical
+support available on free versions of our products.
+
+
+                       *** Obtaining Technical Support ***
+
+Dunfield Development Systems is a very SMALL company. In most cases, technical
+support is provided by (me) Dave Dunfield, one of the owners of the company,
+and the author of all of the software products.
+
+At the time this was written, our policy is to provide unlimited technical
+support for our licensed products at no charge (within reason).   I will
+continue this policy as long as my time and the support load are such that I
+am able to do so. You can help me with both (and get better/faster support)
+by observing the following guidelines:
+
+1 - READ the manuals first! I've put a lot of effort into them, and they do
+    contain the answers to most frequently asked questions. Also, before
+    contacting me, check out the examples, any (library) source code provided
+    etc. for the information that you seek. If you do discover information to
+    be missing, incorrect, or not clear, PLEASE let me know. I revise the
+    manuals regularly, and rely on your feedback to improve them.
+
+2 - Visit our web page, and review all the FAQ's and Application Notes.
+    Most of the common questions are answered in these documents.
+
+3 - If you purchased the product through a distributor, please contact that
+    distributor first. They are familier with the products, and can answer
+    many questions.
+
+4 - I cannot provide technical support by telephone (I would get nothing else
+    done, and I cannot be available at all times people might call). The ways
+    by which I provide support are (in the order of fastest response first):
+        Internet EMAIL: Via technical support link on www.dunfield.com
+        FAX:            613-256-5821
+        MAIL:           115 Manion Heights Cres.
+                        RR#2 Carp, Ontario Canada  K0A 1L0
+
+5 - When requesting technical support, please include the following info:
+    - Your name
+    - Your customer/serial number (on invoice and disk envelope label)
+    - Your EMAIL address (if you have one)
+    - Your FAX number    (if you have one)
+    - Your telephone number
+    - The product for which you are requesting support, and the exact VERSION
+      of it that you have (see documentation title page).
+    - A complete description of the problem, and if possible a SHORT way to
+      replicate it. If you are reporting a compiler problem etc., please
+      try and reduce the program causing it to a minimum.
+
+6 - Questions will be answered via the same medium in which they were
+    received. Ie: Internet email will be replied to via email and FAX
+    messages will be replied to via FAX. In particular:
+    - MAKE SURE that your "reply to:" field in email messages or return
+      FAX number is correct. I don't have time to track you down!
+    - DO NOT send messages asking me to call you, they will be ignored.
+      Since I do not charge for tech support, and do not provide for such
+      extra charges in my pricing, I cannot do tech support at my expense.
+
+7 - Send problem descriptions and short code samples as ASCII text in the body
+    of mail messages, with all lines less than 80 characters. HTML documents,
+    attached files, word processor files (any non-ASCII format), and files
+    which appear as single **long** lines (this is what Microsoft software
+    generates if you do not manually end your lines), will not be accepted.
+
+8 - It should be obvious from the above, but DO NOT SEND ME HTML EMAIL. If
+    you are using a "windows" mailer, find the option to send HTML in your
+    outgoing email and TURN IT OFF! (All windows related mailers seem to
+    default to sending HTML even though this is bad net manners). I reject
+    TONS of unreadable mail because it arrives encoded in HTML.
+
+9 - Send email only as ASCII TEXT ... I also reject TONS of unreadable mail
+    because it arrives in a "windows" character set that I cannot read.
+
+10- Code samples of more than 10 lines must be sent via email. I cannot take
+    the time to type in pages of code from a FAX. If you want to send me
+    files in encoded mail messages, use my MAE encoder program (found in the
+    EMBEDRAW.ZIP archive of our DEMO/SUPPORT disk). I do not maintain current
+    versions of other mail encoders. Also, please do not send me HUGE files
+    or collections of files unless I specifically ask for them. Unless I am
+    expecting them, my mailer will automatically delete them.
+
+11- Collections of files (which I have asked for) must be sent as a single
+    archive (.ZIP or .MAE). DO NOT send email with many separate attached
+    files!
+
+12- DO NOT PLACE *ANY* OF OUR DUNFIELD.COM EMAIL ADDRESSES IN YOUR EMAIL
+    ADDRESS BOOK! Email address books are harvested by trojans and viruses,
+    and we receive a huge amount of "virus" email. DO NOT POST OUT EMAIL
+    ADDRESSES IN INTERNET NEWSGROUPS (same reason). Technical support will
+    NOT be provided to customers who violate these rules.
+
+NOTE: Technical support is NOT available for demonstration versions of our
+products. You must have a valid customer/serial number to obtain technical
+support.

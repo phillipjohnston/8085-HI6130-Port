@@ -1,0 +1,17 @@
+/*
+*	NOTES
+
+	All registers are 16 bits.
+	Registers are addressed using bits A15:A1
+	In 8-bit mode, address bit A0 is used to identify which byte is being written to.
+	
+	char = 8-bit
+	all others = 16 bits
+
+	All registers should be unsigned int
+	
+	BC register addressing example:             i = pH6130BC->MASTER_CONFIG_REG;
+	assuming this declaration is within scope:  const H6130BC pH6130BC = HI6130BC_BASE;
+
+	
+*/

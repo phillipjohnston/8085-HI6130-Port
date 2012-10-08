@@ -1,0 +1,1137 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      XASM
+
+                                Cross Assemblers
+
+                                  Users Guide
+
+
+
+
+
+                                  Release 2.51
+
+                               Revised 16-Feb-99
+
+
+
+
+
+                         Dunfield Development Services
+                         -----------------------------
+                             High quality tools for
+                              Embedded Development
+                                 at low prices.
+
+                            http://www.dunfield.com
+
+
+                       Copyright 1983-2005 Dave Dunfield
+                              All rights reserved
+
+
+
+                             XASM Cross Assemblers
+
+                               TABLE OF CONTENTS
+
+
+                                                                         Page
+
+     1. INTRODUCTION                                                        1
+
+
+     2. ASSEMBLER                                                           2
+
+        2.1 Using the assemblers                                            2
+        2.2 Redirecting the listing file                                    4
+        2.3 Source file format                                              5
+        2.4 Expressions                                                     5
+        2.5 Addressing Modes                                                7
+        2.6 Assembler directives                                            9
+        2.7 Error Messages                                                 12
+        2.8 Error message summary                                          13
+        2.9 Additional notes on ASM86                                      15
+
+     3. MACRO PREPROCESSOR                                                 16
+
+        3.1 Substitution macros                                            16
+        3.2 Instruction macros                                             17
+        3.3 Macro directives                                               18
+        3.4 Source File Synchronization                                    21
+
+     4. APPENDICES                                                         22
+
+        4.1 Object file formats                                            22
+        4.2 ASCII code chart                                               23
+    XASM Cross Assemblers                                            Page: 1
+
+
+    1. INTRODUCTION
+
+          This  package  contains  one  or  more  of  the  DDS  XASM   cross
+       assemblers,  and related utility programs.  DDS XASM is a  series  of
+       cross assemblers for a number of popular microprocessor families:
+
+            asm00       - Motorola 6800/02 family
+            asm01       - Motorola 6801/6803 family
+            asm02       - Mostek/Synertek 6502 family
+            asm05       - Motorola 6805 family
+            asm08       - Motorola 68HC08 family
+            asm09       - Motorola 6809 family
+            asm11       - Motorola 68HC11 family
+            asm12       - Motorola 68HC12 family
+            asm16       - Motorola 68HC16 family
+            asm320      - Dallas 80C320/520 family
+            asm48       - Intel 8048 family
+            asm51       - Intel 8051/52 family
+            asm85       - Intel 8080/8085 family
+            asm86       - Intel 8086 family
+            asm88       - Intel 8008 family
+            asm186      - Intel 80186 family
+            asm96       - Intel 8096 family
+            asmAVR      - Atmel AVR family
+            asmH8       - Hitachi H8/300 family
+            asmP5X      - Microchip PIC-16C5x family
+            asmST7      - St Microelectronics ST-7 family
+            asmZ80      - Zilog Z80 family
+            asmZ8       - Zilog Z8 family
+            asmCF       - DDS C-FLEA Virtual Machine
+
+            macro       - Macro pre-processor
+            hexfmt      - HEX file manipulator
+            cref        - Cross reference utility
+            psource     - Porting source generator
+            retab       - Source file (re)tabulator
+            int2xasm    - Convert "Intel" style source to XASM style
+            xasm2int    - Convert XASM style source in "Intel" style
+
+       Dunfield Development Services  (DDS)  offers  software  and  firmware
+       development   services   specializing   in   systems   and   embedded
+       applications. For more information, visit: http://www.dunfield.com
+
+          XASM is provided on an  "as is"  basis,  with no warranty  of  any
+       kind.  In no event shall the author be liable for any damages arising
+       from its use or distribution.
+
+          Throughout this document, angle braces ('<>') are used to indicate
+       operands for which a value must  be  supplied  by  the  user.  Square
+       braces ('[]') are used to identify operands which are optional.
+    XASM Cross Assemblers                                            Page: 2
+
+
+    2. ASSEMBLER
+
+          XASM cross assemblers read a source file  (.ASM),  and  produce  a
+       code file (.HEX) containing either MOTOROLA or INTEL format ASCII-HEX
+       download  records.  A  optional  listing  file  (.LST)  may  also  be
+       produced.
+
+       2.1 Using the assemblers
+
+             An assembler is invoked by entering its  name  at  the  command
+          prompt, in the following format:
+
+                           ASMxx <filename> [options]
+
+             The <filename> operand is the name of the file to be assembled,
+          it is assumed to have the extension ".ASM" if none is supplied.
+
+             Unless otherwise specified,  the code produced by the assembler
+          is written to a file  with  the  name  '<filename>.HEX',  and  the
+          listing is written to a file with the name '<filename>.LST'.
+
+          2.1.1 Command line options
+
+                The following options may be specified on the command  line,
+             following the <filename> operand:
+
+             -A - [A]lternate jumps/calls (51,320,AVR)
+
+                     Causes  8051  family  assemblers  to   use   AJMP/ACALL
+                  instructions in place of LJMP/LCALL.
+
+                     Causes the AVR assembler to use RJMP/RCALL in place  of
+                  JMP/CALL when an explicit page number is not supplied.
+
+             -C - [C]ase sensitive
+
+                     Causes the assembler  to  make  a  distinction  between
+                  upper and lower case characters in symbol names.  If  this
+                  option  is  not  used,  the  assembler  will  ignore  case
+                  differences,  and assume that the symbols  are  the  same.
+                  NOTE: When using this option,  you must enter any register
+                  names in UPPER case.
+
+             C=<filename> - Specify [C]ode file
+
+                     This option allows you to specify the file to which the
+                  output code is written.  If no extension  is  supplied  as
+                  part of <filename>, it defaults to ".HEX".
+
+             -F - Generate [F]ull listing
+
+                     Causes the assembler to output a full source listing to
+                  the '.LST' file.  By default, only lines containing errors
+                  are written to the listing file.
+    XASM Cross Assemblers                                            Page: 3
+
+
+             -I - Generate [I]ntel format HEX file
+
+                     Causes the assembler to output the code to  the  '.HEX'
+                  file in INTEL hex format.  By default the code is  written
+                  to the file in MOTOROLA hex format.
+
+             L=<filename> - Specify [L]isting file
+
+                     This option allows you to specify the file to which the
+                  listing is written. If no extension is supplied as part of
+                  <filename>, it defaults to ".LST".
+
+             O=<value> - [O]ptimization (00,01,02,05,08,09,11,12,16,96)
+
+                     This option allows you to set a limit  to  the  maximum
+                  number of optimization passes  which  the  assembler  will
+                  perform while attempting to minimize code size and resolve
+                  forward  referenced  symbols.  If  a  symbol  can  not  be
+                  resolved within  this  many  passes,  the  assembler  will
+                  terminate with an error message.
+
+                     You may specify between 0 and 127  optimization  passes
+                  to be run,  with 0  being  a  special  case  in  which  no
+                  optimization  is  performed.  Without  optimization,   all
+                  non-specified memory references  and  offsets  default  to
+                  their largest form, and forward references in EQU, ORG, or
+                  RMB statements will not work.  The code generated will not
+                  be optimal, but assembly time is reduced.  This feature is
+                  most  useful  when  initially  testing  and  debugging   a
+                  program.
+
+                     The default maximum number of optimization passes is 3.
+
+                  NOTE:  The assemblers which do not support the 'O=' option
+                  do not permit forward references in EQU, ORG or RMB.
+
+             P=<length> - Set page length
+
+                     This option specifies the number of lines which will be
+                  printed on each page. The default number of lines per page
+                  is 60.
+
+             -Q - [Q]uiet mode
+
+                     Causes  the  assembler  to  be  quiet,  inhibiting  the
+                  display of the progress messages.
+
+             -S - Generate [S]ymbol table
+
+                     Causes the assembler to sort  and  display  the  symbol
+                  table at the end of the  listing  file.  By  default,  the
+                  symbol table is not displayed.
+
+             -T - Output to [T]erminal
+
+                     Causes the assembler  to  output  the  listing  to  the
+                  terminal, (via stdout) instead of the usual '.LST' file.
+    XASM Cross Assemblers                                            Page: 4
+
+
+             -W - Wrap relative addresses (AVR)
+
+                     Causes the AVR assembler to allow RJMP/RCALL to "wrap",
+                  making the entire 1st 8K  available.  This  option  should
+                  only be used with CPU's that perform  this  wrapping  (ie:
+                  those with only 8K  of  code  memory,  and  which  do  not
+                  support JMP/CALL).
+
+             W=<width> - Set page width
+
+                     This option control the number of columns which will be
+                  used for the printing of page titles and the symbol  table
+                  listing. Default page width is 80 columns.
+
+        -X - Translate eXternal reads (51,320)
+
+                Causes 8051 family assemblers to translate  all  occurrences
+             of "MOVX A,[DPTR]"  into "CLR A / MOVC A,[A+DPTR]",  for use in
+             systems with simplified memory decoding logic.
+
+       2.2 Redirecting the listing file
+
+             When the listing file is directed to the terminal with the '-t'
+          option on the command line,  it is displayed through the  standard
+          output file,  allowing it to be redirected to a printer  etc.  via
+          the shell  '>'  redirection operator  (EG:  ASMxx filename  -f  -t
+          >LPT1:).  The progress messages  ('First pass...' etc)  are output
+          through stderr,  and will therefore not  be  redirected  with  the
+          listing.  NOTE that the listing may be more efficiently redirected
+          with the 'L=' option.
+    XASM Cross Assemblers                                            Page: 5
+
+
+       2.3 Source file format
+
+          NOTE:  All XASM assemblers follow  a  consistent  generic  syntax,
+          which is as close as possible to that published by the majority of
+          CPU makers.  In a few cases,  this differs  significantly  from  a
+          unique syntax published for a specific CPU or vendor.  Please read
+          this section carefully,  and refer  to  the  EXAMPLE  PROGRAMS  to
+          become familiar with the XASM syntax.
+
+             The assembly source input lines are in the following format:
+
+             '<label>[:]  <instruction>  <operands>  [;]<comment>'
+
+             Labels must begin in column one, and must be separated from the
+          instruction field by at least one blank or tab  character.  Labels
+          may be followed by a ':' if desired,  however this is not required
+          by the assembler.
+
+             The instruction field must be indented by at least one space or
+          tab (ie: the instruction name cannot begin in column 1).
+
+             If the an instruction or directive requires operands,  then the
+          operand field is required,  and is separated from the  instruction
+          by at least one blank or tab.
+
+             The optional comment field is delimited from the operand  field
+          by at least one blank or tab,  and is ignored  by  the  assembler.
+          Blanks or tabs within  the  operand  field  are  allowed  only  if
+          contained within the delimiters of a character  string,  otherwise
+          they will be interpreted as the end of the operand field.
+
+             The asm48/H8/P5X/ST7/Z80/Z8 assemblers require  a  leading  ';'
+          comment delimiter on all  line  comments.  These  assemblers  also
+          permit blanks within the operand field.
+
+             Any lines beginning with a '*'  or ';'  character in column one
+          are considered to be  comments,  and  are  not  processed  by  the
+          assembler.
+
+       2.4 Expressions
+
+             When an 8 or 16 bit value is  required  as  an  operand  to  an
+          assembler directive or an instruction,  either a simple value,  or
+          an expression consisting of simple values  and  operators  may  be
+          used.
+
+             All expressions are evaluated using  16  bit  values.  When  an
+          expression is evaluated in an instruction requiring an  eight  bit
+          value,  the lower eight bits are used.  Expressions are  evaluated
+          from left to right,  as  each  operator  is  encountered,  without
+          precedence.  Precedence can be forced with the  use  of  brackets.
+          Spaces or tabs are not allowed within an expression,  unless  they
+          are contained within a character string.
+    XASM Cross Assemblers                                            Page: 6
+
+
+             The following operators may be used in an expression:
+
+       2.4.1 Unary (one operand) operators:
+
+               -   - Negation, returns the negative of the next value.
+               ~   - Complement, returns ones complement of the value.
+               =   - Swaps the high and low bytes of the next value.
+
+       2.4.2 Binary (two operand) operators:
+
+               +   - Addition.
+               -   - Subtraction.
+               *   - Multiplication.
+               /   - Division (unsigned).
+               \   - Modulus, returns remainder after division.
+               &   - Bitwise AND.
+               |   - Bitwise OR.
+               ^   - Bitwise EXCLUSIVE OR.
+               <   - Shift left
+               >   - Shift right
+
+
+       2.4.3 Values in expressions
+
+               The following forms of simple values may be used.
+
+               nnn     - Decimal number, eg: 21
+               nnnD    - "" "": 21d
+               nnnT    - "" "": 21t
+               $nnn    - Hexadecimal number, eg: $15
+               nnnH    - "" "": 15h  (Must begin with 0-9, eg: 0FFh)
+               %nnn    - Binary number, eg: %10101
+               nnnB    - "" "": 10101b
+               @nnn    - Octal number, eg: @177
+               nnnO    - "" "": 177o
+               nnnQ    - "" "": 177q
+               'cc'    - ASCII characters, eg: 'A'
+               <label> - Value of a label from symbol table.
+               *       - Value of current program counter.
+               $       - "" ""
+    XASM Cross Assemblers                                            Page: 7
+
+
+       2.5 Addressing Modes
+
+             XASM  assemblers  support  all  addressing  modes   for   their
+          respective processors and will determine the type of addressing to
+          use from the instruction and/or its operands.
+
+             For cases  where  different  compatible  addressing  modes  are
+          available, assemblers having optimization (O= option) will use the
+          smallest (most efficient) form of unless optimization is disabled.
+          Assemblers without optimization will use the largest  form  unless
+          specifically instructed to use a smaller form.
+
+          2.5.1 Immediate addressing
+
+                For all assemblers except ASM85,  the operand is  determined
+             to be an immediate value if it is  preceded  by  a  pound  sign
+             ('#').  For instructions requiring only  8  bits  of  immediate
+             data,  the lower eight bits of the  value  will  be  used.  The
+             higher 8 bits of a value can be accessed by preceding  it  with
+             '=' (swapping high and low bytes).
+
+                The  '#'  character is NOT used  with  immediate  values  in
+             ASM85,  because the immediate addressing context is inherent in
+             the instruction.
+
+          2.5.2 Direct/Extended addressing
+
+                For assemblers supporting direct addressing (00, 01, 02, 05,
+             08, 09 11, 12,  H8 and ST7),  the operand is determined to be a
+             DIRECT  (8 bit)  address if it is  preceded  by  a  left  angle
+             bracket ('<').  For most assemblers, this references the "zero"
+             page of memory ($0000-$00FF).
+
+                Assemblers having optimization (O= option)  allow an address
+             to be forced to a ABSOLUTE or EXTENDED reference  by  preceding
+             it  with  a  right  angle  bracket  ('>').  Assemblers  without
+             optimization will always use this  form  of  addressing  unless
+             direct addressing has been specified (with '<').
+
+          2.5.3 Indirect addressing
+
+                For processors supporting indirection  of  other  addressing
+             modes, this is indicated by placing the addressing reference in
+             square braces  ('[]').  Additionally,  ASM51 family  assemblers
+             support the 8051 notation of a leading '@'.
+    XASM Cross Assemblers                                            Page: 8
+
+
+          2.5.4 ASM11/12 use of ';'
+
+                The 68HC11 and 68HC12 instruction  sets  have  an  ambiguity
+             with regard to the use of ',' in certain instructions. This has
+             to do with the fact that  ','  can be used to indicate indirect
+             addressing from a register  (with offset),  and is also used to
+             separate operands to some instructions.
+
+                To resolve this issue,  the assemblers allow the use of  ';'
+             in the following cases:
+
+                For the BCLR,  BSET,  BRCLR and BRSET instructions,  the bit
+             mask is separated from the address by a ';':
+
+                    eg:     BCLR    MEMLOC;$01
+                            BSET    1,X;$02
+                            BRCLR   MEMLOC;$01,LABEL
+                            BRSET   2,Y;$02,LABEL
+
+                For ASM12's MOV, CALL, DBxx, IBxx and TBxx instructions, ';'
+             is used to separate the operands:
+
+                            MOV     #10;MEMLOC
+                            MOV     1,X;2,Y
+                            CALL    LABEL;1
+                            CALL    1,X;2
+                            DBEQ    A;LABEL
+    XASM Cross Assemblers                                            Page: 9
+
+
+       2.6 Assembler directives
+
+             The following directives (pseudo instructions) are supported by
+          all of the assemblers:
+
+          <label> EQU <expression>
+
+             This directive sets the label on it's line to have the value of
+          the operand expression.
+
+          ORG <expression>
+
+             This directive sets the internal program counter to  the  value
+          of the operand expression,  such  that  subsequent  code  will  be
+          generated at that address.
+
+          TITLE <string value>
+
+             This directive sets the title of the program to the text on the
+          remainder of the line.  The title is displayed at the top of  each
+          page in the listing, and by default is set to the name of the file
+          being assembled.  Lines containing this directive will not  appear
+          in the listing.
+
+          PAGE
+
+             This directive forces  a  page  eject  in  the  listing.  Lines
+          containing this directive will not appear in the listing.
+
+          SPACE
+
+             This directive causes a blank line to appear  in  the  listing.
+          Lines containing this directive will not appear in the listing.
+
+          NOLIST
+
+             This directive turns off the  source  listing,  preventing  any
+          further lines from being displayed,  until  a  LIST  directive  in
+          encountered.  NOLIST and LIST may be nested,  listing  is  resumed
+          only when all levels of NOLIST have  been  turned  off.  Lines  in
+          which errors occur are listed regardless of the NOLIST directive.
+
+          LIST
+
+             Re-enables output listing, following a NOLIST directive.
+
+          LINE <expression>
+
+             resets the assemblers internal line counter  to  the  specified
+          value.  Lines containing this directive will  not  appear  in  the
+          listing.
+
+          END
+
+             Causes  the  assembler  to  stop  processing,  and  ignore  the
+          remainder of the source file.  Note that an END directive  is  NOT
+          required.
+    XASM Cross Assemblers                                            Page: 10
+
+
+          DB <expr1>[,<expr2>,<expr3>,...]
+          FCB <expr1>[,<expr2>,<expr3>,...]
+
+             These directives code the values  of  the  operand  expressions
+          into memory as single byte constants.
+
+          DW <expr1>[,<expr2>,<expr3>,...]
+          FDB <expr1>[,<expr2>,<expr3>,...]
+
+             These directives code the values  of  the  operand  expressions
+          into memory as double byte constants.
+
+          DRW <expr1>[,<expr2>,<expr3>,...]
+          RDB <expr1>[,<expr2>,<expr2>,...]
+
+             These directives are similar to DW/FDB,  except that  the  high
+          and low bytes of the coded values are exchanged.
+
+          DS <expression>
+          RMB <expression>
+
+             These directives reserve a number of bytes of memory  equal  to
+          the value of the operand expression.  The contents of the reserved
+          storage is undefined.
+
+          STR 'text string'
+          FCC 'text string'
+
+             These directive code the  string  into  memory  as  ASCII  byte
+          values.  The string may be delimited by any character which is not
+          part of the string text.
+
+          STRH 'text string'
+          FCCH 'text string'
+
+             These directives perform exactly  as  the  STR/FCC  directives,
+          except that the high bit is set  on  the  last  character  in  the
+          string.
+
+          STRZ 'text string'
+          FCCZ 'text string'
+
+             These directives perform exactly  as  the  STR/FCC  directives,
+          except that the string has a zero byte ($00) appended.
+    XASM Cross Assemblers                                            Page: 11
+
+
+          2.6.1 Directives supported by ASM09 only
+
+             SETDP <expression>
+
+                This  directive  sets  ASM09's  default  direct  page   (DP)
+             register to the eight bit value  of  <expression>.  Whenever  a
+             reference is made to a memory location by  address,  without  a
+             specific addressing mode,  the assembler will use  direct  page
+             addressing if the high byte of the memory address  matches  the
+             default DP register, otherwise extended addressing is used.  It
+             is the responsibility of the  programmer  to  insure  that  the
+             6809's DP register will contain the proper high  address  value
+             during memory references subsequent to a 'SETDP' directive. The
+             default DP register can be disabled by setting it  to  a  value
+             greater than 255  (or less than 0),  which causes the assembler
+             to always use extended addressing  (this is the default at  the
+             beginning of an assembly).  NOTE:  To access the high byte of a
+             symbol, use: SETDP 255&=SYMBOL
+
+          2.6.2 Directives supported by ASM16 & ASMAVR only
+
+             CPAGE <expression>
+
+                This directive sets the default code page that is assumed by
+             JMP and JSR/CALL instructions that do not contain  an  explicit
+             code page.
+
+          2.6.3 Directives supported by ASM51 & ASM320 only:
+
+             <label> BIT <expression> (51, 320 only)
+
+                Similar to  "EQU",  except that the label is forced to  have
+             the "bit" type, regardless of the type of expression used.
+
+             <label> DATA <expression> (51, 320 only)
+
+                Similar to  "EQU",  except that the label is forced to  have
+             the "direct non-bit" type, regardless of the type of expression
+             used.
+    XASM Cross Assemblers                                            Page: 12
+
+
+       2.7 Error Messages
+
+             When the assembler detects an error  in  the  source  code,  it
+          displays a message indicating a possible cause of  the  error,  in
+          the source listing on the  line  immediately  following  the  line
+          containing the error.  Errors which are encountered in  the  first
+          pass,  are displayed at the top of the  listing,  along  with  the
+          number of the line in which the error was detected.
+
+             Forward  references  in  any  of  the  (EQU,  ORG,  or  RMB/DS)
+          directives are not allowed,  and will cause an  'Undefined symbol'
+          error in the first pass only, displayed at the top of the listing.
+    XASM Cross Assemblers                                            Page: 13
+
+
+       2.8 Error message summary
+
+          2.8.1 Duplicate symbol: <symbol name>
+
+             The indicated symbol is defined  more  that  once  within  this
+             assembly.
+
+          2.8.2 Symbol table overflow.
+
+             There are too many symbols  (labels)  in the program,  and  the
+             assemblers symbol table has become full.
+
+          2.8.3 Unable to resolve: <symbol name>
+
+             The assembler is unable to determine a consistent value for the
+             indicated symbol.  This is most likely due to excessive forward
+             referencing, or a self referencing loop.
+
+          2.8.4 Unknown instruction
+
+             The instruction field on the indicated line does not contain  a
+             valid instruction or assembler directive.
+
+          2.8.5 Undefined symbol
+
+             A symbol referenced  in  the  indicated  line  is  not  defined
+             anywhere within this assembly, and has no value.
+
+          2.8.6 Out of range
+
+             The operand is not the range of values which can be  used  with
+             the instruction.  eg:  A short branch to an  address  which  is
+             further than +127 or -128 bytes from the program counter.
+
+          2.8.7 Invalid addressing mode
+
+             The addressing mode indicated  by  the  operand  field  of  the
+             indicated line does not apply to the instruction on that line.
+
+          2.8.8 Invalid register specification
+
+             The instruction on the  indicated  line  specifies  a  register
+             which is not a recognized register,  or cannot be used  in  the
+             context specified by the instruction.
+
+          2.8.9 Invalid expression syntax
+
+             The expression on the indicated line contains a character which
+             is not recognized as a valid operator.
+
+          2.8.10 Invalid argument format
+
+             The indicated line has an operand which is not in proper format
+             for the instruction.
+    XASM Cross Assemblers                                            Page: 14
+
+
+          2.8.11 Improperly delimited string
+
+             A character string constant on the indicated line does not have
+             a proper closing delimiter.  This is normally the single  quote
+             character, but may be another character in conjunction with the
+             FCC, FCCH, FCCZ, STR, STRH or STRZ directives.
+
+          2.8.12 Improper alignment
+
+             The instruction on this line either references,  or resides  at
+             an odd location, when an even location is required.
+    XASM Cross Assemblers                                            Page: 15
+
+
+       2.9 Additional notes on ASM86
+
+             The 8086 assembly language was the most difficult to  adapt  to
+          the  generic  syntax  used  throughout  the   XASM   package.   To
+          accommodate doing this, a few extensions and changes were made:
+
+             The RETF instruction is unique in that its operand is optional,
+          and thus you must use  ';'  to indicate any comment following RETF
+          without operands. No special comment delimiter is required for any
+          other instruction.
+
+             Symbols are used only to reference addresses, no information is
+          recorded as to the size  of  the  symbol.  At  least  one  of  the
+          operands to an instruction must contain an explicit size  (8 or 16
+          bits). The assembler knows the the size of the registers, and thus
+          any instructions involving registers will  automatically  use  the
+          correct size.  For instructions which do not reference  registers,
+          you can force one of the arguments to be recognized as an 8 or  16
+          bit value by using the '<' or '>' character as a prefix:
+
+                MOV     AL,DATA     Moves 8 bits
+                MOV     AX,DATA     Moves 16 bits
+                MOV     DATA,#12    ERROR: "Size not known"
+                MOV     <DATA,#12   Moves 8 bits
+                MOV     DATA,#<12   Equivalent to above
+                MOV     >DATA,#12   Moves 16 bits
+                MOV     DATA,#>12   Equivalent to above
+                MOV     <DATA,#>12  ERROR: "Incompatible sizes"
+
+             The '>'  and '<'  prefixes also have special meaning in JMP and
+          CALL instructions:
+
+                JMP     label       NEAR 16 bit RELATIVE jump
+                JMP     <label      NEAR 8 bit RELATIVE jump
+                JMP     >LABEL      NEAR INDIRECT jump through LABEL
+                JMP     BX          NEAR Jump to address in BX
+                JMP     [BX]        NEAR INDIRECT Jump through BX
+                JMP     SEG:LABEL   FAR DIRECT jump
+                JMP     SEG:>LABEL  FAR INDIRECT jump *
+                JMP     SEG:[BX]    FAR INDIRECT jump *
+            * In the last two examples, the SEG value is ignored, and
+              the SEGMENT:OFFSET is taken from the operand address.
+
+             Offsets  to  indirect  accesses  are  specified  by  placing  a
+          constant value immediately before the opening  '['.  When  both  a
+          BASE and an INDEX register are involved, use '+' to indicate them:
+
+                MOV     AX,[BX]     Indirect through BX, no offset
+                MOV     AX,[SI]     Indirect through SI, no offset
+                MOV     AX,10[DI]   Indirect to DI with 10 byte offset
+                MOV     AX,[BP+SI]  Indirect through BP+SI, no offset
+                MOV     AX,5[BP+SI] Indirect thought BP+SI, 5 byte offset
+                MOV     AX,[BX+10]  This MASM syntax NOT supported!!!
+
+             The REPEAT and LOCK prefixes are implemented  as  instructions,
+          which must precede the target instruction on a separate line.
+    XASM Cross Assemblers                                            Page: 16
+
+
+    3. MACRO PREPROCESSOR
+
+          MACRO is an assembly  source  code  pre-processor  which  provides
+       macro substitution and conditional assembly facilities at the  source
+       code level to virtually any assembler or cross assembler.
+
+          MACRO reads the raw  assembler  source  from  one  or  more  files
+       specified as its arguments,  and the processed assembler source  file
+       is written to standard output where  it  can  be  redirected  into  a
+       temporary file for later assembly.  All files specified as  arguments
+       are effectively  concatenated  into  the  output  file  as  they  are
+       processed,  providing a convenient way of  maintaining  large  single
+       source programs as more manageable separate files.
+
+          MACRO provides two types of macro definitions,  substitution,  and
+       instruction.
+
+       3.1 Substitution macros
+
+             Substitution macros may be used  anywhere  in  any  non-comment
+          line of the source file  (lines not beginning with '*'),  and when
+          encountered,  are simply replaced by the  text  specified  in  the
+          macro definition.
+
+             Substitution macros are defined using the 'SET'  directive.  If
+          the macro definition text contains spaces,  tabs,  or  commas,  it
+          must be enclosed in double quotes.
+
+             The following are examples of substitution macro definitions:
+
+             sub1 set this_gets_substituted
+             sub2 set "this gets substituted"
+
+             Substitution macros are only recognized of they are  surrounded
+          by non-alphanumeric characters.  This prevents substitutions  from
+          occurring within other words which may  contain  the  pattern.  It
+          does however require the restriction that the macro names  contain
+          only alphanumeric characters.
+
+          3.1.1 Command line substitutions
+
+                Substitution macros may also be defined on the command  line
+             with arguments of the form "<symbol>=<string>".
+
+          eg: macro source_file1 source_file2 mode=debug >output_file
+    XASM Cross Assemblers                                            Page: 17
+
+
+       3.2 Instruction macros
+
+             Instruction macros may only be used in the instruction field of
+          the source file, and when encountered, are replaced by one or more
+          lines of assembly source code.
+
+             Instruction macros may be passed operands in the operand  field
+          of the assembly source  code.  If  multiple  operands  are  to  be
+          passed, they should be separated from one another by commas.  If a
+          single operand must contain spaces, tabs, or commas,  it should be
+          enclosed in double quotes.
+
+          3.2.1 Backslash commands
+
+                The backslash character  '\'  has special meaning within  an
+             instruction macro definition as follows:
+
+        \n  - Substitute the <n>'th parameter from  the  macro  invocation
+              line. <n> may range from zero to  nine,  parameter  zero  is
+              considered to be the LABEL from that line, actual parameters
+              from the operand field begin with parameter one.
+
+        \#  - Substitute the number of parameters passed.
+
+        \$  - Substitute a unique number which the total number  of  macro
+              invocations to occur in this assembly so far. This is  often
+              used to create unique labels within the macro.
+
+        \.  - Substitute the current source file line number.
+
+        \@n - Substitute a portion of the current date based on the digit
+              'n', as follows:
+
+              \@1 - Day of month, 1 or 2 digits.
+              \@2 - Day of month, 2 digits.
+              \@3 - Month of year, 2 digits.
+              \@4 - Month of year in string form.
+              \@5 - Month of year in three character string form.
+              \@6 - Current year, 2 digits.
+              \@7 - Current hour, 2 digits.
+              \@8 - Current minute, 2 digits.
+              \@9 - Current second, 2 digits.
+
+        NOTE: The time is recorded when MACRO is first invoked.
+
+        \\  - Place a backslash character in the macro definition.
+
+                Instruction macros are defined with the MACRO directive, and
+             are ended with the ENDMAC directive.
+    XASM Cross Assemblers                                            Page: 18
+
+
+          3.2.2 Example instruction macro
+
+                The following is an example  of  a  instruction  type  macro
+             using 6809 assembly language:
+
+            * MACRO TO PRINT A CHARACTER STRING
+            PRINT   MACRO
+            \0      PSHS    A,X         SAVE REGISTERS
+                    LDX     #LAB2\$     STRING TO PRINT
+             LAB1\$ LDA     ,X+         GET CHAR FROM STRING
+                    BEQ     LAB3\$      END, QUIT
+                    JSR     PRINTCHR    DISPLAY THE CHARACTER
+                    BRA     LAB1\$      GO BACK FOR NEXT
+             LAB2\$ FCCZ    "\1"        STRING TO PRINT
+             LAB3\$ PULS    A,X         RESTORE REGISTERS
+                    ENDMAC
+
+       3.3 Macro directives
+
+             MACRO supports the following directives, which may be placed in
+          the instruction field of an assembler source file.  Note that only
+          substitution type macros may be used  as  values  in  operands  to
+          MACRO directives,  as MACRO has no knowledge  of  the  labels  and
+          symbols used by the assembler.
+
+             <name> SET <string>
+
+                The SET defines the substitution type macro  with  the  name
+             specified by  <name>  to have the text specified  by  <string>.
+             Double quotes may be used  if  <string>  is  to  contain  tabs,
+             spaces,  or commas.  If the macro being defined already exists,
+             it is redefined with the new  value.  <name>  should  begin  in
+             column one.
+
+             <name> ESET <format>,<expression>
+
+                The ESET directive sets a symbol to the numeric value of  an
+             expression,  as processed through a format string.  The content
+             of the format string is copied to the symbol,  with  the  value
+             substituted where one of these special sequences is found:
+
+                %u      - Unsigned value of expression
+                %d      - Signed value of expression
+                %x      - Hexadecimal value of expression
+                %o      - Octal value of expression
+                %b      - Binary value of expression
+                %c      - ASCII character value of expression
+                %%      - A '%' sign
+
+                A width value may be specified  between  the  '%',  and  the
+             output type denoted above,  in which case the  number  will  be
+             output right justified in a field padded  with  spaces  to  the
+             defined width.  If the number contains a leading '0', the field
+             will be padded with '0's.  If the number if negative, the field
+             will be left justified.
+    XASM Cross Assemblers                                            Page: 19
+
+
+            Examples:
+                A SET 10
+                B SET 1
+                C ESET %x,A+B           ; 'B'  (11 in HEX)
+                C ESET %3u,A+B          ; ' 11'
+                C ESET %03u,A+B         ; '011'
+                C ESET %-3u,A+B         ; '11 '
+
+             <name> MACRO
+
+                The MACRO directive begins the definition of  a  instruction
+             type macro.  All subsequent lines up to a ENDMAC directive  are
+             included in the macro definition.  These lines are not  written
+             to the output file.
+
+             ENDMAC
+
+                This  directive  terminates  an   instruction   type   macro
+             definition.
+
+             IF <expression>
+
+                The IF directive causes MACRO  to  process  and  output  all
+             subsequent lines up to an ELSE of ENDIF directive,  only of the
+             result of the expression is non-zero.
+
+             IFEQ <string>,<string>
+
+                The IFEQ directive causes MACRO to process  and  output  all
+             subsequent lines up to an ELSE or ENDIF directive,  only if the
+             two argument strings match.
+
+             IFNE <string>,<string>
+
+                The IFNE directive causes MACRO to process  and  output  all
+             subsequent lines up to an ELSE or ENDIF directive only  if  the
+             two argument strings do not match.
+
+             ELSE
+
+                The ELSE directive causes MACRO to process  and  output  all
+             subsequent lines up to an ENDIF directive only of the preceding
+             IFEQ or IFNE directive failed.
+
+             ENDIF
+
+                This directive marks the end of  a  section  of  conditional
+             assembly statements following a IFEQ, IFNE, or ELSE directive.
+
+             INCLUDE "<filename>"
+
+                The contents of the  specified  file  are  included  in  the
+             output file at the point where the  INCLUDE  directive  occurs.
+             Macro processing is performed on the included file.
+    XASM Cross Assemblers                                            Page: 20
+
+
+             ABORT "<text>"
+
+                Causes MACRO  to  terminate,  displaying  an  error  message
+             containing the specified text.
+
+             PREFIX <char>
+
+                Sets a prefix character which must be applied to  any  MACRO
+             directive in order  for  it  to  be  recognized.  For  example:
+             "PREFIX %"  causes MACRO to only recognize it's directives when
+             '%' is prepended. (ie: "SET" becomes "%SET").  This can be used
+             to  avoid  conflicts  with  processors  instructions  in   some
+             assemblers. Also note that the prefix can be set on the command
+             line with a "-P<char>" syntax.
+
+                   eg: macro source_file(s) -P% >output_file
+
+          3.3.1 Expressions
+
+                The  numeric  expressions  accepted  for  the  IF  and  ESET
+             directives consist of values and operators.  The values may  be
+             of any of these forms:
+
+                n, nT, nD   - Decimal number
+                $n, nH      - Hexadecimal number
+                @n, nO, nQ  - Octal number
+                %n, nB      - Binary number
+                'cc'        - ASCII character(s)
+
+             The following operators are supported:
+
+                +   - Addition
+                -   - Subtraction and unary negation
+                *   - Multiplication
+                /   - Division
+                %   - Modulus (remainder)
+                &   - Bitwise AND
+                &&  - Logical AND
+                |   - Bitwise OR
+                ||  - Logical OR
+                ^   - Bitwise exclusive OR
+                >   - Test for greater than (True=1, False=0)
+                >=  - Test for greater than or equal to
+                >>  - Shift right
+                <   - Test for less than
+                <=  - Test for less than or equal to
+                <<  - Shift left 
+                ==  - Test for equal to
+                !=  - Test for NOT equal to
+                !   - Unary logical NOT
+                ~   - Unary bitwise compliment
+
+                There are no precedence rules. Operations are performed left
+             to right,  in the order that they they are encountered  in  the
+             expression.  Brackets () can be used to force a different order
+             of evaluation.
+    XASM Cross Assemblers                                            Page: 21
+
+
+       3.4 Source File Synchronization
+
+             MACRO removes it's own commands,  and adds macro expansions  to
+          the source file as it is processed. A result of this is that lines
+          in the output file will usually NOT have the same  number  as  the
+          corresponding line in the input file.  This can be a problem  when
+          tracking down error messages produced by the assembler,  since the
+          line numbers displayed do not correspond  to  the  original  input
+          file.  To overcome this problem when  using  the  DDS  XASM  cross
+          assemblers, MACRO has a command line -L option, which causes it to
+          generate  "LINE"  directives whenever it determines that the input
+          and output line numbers could be out  of  sync.  These  directives
+          will reset the assemblers line counter to match the lines  of  the
+          original source file.
+    XASM Cross Assemblers                                            Page: 22
+
+
+    4. APPENDICES
+
+       4.1 Object file formats
+
+             Object files are produced by the assemblers in  either  of  two
+          standard formats,  both of which represent the binary data as  two
+          digit printable ASCII hex numbers.  The exact contents of the  two
+          standard format object files is as follows:
+
+    4.1.1 Motorola hex format
+
+    Data Record: 'Stnnaaaadddddddddddddddddddddddddddddddd...cc'
+          Where:  S = 'S', indicates start of data record
+                  t = Record type, '1'=data, '9'=end of file.
+                  n = Count of number of bytes in record.   (in ASCII/HEX)
+                  a = Load address of data record.          (in ASCII/HEX)
+                  d = Actual data bytes in record.          (in ASCII/HEX)
+                  c = Checksum of count, address, and data. (in ASCII/HEX)
+
+                Note1: Checksum is computed as one's complement of eight
+                       bit sum of all values from 'nn' to end of data.
+
+                Note2: Count 'nn' is three greater then the number of data
+                       bytes in the record.
+
+    4.1.2 Intel hex format
+
+    Data Record: ':nnaaaattdddddddddddddddddddddddddddddd...cc'
+          Where:  : = Indicates start of data record
+                  n = Count of number of bytes in record.   (in ASCII/HEX)
+                  a = Load address of data record.          (in ASCII/HEX)
+                  t = Record type                (00=Data, 01=End of file)
+                  d = Actual data bytes in record           (in ASCII/HEX)
+                  c = Checksum of count, address, and data. (in ASCII/HEX)
+
+                Note1: Checksum is computed as two's complement of eight
+                       bit sum of all values from 'nn' to end of data.
+
+                Note2: End of file record contains count of 00.
+    XASM Cross Assemblers                                            Page: 23
+
+
+    4.2 ASCII code chart
+
+
+
+
+
+                             Most Significant Figure
+
+              HEX||  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
+              ===++=====+=====+=====+=====+=====+=====+=====+=====+
+               0 || NUL | DLE |     |  0  |  @  |  P  |  `  |  p  |
+              ---++-----+-----+-----+-----+-----+-----+-----+-----+
+               1 || SOH | DC1 |  !  |  1  |  A  |  Q  |  a  |  q  |
+          L   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          e    2 || STX | DC2 |  "  |  2  |  B  |  R  |  b  |  r  |
+          a   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          s    3 || ETX | DC3 |  #  |  3  |  C  |  S  |  c  |  s  |
+          t   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+               4 || EOT | DC4 |  $  |  4  |  D  |  T  |  d  |  t  |
+          S   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          i    5 || ENQ | NAK |  %  |  5  |  E  |  U  |  e  |  u  |
+          g   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          n    6 || ACK | SYN |  &  |  6  |  F  |  V  |  f  |  v  |
+          i   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          f    7 || BEL | ETB |  '  |  7  |  G  |  W  |  g  |  w  |
+          i   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          c    8 || BS  | CAN |  (  |  8  |  H  |  X  |  h  |  x  |
+          a   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          n    9 || HT  | EM  |  )  |  9  |  I  |  Y  |  i  |  y  |
+          t   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+               A || LF  | SUB |  *  |  :  |  J  |  Z  |  j  |  z  |
+          F   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          i    B || VT  | ESC |  +  |  ;  |  K  |  [  |  k  |  {  |
+          g   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          u    C || FF  | FS  |  ,  |  <  |  L  |  \  |  l  |  |  |
+          r   ---++-----+-----+-----+-----+-----+-----+-----+-----+
+          e    D || CR  | GS  |  -  |  =  |  M  |  ]  |  m  |  }  |
+              ---++-----+-----+-----+-----+-----+-----+-----+-----+
+               E || SO  | RS  |  .  |  >  |  N  |  ^  |  n  |  ~  |
+              ---++-----+-----+-----+-----+-----+-----+-----+-----+
+               F || SI  | US  |  /  |  ?  |  O  |  _  |  o  | DEL |
+              ---++-----+-----+-----+-----+-----+-----+-----+-----+

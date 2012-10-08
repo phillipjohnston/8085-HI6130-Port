@@ -1,0 +1,9 @@
+; 8080/8085 Register list for SREG utility
+A
+B
+C
+D
+E
+H
+L
+SP

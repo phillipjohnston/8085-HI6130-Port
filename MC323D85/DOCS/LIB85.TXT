@@ -1,0 +1,1959 @@
+
+
+
+
+
+          ===========================================================
+                DDDDD           DDDDD               SSSS
+                 D   Dunfield    D   D             S
+                 D   D           D   Development    SSSS
+                 D   D           D   D                  Services
+                DDDDD           DDDDD               SSSS
+          ===========================================================
+          MM   MM  IIIIIII    CCCC   RRRRRR     OOO             CCCC
+          M M M M     I      C    C  R     R   O   O           C    C
+          M  M  M     I     C        R     R  O     O         C
+          M     M     I     C        RRRRRR   O     O  -----  C
+          M     M     I     C        R   R    O     O         C
+          M     M     I      C    C  R    R    O   O           C    C
+          M     M  IIIIIII    CCCC   R     R    OOO             CCCC
+          ===========================================================
+
+
+                             A compact 'C' compiler
+                                      for
+                                 Small Systems.
+
+
+                             8085 Library Reference
+
+
+                                  Release 3.23
+
+                               Revised 01-Nov-02
+
+
+
+
+
+
+
+
+
+
+                         Dunfield Development Services
+                         -----------------------------
+                             High quality tools for
+                              Embedded Development
+                                 at low prices.
+
+                            http://www.dunfield.com
+
+
+                       Copyright 1988-2005 Dave Dunfield
+                              All rights reserved
+
+
+
+                              MICRO-C 8085 Library
+
+                               TABLE OF CONTENTS
+
+
+                                                                         Page
+
+     1. ALPHABETICAL FUNCTION INDEX                                         1
+
+
+     2. The MICRO-C/85 Library                                              3
+
+    MICRO-C 8085 Library                                             Page: 1
+
+
+    1. ALPHABETICAL FUNCTION INDEX
+
+    Name            Description
+    ---------------------------
+
+    abort           Terminate program with error message
+    abs             Get absolute value
+    atoi            Convert ASCII-decimal string to value
+    atox            Convert ASCII-hex string to value
+    chkch           Check for normal character from console
+    chkchr          Check for "raw" character from console
+    concat          Join multiple strings into one
+    disable         Disable interrupts
+    enable          Enable interrupts
+    exit            Terminate program with return code
+    free            Release allocated memory
+    getch           Get normal character from console
+    getchr          Get "raw" character from console
+    getstr          Get string from stdin
+    in              Read byte from I/O port
+    isalnum         Test for alphabetic or numeric character
+    isalpha         Test for alphabetic character
+    isascii         Test for ASCII character
+    iscntrl         Test for control character
+    isdigit         Test for numeric character
+    isgraph         Test for graphic character
+    islower         Test for lowercase alphabetic character
+    isprint         Test for printable character
+    ispunct         Test for punctuation character
+    isspace         Test for whitespace character
+    isupper         Test for uppercase alphabetic character
+    isxdigit        Test for hex-digit character
+    longjmp         Execute non-local goto
+    longmath        Long (32 bit) math functions
+    malloc          Allocate memory
+    max             Get maximum value
+    memcpy          Copy memory blocks
+    memset          Set memory block to value
+    min             Get minimum value
+    nargs           Get # function arguments
+    out             Write byte to I/O port
+    peek            Read byte from memory
+    poke            Write byte to memory
+    pokew           Write word to memory
+    printf          Formatted output to console
+    putch           Write normal character to console
+    putchr          Write "raw" character to console
+    putstr          Write string to console
+    rand            Generate random number
+    serinit         Initialize serial device
+    setjmp          Setup a non-local goto
+    sprintf         Formatted output to string  (memory)
+    sqrt            Get square root of integer
+    strcat          Concatenate string to another
+    strchr          Locate character in string
+    strcmp          Compare two strings
+    strcpy          Copy string to another
+    MICRO-C 8085 Library                                             Page: 2
+
+
+    strlen          Get length of string
+    tolower         Convert character to lowercase
+    toupper         Convert character to uppercase
+    MICRO-C 8085 Library                                             Page: 3
+
+
+
+                        +------------------------------+
+                        |                              |
+                        |  **************************  |
+                        |  * The MICRO-C/85 library *  |
+                        |  **************************  |
+                        |                              |
+                        +------------------------------+
+
+
+
+
+
+
+
+
+
+
+    2. The MICRO-C/85 Library
+
+          The  library  functions  described  on  the  following  pages  are
+       currently available in the MICRO-C 8080/8085  library  as  "standard"
+       functions.
+    ABORT                                                             ABORT
+
+
+
+    PROTOTYPE:
+
+        abort(char *message)
+
+
+    ARGUMENTS:
+
+        message - Pointer to message to display
+
+
+    RETURN VALUE:
+
+        N/A - Function never returns
+
+
+    DESCRIPTION:
+
+          This function writes the string passed as an argument to  standard
+       error, and then terminates the program. This provides a simple method
+       of terminating a  program  on  an  error  condition  with  a  message
+       explaining why.
+
+
+    EXAMPLES:
+
+        abort("Invalid operand\n");
+    ABS                                                                 ABS
+
+
+
+    PROTOTYPE:
+
+        int abs(int number)
+
+
+    ARGUMENTS:
+
+        number  - Any integer value
+
+
+    RETURN VALUE:
+
+        The absolute value of "number"
+
+
+    DESCRIPTION:
+
+          The "abs" function returns the absolute value of the argument.  If
+       "number" is a positive value, it is returned unchanged.  If negative,
+       the negate of that value is returned (giving a positive result).
+
+
+    EXAMPLES:
+
+        difference = abs(value1 - value2);
+    ATOI                                                               ATOI
+
+
+
+    PROTOTYPE:
+
+        int atoi(char *string)
+
+
+    ARGUMENTS:
+
+        string  - Pointer to a string containing a decimal number
+
+
+    RETURN VALUE:
+
+        16 bit integer value
+
+
+    DESCRIPTION:
+
+          The  "atoi"  function converts an ASCII string containing a signed
+       decimal number (-32768 to 32767) to a 16 bit value which is returned.
+       An unsigned number of the range  (0 to 65535)  may also be used,  and
+       the result if assigned to an "unsigned" variable will be correct.
+
+
+    EXAMPLES:
+
+        value = atoi("1234");
+        value = atoi("-1");
+    CHKCH                                                             CHKCH
+
+
+
+    PROTOTYPE:
+
+        int chkch()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        0       - No character available from serial port.
+        !0      - Character read from serial port.
+
+
+    DESCRIPTION:
+
+          The  "chkch"  function checks to see if a character is ready to be
+       received from the console serial port.  If no character is available,
+       a zero (0) is returned, otherwise the character is read and its value
+       is  passed  back.  The  CARRIAGE  RETURN  character  (0x0D)  will  be
+       translated into a NEWLINE (0x0A) for compatibility with 'C'.
+
+
+    EXAMPLES:
+
+        if(chkch() == 0x1B)     /* Escape KEY pressed ? */
+            return;
+    CHKCHR                                                           CHKCHR
+
+
+
+    PROTOTYPE:
+
+        int chkchr()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        0-255   - Character read from serial port.
+        -1      - No character was available.
+
+
+    DESCRIPTION:
+
+          The  "chkch"  function checks to see if a character is ready to be
+       received from the console serial port.  If no character is available,
+       a -1 is returned, otherwise the character is read and its "raw" value
+       is passed back (without translation).
+
+
+    EXAMPLES:
+
+        if(chkchr() == '\r')        /* Return KEY pressed ? */
+            return;
+    CONCAT                                                           CONCAT
+
+
+
+    PROTOTYPE:
+
+        register concat(char *dest, char *source, ...)
+
+
+    ARGUMENTS:
+
+        dest    - Pointer to destination string
+        source  - Pointer to source string
+        ...     - Additional sources may be given
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The  "concat"  function concatenates the given source strings into
+       one destination string.  The destination string must be large  enough
+       to hold all of the source strings plus the string  terminator  (zero)
+       byte. No value is returned.
+
+          NOTE: This function uses a variable number of arguments,  and must
+       be declared as "register" (See "8085io.h").
+
+
+    EXAMPLES:
+
+        concat(filename,"/tmp/", input_name);
+    DISABLE                                                         DISABLE
+
+
+
+    PROTOTYPE:
+
+        disable()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The  "disable"  function  disables  the  8085  interrupt   system,
+       preventing the  processor  from  servicing  interrupts.  It  is  used
+       whenever the execution of an interrupt handler may interfere  with  a
+       particular operation.
+
+          When this function is used, the "enable" function should be called
+       as soon as possible after "disable". Failure to do this may result in
+       loss of system functions performed under interrupts.
+
+
+    EXAMPLES:
+
+        disable();                  /* Disallow interrupts */
+        /* ... */
+        enable();                   /* Re-allow interrupts */
+    ENABLE                                                           ENABLE
+
+
+
+    PROTOTYPE:
+
+        enable()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The "enable" function enables the 8085 interrupt system,  allowing
+       the processor to service interrupts.  It should be called as soon  as
+       possible following the use of the "disable" function.
+
+
+    EXAMPLES:
+
+        disable();                  /* Disallow interrupts */
+        /* ... */
+        enable();                   /* Re-allow interrupts */
+    EXIT                                                               EXIT
+
+
+
+    PROTOTYPE:
+
+        exit()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        N/A - Function never returns
+
+
+    DESCRIPTION:
+
+          This function terminates the execution of the program, and returns
+       control to the on-board monitor.
+
+
+    EXAMPLES:
+
+        exit();     /* Return to monitor */
+    FREE                                                               FREE
+
+
+
+    PROTOTYPE:
+
+        free(char *ptr)
+
+
+    ARGUMENTS:
+
+        ptr     - Pointer to a previously allocated memory block
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The "free" function releases (deallocates)  a block of memory that
+       was obtained via a call to "malloc", and returns it to the heap. This
+       makes it available for use by other memory allocations.
+
+
+    EXAMPLES:
+
+        if(!(ptr = malloc(BUFSIZ)))     /* Allocate a temporary buffer */
+            abort("Not enough memory");
+        /* ... Use the memory block ... */
+        free(ptr);                      /* Release temporary buffer */
+    GETCH                                                             GETCH
+
+
+
+    PROTOTYPE:
+
+        int getch()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        Value of a character read from the serial port.
+
+
+    DESCRIPTION:
+
+          This function reads a single character  from  the  console  serial
+       port, and returns it as a positive value in the range of 0 to 255. If
+       the character is a carriage  return  (0x0D),  is  translated  into  a
+       NEWLINE (0x0A) for compatibility with 'C'.
+
+
+    EXAMPLES:
+
+        while(getch() != 0x1B);     /* Wait for an ESCAPE character */
+    GETCHR                                                           GETCHR
+
+
+
+    PROTOTYPE:
+
+        int getchr()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        Value of a character read from the serial port.
+
+
+    DESCRIPTION:
+
+          This function reads a single character  from  the  console  serial
+       port,  and returns it as a positive value in the range of 0  to  255.
+       The  character  is  read  in  "raw"  format,  with  no   translations
+       performed.
+
+
+    EXAMPLES:
+
+        while(getchr() != '\r');        /* Wait for a RETURN */
+    GETSTR                                                           GETSTR
+
+
+
+    PROTOTYPE:
+
+        char *getstr(char *buffer, int size)
+
+
+    ARGUMENTS:
+
+        buffer  - Pointer to string to receive line
+        size    - Maximum size of line to read
+
+
+    RETURN VALUE:
+
+        The number of characters received into the line.
+
+
+    DESCRIPTION:
+
+          The "getstr"  function reads a string of character from the serial
+       port and places them into the specified character buffer until either
+       a NEWLINE character is encountered,  or the limit of "size" character
+       is read.
+
+          The string is terminated with the standard  NULL  (00)  character.
+       The trailing NEWLINE  '\n'  character is NOT included in  the  output
+       buffer.
+
+          The BACKSPACE or DEL keys can be used to edit the input line.
+
+
+    EXAMPLES:
+
+        getstr(input_line, 80);
+    IN                                                                   IN
+
+
+
+    PROTOTYPE:
+
+        int in(unsigned port)
+
+
+    ARGUMENTS:
+
+        port    - I/O port address
+
+
+    RETURN VALUE:
+
+        The 8 bit value read from the given I/O port address
+
+
+    DESCRIPTION:
+
+          The "in"  function reads and returns a byte  (8 bits)  from an I/O
+       port as an integer value between 0 and 255.
+
+          The valid range of values for "port" is 0 to 255.
+
+
+    EXAMPLES:
+
+        while(in(0));   /* Wait for flag to clear */
+    ISALNUM                                                         ISALNUM
+
+
+
+    PROTOTYPE:
+
+        int isalnum(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is alphabetic or numeric
+        0 if 'c' is not alphabetic or numeric
+
+
+    DESCRIPTION:
+
+          Returns  TRUE  (1)  if  the  passed  character  'c'  is  an  ASCII
+       alphabetic letter in either upper or  lower  case  or  if  'c'  is  a
+       numeric digit, otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        while(isalnum(*ptr))        /* Copy over symbol name */
+            *name++ = *ptr++;
+    ISALPHA                                                         ISALPHA
+
+
+
+    PROTOTYPE:
+
+        int isalpha(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is alphabetic
+        0 if 'c' is not alphabetic
+
+
+    DESCRIPTION:
+
+          Returns  TRUE  (1)  if  the  passed  character  'c'  is  an  ASCII
+       alphabetic letter in either upper or lower case,  otherwise FALSE (0)
+       is returned.
+
+
+    EXAMPLES:
+
+        flag = isalpha(input_char);
+    ISASCII                                                         ISASCII
+
+
+
+    PROTOTYPE:
+
+        int isascii(int c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is an ASCII character
+        0 if 'c' is not an ASCII character
+
+
+    DESCRIPTION:
+
+          Returns TRUE  (1)  if the passed character  'c'  is a valid  ASCII
+       character (0x00-0xFF), otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        if(!isascii(*ptr))
+            abort("Invalid character data");
+    ISCNTRL                                                         ISCNTRL
+
+
+
+    PROTOTYPE:
+
+        int iscntrl(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is a "control" character
+        0 if 'c' is not a "control" character
+
+
+    DESCRIPTION:
+
+          Returns TRUE (1) is the passed character 'c' is an ASCII "control"
+       character (0x00-0x1F or 0x7F), otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        putch(iscntrl(c) ? '.' : c);    /* Display controls as '.' */
+    ISDIGIT                                                         ISDIGIT
+
+
+
+    PROTOTYPE:
+
+        int isdigit(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is numeric
+        0 if 'c' is not numeric
+
+
+    DESCRIPTION:
+
+          Returns TRUE  (1)  is the passed character  'c'  is an ASCII digit
+       ('0'-'9'), otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        value = 0;
+        while(isdigit(*ptr))
+            value = (value * 10) + (*ptr++ - '0');
+    ISGRAPH                                                         ISGRAPH
+
+
+
+    PROTOTYPE:
+
+        int isgraph(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is a non-space printable character
+        0 if 'c' is a space or not printable
+
+
+    DESCRIPTION:
+
+          Returns TRUE (1)  if the passed character 'c' is a printable ASCII
+       character other than  a  space  character,  otherwise  FALSE  (0)  is
+       returned.
+
+
+    EXAMPLES:
+
+        putch(isgraph(c) ? c : '.');
+    ISLOWER                                                         ISLOWER
+
+
+
+    PROTOTYPE:
+
+        int islower(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is lower case alphabetic
+        0 if 'c' is not lower case alphabetic
+
+
+    DESCRIPTION:
+
+          Returns  TRUE  (1)  if  the  passed  character  'c'  is  an  ASCII
+       alphabetic letter of lower case, otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        flag = islower(input_char);
+    ISPRINT                                                         ISPRINT
+
+
+
+    PROTOTYPE:
+
+        int isprint(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is a printable character
+        0 if 'c' is not printable
+
+
+    DESCRIPTION:
+
+          Returns TRUE (1)  if the passed character 'c' is a printable ASCII
+       character, otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        while(isprint(*ptr))
+            ++ptr;
+    ISPUNCT                                                         ISPUNCT
+
+
+
+    PROTOTYPE:
+
+        int ispunct(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is a printable non-alphanumeric character
+        0 if 'c' is not printable or alphanumeric
+
+
+    DESCRIPTION:
+
+          Returns TRUE (1)  if the passed character 'c' is a printable ASCII
+       character which is not a letter of the alphabet or a  numeric  digit,
+       otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        while(ispunct(*ptr))
+            ++ptr;
+    ISSPACE                                                         ISSPACE
+
+
+
+    PROTOTYPE:
+
+        int isspace(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is a space character (space, tab or newline)
+        0 if 'c' is not a space character
+
+
+    DESCRIPTION:
+
+          Returns TRUE  (1)  if the passed character 'c'  is one of a space,
+       tab or newline, otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        while(isspace(*ptr))
+            ++ptr;
+    ISUPPER                                                         ISUPPER
+
+
+
+    PROTOTYPE:
+
+        int isupper(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is upper case alphabetic
+        0 if 'c' is not upper case alphabetic
+
+
+    DESCRIPTION:
+
+          Returns  TRUE  (1)  if  the  passed  character  'c'  is  an  ASCII
+       alphabetic letter of upper case, otherwise FALSE (0) is returned.
+
+
+    EXAMPLES:
+
+        flag = isupper(input_char);
+    ISXDIGIT                                                       ISXDIGIT
+
+
+
+    PROTOTYPE:
+
+        int isxdigit(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        1 if 'c' is a hexadecimal digit
+        0 if 'c' is not a hexadecimal digit
+
+
+    DESCRIPTION:
+
+          Returns TRUE  (1)  is the passed character  'c'  is an valid ASCII
+       hexadecimal digit ('0'-'9', 'A'-'F', 'a'-'f'), otherwise FALSE (0) is
+       returned.
+
+
+    EXAMPLES:
+
+        value = 0;
+        while(isxdigit(*ptr))
+            value = (value * 16) +
+                (isdigit(*ptr) ? *ptr++ - '0' : toupper(*ptr++) - ('A'-10));
+    LONGJMP                                                         LONGJMP
+
+
+
+    PROTOTYPE:
+
+        longjmp(int savenv[2], int rvalue)
+
+
+    ARGUMENTS:
+
+        savenv  - Save area for program context
+        rvalue  - Value to be returned by "setjmp"
+
+
+    RETURN VALUE:
+
+        N/A - Function never returns
+
+
+    DESCRIPTION:
+
+          The  "longjmp"  function  causes  execution  to  transfer  to  the
+       "setjmp"  call which set  up  the  "savenv"  variable.  The  "setjmp"
+       function will appear to return the value of "rvalue".
+
+          NOTE-1:  "longjmp"  may only be  used  from  within  the  function
+       calling "setjmp"  or a function which has been called "beneath"  that
+       function. IT MUST NOT BE USED AFTER THE FUNCTION CALLING "SETJMP" HAS
+       TERMINATED.
+
+          NOTE-2:  If "rvalue" is zero,  the function calling "setjmp"  will
+       assume that it is returning from initialization. Unless you want this
+       unusual behavior,  you should not pass a  return  value  of  zero  to
+       "longjmp".
+
+          See also SETJMP.
+
+
+    EXAMPLES:
+
+        if(getch() == ('C'-'@'))        /* If Control-C entered... */
+            longjmp(savearea, 1);       /* Return to main function */
+    LONGMATH                                                       LONGMATH
+
+
+
+    PROTOTYPES:
+
+        int longadd(char *num1, char *num2);
+        int longsub(char *num1, char *num2);
+        longmul(char *num1, char *num2);
+        longdiv(char *num1, char *num2);
+        int longshr(char *num1);
+        int longshl(char *num1);
+        longcpy(char *num1, char *num2);
+        longset(char *num1, unsigned value);
+        int longtst(char *num1);
+        int longcmp(char *num1, char *num2);
+        extern char Longreg[];
+
+    ARGUMENTS:
+
+        num1    - First LONG operand, receives result if generated
+        num2    - Second LONG operand, is not altered
+        value   - 16 bit value to initialize LONG number
+
+
+    RETURN VALUE:
+
+        longadd - 0 = Ok, 1 = addition overflowed
+        longsub - 0 = Ok, 1 = subtraction underflowed
+        longshr - Carry out of shift (1/0)
+        longshl - Carry out of shift (1/0)
+        longtst - 0 = Number is zero, !0 = Number is not zero
+        longcmp - 0 = (num1 == num2), 1 = (num1 > num2), -1 = (num1 < num2)
+
+
+    DESCRIPTION:
+
+          This set of functions performs basic arithmetic functions on  LONG
+       numbers:
+
+        longadd(num1, num2)     ->  num1 += num2
+        longsub(num1, num2)     ->  num1 -= num2
+        longmul(num1, num2)     ->  num1 *= num2 , Longreg = num1 * num2
+        longdiv(num1, num2)     ->  num1 /= num2 , Longreg = num1 % num2
+        longshr(num1)           ->  num1 >>= 1
+        longshl(num1)           ->  num1 <<= 1
+        longcpy(num1, num2)     ->  num1 = num2
+        longset(num1, value)    ->  num1 = (long) value
+        longtst(num1)           ->  Test (num1 != 0)
+        longcmp(num1, num2)     ->  Compare num1 and num2
+
+          As shipped,  a LONG number is 32 bits (4 bytes)  in size,  however
+       this can be changed by altering the LONGMATH.ASM in the library.
+
+          For a complete example of using  these  functions,  refer  to  the
+       LONGCALC.C example program included with the package.
+    MALLOC                                                           MALLOC
+
+
+
+    PROTOTYPE:
+
+        char *malloc(int size)
+
+
+    ARGUMENTS:
+
+        size    - Size of memory block to allocate (in bytes).
+
+
+    RETURN VALUE:
+
+        0       - Memory allocation failed
+        !0      - Pointer to allocated memory block
+
+
+    DESCRIPTION:
+
+          The "malloc" function allocates a block of memory of the specified
+       size from the heap,  and returns a pointer to it.  This  memory  will
+       remain allocated until it is  explicitly  released  with  the  "free"
+       function.
+
+
+    EXAMPLES:
+
+        if(!(ptr = malloc(BUFSIZ)))     /* Allocate a temporary buffer */
+            abort("Not enough memory");
+        /* ... Use the memory block ... */
+        free(ptr);                      /* Release temporary buffer */
+    MAX                                                                 MAX
+
+
+
+    PROTOTYPE:
+
+        int max(int value1, int value2)
+
+
+    ARGUMENTS:
+
+        value1  - Any integer value
+        value2  - Any integer value
+
+
+    RETURN VALUE:
+
+        The greater of "value1" or "value2"
+
+
+    DESCRIPTION:
+
+          The "max" function returns the higher of its two argument values.
+
+
+    EXAMPLES:
+
+        biggest = max(a, b);
+    MEMCPY                                                           MEMCPY
+
+
+
+    PROTOTYPE:
+
+        memcpy(char *dest, char *source, unsigned size)
+
+
+    ARGUMENTS:
+
+        dest    - Pointer to the destination
+        source  - Pointer to the source
+        size    - Number of bytes to copy
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The "memcpy" function will copy the specified number of bytes from
+       the source to the destination.
+
+
+    EXAMPLES:
+
+        memcpy(buffer1, buffer2, 256);
+    MEMSET                                                           MEMSET
+
+
+
+    PROTOTYPE:
+
+        memset(char *block, char value, unsigned size)
+
+
+    ARGUMENTS:
+
+        block   - Pointer to a block of memory
+        value   - Value to initialize memory with
+        size    - Number of bytes to initialize
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          Sets a block of memory  beginning  at  the  pointer  "block",  for
+       "size" bytes to the byte value "value".
+
+
+    EXAMPLES:
+
+        memset(buffer, 0, 100);
+    MIN                                                                 MIN
+
+
+
+    PROTOTYPE:
+
+        int min(int value1, int value2)
+
+
+    ARGUMENTS:
+
+        value1  - Any integer value
+        value2  - Any integer value
+
+
+    RETURN VALUE:
+
+        The smaller of "value1" or "value2"
+
+
+    DESCRIPTION:
+
+          The "min" function returns the lower of its two argument values.
+
+
+    EXAMPLES:
+
+        least = min(a, b);
+    NARGS                                                             NARGS
+
+
+
+    PROTOTYPE:
+
+        int nargs()
+
+
+    ARGUMENTS:
+
+        None
+
+
+    RETURN VALUE:
+
+        The number of arguments passed to the calling function
+
+
+    DESCRIPTION:
+
+          Returns the number of arguments passed to a "register" function.
+
+          NOTE:  When calling  a  "register"  function,  MICRO-C  loads  the
+       accumulator with the number of arguments just prior  to  calling  the
+       function.  This  "nargs"  routine is simply a null  definition  which
+       returns with the same value in the accumulator as was there  when  it
+       was called.  Therefore  "nargs"  MUST BE THE FIRST ARITHMETIC  ENTITY
+       EVALUATED WITHIN  THE  REGISTER  FUNCTION  or  the  contents  of  the
+       accumulator will be lost. Some examples of "register" definitions and
+       the use of "nargs" may be found in the library source code.
+
+
+    EXAMPLES:
+
+        first_arg = nargs() * 2 + &arguments;
+    OUT                                                                 OUT
+
+
+
+    PROTOTYPE:
+
+        out(unsigned port, int value)
+
+
+    ARGUMENTS:
+
+        port    - I/O port address
+        value   - Value to write to I/O port
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The "out" function writes a byte (8 bit) value to an I/O port.
+
+          The valid range of values for "port" is 0 to 255.
+
+
+    EXAMPLES:
+
+        out(0, 0);      /* Output 0 to I/O port 0 */
+    PEEK                                                               PEEK
+
+
+
+    PROTOTYPE:
+
+        int peek(unsigned address)
+
+
+    ARGUMENTS:
+
+        address - 16 bit memory address
+
+
+    RETURN VALUE:
+
+        The 8 bit value read from the given memory address
+
+
+    DESCRIPTION:
+
+          The "peek" function reads and returns a byte (8 bits)  from memory
+       as an integer value between 0 and 255.
+
+
+    EXAMPLES:
+
+        while(peek(0)); /* Wait for flag to clear */
+    PEEKW                                                             PEEKW
+
+
+
+    PROTOTYPE:
+
+        int peekw(unsigned address)
+
+
+    ARGUMENTS:
+
+        address - 16 bit memory address
+
+
+    RETURN VALUE:
+
+        The 16 bit value read from the given memory address
+
+
+    DESCRIPTION:
+
+          The  "peekw"  function reads and returns a  word  (16  bits)  from
+       memory as an integer value between 0 and 65535 (-1).
+
+
+    EXAMPLES:
+
+        var = peekw(0));
+    POKE                                                               POKE
+
+
+
+    PROTOTYPE:
+
+        poke(unsigned address, int value)
+
+
+    ARGUMENTS:
+
+        address - 16 bit memory address
+        value   - Value to be written to memory
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The "poke" function writes a byte (8 bit) value to memory.
+
+
+    EXAMPLES:
+
+        poke(0, 0);     /* Write 0 to location 0 */
+    POKEW                                                             POKEW
+
+
+
+    PROTOTYPE:
+
+        pokew(unsigned address, int value)
+
+
+    ARGUMENTS:
+
+        address - 16 bit memory address
+        value   - Value to be written to memory
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The "pokew" function writes a word (16 bit) value to memory.
+
+
+    EXAMPLES:
+
+        pokew(0, 0);    /* Write 0 to locations 0 and 1 */
+    PRINTF                                                           PRINTF
+
+
+
+    PROTOTYPE:
+
+        register printf(char *format, arg, ...)
+
+
+    ARGUMENTS:
+
+        format  - Pointer to format string
+        arg     - Argument as determined by format string
+        ...     - Additional arguments may be required
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+
+          The "printf" function performs a formatted print to console serial
+       port.  The  'format'  string is written to the serial port  with  the
+       arguments substituted  for  special  "conversion  characters".  These
+       "conversion characters" are identified by a preceding '%', and may be
+       one of the following:
+
+                    b       - Binary number
+                    c       - Character
+                    d       - Decimal (signed) number
+                    o       - Octal number
+                    s       - String
+                    u       - Unsigned decimal number
+                    x       - Hexadecimal number
+                    %       - A single percent sign (No argument used)
+
+          A numeric "field width" specifier may be placed in between the '%'
+       and the conversion character,  in which case the value will be output
+       in a field of that width.  If the "field width" is a negative number,
+       the output will be left justified in the field, otherwise it is right
+       justified. If the field width contains a leading '0', then the output
+       field will be padded with zeros, otherwise spaces are used.
+
+          If no  "field width"  is given,  the output is free format,  using
+       only as much space as required.
+
+          NOTE: This function uses a variable number of arguments,  and must
+       be declared as "register" (See "8085io.h").
+
+
+    EXAMPLES:
+
+        printf("Hello world!!!\n");
+        printf("%u interrupts have occurred!\n", int_count);
+    PUTCH                                                             PUTCH
+
+
+
+    PROTOTYPE:
+
+        putch(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          This function writes the character 'c' to the console serial port.
+       The NEWLINE character is translated into a LINE-FEED,  followed by  a
+       CARRIAGE return, which causes the printing position to advance to the
+       first column of the next line.
+
+
+    EXAMPLES:
+
+        putch('*');
+        putch('\n');
+    PUTCHR                                                           PUTCHR
+
+
+
+    PROTOTYPE:
+
+        putchr(char c)
+
+
+    ARGUMENTS:
+
+        c       - Any character value
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          This function writes the character 'c' to the console serial port.
+       The character is written in "raw" format, with no translations of any
+       kind.
+
+
+    EXAMPLES:
+
+        putchr('*');
+        putchr('\r');
+    PUTSTR                                                           PUTSTR
+
+
+
+    PROTOTYPE:
+
+        putstr(char *string)
+
+
+    ARGUMENTS:
+
+        string  - Pointer to a character string
+
+
+    RETURN VALUE:
+
+        0 if successful, otherwise an operating system error code
+
+
+    DESCRIPTION:
+
+          The  "putstr"  function writes the specified string to the  serial
+       port. The zero terminating the string is NOT written.
+
+
+    EXAMPLES:
+
+        putstr("Text message");
+    RAND                                                               RAND
+
+
+
+    PROTOTYPE:
+
+        unsigned rand(unsigned limit)
+
+
+    ARGUMENTS:
+
+        limit   - Maximum value to return
+
+
+    RETURN VALUE:
+
+        A pseudo-random number in the range of 0 to (limit-1)
+
+
+    DESCRIPTION:
+
+          The  "rand"  function calculates the next value of a pseudo-random
+       sequence, based on a 16 bit unsigned "seed" value, which it maintains
+       in the global variable "RANDSEED". The new value is stored as the new
+       seed value,  and is then divided by the "limit" parameter,  to obtain
+       the remainder, which is returned.  This results in a random number in
+       the range of zero (0) to (limit - 1).
+
+          Any  particular  sequence  may  be  repeated,  by  resetting   the
+       "RANDSEED" value.
+
+
+    EXAMPLES:
+
+        value = rand(52);
+    SERINIT                                                         SERINIT
+
+
+
+    PROTOTYPE:
+
+        serinit(unsigned speed, unsigned control)
+
+
+    ARGUMENTS:
+
+        speed   - Desired serial port BAUD RATE divisor
+        control - 8251 Initialization control word
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The  "serinit"  function initializes the 8251 UART  and  the  8254
+       TIMER devices  to  enable  serial  communications  with  the  console
+       device.
+
+          The "speed" value controls the baudrate divisor used to initialize
+       TIMER 2 of the 8254.  See your system hardware manual for information
+       on selecting this number.
+
+          The  "control"  value contains the two bytes of setup  information
+       used to initialize the 8251 uart.
+
+
+    EXAMPLES:
+
+        serinit(0x0021, 0x4E37);    /* 9600 BPS, 8Bits, 1Stop, NoParity */
+    SETJMP                                                           SETJMP
+
+
+
+    PROTOTYPE:
+
+        int setjmp(int savenv[2])
+
+
+    ARGUMENTS:
+
+        savenv  - Save area for program context
+
+
+    RETURN VALUE:
+
+        0 is returned when actually called
+        Value passed to "longjmp" is returned otherwise
+
+
+    DESCRIPTION:
+
+          When called,  the  "setjmp"  function stores the current execution
+       state of the program into the passed integer array,  and returns  the
+       value zero.
+
+          The  "longjmp"  function may then be used to return the program to
+       the "setjmp" call.  In this case, the value returned by "setjmp" will
+       be the value which was passed to "longjmp".  This allows the function
+       containing "setjmp" to determine which call to "longjmp"  transferred
+       execution to it.
+
+          See also LONGJMP.
+
+
+    EXAMPLES:
+
+        switch(setjmp(savearea)) {
+            case 0 : printf("Longjmp has been set up"); break;
+            case 1 : printf("Control-C Interrupt");     break;
+            case 2 : printf("Reset command executed");  break;
+            default: printf("Software error trap");     break; }
+    SPRINTF                                                         SPRINTF
+
+
+
+    PROTOTYPE:
+
+        register sprintf(char *dest, char *format, arg, ...)
+
+
+    ARGUMENTS:
+
+        dest    - Pointer to destination string
+        format  - Pointer to format string
+        arg     - Argument as determined by format string
+        ...     - Additional arguments may be required
+
+
+    RETURN VALUE:
+
+        None
+
+
+    DESCRIPTION:
+
+          The  "sprintf"  routine performs a formatted print to a string  in
+       memory. The "format" string is written to the destination string with
+       the arguments substituted for special "conversion characters".
+
+          See "printf" for more information on format strings.
+
+          NOTE: This function uses a variable number of arguments,  and must
+       be declared as "register" (See "8085io.h").
+
+
+    EXAMPLES:
+
+        sprintf(header_file, "/lib/%s.h", header_name);
+    SQRT                                                               SQRT
+
+
+
+    PROTOTYPE:
+
+        int sqrt(unsigned value)
+
+
+    ARGUMENTS:
+
+        value   - Number for which to calculate square root
+
+
+    RETURN VALUE:
+
+        The integer square root (rounded up) of the argument value
+
+
+    DESCRIPTION:
+
+          The  SQRT  function  returns  the  smallest  number   which   when
+       multiplied by itself will give a number equal to or larger  that  the
+       argument value.
+
+
+    EXAMPLES:
+
+    /*
+     * Draw a circle about point (x, y) of radius (r)
+     */
+    circle(x, y, r)
+        int x, y, r;
+    {
+        int i, j, k, rs, lj;
+
+        rs = (lj = r)*r;
+        for(i=0; i <= r; ++i) {
+            j = k = sqrt(rs - (i*i));
+            do {
+                plot_xy(x+i, y+j);
+                plot_xy(x+i, y-j);
+                plot_xy(x-i, y+j);
+                plot_xy(x-i, y-j); }
+            while(++j < lj);
+            lj = k; }
+    }
+    STRCAT                                                           STRCAT
+
+
+
+    PROTOTYPE:
+
+        char *strcat(char *dest, char *source)
+
+
+    ARGUMENTS:
+
+        dest    - Pointer to destination string
+        source  - Pointer to source string
+
+
+    RETURN VALUE:
+
+        Pointer to zero terminating destination string
+
+
+    DESCRIPTION:
+
+          This function concatenates the source string on to the tail of the
+       destination string.  The destination string must be large  enough  to
+       hold the entire contents of both strings.
+
+
+    EXAMPLES:
+
+        strcat(program_name, ".c");
+    STRCHR                                                           STRCHR
+
+
+
+    PROTOTYPE:
+
+        char *strchr(char *string, char chr)
+
+
+    ARGUMENTS:
+
+        string  - Pointer to a character string
+        chr     - Character to look for
+
+
+    RETURN VALUE:
+
+        Pointer to the first occurrence of 'chr' in 'string'
+        Zero (0) if character was not found
+
+
+    DESCRIPTION:
+
+          Searches the  passed  string  got  the  first  occurrence  of  the
+       specified character.  If the character is found,  a  pointer  to  its
+       position in the string is returned.  If the character is not found, a
+       null pointer is returned.
+
+          The null (0)  character is treated as valid data by this function,
+       thus:
+          strchr(string, 0);
+
+       would return the position of the null terminator of the string.
+
+
+    EXAMPLES:
+
+        comma = strchr(buffer, ',');
+    STRCMP                                                           STRCMP
+
+
+
+    PROTOTYPE:
+
+        int strcmp(char *string1, char *string2)
+
+
+    ARGUMENTS:
+
+        string1 - Pointer to first string
+        string2 - Pointer to second string
+
+
+    RETURN VALUE:
+
+        0   - Strings match exactly
+        1   - String1 is greater than string2
+        -1  - String2 is greater than string1
+
+
+    DESCRIPTION:
+
+          This function compares two strings character by character.  If the
+       two strings are identical,  a zero  (0)  is returned.  If  the  first
+       string is greater than the second  (as far as ASCII is concerned),  a
+       one (1) is returned.  If the second string is greater, a negative one
+       (-1) is returned.
+
+
+    EXAMPLES:
+
+        if(!strcmp(command, "quit"))
+            exit(0);
+    STRCPY                                                           STRCPY
+
+
+
+    PROTOTYPE:
+
+        char *strcpy(char *dest, char *source)
+
+
+    ARGUMENTS:
+
+        dest    - Pointer to destination string
+        source  - Pointer to source string
+
+
+    RETURN VALUE:
+
+        Pointer to zero terminating destination string
+
+
+    DESCRIPTION:
+
+          This function copies the source string to the destination  string.
+       All data is copied up to and including the zero byte which terminates
+       the string.  The destination string must be large enough to hold  the
+       entire source.
+
+
+    EXAMPLES:
+
+        strcpy(filename, argv[1]);
+    STRLEN                                                           STRLEN
+
+
+
+    PROTOTYPE:
+
+        int strlen(char *string)
+
+
+    ARGUMENTS:
+
+        string  - Pointer to a character string
+
+
+    RETURN VALUE:
+
+        The length of the string
+
+
+    DESCRIPTION:
+
+          Returns the length in character of the passed string.  The  length
+       does not include the zero byte which terminates the string.
+
+
+    EXAMPLES:
+
+        length = strlen(command);
+    TOLOWER                                                         TOLOWER
+
+
+
+    PROTOTYPE:
+
+        char tolower(char c)
+
+
+    ARGUMENTS:
+
+        c   - Any character value
+
+
+    RETURN VALUE:
+
+        The value of 'c', converted to lower case
+
+
+    DESCRIPTION:
+
+          Returns the value of 'c' converted to lower case.  If 'c' is not a
+       letter of upper case,  no change is made,  and the original value  of
+       'c' is returned.
+
+
+    EXAMPLES:
+
+        input_char = tolower(getch());
+    TOUPPER                                                         TOUPPER
+
+
+
+    PROTOTYPE:
+
+        char toupper(char c)
+
+
+    ARGUMENTS:
+
+        c   - Any character value
+
+
+    RETURN VALUE:
+
+        The value of 'c', converted to upper case
+
+
+    DESCRIPTION:
+
+          Returns the value of 'c' converted to upper case.  If 'c' is not a
+       letter of lower case,  no change is made,  and the original value  of
+       'c' is returned.
+
+
+    EXAMPLES:
+
+        putch(toupper(output_char));

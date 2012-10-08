@@ -6,21 +6,23 @@
 * 8 October 2012
 */
 
-//------------------------------------------------------------------------
-//                            Macro definitions
-//------------------------------------------------------------------------
+#ifndef _HI6130_RT_H
+#define _HI6130_RT_H
 
+/********************
+* Misc. Definitions *
+********************/
+
+#define STARTING_ADDR 0x60000000
+
+/************************
+* Illegalization Tables *
+************************/
 // These tables are relocatable...
 #define RT1_ILLEGAL_TABLE_BASE_ADDR 0x200 // RT1 default illegalization table addr range 0x0200 to 0x02FF
 #define RT2_ILLEGAL_TABLE_BASE_ADDR 0x300 // RT2 default illegalization table addr range 0x0300 to 0x03FF
 #define RT1_DESCRIP_TABLE_BASE_ADDR 0x400 // RT1 default descriptor table addr range 0x0400 to 0x05FF
 #define RT2_DESCRIP_TABLE_BASE_ADDR 0x600 // RT2 default descriptor table addr range 0x0600 to 0x07FF
-
-// THIS SECTION ONLY APPLIES TO THE MEMORY-MAPPED HI-6130. IT *DOES NOT* APPLY TO HI-6131.
-
-// The HI-613x has up to two Remote Terminals. Here are macros and structures that simplify
-// addressing for the RT1 and RT2 Descriptor Tables and command Illegalization Tables for 
-// HI-6130 (HOST_BUS_INTERFACE) only. 
 
 
 //--------------------------------------------------------------------------
@@ -31,18 +33,18 @@
 //                               |
 //                               |                 _______ table base address is doubled for bus addressing
 //                               |                |
-#define RT1_DTABLE_BUS_ADDR (0x60000000 + (RT1_DESCRIP_TABLE_BASE_ADDR << 1))  
-#define RT2_DTABLE_BUS_ADDR (0x60000000 + (RT2_DESCRIP_TABLE_BASE_ADDR << 1))  
+#define RT1_DTABLE_BUS_ADDR (STARTING_ADDR+(RT1_DESCRIP_TABLE_BASE_ADDR<<1))  
+#define RT2_DTABLE_BUS_ADDR (STARTING_ADDR+(RT2_DESCRIP_TABLE_BASE_ADDR<<1))  
 
 
 // starting with the most elementary structure
 
 struct dTableBlock {
 	// building block only, no instances declared...
-	volatile unsigned int ctrlWord;
-	volatile unsigned int descWord2;
-	volatile unsigned int descWord3;
-	volatile unsigned int descWord4;
+	unsigned int ctrlWord;
+	unsigned int descWord2;
+	unsigned int descWord3;
+	unsigned int descWord4;
 } ;
 
 struct saQuad { 
@@ -129,7 +131,7 @@ struct rt1_d_table {
 	struct mcQuad TxM;
 };
 
-#define RT1_DTABLE_BASE	((char *) RT1_DTABLE_BUS_ADDR) 	
+#define RT1_DTABLE_BASE	((char*)RT1_DTABLE_BUS_ADDR) 	
 
 #endif // (RT1_ena)
 
@@ -143,7 +145,7 @@ struct rt2_d_table {
 	struct mcQuad TxM;
 };
 
-#define RT2_DTABLE_BASE	((char *) RT2_DTABLE_BUS_ADDR) 	
+#define RT2_DTABLE_BASE	((char*)RT2_DTABLE_BUS_ADDR) 	
 
 #endif // (RT2_ena)
 
@@ -156,84 +158,24 @@ struct rt2_d_table {
 //                               |
 //                               |                 _______ table base address is doubled for bus addressing
 //                               |                |
-#define RT1_ITABLE_BUS_ADDR (0x60000000 + (RT1_ILLEGAL_TABLE_BASE_ADDR << 1))  
-#define RT2_ITABLE_BUS_ADDR (0x60000000 + (RT2_ILLEGAL_TABLE_BASE_ADDR << 1))  
+#define RT1_ITABLE_BUS_ADDR (STARTING_ADDR+(RT1_ILLEGAL_TABLE_BASE_ADDR<<1))  
+#define RT2_ITABLE_BUS_ADDR (STARTING_ADDR+(RT2_ILLEGAL_TABLE_BASE_ADDR<<1))  
 
 // starting with the most elementary structure
 
 struct num_word {
 	// building block only, no instances declared...
 	// 32 single-bit "word count" fields spanning 2 16-bit words
-	unsigned _32words : 1;
-	unsigned _1word : 1;
-	unsigned _2words : 1;
-	unsigned _3words : 1;
-	unsigned _4words : 1;
-	unsigned _5words : 1;
-	unsigned _6words : 1;
-	unsigned _7words : 1;
-	unsigned _8words : 1;
-	unsigned _9words : 1;
-	unsigned _10words : 1;
-	unsigned _11words : 1;
-	unsigned _12words : 1;
-	unsigned _13words : 1;
-	unsigned _14words : 1;
-	unsigned _15words : 1;
-	unsigned _16words : 1;
-	unsigned _17words : 1;
-	unsigned _18words : 1;
-	unsigned _19words : 1;
-	unsigned _20words : 1;
-	unsigned _21words : 1;
-	unsigned _22words : 1;
-	unsigned _23words : 1;
-	unsigned _24words : 1;
-	unsigned _25words : 1;
-	unsigned _26words : 1;
-	unsigned _27words : 1;
-	unsigned _28words : 1;
-	unsigned _29words : 1;
-	unsigned _30words : 1;
-	unsigned _31words : 1;
+	unsigned int word_lower;
+	unsigned int word_upper;
 } ;
 
 
 struct code_num {
 	// building block only, no instances declared...
 	// 32 single-bit "mode code #" fields spanning 2 16-bit words
-	unsigned _mcode0 : 1;
-	unsigned _mcode1 : 1;
-	unsigned _mcode2 : 1;
-	unsigned _mcode3 : 1;
-	unsigned _mcode4 : 1;
-	unsigned _mcode5 : 1;
-	unsigned _mcode6 : 1;
-	unsigned _mcode7 : 1;
-	unsigned _mcode8 : 1;
-	unsigned _mcode9 : 1;
-	unsigned _mcode10 : 1;
-	unsigned _mcode11 : 1;
-	unsigned _mcode12 : 1;
-	unsigned _mcode13 : 1;
-	unsigned _mcode14 : 1;
-	unsigned _mcode15 : 1;
-	unsigned _mcode16 : 1;
-	unsigned _mcode17 : 1;
-	unsigned _mcode18 : 1;
-	unsigned _mcode19 : 1;
-	unsigned _mcode20 : 1;
-	unsigned _mcode21 : 1;
-	unsigned _mcode22 : 1;
-	unsigned _mcode23 : 1;
-	unsigned _mcode24 : 1;
-	unsigned _mcode25 : 1;
-	unsigned _mcode26 : 1;
-	unsigned _mcode27 : 1;
-	unsigned _mcode28 : 1;
-	unsigned _mcode29 : 1;
-	unsigned _mcode30 : 1;
-	unsigned _mcode31 : 1;
+	unsigned int mode_lower;
+	unsigned int mode_upper;
 } ;
 
 
@@ -286,13 +228,13 @@ struct rt1_illcmd_table {
 	struct itQuad Tx;   // non-broadcast transmit
 };
 
-#define RT1_ITABLE_BASE	((struct rt1_illcmd_table) RT1_ITABLE_BUS_ADDR) 	
+#define RT1_ITABLE_BASE	((struct/**/rt1_illcmd_table)RT1_ITABLE_BUS_ADDR) 	
 
 #endif // (RT1_ena)
 
 
 #if(RT2_ena)
-typedef struct rt2_illcmd_table {
+struct rt2_illcmd_table {
 	// here is the top level Illegalization Table structure, 
 	// we declare instances for RT2 and its pointer
 	struct itQuad BRx;  // broadcast receive
@@ -301,7 +243,7 @@ typedef struct rt2_illcmd_table {
 	struct itQuad Tx;   // non-broadcast transmit
 };
 
-#define RT2_ITABLE_BASE	((rt2_illcmd_table) RT2_ITABLE_BUS_ADDR) 	
+#define RT2_ITABLE_BASE	((struct/**/rt2_illcmd_table)RT2_ITABLE_BUS_ADDR) 	
 
 #endif // (RT2_ena)
 
@@ -380,3 +322,6 @@ rt1d->RxM->C21->ctrlWord  // defined Rx mode code 21
 
 
 */
+
+
+#endif //_HI6130_RT_H

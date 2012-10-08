@@ -16,9 +16,25 @@
 /*********************************
 * Operational Mode Options *
 *********************************/ 
-//#define I_AM_BC
+#define I_AM_BC
 //#define I_AM_BM
 //#define I_AM_RT
+
+#ifdef I_AM_BC
+#ifdef I_AM_BM
+#error "Must pick one operational mode, as this compiler has struct definition limitations."
+#endif
+#endif
+
+#ifdef I_AM_RT
+#ifdef I_AM_BC
+#error "Must pick one operational mode, as this compiler has struct definition limitations."
+#endif
+#ifdef I_AM_BM
+#error "Must pick one operational mode, as this compiler has struct definition limitations."
+#endif
+#endif
+
 
 #ifdef I_AM_BC
 #define BC_ena 1 // Bus Controller

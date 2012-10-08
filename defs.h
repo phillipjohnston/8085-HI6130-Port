@@ -6,7 +6,7 @@
 *	6 October 2012
 */
 
-#include config.h
+#include "config.h"
 
 /***************
 * Definitions *
@@ -35,27 +35,27 @@ struct bc_reg_map_t
 	unsigned int INT_ENABLE_REG; 
 	unsigned int dummy21[2];            // skip over 2 non-BC registers      
 	unsigned int HDW_INT_OUTPUT_ENABLE_REG; 
-	unsigned int BC_INT_OUTPUT_ENABLE_REG; 
+	unsigned int INT_OUTPUT_ENABLE_REG; 
 	unsigned int dummy29[29];           // skip over 29 non-BC registers        	    
-	unsigned int BC_CONFIG_REG; 
-	unsigned int BC_INST_LIST_BASE_ADDR_REG; 
-	unsigned int BC_INST_LIST_POINTER; 
-	unsigned int BC_FRAME_TIME_LEFT_REG; 
-	unsigned int BC_TIME_TO_NEXT_MSG_REG; 
-	unsigned int BC_CCODE_AND_GPF_REG; 
-	unsigned int BC_GP_QUEUE_POINTER; 
+	unsigned int CONFIG_REG; 
+	unsigned int INST_LIST_BASE_ADDR_REG; 
+	unsigned int INST_LIST_POINTER; 
+	unsigned int FRAME_TIME_LEFT_REG; 
+	unsigned int TIME_TO_NEXT_MSG_REG; 
+	unsigned int CCODE_AND_GPF_REG; 
+	unsigned int GP_QUEUE_POINTER; 
 	unsigned int TTAG_CONFIG_REG; 
 	unsigned int dummy73[9];             // skip over 9 non-BC registers
-	unsigned int BC_TTAG_COUNT_LOW; 
-	unsigned int BC_TTAG_COUNT_HIGH; 
-	unsigned int BC_TTAG_UTILITY_REG_LOW; 
-	unsigned int BC_TTAG_UTILITY_REG_HIGH; 
-	unsigned int BC_TTAG_MATCH_LOW; 
-	unsigned int BC_TTAG_MATCH_HIGH; 
+	unsigned int TTAG_COUNT_LOW; 
+	unsigned int TTAG_COUNT_HIGH; 
+	unsigned int TTAG_UTIL_REG_LOW; 
+	unsigned int TTAG_UTIL_REG_HIGH; 
+	unsigned int TTAG_MATCH_LOW; 
+	unsigned int TTAG_MATCH_HIGH; 
 	unsigned int dummy91[5];             // skip over 5 non-BC registers
 	unsigned int EEPROM_UNLOCK_REG; 
-	unsigned int BC_LAST_MSG_BLOCK_ADDR_REG; 
-	unsigned int BC_DEFAULT_WMI_REG;
+	unsigned int LAST_MSG_BLOCK_ADDR_REG; 
+	unsigned int DEFAULT_WMI_REG;
 }; //HI6130BC, *HI6130BC ;
 #endif
 
@@ -117,32 +117,32 @@ struct bm_reg_map_t
 	unsigned int dummy03[4];            // skip over 4 non-SMT registers
 	unsigned int HDW_PENDING_INT_REG; 
 	unsigned int dummy0D;               // skip over 1 non-SMT register
-	unsigned int MT_PENDING_INT_REG; 
+	unsigned int PENDING_INT_REG; 
 	unsigned int dummy11;               // skip over 1 non-SMT register
 	unsigned int INT_COUNT_AND_LOG_ADDR_REG; 
 	unsigned int dummy15[4];            // skip over 4 HI-6131 registers
 	unsigned int HDW_INT_ENABLE_REG; 
 	unsigned int dummy1F;               // skip over 1 non-SMT register
-	unsigned int MT_INT_ENABLE_REG; 
+	unsigned int INT_ENABLE_REG; 
 	unsigned int dummy23[3];            // skip over 3 non-SMT registers
-	unsigned int MT_INT_OUTPUT_ENABLE_REG; 
+	unsigned int INT_OUTPUT_ENABLE_REG; 
 	unsigned int dummy2B[19];           // skip over 19 non-SMT registers
-	unsigned int MT_CONFIG_REG; 
+	unsigned int CONFIG_REG; 
 	unsigned int dummy53[5];            // skip over 5 non-SMT registers
-	unsigned int MT_ADDR_LIST_POINTER; 
-	unsigned int MT_NEXT_MSG_STACK_ADDR_REG; 
-	unsigned int MT_LAST_MSG_STACK_ADDR_REG; 
+	unsigned int ADDR_LIST_POINTER; 
+	unsigned int NEXT_MSG_STACK_ADDR_REG; 
+	unsigned int LAST_MSG_STACK_ADDR_REG; 
 	unsigned int dummy63[7];             // skip over 7 non-SMT registers
 	unsigned int TTAG_CONFIG_REG; 
-	unsigned int MT_TTAG_COUNT_LOW; 
-	unsigned int MT_TTAG_COUNT_MID; 
-	unsigned int MT_TTAG_COUNT_HIGH; 
-	unsigned int MT_TTAG_UTILITY_REG_LOW; 
-	unsigned int MT_TTAG_UTILITY_REG_MID; 
-	unsigned int MT_TTAG_UTILITY_REG_HIGH; 
-	unsigned int MT_TTAG_MATCH_LOW; 
-	unsigned int MT_TTAG_MATCH_MID; 
-	unsigned int MT_TTAG_MATCH_HIGH; 
+	unsigned int TTAG_COUNT_LOW; 
+	unsigned int TTAG_COUNT_MID; 
+	unsigned int TTAG_COUNT_HIGH; 
+	unsigned int TTAG_UTIL_REG_LOW; 
+	unsigned int TTAG_UTIL_REG_MID; 
+	unsigned int TTAG_UTIL_REG_HIGH; 
+	unsigned int TTAG_MATCH_LOW; 
+	unsigned int TTAG_MATCH_MID; 
+	unsigned int TTAG_MATCH_HIGH; 
 	unsigned int dummy85[11];            // skip over 11 non-SMT registers
 	unsigned int EEPROM_UNLOCK_REG; 
 };

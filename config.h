@@ -16,9 +16,9 @@
 /*********************************
 * Operational Mode Options *
 *********************************/ 
-#define I_AM_BC
+//#define I_AM_BC
 //#define I_AM_BM
-//#define I_AM_RT
+#define I_AM_RT
 
 #ifdef I_AM_BC
 #ifdef I_AM_BM
@@ -38,14 +38,17 @@
 
 #ifdef I_AM_BC
 #define BC_ena 1 // Bus Controller
+#message "Compiling software for BC mode."
 #endif
 
 #ifdef I_AM_RT
 #define RT1_ena 1 // Remote Terminal 1
 //#define RT2_ena 1 // Remote Terminal 2
+#message "Compiling software for RT1 mode."
 #endif
 
 #ifdef I_AM_BM
 #define SMT_ena 1 // Simple Monitor Terminal   *   DO NOT set SMT_ena = IMT_ena = 1.  *
 //#define IMT_ena 0 // IRIG-106 Monitor Terminal *   One or both of these 2 must be 0.  *
+#message "Compiling software for simple BM mode."
 #endif

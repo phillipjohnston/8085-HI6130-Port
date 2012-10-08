@@ -15,6 +15,8 @@
 #define HI6130_RT_BASE
 #define HI6130_BM_BASE
 
+#message "The Base addresses have not be set yet in CONFIG.H"
+
 
 /*******************************
 * Register Map Definitions *

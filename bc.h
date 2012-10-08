@@ -6,14 +6,17 @@
 * 8 October 2012
 */
 
+#ifndef _HI6130_BC_H
+#define _HI6130_BC_H
 
-//------------------------------------------------------------------------------
-// Macro Definitions
-//------------------------------------------------------------------------------
+#define STARTING_ADDR 0x60000000
+#message "FIX ME:  GPQ_BASE_BUS_ADDR for actual starting address in bc.h"
 
-// Macros for HI-613x Bus Controller Instruction List
-// BC Control Word 
-//
+
+/**************
+* Definitions *
+**************/
+//BC Control Word
 #define TXTTMC17 1<<15 // only applies for mode code 17: transmit BC time tag count
 #define MEMASK 1<<14 // if bit 0 = 0, Status Set occurs for RT Status Word Msg Error bit
 #define SRQMASK 1<<13 // if bit 0 = 0, Status Set occurs for RT Status Word Svc Request bit
@@ -36,16 +39,12 @@
 #define RT_RT 1<<0 // select RT-to-RT message format
 
 
-// Macros for HI-613x Bus Controller Instruction List
-// Command Word entries
-//
+//Command Word Entries
 #define RX 0
 #define TX 1<<10
 
 
-// Macros for HI-613x Bus Controller Instruction List
-// BC Op Codes 
-//
+//BC Op Codes
 #define XEQ 0x01<<10
 #define XQG 0x16<<10
 #define JMP 0x02<<10
@@ -76,9 +75,7 @@
 #define FLG 0x0C<<10
 
 
-// Macros for HI-613x Bus Controller Instruction List
-// BC Condition Codes 
-//
+// BC Condition Codes
 #define LT 0
 #define GP0 0
 #define GTorEQ 16
@@ -146,8 +143,6 @@
 * that load demo initialization values into RAM do so without using these structs. *
 **********************************************************************************************/
 
-///#if (HOST_BUS_INTERFACE)
-
 // preempt preprocessor warning: "duplicate definitions for pGPQ" pointer
 // occurring for each "include" instance for this file in a C file...
 #ifndef BC_GPQ_PTR
@@ -167,11 +162,11 @@
 // |
 // | _______ Queue start address is doubled for bus addressing
 // | |
-#define GPQ_BASE_BUS_ADDR (0x60000000 + (GP_QUEUE_ADDR << 1)) 
+#define GPQ_BASE_BUS_ADDR (STARTING_ADDR+(GP_QUEUE_ADDR<<1)) 
 
 // declare pointer to the 64-word BC general purpose queue
 // initialized to point at queue base address...
-typedef volatile unsigned int (*GPQ)[64] ;
+unsigned int *pGPQ;
 
 /* One of these declaration forms must be within scope: 
 GPQ pGPQ; // initialize elsewhere
@@ -202,21 +197,18 @@ GPQ pGPQ = (GPQ) GPQ_BASE_BUS_ADDR;
 // |
 // | _______ instruction list address is doubled for bus addressing
 // | |
-#define BC_ILIST_BUS_ADDR (0x60000000 + (BC_ILIST_BASE_ADDR << 1)) 
+#define BC_ILIST_BUS_ADDR (STARTING_ADDR+(BC_ILIST_BASE_ADDR<<1)) 
 
-typedef struct bc_inst_list {
- volatile unsigned int opCode;
- volatile unsigned int param;
-} inst_list[NUM_OPS], (* BCil)[NUM_OPS];
+struct bc_inst_list {
+	unsigned int opCode;
+	unsigned int param;
+};
 
-#define BC_ILIST_BASE ((BCil) BC_ILIST_BUS_ADDR) // 0x600036E0
+#define BC_ILIST_BASE ((struct/**/bc_inst_list*)BC_ILIST_BUS_ADDR) // 0x600036E0
 //This declaration must be within scope: const BCil pBCil = BC_ILIST_BASE;
 
-
 // a macro that simplifies instruction list addressing
-#define ILIST(n) (*pBCil)[n]
-
-typedef volatile unsigned int HI6130_RAM ; // half-word (16-bits) 
+#define ILIST(n) (*pBCil)[n] 
 
 
 //------------------------------------------------------------------------
@@ -242,8 +234,8 @@ typedef volatile unsigned int HI6130_RAM ; // half-word (16-bits)
 // |
 // | ____ array start addresses are doubled for bus addressing
 // | |
-#define MSG_BASE_BUS_ADDR (0x60000000 + (MSG_ARRAY_START_ADDR << 1)) 
-#define MSG_2RT_BASE_BUS_ADDR (0x60000000 + (MSG_ARRAY_RTRT_START_ADDR << 1)) 
+#define MSG_BASE_BUS_ADDR (STARTING_ADDR+(MSG_ARRAY_START_ADDR<<1)) 
+#define MSG_2RT_BASE_BUS_ADDR (STARTING_ADDR+(MSG_ARRAY_RTRT_START_ADDR<<1)) 
 
 
 //----------------------------------------------------------------------
@@ -251,37 +243,37 @@ typedef volatile unsigned int HI6130_RAM ; // half-word (16-bits)
 // using 32-bit timebase
 
 // declare the BC block array for non-RT-RT messages, and pointer
-typedef struct MsgBlock {
- // non-RT-RT message block, eight 16-bit words
- HI6130_RAM ctrlWord;
- HI6130_RAM cmdWord;
- HI6130_RAM dataPtr;
- HI6130_RAM timeNextMsg;
- HI6130_RAM ttagLow;
- HI6130_RAM blockStatus;
- HI6130_RAM ttagHigh;
- HI6130_RAM RTstatus;
-} BCIstack[NUM_BLKS], (* BCstack)[NUM_BLKS];
+struct MsgBlock {
+	// non-RT-RT message block, eight 16-bit words
+	unsigned int ctrlWord;
+	unsigned int cmdWord;
+	unsigned int dataPtr;
+	unsigned int timeNextMsg;
+	unsigned int ttagLow;
+	unsigned int blockStatus;
+	unsigned int ttagHigh;
+	unsigned int RTstatus;
+};
 
-#define BC_STACK_BASE ((BCstack) MSG_BASE_BUS_ADDR)
+#define BC_STACK_BASE ((struct/**/MsgBlock*)MSG_BASE_BUS_ADDR)
 
 // declare separate BC block array for RT-RT messages, and pointer
-typedef struct MsgBlock2RT {
- // RT-RT message block, sixteen 16-bit words
- HI6130_RAM ctrlWord;
- HI6130_RAM RxCmdWord;
- HI6130_RAM dataPtr;
- HI6130_RAM timeNextMsg;
- HI6130_RAM ttagLow;
- HI6130_RAM blockStatus;
- HI6130_RAM ttagHigh;
- HI6130_RAM TxRTstatus;
- HI6130_RAM TxCmdWord;
- HI6130_RAM RxRTstatus;
- HI6130_RAM dummy[6];
-} BCIstack2RT[NUM_2RTBLKS], (* BCstack2RT)[NUM_2RTBLKS];
+struct MsgBlock2RT {
+	// RT-RT message block, sixteen 16-bit words
+	unsigned int ctrlWord;
+	unsigned int RxCmdWord;
+	unsigned int dataPtr;
+	unsigned int timeNextMsg;
+	unsigned int ttagLow;
+	unsigned int blockStatus;
+	unsigned int ttagHigh;
+	unsigned int TxRTstatus;
+	unsigned int TxCmdWord;
+	unsigned int RxRTstatus;
+	unsigned int dummy[6];
+};
 
-#define BC_2RTSTACK_BASE ((BCstack2RT) MSG_2RT_BASE_BUS_ADDR)
+#define BC_2RTSTACK_BASE ((struct/**/MsgBlock2RT*)MSG_2RT_BASE_BUS_ADDR)
 
 /* These declarations must be within scope: 
 const BCstack pBCstack = BC_STK_BASE; 
@@ -289,43 +281,44 @@ const BCstack2RT pBCstack2RT = BC_2RTSTK_BASE;
 */
 
 #endif
+
 //----------------------------------------------------------------------
 #ifndef BC_TTAG_HI_RES
 
 // not BC_TTAG_HI_RES, using 16-bit timebase
 
 // declare the BC block array for non-RT-RT messages, and pointer
-typedef struct MsgBlock {
- // non-RT-RT message block, eight 16-bit words
- HI6130_RAM ctrlWord;
- HI6130_RAM cmdWord;
- HI6130_RAM dataPtr;
- HI6130_RAM timeNextMsg;
- HI6130_RAM timetag;
- HI6130_RAM blockStatus;
- HI6130_RAM loopbackWord;
- HI6130_RAM RTstatus;
-} BCIstack[NUM_BLKS], (* BCstack)[NUM_BLKS];
+struct MsgBlock {
+	// non-RT-RT message block, eight 16-bit words
+	unsigned int ctrlWord;
+	unsigned int cmdWord;
+	unsigned int dataPtr;
+	unsigned int timeNextMsg;
+	unsigned int timetag;
+	unsigned int blockStatus;
+	unsigned int loopbackWord;
+	unsigned int RTstatus;
+};
 
-#define BC_STK_BASE ((BCstack) MSG_BASE_BUS_ADDR)
+#define BC_STK_BASE ((struct/**/MsgBlock*)MSG_BASE_BUS_ADDR)
 
 // declare separate BC block array for RT-RT messages, and pointer
-typedef struct MsgBlock2RT {
- // RT-RT message block, sixteen 16-bit words
- HI6130_RAM ctrlWord;
- HI6130_RAM RxCmdWord;
- HI6130_RAM dataPtr;
- HI6130_RAM timeNextMsg;
- HI6130_RAM timetag;
- HI6130_RAM blockStatus;
- HI6130_RAM loopbackWord; 
- HI6130_RAM TxRTstatus;
- HI6130_RAM TxCmdWord;
- HI6130_RAM RxRTstatus;
- HI6130_RAM dummy[6];
-} BCIstack2RT[NUM_2RTBLKS], (* BCstack2RT)[NUM_2RTBLKS];
+struct MsgBlock2RT {
+	// RT-RT message block, sixteen 16-bit words
+	unsigned int ctrlWord;
+	unsigned int RxCmdWord;
+	unsigned int dataPtr;
+	unsigned int timeNextMsg;
+	unsigned int timetag;
+	unsigned int blockStatus;
+	unsigned int loopbackWord; 
+	unsigned int TxRTstatus;
+	unsigned int TxCmdWord;
+	unsigned int RxRTstatus;
+	unsigned int dummy[6];
+};
 
-#define BC_2RTSTK_BASE ((BCstack2RT) MSG_2RT_BASE_BUS_ADDR)
+#define BC_2RTSTK_BASE ((struct/**/MsgBlock2RT*)MSG_2RT_BASE_BUS_ADDR)
 
 /* These declarations must be within scope: 
 const BCstack pBCstack = BC_STK_BASE; 
@@ -339,77 +332,23 @@ const BCstack2RT pBCstack2RT = BC_2RTSTK_BASE;
 #define MSTAK2RT(n) (*pBCstack2RT)[n]
 
 
-
-//------------------------------------------------------------------------------
-// Global Function Prototypes
-//------------------------------------------------------------------------------
-
-void BC_bus_addressing_examples(void);
-
-// Function call initializes Bus Controller Message Blocks
-//
+/************************
+* Function Declarations *
+************************/
+void initialize_6130_BC(void);
 void initialize_bc_msg_blocks(void);
-//void initialize_bc_msg_blocks2(void);
-
-
-// Function call initializes Bus Controller Instruction List
-//
 void initialize_bc_instruction_list(void);
-
-
-// This function disables the Holt HI-613x BC by writing 
-// the Master Configuration Register to reset the BCENA bit.
-//
 void bc_disable(void);
-
-
-// If the BCENA pin is high, this function enables the Holt 
-// HI-613x BC by writing the Master Configuration Register 
-// to set the BCENA bit. Then BC operation only begins after
-// the BCSTART bit or BCTRIG pin gets a rising edge.
-//
 void bc_enable(void);
-
-
-// If the BCENA pin is high, this function enables and starts 
-// the Holt HI-613x BC by writing the Master Configuration 
-// Register to set the BCENA and BCSTART bits.
-//
 void bc_start(void);
 
-
-// This function generates a BC Trigger pulse for the HI-613x.
-//
+void BC_bus_addressing_examples(void);
 void bc_trigger(void);
-
-
-// part of infinite standby loop when CONSOLE_IO is false.
-// this function permits user testing of BC mode only...
-//
 void bc_switch_tests(void);
-
-
-// This function generates a BC Trigger pulse for the HI-613x
-// if evauation board button SW1 is pressed
-//
-char SW1_BC_Trigger(void);
-
-
-// For some BC tests, this function is called from main() standby loop 
-// when user presses button SW2 to modify GP flag bits in Cond Code reg.
-// primary purpose: testing the condition codes GP0-GP7 and nGP0-nGP7
-//
 void SW2_BCtest (void);
-
-// This function initializes the Holt HI-613x BC by writing 
-// configuration registers in the device. Only BC mode option 
-// bits are affected. The program has already called function 
-// initialize_613x_shared() to initialize the common parameters
-// shared by BC, RT1, RT2 and/or Bus Monitor
-//
-void initialize_613x_BC(void);
-
+char SW1_BC_Trigger(void);
 
 
 // End of File 
 
+#endif //_HI6130_BC_H

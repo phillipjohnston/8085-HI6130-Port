@@ -9,6 +9,8 @@
 #ifndef _HI6130_RT_H
 #define _HI6130_RT_H
 
+#include "defs.h"
+
 /********************
 * Misc. Definitions *
 ********************/

@@ -7,155 +7,21 @@
 */
 
 // standard Atmel/IAR headers
-#include <pio/pio.h>
+#include "config.h"
+#include "defs.h"
+#include "regdefs.h"
+#include "bm.h"
 
-// Holt project headers
-#include "613x_initialization.h"
-#include "613x_regs.h"
-#include "board_613x.h"
-#include "613x_mt.h"
-
-#include "board_6130.h"
-#include "device_6130.h"
-
-extern const H6130 pH6130;
-extern const MTF pMTF;
+extern struct bm_reg_map_t * pH6130;
+extern struct mt_fil_table * pMTF;
 
 #if(SMT_ena)
-extern DSTK pDSTK;
-extern const ScSTK pScSTK;
-extern const AddrList pAddrList;
+//extern unsigned int * pDSTK[DSTACKSIZE];
+//extern struct SMsgBlock * pScSTK[SMT_BLKS];
+extern unsigned int ** pDSTK;
+extern struct SMsgBlock ** pScSTK;
+extern struct A_List * pAddrList;
 #endif // (SMT_ena)
-
-#if(IMT_ena)
-extern PktHdr pPktHdr;
-extern IPMB pIPMB;
-extern const AddrList pAddrList;
-#endif // (IMT_ena)
-
-#if (IMT_ena)
-
-void IMT_bus_addressing_examples(void) {
-
-	unsigned int j,k;    
-
-	// -----------------------------------------
-	// IMT Address List bus addressing examples
-	// -----------------------------------------
-	// all bus addressing destinations for this feature are shown here...
-	// The base address for the address list is declared in file 613x_mt.h
-	
-	// in demo, IMT Address List start addr is 0x00B0
-	pAddrList->stkStartAddr = 0x5400; // write stack start address (NOT address list start!)
-	k = pAddrList->currPacketAddr;    // read start address for current packet
-	j = pAddrList->stkEndAddr;        // read stack end address
-	k = pAddrList->stkIntAddr;        // read stack address for optional level-attained interrupt
-	j = pAddrList->lastBSWAddr;       // read address of last-written block status word
-	k = pAddrList->pktOvrWordsInt;    // number of words to packet overrun, optional warning interrupt
-	
-	// ------------------------------------------
-	// IMT Packet Header bus addressing examples
-	// ------------------------------------------
-	
-	// applies when packet header is enabled
-	if (!(pH6130->MT_CONFIG_REG & IMT_HDR_OFF)) {
-		
-		// use macro to set bus address pointer value. 
-		// the macro PktBusAddr(n) is defined ((PktHdr)(0x60000000 + (n << 1)))
-		
-		// this header address only applies for the first packet after reset!
-		pPktHdr = PktBusAddr(0x5400);
-		
-		// alternate way to set bus address to RAM addr 0x5400
-		// without using the macro...
-		// pPktHdr = ((PktHdr)(0x60000000 + (0x5400 << 1)));
-		
-		// read the IRIG-106 packet header data
-		// all of the packet header data fields are listed here...
-		j = pPktHdr->pktSync;
-		k = pPktHdr->ChannID;
-		j = pPktHdr->pktLenLo;    // half of 32-bit value: packet length in bytes
-		k = pPktHdr->pktLenHi;    // half of 32-bit value: packet length in bytes
-		j = pPktHdr->dataLenLo;   // half of 32-bit value: data length in bytes
-		k = pPktHdr->dataLenHi;   // half of 32-bit value: data length in bytes
-		j = pPktHdr->word6.dtypeVer;
-		k = pPktHdr->word6.seqNum;
-		j = pPktHdr->word7.pktFlags;
-		k = pPktHdr->word7.dataType;
-		j = pPktHdr->relTimeLow;   // one third of 48-bit value: relative time count
-		k = pPktHdr->relTimeMid;   // one third of 48-bit value: relative time count
-		j = pPktHdr->relTimeHigh;  // one third of 48-bit value: relative time count
-		k = pPktHdr->hdrChecksum;
-		j = pPktHdr->numMsgsLo;        // low 16 bits of 24-bit value
-		k = pPktHdr->word13.numMsgsHi; // high 8 bits of 24-bit value
-		j = pPktHdr->word13.ttagBits;
-		/* write works too, but probably not a good idea
-		pPktHdr->pktSync = 0xEB25;                      */
-		
-	}   // end if
-	
-	// ---------------------------------------------------
-	// IMT Intra-Packet Msg Block bus addressing examples
-	// ---------------------------------------------------
-	// refer to data sheet for details. This structure consists of 
-	// the Intra-Packet Time Stamp (4 words, a 64-bit value) and
-	// the Intra-Packet Data Header (3 words, 4 fields)
-	
-	// use macro MsgBusAddr(n) defined as ((IPMB)(0x60000000 + (n << 1))) 
-	// to set bus address pointer value. Example points at first packet after reset.
-	
-	if (pH6130->MT_CONFIG_REG & IMT_HDR_OFF) {
-		// packet header disabled
-		pIPMB = MsgBusAddr(0x5400);
-	}
-	else {  
-		// 14-word packet header enabled
-		pIPMB = MsgBusAddr(0x540E);
-	}
-	
-	// all of the intra-packet time stamp and data header fields are listed here...
-
-	// Intra-Packet Time Stamp (4 words, most significant word always zero)
-	j = pIPMB->msgTime0;  // read 64-bit msg time stamp, bits 0-15
-	j = pIPMB->msgTime1;  // read 64-bit msg time stamp, bits 16-31
-	j = pIPMB->msgTime2;  // read 64-bit msg time stamp, bits 32-47
-	j = pIPMB->msgTime3;  // read 64-bit msg time stamp, bits 48-63, always 0x0000
-	// Intra-Packet Data Header (3 words, 4 fields)
-	j = pIPMB->blkStatWd; // reaad message block status word
-	j = pIPMB->gap._1;    // read message response time, 0.1us res, 25.5us max
-	j = pIPMB->gap._2;    // read message response time #2, 0.1us res, 25.5us max, RT-RT only
-	j = pIPMB->msgLength; // read # of *BYTES* in msg data block, range 2-72, 1-36 words
-
-	
-	// ------------------------------------------------
-	//     IMT Filter Table bus addressing examples
-	// ------------------------------------------------
-	// The filter table base address is declared in file 613x_mt.h.
-	// in demo, MT filter table start addr 0x0100
-	
-	//     ____invariant
-	//    |     _____RT0 through RT31
-	//    |    |   _____Tx or Rx
-	//    |    |  |      ____ subadd0 through subadd31
-	//    |    |  |     |
-	j = pMTF->RT5.Tx.subadd31;   // read MT filter table bit: RT address 5 Tx subaddress 31
-	pMTF->RT5.Tx.subadd31 = 1;   // set same bit (this Tx subaddress for RT5 will be ignored by monitor)
-	j = pMTF->RT5.Tx.subadd31;   // read same bit again
-	j = pMTF->RT19.Tx.subadd4;   // read MT filter table bit: RT address 19 Tx subaddress 4
-	pMTF->RT0.Tx.subadd8 = 1;    // set MT filter table bit: RT address 0 Rx subaddress 8
-	
-	// preempt warnings: variable was set but never used
-	j=j;
-	k=k;
-
-}   // end IMT_bus_addressing_examples()
-
-
-#endif // (IMT_ena)
-
-
-//================================================================================================
-
 
 ///#if(HOST_BUS_INTERFACE && SMT_ena)
 #if(SMT_ena)
@@ -190,11 +56,11 @@ void SMT_bus_addressing_examples(void) {
 	// with dfferences shown, based on time tag resolution...
 
 	#ifndef SMT_TTAG_HI_RES         // IF SMT IS USING 16-BIT TIME BASE    
-	k = (*pScSTK)[0].blockStatus;   // read SMT message block 0 block status word
-	(*pScSTK)[0].timeTag = 0x1234;  // read SMT message block 0 16-bit time tag
+	k = (*pScSTK)->blockStatus;   // read SMT message block 0 block status word
+	(*pScSTK)->timeTag = 0x1234;  // read SMT message block 0 16-bit time tag
 	// (normally would read not write time tag value)
-	j = (*pScSTK)[0].dataPtr;       // read SMT message block 0 data pointer
-	(*pScSTK)[0].cmdWord = 0xABCD;  // write SMT message block 0 command word
+	j = (*pScSTK)->dataPtr;       // read SMT message block 0 data pointer
+	(*pScSTK)->cmdWord = 0xABCD;  // write SMT message block 0 command word
 	// (normally would read not write command word value)
 	
 	#else // ifdef SMT_TTAG_HI_RES  // IF SMT IS USING 48-BIT TIME BASE    
@@ -213,9 +79,9 @@ void SMT_bus_addressing_examples(void) {
 	#endif
 
 	// or, using a macro, CSTAK(n) defined as (*pScSTK)[n] 
-	j = CSTAK(1).blockStatus;        // read SMT message block 1 block status word
-	k = CSTAK(1).dataPtr;            // read SMT message block 1 data pointer
-	CSTAK(1).dataPtr = k;            // write SMT message block 1 data pointer
+	j = (&CSTAK(1))->blockStatus;        // read SMT message block 1 block status word
+	k = (&CSTAK(1))->dataPtr;            // read SMT message block 1 data pointer
+	(&CSTAK(1))->dataPtr = k;            // write SMT message block 1 data pointer
 
 	
 	// ---------------------------------------
@@ -229,7 +95,7 @@ void SMT_bus_addressing_examples(void) {
 	// data words for that message. Using this method to retrieve data for a single message,
 	// the index range is 1 to 36, but entire stack can be indexed, as demonstrated here...
 	
-	pDSTK = (DSTK) DSTACK_BASE_BUS_ADDR; // reset pointer to stack word 0
+	pDSTK = (unsigned int *) DSTACK_BASE_BUS_ADDR; // reset pointer to stack word 0
 	j = (*pDSTK)[2];              // read SMT data stack word 2
 	(*pDSTK)[2] = 0x4567;         // write SMT data stack word 2
 	k = (*pDSTK)[2];              // read SMT data stack word 2 again
@@ -252,11 +118,11 @@ void SMT_bus_addressing_examples(void) {
 	//    |    |   _____Tx or Rx
 	//    |    |  |      ____ subadd0 through subadd31
 	//    |    |  |     |
-	j = pMTF->RT5.Tx.subadd31;   // read MT filter table bit: RT address 5 Tx subaddress 31
-	pMTF->RT5.Tx.subadd31 = 1;   // set same bit (this Tx subaddress for RT5 will be ignored by monitor)
-	j = pMTF->RT5.Tx.subadd31;   // read same bit again
-	j = pMTF->RT19.Tx.subadd4;   // read MT filter table bit: RT address 19 Tx subaddress 4
-	pMTF->RT0.Tx.subadd8 = 1;    // set MT filter table bit: RT address 0 Rx subaddress 8
+	j = pMTF->RT5.Tx.sublist_upper & 0x8000;   // read MT filter table bit: RT address 5 Tx subaddress 31
+	pMTF->RT5.Tx.sublist_upper = 1 << 15;   // set same bit (this Tx subaddress for RT5 will be ignored by monitor)
+	j = pMTF->RT5.Tx.sublist_upper & 0x8000;   // read same bit again
+	j = pMTF->RT19.Tx.sublist_upper & 0x0008;   // read MT filter table bit: RT address 19 Tx subaddress 4
+	pMTF->RT0.Tx.sublist_lower = 1 << 7;    // set MT filter table bit: RT address 0 Rx subaddress 8
 	
 	// preempt warnings: variable was set but never used
 	j=j;
@@ -280,17 +146,17 @@ void SMT_bus_addressing_examples(void) {
 // (3) SMT for HI-6131 (SPI) applications
 // (4) IMT for HI-6130 (SPI) applications
 //
-void initialize_613x_MT(void) {
+void initialize_6130_MT(void) {
 	
 
-	const unsigned long base_6130 = 0x60000000;
-	unsigned long addr;
+	static const unsigned int base_6130 = STARTING_ADDR;
+	unsigned int addr;
 	
 	unsigned int i,j;
 	
 	
 	#if(SMT_ena)
-	volatile unsigned int smt_addr_list[8] = {
+	static unsigned int smt_addr_list[8] = {
 
 		//  =============  Command Stack ==============
 		//  Start     Current   End       Interrupt
@@ -301,23 +167,10 @@ void initialize_613x_MT(void) {
 		//  Start     Current   End       Interrupt 
 		//  Address   Address   Address   Address   
 		0x6000,   0x6000,   0x7FFF,   0x7DFF }; // end - 512 
-
-	#else // (IMT_ena)
-	volatile unsigned int imt_addr_list[8] = {
-
-		//  =============  Combined Stack ==============
-		//  Start     Current   End       Interrupt
-		//  Address   Address   Address   Address
-		0x5400,   0x5400,   0x6400,   0, 
-
-		//  =============  Combined Stack ==============
-		//  Last Msg  Reserved  Reserved  Interrupt N Words
-		//  Address   Address   Address   before End-of-Stack
-		0,        0,        0,        512 };
 	
 	#endif
 
-	volatile unsigned int mt_filter_table[128] = {
+	static unsigned int mt_filter_table[128] = {
 
 		// bit = 0: all msgs to that subaddress are recorded, 
 		// bit = 1: all messages to that subaddress are ignored.
@@ -723,23 +576,23 @@ void initialize_613x_MT(void) {
 
 	for ( i = 0, addr = base_6130 + (0x0100 << 1); i < 128; i++) {
 
-		*((volatile unsigned int *)(addr)) = mt_filter_table[i];
+		*((unsigned int *)(addr)) = mt_filter_table[i];
 		addr += 2;
 	}
 
-	pH6130->MT_ADDR_LIST_POINTER = 0x00B0;
+	pH6130->ADDR_LIST_POINTER = 0x00B0;
 
 	// ================== Simple Monitor ======================= 
 
 	#if(SMT_ena)
 
 	// read back address just written and shift left
-	j = (pH6130->MT_ADDR_LIST_POINTER << 1);
+	j = (pH6130->ADDR_LIST_POINTER << 1);
 
 	// initialize MT address list using array declared at top of function 
 	for ( i = 0, addr = base_6130 + j; i < 8; i++) {
 		
-		*((volatile unsigned int *)(addr)) = smt_addr_list[i];
+		*((unsigned int *)(addr)) = smt_addr_list[i];
 		
 		addr += 2;
 	}
@@ -758,10 +611,10 @@ void initialize_613x_MT(void) {
 	// MT_EOM    = end-of-message interrupt
 
 	// Interrupt Enable, both hardware ints and polled ints  
-	pH6130->MT_INT_ENABLE_REG = STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM;
+	pH6130->INT_ENABLE_REG = STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM;
 
 	// Output Enable for hardware ints  
-	pH6130->MT_INT_OUTPUT_ENABLE_REG = STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM;
+	pH6130->INT_OUTPUT_ENABLE_REG = STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM;
 
 	// Optional: assert IMTA bit in the Master Config Reg 0 
 	// so the ACTIVE pin reflects MT activity 
@@ -786,88 +639,11 @@ void initialize_613x_MT(void) {
 
 	i |= GAPCHKOFF|STOR_INVWD|EXTD_STATUS|REC_CSDS|TAG_OFF|MTTO_20U;
 
-	pH6130->MT_CONFIG_REG = i;
+	pH6130->CONFIG_REG = i;
 
 	// end SMT_ena 
 
 	// ================== IRIG-106 Monitor ======================= 
-
-	#else // (IMT_ena) 
-
-	// read back address just written and shift left 
-	j = (pH6130->MT_ADDR_LIST_POINTER) << 1;
-
-	// initialize MT address list using array declared at top of function 
-	for ( i = 0, addr = base_6130 + j; i < 8; i++) {
-
-		*((volatile unsigned int *)(addr)) = imt_addr_list[i];
-		addr += 2;
-	}
-
-	// In addition to these packet size limits, a stack rollover trips packet finalization... 
-	pH6130->IMT_MAX_1553_MSGS = 4545; // max possible in 100ms = 4,545
-	pH6130->IMT_MAX_1553_WORDS = 0;   // 32320);
-	pH6130->IMT_MAX_PKT_TIME = 0;     // 10000); // 10us resolution
-	pH6130->IMT_MAX_GAP_TIME = 0;     // max deadtime = 10(N-2)us
-	pH6130->IMT_CHANNEL_ID = 0xABCD;
-
-	// Set up IRIG-106 MT interrupts. 
-	// 
-	// FULL_EOP  = stack full, end-of-packet (words left < 64)
-	// FULL_OFS  = stack offset from FULL_EOP interrupt 
-	//             (IRIG-106 HEADER MUST BE ENABLED)
-	//             (MT address list word 7 contains # words offset)
-	// MAXWORDS  = end-of-packet, hit 1553 word count limit per pkt
-	// MAXMSGS   = end-of-packet, hit message count limit per pkt
-	// MAXGAP    = end-of-packet, exceeded max bus deadtime per pkt
-	// MAXTIME   = end-of-packet, hit maximum allowed pkt time
-	// HPKTSTOP  = host packet stop interrupt
-	// MT_EOM    = end-of-message interrupt
-	// STKROVR   = stack end-address written, ptr rolled-over to start address 
-	//             (MT address list word 2 contains stack end address)
-	// STKADRSS  = stack address written, equal to MT address list word 3
-	// PKTRDY    = packet ready interrupt
-	
-	// Interrupt Enable, vectored ints and polled ints  
-	pH6130->MT_INT_ENABLE_REG = FULL_EOP|MAXWORDS|MAXMSGS|MAXGAP|MAXTIME|HPKTSTOP|PKTREADY|STKROVR; 
-	// not used: |FULL_OFS|STKADRSS|MT_EOM);
-
-	// Output enable for vectored ints  
-	pH6130->MT_INT_OUTPUT_ENABLE_REG = FULL_EOP|MAXWORDS|MAXMSGS|MAXGAP|MAXTIME|HPKTSTOP|PKTREADY|STKROVR; 
-	// not used: |FULL_OFS|STKADRSS|MT_EOM);
-
-	// Optional: assert IMTA bit in the Master Config Reg 0 
-	// so the ACTIVE pin reflects MT activity 
-	j = pH6130->MASTER_CONFIG_REG;
-	pH6130->MASTER_CONFIG_REG = j|IMTA;
-	
-	// Config options for IRIG-106 monitor, "i" will be written to the
-	// MT Configuration Reg. Configure the options for IRIG-106.
-	// The IMT mode automatically uses TTAG48. 
-	i = SELECT_IMT;
-
-	// Choose 1 from each of the following choices:
-	//		 
-	// GAPCHKON or GAPCHKOFF
-	// STOR_INVWD or STOP_INVWD
-	// PKTSTRT_CW or PKTSTRT_ENA
-	// IMT_HDR_ON or IMT_HDR_OFF
-	// EXTD_STATUS or IRIG_STATUS
-	// IMT_CKSUM_ON or IMT_CKSUM_OFF
-	// REC_CW or REC_CWDW or REC_CS or REC_CSDS
-	// TAG_LWLB or TAG_FWFB or TAG_FWLB or TAG_OFF
-	// MTTO_15U or MTTO_20U or MTTO_58U or MTTO_138U 
-	// IMT_DTYPE9 or IMT_DTYPE4 or IMT_DTYPE5 or IMT_DTYPE7  
-	//  -----------------------------------------------
-	//  Note: IMT time tag OFF option is selected in main.c
-
-	i |= GAPCHKOFF|STOR_INVWD|PKTSTRT_CW
-	|IMT_HDR_OFF|EXTD_STATUS|IMT_CKSUM_ON
-	|REC_CSDS|TAG_OFF|MTTO_20U|IMT_DTYPE9;
-
-	pH6130->MT_CONFIG_REG = i;
-
-	#endif // (IMT_ena)
 
 	// ====================================================================================== 
 

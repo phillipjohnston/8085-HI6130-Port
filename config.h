@@ -20,8 +20,8 @@
 * Operational Mode Options *
 *********************************/ 
 //#define I_AM_BC
-//#define I_AM_BM
-#define I_AM_RT
+#define I_AM_BM
+//#define I_AM_RT
 
 #ifdef I_AM_BC
 #ifdef I_AM_BM
@@ -53,6 +53,9 @@
 #ifdef I_AM_BM
 #define SMT_ena 1 // Simple Monitor Terminal   *   DO NOT set SMT_ena = IMT_ena = 1.  *
 //#define IMT_ena 0 // IRIG-106 Monitor Terminal *   One or both of these 2 must be 0.  *
+#ifdef IMT_ena
+	#error "IMT Programming is not in place!"
+#endif
 #message "Compiling software for simple BM mode."
 #endif
 

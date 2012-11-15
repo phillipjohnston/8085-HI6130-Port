@@ -109,16 +109,6 @@ void main(void) {
 	init_timer();
 	// enable the MCU nRST external reset
 	AT91C_BASE_RSTC->RSTC_RMR= 0xA5000F01; 
-	
-	// Initialize processor for selected interface to HI-613X device,
-	Configure_ARM_MCU_ExtBus();
-
-	
-	#if (CONSOLE_IO)
-	ConfigureUsart1();
-	printf("\n\n\n\n\n\n\r Holt Integrated Circuits HI-6130_40 Project \n\r");
-	printf(" Ver: 2.0     Compiled: %s %s    ", __DATE__, __TIME__ );
-	#endif
 
 	// Anywhere from 0 to 4 terminals might be enabled by the 4 DIP switches on
 	// the evaluation board. Next function call checks states for BC, RT1, RT2,
@@ -362,23 +352,6 @@ void main(void) {
 	// do not overwrite previously initialized common features       
 	pH6130->MASTER_CONFIG_REG |= runbits;         
 	
-	#if (CONSOLE_IO)
-	show_menu();
-	// Infinite loop
-	while (1) {
-		// poll USART1 to detect and act on console key input at computer keyboard...
-		chk_key_input();
-		
-		#if(RT1_ena||RT2_ena)
-		// if MCU board SW1 button is pressed, update RT1 and RT2 status bits
-		// based on Terminal Flag and Busy DIP switch settings
-		if(!PIO_Get(&pinNSW1)) modify_RT_status_bits();
-		#endif
-
-	}   // end while 
-	
-	
-	#else // not using console IO...
 	// Infinite loop
 	while (1) {
 		#if(BC_ena)

@@ -9,7 +9,7 @@
 #ifndef _HI6130_INIT_H
 #define _HI6130_INIT_H
 
-#include config.h
+#include "config.h"
 
 /************************
 *  Macro Definitions  *

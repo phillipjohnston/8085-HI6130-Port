@@ -1,0 +1,545 @@
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 1
+
+0000                         1  *#cpu 8085
+0000                         2  *
+0000                         3  * DDS MICRO-C 8080/85/Z80 Startup Code and Runtime library
+0000                         4  *
+0000                         5  * Copyright 1991-2005 Dave Dunfield
+0000                         6  * All rights reserved.
+0000                         7  *
+0000                         8  	ORG	$0		Place code in memory here
+0000  31 00 20               9  	LXI	SP,$2000	Initial stack goes here
+0003  AF                    10  	XRA	A		Get a ZERO
+0004  32 78 02              11  	STA	?heap		Initialize the heap
+0007  CD 82 01              12  	CALL	main		Execute user program
+000A                        13  * Get byte from stack variable: L = [SP+i]
+000A  E1                    14  ?gstkbi	POP	H		HL = Stack
+000B  7E                    15  	MOV	A,M		Get value
+000C  23                    16  	INX	H		Skip
+000D  E5                    17  	PUSH	H		Restore stack
+000E  6F                    18  	MOV	L,A		L = low address
+000F  26 00                 19  	MVI	H,0		Zero high
+0011                        20  * Get byte from stack variable: L = [SP+HL]
+0011  39                    21  ?gstkb	DAD	SP		Offset to stack
+0012  6E                    22  	MOV	L,M		Get data byte
+0013  C9                    23  	RET
+0014                        24  * Put byte into stack variable: [SP+i] = L
+0014  E3                    25  ?pstkbi	XTHL			HL = immediate address
+0015  4E                    26  	MOV	C,M		Get value
+0016  23                    27  	INX	H		Skip
+0017  E3                    28  	XTHL			Restore stack
+0018  06 00                 29  	MVI	B,0		Zero high
+001A                        30  * Put byte into stack variable: [SP+BC] = L
+001A  E5                    31  ?pstkb	PUSH	H		Save value
+001B  60                    32  	MOV	H,B		Get high offset
+001C  69                    33  	MOV	L,C		Get low offset
+001D  C1                    34  	POP	B		Get return value
+001E  39                    35  	DAD	SP		Offset to variable
+001F  71                    36  	MOV	M,C		Write high byte
+0020  60                    37  	MOV	H,B		Restore high
+0021  69                    38  	MOV	L,C		Restore low
+0022  C9                    39  	RET
+0023                        40  * Get word from stack variable: HL = [SP+i]
+0023  E1                    41  ?gstkwi	POP	H		Get address
+0024  7E                    42  	MOV	A,M		Get value
+0025  23                    43  	INX	H		Skip
+0026  E5                    44  	PUSH	H		Restore stack
+0027  26 00                 45  	MVI	H,0		Zero high
+0029                        46  * Get word from stack variable: HL = [SP+HL]
+0029  39                    47  ?gstkw	DAD	SP		Offset to stack
+002A  7E                    48  	MOV	A,M		Get low data byte
+002B  23                    49  	INX	H		Offset to next
+002C  66                    50  	MOV	H,M		Get high data byte
+002D  6F                    51  	MOV	L,A		Include low byte
+002E  C9                    52  	RET
+002F                        53  * Put work into stack variable: [SP+i] = HL
+002F  E3                    54  ?pstkwi	XTHL			Get address
+0030  4E                    55  	MOV	C,M		Get value
+0031  23                    56  	INX	H		Skip
+0032  E3                    57  	XTHL			Restore stack
+0033  06 00                 58  	MVI	B,0		Zero high
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 2
+
+0035                        59  * Put word into stack variable: [SP+BC] = HL
+0035  E5                    60  ?pstkw	PUSH	H		Save value
+0036  60                    61  	MOV	H,B		Get high offset
+0037  69                    62  	MOV	L,C		Get low offset
+0038  C1                    63  	POP	B		Restore value
+0039  39                    64  	DAD	SP		Offset to variable
+003A  71                    65  	MOV	M,C		Write low byte
+003B  23                    66  	INX	H		Advance
+003C  70                    67  	MOV	M,B		Write high byte
+003D  60                    68  	MOV	H,B		Restore high
+003E  69                    69  	MOV	L,C		Restore low
+003F  C9                    70  	RET
+0040                        71  * Get a 16 bit value indirect through index: HL = [DE]
+0040  EB                    72  ?gind_d	XCHG			HL = Index register
+0041  5E                    73  	MOV	E,M		Get low byte
+0042  23                    74  	INX	H		Advance to next
+0043  56                    75  	MOV	D,M		Get high byte
+0044  2B                    76  	DCX	H		Restore index
+0045  EB                    77  	XCHG			Swap back
+0046  C9                    78  	RET
+0047                        79  * Put a 16 bit value indirect through index: [DE] = HL
+0047  EB                    80  ?pind_d	XCHG			Swap
+0048  73                    81  	MOV	M,E		Write low byte
+0049  23                    82  	INX	H		Advance to next
+004A  72                    83  	MOV	M,D		Write high byte
+004B  2B                    84  	DCX	H		Restore index
+004C  EB                    85  	XCHG			Swap back
+004D  C9                    86  	RET
+004E                        87  * Get a 16 bit value indirect through HL: HL = [HL]
+004E  7E                    88  ?gind_h	MOV	A,M		Get low byte
+004F  23                    89  	INX	H		Advance
+0050  66                    90  	MOV	H,M		Get high byte
+0051  6F                    91  	MOV	L,A		Include low byte
+0052  C9                    92  	RET
+0053                        93  * Put a 16 bit value indirect through BC: [BC] = HL
+0053  7D                    94  ?pind_b	MOV	A,L		Get low byte
+0054  02                    95  	STAX	B		Write it
+0055  03                    96  	INX	B		Advance it
+0056  7C                    97  	MOV	A,H		Get high byte
+0057  02                    98  	STAX	B		Write it
+0058  C9                    99  	RET
+0059                       100  * Sign extend L into H
+0059  7D                   101  ?sign	MOV	A,L		Get character value
+005A  07                   102  	RLC			Set 'C' if A < 0
+005B  9F                   103  	SBB	A		Get sign extension
+005C  67                   104  	MOV	H,A		Set high value
+005D  C9                   105  nargs	RET
+005E                       106  * Perform a switch statement
+005E  EB                   107  ?switch	XCHG			HL=Table address, DE=Switch value
+005F  4E                   108  ?swit1	MOV	C,M		Get low address
+0060  23                   109  	INX	H		Advance to next
+0061  46                   110  	MOV	B,M		Get high address
+0062  23                   111  	INX	H		Advance to next
+0063  78                   112  	MOV	A,B		Test for zero
+0064  B1                   113  	ORA	C		End of table?
+0065  CA 76 00             114  	JZ	?swit3		Yes, use default
+0068  7E                   115  	MOV	A,M		Get low value
+0069  23                   116  	INX	H		Advance to next
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 3
+
+006A  BB                   117  	CMP	E		Does it match?
+006B  C2 70 00             118  	JNZ	?swit2		No, skip to next
+006E  7E                   119  	MOV	A,M		Get high value
+006F  BA                   120  	CMP	D		Does it match?
+0070  23                   121  ?swit2	INX	H		Advance to next
+0071  C2 5F 00             122  	JNZ	?swit1		No try next
+0074                       123  ** Value found, jump to label
+0074  C5                   124  	PUSH	B		Save on stack
+0075  C9                   125  	RET			Jump [SP++]
+0076                       126  ** Value not found, use default
+0076  7E                   127  ?swit3	MOV	A,M		Get low address
+0077  23                   128  	INX	H		Advance to next
+0078  66                   129  	MOV	H,M		Get high address
+0079  6F                   130  	MOV	L,A		Include low address
+007A  E9                   131  ?idcall	PCHL			Perform jump
+007B                       132  * Negate: HL = -HL
+007B  2B                   133  ?neg	DCX	H		Decrement for negate
+007C                       134  * Complement: HL = ~HL
+007C  7C                   135  ?com	MOV	A,H		Get high
+007D  2F                   136  	CMA			Complement
+007E  67                   137  	MOV	H,A		Replace value
+007F  7D                   138  	MOV	A,L		Get low
+0080  2F                   139  	CMA			Complement
+0081  6F                   140  	MOV	L,A		Replace value
+0082  C9                   141  	RET
+0083                       142  * Logical NOT: HL = !HL
+0083  7C                   143  ?not	MOV	A,H		Get high
+0084  B5                   144  	ORA	L		Test for zero
+0085  21 00 00             145  	LXI	H,0		Assume FALSE
+0088  C0                   146  	RNZ			Yes, exit
+0089  23                   147  	INX	H		Convert to TRUE
+008A  C9                   148  	RET
+008B                       149  * Subtract: HL = BC - HL
+008B  79                   150  ?sub	MOV	A,C		Get low source
+008C  95                   151  	SUB	L		Subtract low dest
+008D  6F                   152  	MOV	L,A		And replace
+008E  78                   153  	MOV	A,B		Get high source
+008F  9C                   154  	SBB	H		Subtract high dest
+0090  67                   155  	MOV	H,A		And replace
+0091  C9                   156  	RET
+0092                       157  * 16 bit multiply: HL = BC * HL
+0092  D5                   158  ?mul	PUSH	D		Save index
+0093  EB                   159  	XCHG			D = Dest
+0094  21 00 00             160  	LXI	H,0		Begin with zero
+0097  7B                   161  ?mul1	MOV	A,E		Get low dest
+0098  0F                   162  	RRC			Test for odd value
+0099  D2 9D 00             163  	JNC	?mul2		Not odd
+009C  09                   164  	DAD	B		+ dest
+009D  A7                   165  ?mul2	ANA	A		Clear carry
+009E  7A                   166  	MOV	A,D		Get high dest
+009F  1F                   167  	RAR			/ 2
+00A0  57                   168  	MOV	D,A		Replace
+00A1  7B                   169  	MOV	A,E		Get low dest
+00A2  1F                   170  	RAR			/ 2
+00A3  5F                   171  	MOV	E,A		Replace
+00A4  B2                   172  	ORA	D		All done (zero)?
+00A5  CA B2 00             173  	JZ	?mul3		Yes, exit
+00A8  79                   174  	MOV	A,C		Get low source
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 4
+
+00A9  17                   175  	RAL			* 2
+00AA  4F                   176  	MOV	C,A		Replace
+00AB  78                   177  	MOV	A,B		Get high source
+00AC  17                   178  	RAL			* 2
+00AD  47                   179  	MOV	B,A		Replace
+00AE  B1                   180  	ORA	C		All done (zero)?
+00AF  C2 97 00             181  	JNZ	?mul1		No, keep going
+00B2  D1                   182  ?mul3	POP	D		Restore index
+00B3  C9                   183  	RET
+00B4                       184  * 16 bit division: HL = BC / HL
+00B4                       185  ?sdiv	EQU	*		Entry point for signed division
+00B4  CD BA 00             186  ?div	CALL	?mod		Main calculation
+00B7  60                   187  	MOV	H,B		Get high result
+00B8  69                   188  	MOV	L,C		Get low result
+00B9  C9                   189  	RET
+00BA                       190  * 16 bit modulus: HL = BC % HL, BC = BC / HL
+00BA                       191  ?smod	EQU	*		Entry point for signed modulus
+00BA  D5                   192  ?mod	PUSH	D		Save index
+00BB  EB                   193  	XCHG			DE = P1
+00BC  21 00 00             194  	LXI	H,0		Begin with zero
+00BF  3E 11                195  	MVI	A,17		16+1 bit shift
+00C1  32 76 02             196  	STA	?temp		Save for later
+00C4  A7                   197  ?mod1	ANA	A		No carry in
+00C5  79                   198  ?mod2	MOV	A,C		Get low source
+00C6  17                   199  	RAL			Shift
+00C7  4F                   200  	MOV	C,A		Replace
+00C8  78                   201  	MOV	A,B		Get high source
+00C9  17                   202  	RAL			16 bit Shift
+00CA  47                   203  	MOV	B,A		Replace
+00CB  3A 76 02             204  	LDA	?temp		Restore count
+00CE  3D                   205  	DCR	A		Reduce count
+00CF  CA F0 00             206  	JZ	?mod4		Finished, exit
+00D2  32 76 02             207  	STA	?temp		Resave count
+00D5  7D                   208  	MOV	A,L		Get low dest
+00D6  17                   209  	RAL			Shift in bit, result *2
+00D7  6F                   210  	MOV	L,A		Replace
+00D8  7C                   211  	MOV	A,H		Get high dest
+00D9  17                   212  	RAL			16 bit shift
+00DA  67                   213  	MOV	H,A		Replace
+00DB  BA                   214  	CMP	D		Lower?
+00DC  DA C4 00             215  	JC	?mod1		Yes, do again
+00DF  7D                   216  	MOV	A,L		Lower?
+00E0  C2 E7 00             217  	JNZ	?mod3		Higher, don't test low
+00E3  BB                   218  	CMP	E		Yes, do again
+00E4  DA C4 00             219  	JC	?mod1		Lower, go round again
+00E7  93                   220  ?mod3	SUB	E		Subtract p1
+00E8  6F                   221  	MOV	L,A		Resave
+00E9  7C                   222  	MOV	A,H		Get high
+00EA  9A                   223  	SBB	D		16 bit subtract
+00EB  67                   224  	MOV	H,A		Resave
+00EC  37                   225  	STC			Insure carry set
+00ED  C3 C5 00             226  	JMP	?mod2		and proceed
+00F0  D1                   227  ?mod4	POP	D		Restore index
+00F1  C9                   228  	RET
+00F2                       229  * Logical AND: HL = BC & HL
+00F2  79                   230  ?and	MOV	A,C		Get low source
+00F3  A5                   231  	ANA	L		And with dest
+00F4  6F                   232  	MOV	L,A		Replace
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 5
+
+00F5  78                   233  	MOV	A,B		Get high source
+00F6  A4                   234  	ANA	H		And with dest
+00F7  67                   235  	MOV	H,A		Replace
+00F8  C9                   236  	RET
+00F9                       237  * Logical OR: HL = BC | HL
+00F9  79                   238  ?or	MOV	A,C		Get low source
+00FA  B5                   239  	ORA	L		Or with dest
+00FB  6F                   240  	MOV	L,A		Replace
+00FC  78                   241  	MOV	A,B		Get high source
+00FD  B4                   242  	ORA	H		Or with dest
+00FE  67                   243  	MOV	H,A		Replace
+00FF  C9                   244  	RET
+0100                       245  * Exclusive OR: HL = BC ^ HL
+0100  79                   246  ?xor	MOV	A,C		Get low source
+0101  AD                   247  	XRA	L		Xor with dest
+0102  6F                   248  	MOV	L,A		Replace
+0103  78                   249  	MOV	A,B		Get high source
+0104  AC                   250  	XRA	H		Xor with dest
+0105  67                   251  	MOV	H,A		Replace
+0106  C9                   252  	RET
+0107                       253  * Shift right: HL = BC >> HL
+0107  7C                   254  ?shr	MOV	A,H		Get value
+0108  B5                   255  	ORA	L		Test for zero (special case)
+0109  CA 17 01             256  	JZ	?shr2		zero, exit
+010C  A7                   257  ?shr1	ANA	A		Clear carry
+010D  78                   258  	MOV	A,B		Get high
+010E  1F                   259  	RAR			Shift it
+010F  47                   260  	MOV	B,A		Replace
+0110  79                   261  	MOV	A,C		Get low
+0111  1F                   262  	RAR			Shift it
+0112  4F                   263  	MOV	C,A		Replace
+0113  2D                   264  	DCR	L		Reduce count
+0114  C2 0C 01             265  	JNZ	?shr1		Do them all
+0117  60                   266  ?shr2	MOV	H,B		Copy it
+0118  69                   267  	MOV	L,C		Over
+0119  C9                   268  	RET
+011A                       269  * Shift left: HL = BC << HL
+011A  7C                   270  ?shl	MOV	A,H		Get value
+011B  B5                   271  	ORA	L		Test for zero (special case)
+011C  CA 2A 01             272  	JZ	?shl2		zero, exit
+011F  A7                   273  ?shl1	ANA	A		Clear carry
+0120  79                   274  	MOV	A,C		Get high
+0121  17                   275  	RAL			Shift it
+0122  4F                   276  	MOV	C,A		Replace
+0123  78                   277  	MOV	A,B		Get low
+0124  17                   278  	RAL			Shift it
+0125  47                   279  	MOV	B,A		Replace
+0126  2D                   280  	DCR	L		Reduce count
+0127  C2 1F 01             281  	JNZ	?shl1		Do them all
+012A  60                   282  ?shl2	MOV	H,B		Copy it
+012B  69                   283  	MOV	L,C		Over
+012C  C9                   284  	RET
+012D                       285  * Conditional operators
+012D  CD 77 01             286  ?eq	CALL	?ucomp		BC == HL
+0130  C8                   287  	RZ
+0131  2B                   288  	DCX	H
+0132  C9                   289  	RET
+0133  CD 77 01             290  ?ne	CALL	?ucomp		BC != HL
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 6
+
+0136  C0                   291  	RNZ
+0137  2B                   292  	DCX	H
+0138  C9                   293  	RET
+0139  E5                   294  ?gt	PUSH	H		BC > HL (signed)
+013A  60                   295  	MOV	H,B
+013B  69                   296  	MOV	L,C
+013C  C1                   297  	POP	B
+013D  CD 67 01             298  ?lt	CALL	?scomp		BC < HL (signed)
+0140  D8                   299  	RC
+0141  2B                   300  	DCX	H
+0142  C9                   301  	RET
+0143  CD 67 01             302  ?le	CALL	?scomp		BC <= HL (signed)
+0146  D8                   303  	RC
+0147  C8                   304  	RZ
+0148  2B                   305  	DCX	H
+0149  C9                   306  	RET
+014A  CD 67 01             307  ?ge	CALL	?scomp		BC >= HL (signed)
+014D  D0                   308  	RNC
+014E  2B                   309  	DCX	H
+014F  C9                   310  	RET
+0150  E5                   311  ?ugt	PUSH	H		BC > HL (unsigned)
+0151  60                   312  	MOV	H,B
+0152  69                   313  	MOV	L,C
+0153  C1                   314  	POP	B
+0154  CD 77 01             315  ?ult	CALL	?ucomp		BC < HL (unsigned)
+0157  D8                   316  	RC
+0158  2B                   317  	DCX	H
+0159  C9                   318  	RET
+015A  CD 77 01             319  ?ule	CALL	?ucomp		BC <= HL (unsigned)
+015D  D8                   320  	RC
+015E  C8                   321  	RZ
+015F  2B                   322  	DCX	H
+0160  C9                   323  	RET
+0161  CD 77 01             324  ?uge	CALL	?ucomp		BC >= HL (unsigned)
+0164  D0                   325  	RNC
+0165  2B                   326  	DCX	H
+0166  C9                   327  	RET
+0167                       328  * Signed compare of BC & HL
+0167  78                   329  ?scomp	MOV	A,B		Get HIGH #1
+0168  AC                   330  	XRA	H		Sign same as #2?
+0169  F2 77 01             331  	JP	?ucomp		Handle as unsigned
+016C  21 01 00             332  	LXI	H,1		Assume TRUE
+016F  A0                   333  	ANA	B		Get sign #1
+0170  FA 75 01             334  	JM	?scomp1		Less than #2
+0173  B5                   335  	ORA	L		Clear 'C' and 'Z', greater than
+0174  C9                   336  	RET
+0175  37                   337  ?scomp1	STC			Set 'C', indicate less than
+0176  C9                   338  	RET
+0177                       339  * Unsigned compare of BC & HL
+0177  78                   340  ?ucomp	MOV	A,B		Get high
+0178  BC                   341  	CMP	H		Match?
+0179  C2 7E 01             342  	JNZ	?ucomp1		No, exit
+017C  79                   343  	MOV	A,C		Get low
+017D  BD                   344  	CMP	L		Set flags
+017E  21 01 00             345  ?ucomp1	LXI	H,1		Assume TRUE
+0181  C9                   346  	RET
+0182                       347  * Temporary location used by compiler and "?mod"
+0182                       348  */*
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 7
+
+0182                       349  ** test.c
+0182                       350  **/
+0182                       351  *
+0182                       352  *#define HOLT_BASE_ADDR (0x8000)
+0182                       353  *
+0182                       354  *int main(void)
+0182                       355  *{
+0182                       356  *	unsigned int t0;
+0182                       357  *	unsigned int t1;
+0182                       358  *	unsigned int t[2];
+0182                       359  *	unsigned int * t0_ptr;
+0182                       360  *	unsigned int * t1_ptr;
+0182                       361  *	unsigned int * t_ptr;
+0182                       362  *	
+0182                       363  *	t0 = 0xBECE;
+0182  21 F2 FF             364  main LXI H,-14
+0185  39                   365   DAD SP
+0186  F9                   366   SPHL
+0187  21 CE BE             367   LXI H,-16690
+018A  01 02 00             368   LXI B,2
+018D  CD 35 00             369   CALL ?pstkw
+0190                       370  *	t1	= 0xFDAD;
+0190  21 AD FD             371   LXI H,-595
+0193  01 04 00             372   LXI B,4
+0196  CD 35 00             373   CALL ?pstkw
+0199                       374  *	t[0] = 0xBECE;
+0199  21 00 00             375   LXI H,0
+019C  11 04 00             376   LXI D,4
+019F  EB                   377   XCHG
+01A0  39                   378   DAD SP
+01A1  EB                   379   XCHG
+01A2  19                   380   DAD D
+01A3  EB                   381   XCHG
+01A4  21 CE BE             382   LXI H,-16690
+01A7  CD 47 00             383   CALL ?pind_d
+01AA                       384  *	t[1] = 0xFDAD;
+01AA  21 02 00             385   LXI H,2
+01AD  11 04 00             386   LXI D,4
+01B0  EB                   387   XCHG
+01B1  39                   388   DAD SP
+01B2  EB                   389   XCHG
+01B3  19                   390   DAD D
+01B4  EB                   391   XCHG
+01B5  21 AD FD             392   LXI H,-595
+01B8  CD 47 00             393   CALL ?pind_d
+01BB                       394  *	t0_ptr = (unsigned int *) (HOLT_BASE_ADDR);
+01BB  21 00 80             395   LXI H,-32768
+01BE  01 0A 00             396   LXI B,10
+01C1  CD 35 00             397   CALL ?pstkw
+01C4                       398  *	t1_ptr = (unsigned int *) (HOLT_BASE_ADDR + sizeof(unsigned int));
+01C4  21 02 80             399   LXI H,-32766
+01C7  01 0C 00             400   LXI B,12
+01CA  CD 35 00             401   CALL ?pstkw
+01CD                       402  *	t_ptr = t0_ptr;
+01CD  21 0A 00             403   LXI H,10
+01D0  CD 29 00             404   CALL ?gstkw
+01D3  01 0E 00             405   LXI B,14
+01D6  CD 35 00             406   CALL ?pstkw
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 8
+
+01D9                       407  *	t0 = *t0_ptr;
+01D9  EB                   408   XCHG
+01DA  21 0A 00             409   LXI H,10
+01DD  CD 29 00             410   CALL ?gstkw
+01E0  EB                   411   XCHG
+01E1  CD 40 00             412   CALL ?gind_d
+01E4  01 02 00             413   LXI B,2
+01E7  CD 35 00             414   CALL ?pstkw
+01EA                       415  *	
+01EA                       416  *	
+01EA                       417  *	
+01EA                       418  *	*t0_ptr = t0;
+01EA  EB                   419   XCHG
+01EB  21 0A 00             420   LXI H,10
+01EE  CD 29 00             421   CALL ?gstkw
+01F1  EB                   422   XCHG
+01F2  21 02 00             423   LXI H,2
+01F5  CD 29 00             424   CALL ?gstkw
+01F8  CD 47 00             425   CALL ?pind_d
+01FB                       426  *	*t1_ptr = t1;
+01FB  EB                   427   XCHG
+01FC  21 0C 00             428   LXI H,12
+01FF  CD 29 00             429   CALL ?gstkw
+0202  EB                   430   XCHG
+0203  21 04 00             431   LXI H,4
+0206  CD 29 00             432   CALL ?gstkw
+0209  CD 47 00             433   CALL ?pind_d
+020C                       434  *	
+020C                       435  *	*t0_ptr = 0;
+020C  EB                   436   XCHG
+020D  21 0A 00             437   LXI H,10
+0210  CD 29 00             438   CALL ?gstkw
+0213  EB                   439   XCHG
+0214  21 00 00             440   LXI H,0
+0217  CD 47 00             441   CALL ?pind_d
+021A                       442  *	*t1_ptr = 1;
+021A  EB                   443   XCHG
+021B  21 0C 00             444   LXI H,12
+021E  CD 29 00             445   CALL ?gstkw
+0221  EB                   446   XCHG
+0222  21 01 00             447   LXI H,1
+0225  CD 47 00             448   CALL ?pind_d
+0228                       449  *	
+0228                       450  *	t_ptr[0] = t[0];
+0228  21 00 00             451   LXI H,0
+022B  EB                   452   XCHG
+022C  21 0E 00             453   LXI H,14
+022F  CD 29 00             454   CALL ?gstkw
+0232  EB                   455   XCHG
+0233  19                   456   DAD D
+0234  EB                   457   XCHG
+0235  D5                   458   PUSH D
+0236  21 00 00             459   LXI H,0
+0239  11 06 00             460   LXI D,6
+023C  EB                   461   XCHG
+023D  39                   462   DAD SP
+023E  EB                   463   XCHG
+023F  19                   464   DAD D
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 9
+
+0240  EB                   465   XCHG
+0241  CD 40 00             466   CALL ?gind_d
+0244  C1                   467   POP B
+0245  CD 53 00             468   CALL ?pind_b
+0248                       469  *	t_ptr[1] = t[1];
+0248  21 02 00             470   LXI H,2
+024B  EB                   471   XCHG
+024C  21 0E 00             472   LXI H,14
+024F  CD 29 00             473   CALL ?gstkw
+0252  EB                   474   XCHG
+0253  19                   475   DAD D
+0254  EB                   476   XCHG
+0255  D5                   477   PUSH D
+0256  21 02 00             478   LXI H,2
+0259  11 06 00             479   LXI D,6
+025C  EB                   480   XCHG
+025D  39                   481   DAD SP
+025E  EB                   482   XCHG
+025F  19                   483   DAD D
+0260  EB                   484   XCHG
+0261  CD 40 00             485   CALL ?gind_d
+0264  C1                   486   POP B
+0265  CD 53 00             487   CALL ?pind_b
+0268                       488  *
+0268                       489  *	while(1){};
+0268                       490  ?AB1 EQU *
+0268  C3 68 02             491   JMP ?AB1
+026B                       492  ?AB2 EQU *
+026B                       493  *	
+026B                       494  *	return 0;
+026B  21 00 00             495   LXI H,0
+026E                       496  *}
+026E                       497  ?AB3 EQU *
+026E  EB                   498   XCHG
+026F  21 0E 00             499   LXI H,14
+0272  39                   500   DAD SP
+0273  F9                   501   SPHL
+0274  EB                   502   XCHG
+0275  C9                   503   RET
+0276                       504  *#map1 Set address of un-initialized variables
+0276                       505  * If you are compiling for ROM, uncomment the following ORG statement,
+0276                       506  * and adjust its address to the beginning of available RAM.
+0276                       507  *	ORG	$xxxx		RAM begins here
+0276                       508  ?temp DS 2
+0278                       509  * Begin the system heap following all other & data
+0278                       510  ?heap	EQU	*
+DUNFIELD 8085 ASSEMBLER: HOLT_A~1                                     PAGE: 10
+
+SYMBOL TABLE:
+
+?AB1    -0268   ?AB2    -026B   ?AB3    -026E   ?and    -00F2   ?com    -007C
+?div    -00B4   ?eq     -012D   ?ge     -014A   ?gind_d -0040   ?gind_h -004E
+?gstkb  -0011   ?gstkbi -000A   ?gstkw  -0029   ?gstkwi -0023   ?gt     -0139
+?heap   -0278   ?idcall -007A   ?le     -0143   ?lt     -013D   ?mod    -00BA
+?mod1   -00C4   ?mod2   -00C5   ?mod3   -00E7   ?mod4   -00F0   ?mul    -0092
+?mul1   -0097   ?mul2   -009D   ?mul3   -00B2   ?ne     -0133   ?neg    -007B
+?not    -0083   ?or     -00F9   ?pind_b -0053   ?pind_d -0047   ?pstkb  -001A
+?pstkbi -0014   ?pstkw  -0035   ?pstkwi -002F   ?scomp  -0167   ?scomp1 -0175
+?sdiv   -00B4   ?shl    -011A   ?shl1   -011F   ?shl2   -012A   ?shr    -0107
+?shr1   -010C   ?shr2   -0117   ?sign   -0059   ?smod   -00BA   ?sub    -008B
+?swit1  -005F   ?swit2  -0070   ?swit3  -0076   ?switch -005E   ?temp   -0276
+?ucomp  -0177   ?ucomp1 -017E   ?uge    -0161   ?ugt    -0150   ?ule    -015A
+?ult    -0154   ?xor    -0100   main    -0182   nargs   -005D

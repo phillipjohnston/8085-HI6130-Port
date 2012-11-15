@@ -1,0 +1,138 @@
+DUNFIELD 8085 ASSEMBLER: 8085                                         PAGE: 1
+
+0012                         1  IMM:	EQU	$12
+3445                         2  EXT:	EQU	$3445
+0000  78                     3  	MOV	A,B
+0001  56                     4  	MOV	D,M
+0002  3E 12                  5  	MVI	A,IMM
+0004  36 12                  6  	MVI	M,IMM
+0006  01 45 34               7  	LXI	B,EXT
+0009  11 45 34               8  	LXI	D,EXT
+000C  21 45 34               9  	LXI	H,EXT
+000F  31 45 34              10  	LXI	SP,EXT
+0012  3A 45 34              11  	LDA	EXT
+0015  32 45 34              12  	STA	EXT
+0018  2A 45 34              13  	LHLD	EXT
+001B  22 45 34              14  	SHLD	EXT
+001E  0A                    15  	LDAX	B
+001F  1A                    16  	LDAX	D
+0020  02                    17  	STAX	B
+0021  12                    18  	STAX	D
+0022  97                    19  	SUB	A
+0023  90                    20  	SUB	B
+0024  96                    21  	SUB	M
+0025  D6 12                 22  	SUI	IMM
+0027  9F                    23  	SBB	A
+0028  98                    24  	SBB	B
+0029  9E                    25  	SBB	M
+002A  DE 12                 26  	SBI	IMM
+002C  87                    27  	ADD	A
+002D  80                    28  	ADD	B
+002E  86                    29  	ADD	M
+002F  C6 12                 30  	ADI	IMM
+0031  8F                    31  	ADC	A
+0032  88                    32  	ADC	B
+0033  8E                    33  	ADC	M
+0034  CE 12                 34  	ACI	IMM
+0036  3C                    35  	INR	A
+0037  04                    36  	INR	B
+0038  34                    37  	INR	M
+0039  3D                    38  	DCR	A
+003A  05                    39  	DCR	B
+003B  35                    40  	DCR	M
+003C  03                    41  	INX	B
+003D  13                    42  	INX	D
+003E  23                    43  	INX	H
+003F  33                    44  	INX	SP
+0040  0B                    45  	DCX	B
+0041  1B                    46  	DCX	D
+0042  2B                    47  	DCX	H
+0043  3B                    48  	DCX	SP
+0044  09                    49  	DAD	B
+0045  19                    50  	DAD	D
+0046  29                    51  	DAD	H
+0047  39                    52  	DAD	SP
+0048  27                    53  	DAA
+0049  A7                    54  	ANA	A
+004A  A0                    55  	ANA	B
+004B  A6                    56  	ANA	M
+004C  E6 12                 57  	ANI	IMM
+004E  B7                    58  	ORA	A
+DUNFIELD 8085 ASSEMBLER: 8085                                         PAGE: 2
+
+004F  B0                    59  	ORA	B
+0050  B6                    60  	ORA	M
+0051  F6 12                 61  	ORI	IMM
+0053  AF                    62  	XRA	A
+0054  A8                    63  	XRA	B
+0055  AE                    64  	XRA	M
+0056  EE 12                 65  	XRI	IMM
+0058  BF                    66  	CMP	A
+0059  B8                    67  	CMP	B
+005A  BE                    68  	CMP	M
+005B  FE 12                 69  	CPI	IMM
+005D  07                    70  	RLC
+005E  0F                    71  	RRC
+005F  17                    72  	RAL
+0060  1F                    73  	RAR
+0061  2F                    74  	CMA
+0062  3F                    75  	CMC
+0063  37                    76  	STC
+0064  C3 45 34              77  	JMP	EXT
+0067  CA 45 34              78  	JZ	EXT
+006A  C2 45 34              79  	JNZ	EXT
+006D  DA 45 34              80  	JC	EXT
+0070  D2 45 34              81  	JNC	EXT
+0073  EA 45 34              82  	JPE	EXT
+0076  E2 45 34              83  	JPO	EXT
+0079  FA 45 34              84  	JM	EXT
+007C  F2 45 34              85  	JP	EXT
+007F  CD 45 34              86  	CALL	EXT
+0082  CC 45 34              87  	CZ	EXT
+0085  C4 45 34              88  	CNZ	EXT
+0088  DC 45 34              89  	CC	EXT
+008B  D4 45 34              90  	CNC	EXT
+008E  EC 45 34              91  	CPE	EXT
+0091  E4 45 34              92  	CPO	EXT
+0094  FC 45 34              93  	CM	EXT
+0097  F4 45 34              94  	CP	EXT
+009A  C9                    95  	RET
+009B  C8                    96  	RZ
+009C  C0                    97  	RNZ
+009D  D8                    98  	RC
+009E  D0                    99  	RNC
+009F  E8                   100  	RPE
+00A0  E0                   101  	RPO
+00A1  F8                   102  	RM
+00A2  F0                   103  	RP
+00A3  C7                   104  	RST	0
+00A4  CF                   105  	RST	1
+00A5  D7                   106  	RST	2
+00A6  DF                   107  	RST	3
+00A7  E7                   108  	RST	4
+00A8  EF                   109  	RST	5
+00A9  F7                   110  	RST	6
+00AA  FF                   111  	RST	7
+00AB  F5                   112  	PUSH	PSW
+00AC  C5                   113  	PUSH	B
+00AD  D5                   114  	PUSH	D
+00AE  E5                   115  	PUSH	H
+00AF  F1                   116  	POP	PSW
+DUNFIELD 8085 ASSEMBLER: 8085                                         PAGE: 3
+
+00B0  C1                   117  	POP	B
+00B1  D1                   118  	POP	D
+00B2  E1                   119  	POP	H
+00B3  EB                   120  	XCHG
+00B4  E3                   121  	XTHL
+00B5  F9                   122  	SPHL
+00B6  E9                   123  	PCHL
+00B7  DB 12                124  	IN	IMM
+00B9  D3 12                125  	OUT	IMM
+00BB  FB                   126  	EI
+00BC  F3                   127  	DI
+00BD  76                   128  	HLT
+00BE  00                   129  	NOP
+00BF  20                   130  	RIM
+00C0  30                   131  	SIM
+00C1  76                   132  	HLT

@@ -1,0 +1,16 @@
+DUNFIELD 8085 ASSEMBLER: IOTEST4                                      PAGE: 1
+
+0000  00                     1  START: 	NOP
+0001  3E 27                  2  		MVI A,27H
+0003  32 00 08               3  		STA 800H
+0006  32 00 7F               4  		STA 7F00H
+0009                         5  		
+0009  3E 00                  6  		MVI A,0H
+000B  3A 01 7F               7  		LDA 7F01H
+000E  32 01 08               8  		STA 801H
+0011  32 00 7F               9  		STA 7F00H
+0014                        10  		
+0014  3E AA                 11  		MVI A,0AAH
+0016  32 02 7F              12  		STA 7F02H
+0019  00                    13  ETERNAL: 	NOP
+001A  C3 00 00              14  			JMP START

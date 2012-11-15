@@ -1,0 +1,5 @@
+DUNFIELD 8085 ASSEMBLER: test                                         PAGE: 1
+
+0000  3E 55                  1  START:	MVI A,55H
+0002  32 00 20               2  	STA 2000H
+0005  C3 00 00               3  	JMP START

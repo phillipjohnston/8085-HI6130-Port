@@ -1,0 +1,106 @@
+func0 EQU *
+ LXI H,?0+0
+?1 EQU *
+ RET
+func1 EQU *
+ LXI H,?0+5
+?2 EQU *
+ RET
+func2 EQU *
+ LXI H,?0+9
+?3 EQU *
+ RET
+func3 EQU *
+ LXI H,?0+13
+?4 EQU *
+ RET
+func4 EQU *
+ LXI H,?0+19
+?5 EQU *
+ RET
+func5 EQU *
+ LXI H,?0+24
+?6 EQU *
+ RET
+func6 EQU *
+ LXI H,?0+29
+?7 EQU *
+ RET
+func7 EQU *
+ LXI H,?0+33
+?8 EQU *
+ RET
+func8 EQU *
+ LXI H,?0+39
+?9 EQU *
+ RET
+func9 EQU *
+ LXI H,?0+45
+?10 EQU *
+ RET
+func_table DW func0,func1,func2,func3,func4,func5
+ DW func6,func7,func8,func9,func10
+main PUSH B
+ LXI H,0
+ LXI B,2
+ CALL ?pstkw
+?11 EQU *
+ LXI H,2
+ CALL ?gstkw
+ MOV B,H
+ MOV C,L
+ LXI H,11
+ CALL ?lt
+ MOV A,H
+ ORA L
+ JZ ?12
+ JMP ?13
+?14 EQU *
+ LXI H,2
+ CALL ?gstkw
+ INX H
+ LXI B,2
+ CALL ?pstkw
+ JMP ?11
+?13 EQU *
+ LXI H,?0+50
+ PUSH H
+ LXI H,4
+ CALL ?gstkw
+ PUSH H
+ LXI H,6
+ CALL ?gstkw
+ MOV B,H
+ MOV C,L
+ LXI H,2
+ CALL ?mul
+ LXI D,func_table
+ DAD D
+ XCHG
+ XCHG
+ CALL ?gind_h
+ XCHG
+ PUSH D
+ POP H
+ CALL ?idcall
+ PUSH H
+ LXI H,3
+ CALL printf
+ POP B
+ POP B
+ POP B
+ JMP ?14
+?12 EQU *
+ POP B
+ RET
+func10 EQU *
+ LXI H,?0+67
+?15 EQU *
+ RET
+?0 DB 90,101,114,111,0,79,110,101,0,84,119,111,0,84,104,114
+ DB 101,101,0,70,111,117,114,0,70,105,118,101,0,83,105,120
+ DB 0,83,101,118,101,110,0,69,105,103,104,116,0,78,105,110
+ DB 101,0,102,117,110,99,37,117,40,41,32,61,32,39,37,115
+ DB 39,10,0,76,97,115,116,32,102,117,110,99,116,105,111,110
+ DB 32,105,110,32,116,97,98,108,101,0
+$EX:printf

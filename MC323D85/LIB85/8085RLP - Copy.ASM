@@ -5,11 +5,15 @@
 * Copyright 1991-2005 Dave Dunfield
 * All rights reserved.
 *
-	ORG	$0		Place code in memory here
-	LXI	SP,$2000	Initial stack goes here
+	ORG	$4000		Place code in memory here
+	LXI	SP,$6000	Initial stack goes here
 	XRA	A		Get a ZERO
 	STA	?heap		Initialize the heap
 	CALL	main		Execute user program
+* Return to MON85 by issuing a RESTART 1 instruction, which is MON85's
+* 'breakpoint' handler. This will save the user registers, and perform
+* a context switch back to the monitor.
+exit	RST	1		Enter monitor
 * Get byte from stack variable: L = [SP+i]
 ?gstkbi	POP	H		HL = Stack
 	MOV	A,M		Get value

@@ -345,4 +345,166 @@ nargs	RET
 ?ucomp1	LXI	H,1		Assume TRUE
 	RET
 * Temporary location used by compiler and "?mod"
-$DD:?temp 2
+*/*
+** test.c
+**/
+*
+*#define HOLT_BASE_ADDR (0x8000)
+*
+*int main(void)
+*{
+*	unsigned int t0;
+*	unsigned int t1;
+*	unsigned int t[2];
+*	unsigned int * t0_ptr;
+*	unsigned int * t1_ptr;
+*	unsigned int * t_ptr;
+*	
+*	t0 = 0xBECE;
+main LXI H,-14
+ DAD SP
+ SPHL
+ LXI H,-16690
+ LXI B,2
+ CALL ?pstkw
+*	t1	= 0xFDAD;
+ LXI H,-595
+ LXI B,4
+ CALL ?pstkw
+*	t[0] = 0xBECE;
+ LXI H,0
+ LXI D,4
+ XCHG
+ DAD SP
+ XCHG
+ DAD D
+ XCHG
+ LXI H,-16690
+ CALL ?pind_d
+*	t[1] = 0xFDAD;
+ LXI H,2
+ LXI D,4
+ XCHG
+ DAD SP
+ XCHG
+ DAD D
+ XCHG
+ LXI H,-595
+ CALL ?pind_d
+*	t0_ptr = (unsigned int *) (HOLT_BASE_ADDR);
+ LXI H,-32768
+ LXI B,10
+ CALL ?pstkw
+*	t1_ptr = (unsigned int *) (HOLT_BASE_ADDR + sizeof(unsigned int));
+ LXI H,-32766
+ LXI B,12
+ CALL ?pstkw
+*	t_ptr = t0_ptr;
+ LXI H,10
+ CALL ?gstkw
+ LXI B,14
+ CALL ?pstkw
+*	t0 = *t0_ptr;
+ XCHG
+ LXI H,10
+ CALL ?gstkw
+ XCHG
+ CALL ?gind_d
+ LXI B,2
+ CALL ?pstkw
+*	
+*	
+*	
+*	*t0_ptr = t0;
+ XCHG
+ LXI H,10
+ CALL ?gstkw
+ XCHG
+ LXI H,2
+ CALL ?gstkw
+ CALL ?pind_d
+*	*t1_ptr = t1;
+ XCHG
+ LXI H,12
+ CALL ?gstkw
+ XCHG
+ LXI H,4
+ CALL ?gstkw
+ CALL ?pind_d
+*	
+*	*t0_ptr = 0;
+ XCHG
+ LXI H,10
+ CALL ?gstkw
+ XCHG
+ LXI H,0
+ CALL ?pind_d
+*	*t1_ptr = 1;
+ XCHG
+ LXI H,12
+ CALL ?gstkw
+ XCHG
+ LXI H,1
+ CALL ?pind_d
+*	
+*	t_ptr[0] = t[0];
+ LXI H,0
+ XCHG
+ LXI H,14
+ CALL ?gstkw
+ XCHG
+ DAD D
+ XCHG
+ PUSH D
+ LXI H,0
+ LXI D,6
+ XCHG
+ DAD SP
+ XCHG
+ DAD D
+ XCHG
+ CALL ?gind_d
+ POP B
+ CALL ?pind_b
+*	t_ptr[1] = t[1];
+ LXI H,2
+ XCHG
+ LXI H,14
+ CALL ?gstkw
+ XCHG
+ DAD D
+ XCHG
+ PUSH D
+ LXI H,2
+ LXI D,6
+ XCHG
+ DAD SP
+ XCHG
+ DAD D
+ XCHG
+ CALL ?gind_d
+ POP B
+ CALL ?pind_b
+*
+*	while(1){};
+?AB1 EQU *
+ JMP ?AB1
+?AB2 EQU *
+*	
+*	return 0;
+ LXI H,0
+*}
+?AB3 EQU *
+ XCHG
+ LXI H,14
+ DAD SP
+ SPHL
+ XCHG
+ RET
+*#map1 Set address of un-initialized variables
+* If you are compiling for ROM, uncomment the following ORG statement,
+* and adjust its address to the beginning of available RAM.
+*	ORG	$xxxx		RAM begins here
+?temp DS 2
+* Begin the system heap following all other & data
+?heap	EQU	*

@@ -1,3 +1,5 @@
+T_ADDR NOTES
+
 *#cpu 8085
 *
 * DDS MICRO-C 8080/85/Z80 Startup Code and Runtime library
@@ -6,7 +8,6 @@
 * All rights reserved.
 *
 	ORG	$0		Place code in memory here
-	NOP
 	NOP
 	NOP
 	LXI	SP,$2000	Initial stack goes here
@@ -348,6 +349,18 @@ nargs	RET
 ?ucomp1	LXI	H,1		Assume TRUE
 	RET
 * Temporary location used by compiler and "?mod"
+*#file T_ADDR.C
+*3:
+*4:
+*6:
+*7:int main(void)
+*8:{
+*9:	unsigned int t0;
+*10:	unsigned int t1;
+*11:	unsigned int * t0_ptr;
+*12:	unsigned int * t1_ptr;
+*13:	
+*14:	t0 = 0xBECE;
 main PUSH B
  PUSH B
  PUSH B
@@ -355,15 +368,20 @@ main PUSH B
  LXI H,-16690
  LXI B,2
  CALL ?pstkw
+*15:	t1	= 0xFDAD;
  LXI H,-595
  LXI B,4
  CALL ?pstkw
+*16:	t0_ptr = (unsigned int *) 0x8000;
  LXI H,-32768
  LXI B,6
  CALL ?pstkw
+*17:	t1_ptr = (unsigned int *) (0x8000 + sizeof(unsigned int));
  LXI H,-32766
  LXI B,8
  CALL ?pstkw
+*18:	
+*19:	*t0_ptr = t0;
  XCHG
  LXI H,6
  CALL ?gstkw
@@ -371,6 +389,7 @@ main PUSH B
  LXI H,2
  CALL ?gstkw
  CALL ?pind_d
+*20:	*t1_ptr = t1;
  XCHG
  LXI H,8
  CALL ?gstkw
@@ -378,10 +397,15 @@ main PUSH B
  LXI H,4
  CALL ?gstkw
  CALL ?pind_d
+*21:
+*22:	while(1){};
 ?AB1 EQU *
  JMP ?AB1
 ?AB2 EQU *
+*23:	
+*24:	return 0;
  LXI H,0
+*25:}
 ?AB3 EQU *
  POP B
  POP B

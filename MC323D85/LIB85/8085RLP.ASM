@@ -6,6 +6,11 @@
 * All rights reserved.
 *
 	ORG	$0		Place code in memory here
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
 	LXI	SP,$2000	Initial stack goes here
 	XRA	A		Get a ZERO
 	STA	?heap		Initialize the heap

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<infocenter_data version="1.0">
+  <iar_name>basic-usart-hw-handshaking-project</iar_name>                    <!--App-->
+  <iar_description>Regulates the speed of a USART file transfer using RTS/CTS hardware handshaking. </iar_description>  <!--App short description-->
+  <iar_curdir>$CUR_DIR$</iar_curdir>
+</infocenter_data>

@@ -1,0 +1,316 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:42:30 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\tc\tc #
+#                    .c                                                       #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\tc\tc #
+#                    .c" -D at91sam3u4 -D flash -D TRACE_LEVEL=4 -D BC_ena=1  #
+#                    -D RT2_ena=0 -D RT1_ena=0 -D SMT_ena=0 -D IMT_ena=0 -lC  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\List\" --remarks     #
+#                    --diag_suppress Pe826,Pe1375,Pe068 -o "C:\Program        #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\Obj\" --no_cse       #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\List\tc.lst          #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\Obj\tc.o             #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91lib\peripherals\tc\tc.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2008, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          //------------------------------------------------------------------------------
+     31          //         Headers
+     32          //------------------------------------------------------------------------------
+     33          
+     34          #include "tc.h"
+     35          
+     36          //------------------------------------------------------------------------------
+     37          //         Global Functions
+     38          //------------------------------------------------------------------------------
+     39          
+     40          //------------------------------------------------------------------------------
+     41          /// Configures a Timer Counter to operate in the given mode. Timer is stopped
+     42          /// after configuration and must be restarted with TC_Start(). All the
+     43          /// interrupts of the timer are also disabled.
+     44          /// \param pTc  Pointer to an AT91S_TC instance.
+     45          /// \param mode  Operating mode (TC_CMR value).
+     46          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     47          void TC_Configure(AT91S_TC *pTc, unsigned int mode)
+     48          {
+     49              // Disable TC clock
+     50              pTc->TC_CCR = AT91C_TC_CLKDIS;
+   \                     TC_Configure:
+   \   00000000   0222               MOVS     R2,#+2
+   \   00000002   0260               STR      R2,[R0, #+0]
+     51          
+     52              // Disable interrupts
+     53              pTc->TC_IDR = 0xFFFFFFFF;
+   \   00000004   5FF0FF32           MOVS     R2,#-1
+   \   00000008   8262               STR      R2,[R0, #+40]
+     54          
+     55              // Clear status register
+     56              pTc->TC_SR;
+   \   0000000A   026A               LDR      R2,[R0, #+32]
+     57          
+     58              // Set mode
+     59              pTc->TC_CMR = mode;
+   \   0000000C   4160               STR      R1,[R0, #+4]
+     60          }
+   \   0000000E   7047               BX       LR               ;; return
+     61          
+     62          //------------------------------------------------------------------------------
+     63          /// Enables the timer clock and performs a software reset to start the counting.
+     64          /// \param pTc  Pointer to an AT91S_TC instance.
+     65          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     66          void TC_Start(AT91S_TC *pTc)
+     67          {
+     68              pTc->TC_CCR = AT91C_TC_CLKEN | AT91C_TC_SWTRG;
+   \                     TC_Start:
+   \   00000000   0521               MOVS     R1,#+5
+   \   00000002   0160               STR      R1,[R0, #+0]
+     69          }
+   \   00000004   7047               BX       LR               ;; return
+     70          
+     71          //------------------------------------------------------------------------------
+     72          /// Disables the timer clock, stopping the counting.
+     73          /// \param pTc  Pointer to an AT91S_TC instance.
+     74          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     75          void TC_Stop(AT91S_TC *pTc)
+     76          {
+     77              pTc->TC_CCR = AT91C_TC_CLKDIS;
+   \                     TC_Stop:
+   \   00000000   0221               MOVS     R1,#+2
+   \   00000002   0160               STR      R1,[R0, #+0]
+     78          }
+   \   00000004   7047               BX       LR               ;; return
+     79          
+     80          //------------------------------------------------------------------------------
+     81          /// Finds the best MCK divisor given the timer frequency and MCK. The result
+     82          /// is guaranteed to satisfy the following equation:
+     83          /// \pre
+     84          ///   (MCK / (DIV * 65536)) <= freq <= (MCK / DIV)
+     85          /// \endpre
+     86          /// with DIV being the highest possible value.
+     87          /// \param freq  Desired timer frequency.
+     88          /// \param mck  Master clock frequency.
+     89          /// \param div  Divisor value.
+     90          /// \param tcclks  TCCLKS field value for divisor.
+     91          /// \return 1 if a proper divisor has been found; otherwise 0.
+     92          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     93          unsigned char TC_FindMckDivisor(
+     94              unsigned int freq,
+     95              unsigned int mck,
+     96              unsigned int *div,
+     97              unsigned int *tcclks)
+     98          {
+   \                     TC_FindMckDivisor:
+   \   00000000   2DE9F041           PUSH     {R4-R8,LR}
+   \   00000004   85B0               SUB      SP,SP,#+20
+   \   00000006   0400               MOVS     R4,R0
+   \   00000008   0D00               MOVS     R5,R1
+   \   0000000A   1600               MOVS     R6,R2
+   \   0000000C   1F00               MOVS     R7,R3
+     99              unsigned int index = 0;
+   \   0000000E   5FF00008           MOVS     R8,#+0
+    100              unsigned int divisors[5] = {2, 8, 32, 128,
+    101          #if defined(at91sam9260) || defined(at91sam9261) || defined(at91sam9g10) || defined(at91sam9263) \
+    102              || defined(at91sam9xe) || defined(at91sam9rl64) || defined(at91cap9) \
+    103              || defined(at91sam9m10) || defined(at91sam9m11) || defined(at91sam3u4)
+    104                  0};
+   \   00000012   00A8               ADD      R0,SP,#+0
+   \   00000014   ....               LDR.N    R1,??DataTable0
+   \   00000016   1422               MOVS     R2,#+20
+   \   00000018   ........           BL       __aeabi_memcpy4
+    105              divisors[4] = mck / 32768;
+   \   0000001C   E80B               LSRS     R0,R5,#+15
+   \   0000001E   0490               STR      R0,[SP, #+16]
+    106          #else
+    107                  1024};
+    108          #endif
+    109          
+    110              // Satisfy lower bound
+    111              while (freq < ((mck / divisors[index]) / 65536)) {
+   \                     ??TC_FindMckDivisor_0:
+   \   00000020   00A8               ADD      R0,SP,#+0
+   \   00000022   50F82800           LDR      R0,[R0, R8, LSL #+2]
+   \   00000026   B5FBF0F0           UDIV     R0,R5,R0
+   \   0000002A   B4EB104F           CMP      R4,R0, LSR #+16
+   \   0000002E   06D2               BCS.N    ??TC_FindMckDivisor_1
+    112          
+    113                  index++;
+   \   00000030   18F10108           ADDS     R8,R8,#+1
+    114          
+    115                  // If no divisor can be found, return 0
+    116                  if (index == 5) {
+   \   00000034   B8F1050F           CMP      R8,#+5
+   \   00000038   F2D1               BNE.N    ??TC_FindMckDivisor_0
+    117          
+    118                      return 0;
+   \   0000003A   0020               MOVS     R0,#+0
+   \   0000003C   18E0               B.N      ??TC_FindMckDivisor_2
+    119                  }
+    120              }
+    121          
+    122              // Try to maximise DIV while satisfying upper bound
+    123              while (index < 4) {
+   \                     ??TC_FindMckDivisor_1:
+   \   0000003E   B8F1040F           CMP      R8,#+4
+   \   00000042   0AD2               BCS.N    ??TC_FindMckDivisor_3
+    124          
+    125                  if (freq > (mck / divisors[index + 1])) {
+   \   00000044   00A8               ADD      R0,SP,#+0
+   \   00000046   10EB8800           ADDS     R0,R0,R8, LSL #+2
+   \   0000004A   4068               LDR      R0,[R0, #+4]
+   \   0000004C   B5FBF0F0           UDIV     R0,R5,R0
+   \   00000050   A042               CMP      R0,R4
+   \   00000052   02D3               BCC.N    ??TC_FindMckDivisor_3
+    126          
+    127                      break;
+    128                  }
+    129                  index++;
+   \                     ??TC_FindMckDivisor_4:
+   \   00000054   18F10108           ADDS     R8,R8,#+1
+   \   00000058   F1E7               B.N      ??TC_FindMckDivisor_1
+    130              }
+    131          
+    132              // Store results
+    133              if (div) {
+   \                     ??TC_FindMckDivisor_3:
+   \   0000005A   002E               CMP      R6,#+0
+   \   0000005C   03D0               BEQ.N    ??TC_FindMckDivisor_5
+    134          
+    135                  *div = divisors[index];
+   \   0000005E   00A8               ADD      R0,SP,#+0
+   \   00000060   50F82800           LDR      R0,[R0, R8, LSL #+2]
+   \   00000064   3060               STR      R0,[R6, #+0]
+    136              }
+    137              if (tcclks) {
+   \                     ??TC_FindMckDivisor_5:
+   \   00000066   002F               CMP      R7,#+0
+   \   00000068   01D0               BEQ.N    ??TC_FindMckDivisor_6
+    138          
+    139                  *tcclks = index;
+   \   0000006A   C7F80080           STR      R8,[R7, #+0]
+    140              }
+    141          
+    142              return 1;
+   \                     ??TC_FindMckDivisor_6:
+   \   0000006E   0120               MOVS     R0,#+1
+   \                     ??TC_FindMckDivisor_2:
+   \   00000070   05B0               ADD      SP,SP,#+20
+   \   00000072   BDE8F081           POP      {R4-R8,PC}       ;; return
+    143          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0:
+   \   00000000   ........           DC32     `?<Constant {2, 8, 32, 128, 0}>`
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {2, 8, 32, 128, 0}>`:
+   \   00000000   020000000800       DC32 2, 8, 32, 128, 0
+   \              000020000000
+   \              800000000000
+   \              0000        
+    144          
+
+   Maximum stack usage in bytes:
+
+     Function          .cstack
+     --------          -------
+     TC_Configure           0
+     TC_FindMckDivisor     44
+     TC_Start               0
+     TC_Stop                0
+
+
+   Section sizes:
+
+     Function/Label                 Bytes
+     --------------                 -----
+     TC_Configure                     16
+     TC_Start                          6
+     TC_Stop                           6
+     TC_FindMckDivisor               118
+     ??DataTable0                      4
+     ?<Constant {2, 8, 32, 128, 0}>   20
+
+ 
+  20 bytes in section .rodata
+ 150 bytes in section .text
+ 
+ 150 bytes of CODE  memory
+  20 bytes of CONST memory
+
+Errors: none
+Warnings: none

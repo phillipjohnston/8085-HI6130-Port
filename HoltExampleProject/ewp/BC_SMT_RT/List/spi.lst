@@ -1,0 +1,373 @@
+###############################################################################
+#                                                                             #
+#                                                       05/Jun/2012  15:22:04 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\spi\s #
+#                    pi.c                                                     #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\spi\s #
+#                    pi.c" -D at91sam3u4 -D flash -D TRACE_LEVEL=4 -D         #
+#                    BC_ena=1 -D RT2_ena=1 -D RT1_ena=1 -D SMT_ena=1 -D       #
+#                    IMT_ena=0 -lC "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-40 EBI Demo 2_0\ewp\BC_SMT_RT\List\"     #
+#                    --remarks --diag_suppress Pe826,Pe1375,Pe068 -o          #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 2_0\ewp\BC_SMT_RT\Obj\" --no_cse     #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 2_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 2_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 2_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 2_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 2_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 2_0\ewp\BC_SMT_RT\List\spi.lst       #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 2_0\ewp\BC_SMT_RT\Obj\spi.o          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91lib\peripherals\spi\spi.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2008, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          //------------------------------------------------------------------------------
+     31          //         Headers
+     32          //------------------------------------------------------------------------------
+     33          
+     34          #include "spi.h"
+     35          
+     36          //------------------------------------------------------------------------------
+     37          //         Exported functions
+     38          //------------------------------------------------------------------------------
+     39          //------------------------------------------------------------------------------
+     40          /// Enables a SPI peripheral
+     41          /// \param spi  Pointer to an AT91S_SPI instance.
+     42          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     43          void SPI_Enable(AT91S_SPI *spi)
+     44          {
+     45              spi->SPI_CR = AT91C_SPI_SPIEN;
+   \                     SPI_Enable:
+   \   00000000   0121               MOVS     R1,#+1
+   \   00000002   0160               STR      R1,[R0, #+0]
+     46          }
+   \   00000004   7047               BX       LR               ;; return
+     47          
+     48          //------------------------------------------------------------------------------
+     49          /// Disables a SPI peripheral.
+     50          /// \param spi  Pointer to an AT91S_SPI instance.
+     51          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     52          void SPI_Disable(AT91S_SPI *spi)
+     53          {
+     54              spi->SPI_CR = AT91C_SPI_SPIDIS;
+   \                     SPI_Disable:
+   \   00000000   0221               MOVS     R1,#+2
+   \   00000002   0160               STR      R1,[R0, #+0]
+     55          }
+   \   00000004   7047               BX       LR               ;; return
+     56          
+     57          //------------------------------------------------------------------------------
+     58          /// Configures a SPI peripheral as specified. The configuration can be computed
+     59          /// using several macros (see "SPI configuration macros") and the constants
+     60          /// defined in LibV3 (AT91C_SPI_*).
+     61          /// \param spi  Pointer to an AT91S_SPI instance.
+     62          /// \param id  Peripheral ID of the SPI.
+     63          /// \param configuration  Value of the SPI configuration register.
+     64          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     65          void SPI_Configure(AT91S_SPI *spi,
+     66                                    unsigned int id,
+     67                                    unsigned int configuration)
+     68          {
+   \                     SPI_Configure:
+   \   00000000   10B4               PUSH     {R4}
+     69              AT91C_BASE_PMC->PMC_PCER = 1 << id;
+   \   00000002   0123               MOVS     R3,#+1
+   \   00000004   8B40               LSLS     R3,R3,R1
+   \   00000006   ....               LDR.N    R4,??DataTable0  ;; 0x400e0410
+   \   00000008   2360               STR      R3,[R4, #+0]
+     70              spi->SPI_CR = AT91C_SPI_SPIDIS;
+   \   0000000A   0223               MOVS     R3,#+2
+   \   0000000C   0360               STR      R3,[R0, #+0]
+     71              // Execute a software reset of the SPI twice
+     72              spi->SPI_CR = AT91C_SPI_SWRST;
+   \   0000000E   8023               MOVS     R3,#+128
+   \   00000010   0360               STR      R3,[R0, #+0]
+     73              spi->SPI_CR = AT91C_SPI_SWRST;
+   \   00000012   8023               MOVS     R3,#+128
+   \   00000014   0360               STR      R3,[R0, #+0]
+     74              spi->SPI_MR = configuration;
+   \   00000016   4260               STR      R2,[R0, #+4]
+     75          }
+   \   00000018   10BC               POP      {R4}
+   \   0000001A   7047               BX       LR               ;; return
+     76          
+     77          //------------------------------------------------------------------------------
+     78          /// Configures a chip select of a SPI peripheral. The chip select configuration
+     79          /// is computed using the definition provided by the LibV3 (AT91C_SPI_*).
+     80          /// \param spi  Pointer to an AT91S_SPI instance.
+     81          /// \param npcs  Chip select to configure (1, 2, 3 or 4).
+     82          /// \param configuration  Desired chip select configuration.
+     83          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     84          void SPI_ConfigureNPCS(AT91S_SPI *spi,
+     85                                        unsigned int npcs,
+     86                                        unsigned int configuration)
+     87          {
+     88              spi->SPI_CSR[npcs] = configuration;
+   \                     SPI_ConfigureNPCS:
+   \   00000000   10EB8103           ADDS     R3,R0,R1, LSL #+2
+   \   00000004   1A63               STR      R2,[R3, #+48]
+     89          }
+   \   00000006   7047               BX       LR               ;; return
+     90          
+     91          //------------------------------------------------------------------------------
+     92          /// Sends data through a SPI peripheral. If the SPI is configured to use a fixed
+     93          /// peripheral select, the npcs value is meaningless. Otherwise, it identifies
+     94          /// the component which shall be addressed.
+     95          /// \param spi  Pointer to an AT91S_SPI instance.
+     96          /// \param npcs  Chip select of the component to address (1, 2, 3 or 4).
+     97          /// \param data  Word of data to send.
+     98          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     99          void SPI_Write(AT91S_SPI *spi, unsigned int npcs, unsigned short data)
+    100          {
+    101              // Discard contents of RDR register
+    102              //volatile unsigned int discard = spi->SPI_RDR;
+    103          
+    104              // Send data
+    105              while ((spi->SPI_SR & AT91C_SPI_TXEMPTY) == 0);
+   \                     SPI_Write:
+   \                     ??SPI_Write_0:
+   \   00000000   0369               LDR      R3,[R0, #+16]
+   \   00000002   9B05               LSLS     R3,R3,#+22
+   \   00000004   FCD5               BPL.N    ??SPI_Write_0
+    106              spi->SPI_TDR = data | SPI_PCS(npcs);
+   \   00000006   92B2               UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000008   0123               MOVS     R3,#+1
+   \   0000000A   8B40               LSLS     R3,R3,R1
+   \   0000000C   DB43               MVNS     R3,R3
+   \   0000000E   13F00F03           ANDS     R3,R3,#0xF
+   \   00000012   52EA0343           ORRS     R3,R2,R3, LSL #+16
+   \   00000016   C360               STR      R3,[R0, #+12]
+    107              while ((spi->SPI_SR & AT91C_SPI_TDRE) == 0);
+   \                     ??SPI_Write_1:
+   \   00000018   0369               LDR      R3,[R0, #+16]
+   \   0000001A   9B07               LSLS     R3,R3,#+30
+   \   0000001C   FCD5               BPL.N    ??SPI_Write_1
+    108          }
+   \   0000001E   7047               BX       LR               ;; return
+    109          
+    110          //------------------------------------------------------------------------------
+    111          /// Sends the contents of buffer through a SPI peripheral, using the PDC to
+    112          /// take care of the transfer.
+    113          /// \param spi  Pointer to an AT91S_SPI instance.
+    114          /// \param buffer  Data buffer to send.
+    115          /// \param length  Length of the data buffer.
+    116          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    117          unsigned char SPI_WriteBuffer(AT91S_SPI *spi,
+    118                                               void *buffer,
+    119                                               unsigned int length)
+    120          {
+   \                     SPI_WriteBuffer:
+   \   00000000   0300               MOVS     R3,R0
+    121          #if !defined(CHIP_SPI_DMA)
+    122              // Check if first bank is free
+    123              if (spi->SPI_TCR == 0) {
+    124          
+    125                  spi->SPI_TPR = (unsigned int) buffer;
+    126                  spi->SPI_TCR = length;
+    127                  spi->SPI_PTCR = AT91C_PDC_TXTEN;
+    128                  return 1;
+    129              }
+    130              // Check if second bank is free
+    131              else if (spi->SPI_TNCR == 0) {
+    132          
+    133                  spi->SPI_TNPR = (unsigned int) buffer;
+    134                  spi->SPI_TNCR = length;
+    135                  return 1;
+    136              }
+    137          #endif      
+    138              // No free banks
+    139              return 0;
+   \   00000002   0020               MOVS     R0,#+0
+   \   00000004   7047               BX       LR               ;; return
+    140          }
+    141          
+    142          //------------------------------------------------------------------------------
+    143          /// Returns 1 if there is no pending write operation on the SPI; otherwise
+    144          /// returns 0.
+    145          /// \param pSpi  Pointer to an AT91S_SPI instance.
+    146          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    147          unsigned char SPI_IsFinished(AT91S_SPI *pSpi)
+    148          {
+    149              return ((pSpi->SPI_SR & AT91C_SPI_TXEMPTY) != 0);
+   \                     SPI_IsFinished:
+   \   00000000   0069               LDR      R0,[R0, #+16]
+   \   00000002   C0F34020           UBFX     R0,R0,#+9,#+1
+   \   00000006   10F00100           ANDS     R0,R0,#0x1
+   \   0000000A   7047               BX       LR               ;; return
+    150          }
+    151          
+    152          //------------------------------------------------------------------------------
+    153          /// Reads and returns the last word of data received by a SPI peripheral. This
+    154          /// method must be called after a successful SPI_Write call.
+    155          /// \param spi  Pointer to an AT91S_SPI instance.
+    156          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    157          unsigned short SPI_Read(AT91S_SPI *spi)
+    158          {
+    159              while ((spi->SPI_SR & AT91C_SPI_RDRF) == 0);
+   \                     SPI_Read:
+   \                     ??SPI_Read_0:
+   \   00000000   0169               LDR      R1,[R0, #+16]
+   \   00000002   C907               LSLS     R1,R1,#+31
+   \   00000004   FCD5               BPL.N    ??SPI_Read_0
+    160              return spi->SPI_RDR & 0xFFFF;
+   \   00000006   8068               LDR      R0,[R0, #+8]
+   \   00000008   80B2               UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000000A   7047               BX       LR               ;; return
+    161          }
+    162          
+    163          //------------------------------------------------------------------------------
+    164          /// Reads data from a SPI peripheral until the provided buffer is filled. This
+    165          /// method does NOT need to be called after SPI_Write or SPI_WriteBuffer.
+    166          /// \param spi  Pointer to an AT91S_SPI instance.
+    167          /// \param buffer  Data buffer to store incoming bytes.
+    168          /// \param length  Length in bytes of the data buffer.
+    169          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    170          unsigned char SPI_ReadBuffer(AT91S_SPI *spi,
+    171                                              void *buffer,
+    172                                              unsigned int length)
+    173          {
+   \                     SPI_ReadBuffer:
+   \   00000000   0300               MOVS     R3,R0
+    174          #if !defined(CHIP_SPI_DMA)
+    175              // Check if the first bank is free
+    176              if (spi->SPI_RCR == 0) {
+    177          
+    178                  spi->SPI_RPR = (unsigned int) buffer;
+    179                  spi->SPI_RCR = length;
+    180                  spi->SPI_PTCR = AT91C_PDC_RXTEN;
+    181                  return 1;
+    182              }
+    183              // Check if second bank is free
+    184              else if (spi->SPI_RNCR == 0) {
+    185          
+    186                  spi->SPI_RNPR = (unsigned int) buffer;
+    187                  spi->SPI_RNCR = length;
+    188                  return 1;
+    189              }
+    190          #endif
+    191              // No free bank
+    192              return 0;
+   \   00000002   0020               MOVS     R0,#+0
+   \   00000004   7047               BX       LR               ;; return
+    193          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable0:
+   \   00000000   10040E40           DC32     0x400e0410
+    194          
+
+   Maximum stack usage in bytes:
+
+     Function          .cstack
+     --------          -------
+     SPI_Configure          4
+     SPI_ConfigureNPCS      0
+     SPI_Disable            0
+     SPI_Enable             0
+     SPI_IsFinished         0
+     SPI_Read               0
+     SPI_ReadBuffer         0
+     SPI_Write              0
+     SPI_WriteBuffer        0
+
+
+   Section sizes:
+
+     Function/Label    Bytes
+     --------------    -----
+     SPI_Enable           6
+     SPI_Disable          6
+     SPI_Configure       28
+     SPI_ConfigureNPCS    8
+     SPI_Write           32
+     SPI_WriteBuffer      6
+     SPI_IsFinished      12
+     SPI_Read            12
+     SPI_ReadBuffer       6
+     ??DataTable0         4
+
+ 
+ 120 bytes in section .text
+ 
+ 120 bytes of CODE memory
+
+Errors: none
+Warnings: none

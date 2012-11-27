@@ -1,0 +1,1812 @@
+###############################################################################
+#                                                                             #
+#                                                       17/May/2012  09:55:09 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\board_613x.c                   #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\board_613x.c" -D at91sam3u4    #
+#                    -D flash -D TRACE_LEVEL=4 -D HOST_BUS_INTERFACE=1 -D     #
+#                    BC_ena=1 -D RT2_ena=1 -D RT1_ena=1 -D SMT_ena=1 -D       #
+#                    IMT_ena=0 -lC "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\List\"    #
+#                    --remarks --diag_suppress Pe826,Pe1375,Pe068 -o          #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\" --no_cse    #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib/periphera #
+#                    ls\" -I "C:\Program Files\IAR Systems\Embedded           #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-31 Demo 1_3                              #
+#                    Combo\ewp\..\..\..\at91lib/components\" -I "C:\Program   #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib\" -I      #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\external_libs\"   #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench 6.0  #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib/boards/at #
+#                    91sam3u-ek\" --cpu_mode thumb -On --use_c++_inline       #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\List\board_613x.l #
+#                    st                                                       #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\board_613x.o  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt HI-6130-31 Demo 1_3 Combo\board_613x.c
+      1          /* ----------------------------------------------------------------------------
+      2           *                            HOLT Integrated Circuits 
+      3           * ----------------------------------------------------------------------------
+      4           *
+      5           *    file	board_613x.c
+      6           *    brief     This file contains functions applicable to all terminal modes
+      7           *              (BC, RT, SMT, IMT) in both Holt HI-6130 and HI-6131 projects.  
+      8           *
+      9           *		IMPORTANT: Edit file 613x_initialization.h to define either:
+     10           *
+     11           *		HOST_BUS_INTERFACE  YES  sets compilation for HI-6130 (bus)
+     12           *		 		    NO   sets compilation for HI-6131 (SPI)
+     13           *
+     14           *		Most functional procedures in this project are written for
+     15           *		both parallel bus or SPI host interface schemes, this runtime 
+     16           *		switch determines which are procedures are compiled.
+     17           *
+     18           *              IMPORTANT: Because register addressing differs for Bus and 
+     19           *              SPI interface, files "device_6130.h" and "device_6131.h" 
+     20           *              contain the definitions needed for register addressing.
+     21           *
+     22           *	   	HOLT DISCLAIMER
+     23           *      	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
+     24           *      	KIND, EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
+     25           *      	WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+     26           *      	PURPOSE AND NONINFRINGEMENT. 
+     27           *      	IN NO EVENT SHALL HOLT, INC BE LIABLE FOR ANY CLAIM, DAMAGES
+     28           *      	OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+     29           *      	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+     30           *      	SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+     31           *
+     32           *              Copyright (C) 2009-2011 by  HOLT, Inc.
+     33           *              All Rights Reserved
+     34           */
+     35          
+     36          
+     37          // standard Atmel/IAR headers
+     38          #include <pio/pio.h>
+     39          #include <pmc/pmc.h>
+     40          #include <intrinsics.h>
+     41          
+     42          // Holt project headers
+     43          #include "board_613x.h"
+     44          #include "613x_regs.h"
+     45          #include "613x_initialization.h"
+     46          
+     47          #if (HOST_BUS_INTERFACE)                    
+     48          #include "device_6130.h"
+     49          #include "board_6130.h"
+     50          extern const H6130 pH6130;
+     51          
+     52          #else // HOST SPI INTERFACE
+     53          #include "device_6131.h"
+     54          #include "board_6131.h"
+     55          #endif
+     56          
+     57          #if(CONSOLE_IO)
+     58          #include <stdio.h>
+     59          #include "console.h"
+     60          #endif
+     61          
+     62          
+     63          //------------------------------------------------------------------------------
+     64          /// Configure the PIO pins not used by ARM on-chip peripherals (USART, EBI, SPI).
+     65          /// This configures output pins used for HI-6130 control, LEDs, etc. and input
+     66          /// pins used for HI-6130 status, interrupts, DIP switches, pushbuttons, etc.
+     67          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     68          void ConfigureGpio(void)
+     69          {
+   \                     ConfigureGpio:
+   \   00000000   00B5               PUSH     {LR}
+   \   00000002   ADF5717D           SUB      SP,SP,#+964
+     70                 const Pin pins[] = {
+     71                 PINS_BUTTON, 
+     72                 PINS_DIPSW,
+     73                 PINS_6130STATUS,
+     74                 PINS_LED,
+     75                 PINS_6130CONTROL 
+     76               };
+   \   00000006   00A8               ADD      R0,SP,#+0
+   \   00000008   ........           LDR.W    R1,??DataTable11
+   \   0000000C   4FF47072           MOV      R2,#+960
+   \   00000010   ........           BL       __aeabi_memcpy4
+     77               
+     78              PIO_Configure(pins, PIO_LISTSIZE(pins));
+   \   00000014   1E21               MOVS     R1,#+30
+   \   00000016   00A8               ADD      R0,SP,#+0
+   \   00000018   ........           BL       PIO_Configure
+     79          }
+   \   0000001C   0DF5717D           ADD      SP,SP,#+964
+   \   00000020   00BD               POP      {PC}             ;; return
+     80          
+     81          //------------------------------------------------------------------------------
+     82          // This function generates an active low reset pulse for the HI-613x 
+     83          //------------------------------------------------------------------------------
+     84          // Return occurs when HI-613x READY output is asserted. If AUTOEN = 0, this 
+     85          // occurs after chip init and RAM test. If AUTOEN = 1, auto-initialization from
+     86          // the serial EEPROM adds additional time before READY assertion...
+
+   \                                 In section .text, align 2, keep-with-next
+     87          void reset_613x(void) {
+   \                     reset_613x:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   88B0               SUB      SP,SP,#+32
+     88            
+     89              const Pin pinREADY = PIN_READY;  
+   \   00000004   00A8               ADD      R0,SP,#+0
+   \   00000006   ....               LDR.N    R1,??DataTable11_1
+   \   00000008   2022               MOVS     R2,#+32
+   \   0000000A   ........           BL       __aeabi_memcpy4
+     90              char i = 1;
+   \   0000000E   0124               MOVS     R4,#+1
+     91              
+     92              // active low pulse
+     93              AT91C_BASE_PIOC->PIO_CODR = nMR;  
+   \   00000010   ....               LDR.N    R0,??DataTable11_2  ;; 0x400e1034
+   \   00000012   5FF00071           MOVS     R1,#+33554432
+   \   00000016   0160               STR      R1,[R0, #+0]
+     94              while (i--);       
+   \                     ??reset_613x_0:
+   \   00000018   2000               MOVS     R0,R4
+   \   0000001A   441E               SUBS     R4,R0,#+1
+   \   0000001C   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000001E   0028               CMP      R0,#+0
+   \   00000020   FAD1               BNE.N    ??reset_613x_0
+     95              AT91C_BASE_PIOC->PIO_SODR = nMR;  
+   \   00000022   ....               LDR.N    R0,??DataTable11_3  ;; 0x400e1030
+   \   00000024   5FF00071           MOVS     R1,#+33554432
+   \   00000028   0160               STR      R1,[R0, #+0]
+     96              
+     97              // wait for HI-613x READY assertion, then return
+     98              while (!PIO_Get(&pinREADY));		
+   \                     ??reset_613x_1:
+   \   0000002A   00A8               ADD      R0,SP,#+0
+   \   0000002C   ........           BL       PIO_Get
+   \   00000030   0028               CMP      R0,#+0
+   \   00000032   FAD0               BEQ.N    ??reset_613x_1
+     99          }
+   \   00000034   08B0               ADD      SP,SP,#+32
+   \   00000036   10BD               POP      {R4,PC}          ;; return
+    100          
+    101          //------------------------------------------------------------------------------
+    102          // This function determines whether auto-initialization occurred to load the
+    103          // HI-613x registers and RAM from serial EEPROM after Master Reset.
+    104          //------------------------------------------------------------------------------
+    105          //   *  If YES (auto-init occurred after reset) several error checks are performed. 
+    106          //      If errors are found, no return to the calling function (local error trapping). 
+    107          //      If error-free, function returns "0" to calling function.
+    108          //   *  If NO (auto-init was not performed) function returns "1" to calling function.
+    109          //
+    110          //   no return (error trap) if auto-init was performed with errors
+    111          //   otherwise returns a character:
+    112          //	1 (no auto-init occurred after /MR) 
+    113          //	0 (error-free auto-init was performed)
+    114          //
+
+   \                                 In section .text, align 2, keep-with-next
+    115          char autoinit_check(void) {
+   \                     autoinit_check:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   88B0               SUB      SP,SP,#+32
+    116          
+    117              const Pin pinAUTOEN = PIN_AUTOEN;
+   \   00000004   00A8               ADD      R0,SP,#+0
+   \   00000006   ....               LDR.N    R1,??DataTable11_4
+   \   00000008   2022               MOVS     R2,#+32
+   \   0000000A   ........           BL       __aeabi_memcpy4
+    118              unsigned short int read_value;
+    119          
+    120              // did we auto-initialize after master reset? (check for AUTOEN pin assertion)
+    121              if (!PIO_Get(&pinAUTOEN)) {
+   \   0000000E   00A8               ADD      R0,SP,#+0
+   \   00000010   ........           BL       PIO_Get
+   \   00000014   0028               CMP      R0,#+0
+   \   00000016   01D1               BNE.N    ??autoinit_check_0
+    122                  // NO, auto-initialize DID NOT occur after master reset
+    123          	return 1;
+   \   00000018   0120               MOVS     R0,#+1
+   \   0000001A   21E0               B.N      ??autoinit_check_1
+    124              }
+    125          
+    126              else {
+    127          	// YES, auto-initialize DID occur after master reset
+    128          	// check the Hardware Pending Int register for auto-initialization errors
+    129          
+    130          	#if (HOST_BUS_INTERFACE)
+    131          	    read_value = pH6130->HDW_PENDING_INT_REG;
+   \                     ??autoinit_check_0:
+   \   0000001C   ....               LDR.N    R0,??DataTable11_5
+   \   0000001E   0068               LDR      R0,[R0, #+0]
+   \   00000020   8089               LDRH     R0,[R0, #+12]
+   \   00000022   0400               MOVS     R4,R0
+    132          	#else // Host_SPI_Interface
+    133          	    read_value = Read_6131LowReg(HDW_PENDING_INT_REG,1);            
+    134          	#endif
+    135                      
+    136          	// EEPROM checksum error? (EECKE bit high)
+    137          	if (read_value & EECKE_INT) {
+   \   00000024   6004               LSLS     R0,R4,#+17
+   \   00000026   07D5               BPL.N    ??autoinit_check_2
+    138          
+    139          	    // yes, read EEPROM checksum (2's comp + 1) from register address 0x004E, which
+    140                      // is also used for the serial EEPROM unlock function.
+    141          	    // The value fetched is not used by this program, simply fetched for convenience.
+    142          			 
+    143                      #if (HOST_BUS_INTERFACE)
+    144          		read_value = pH6130->EEPROM_UNLOCK_REG;
+   \   00000028   ....               LDR.N    R0,??DataTable11_5
+   \   0000002A   0068               LDR      R0,[R0, #+0]
+   \   0000002C   B0F89C00           LDRH     R0,[R0, #+156]
+   \   00000030   0400               MOVS     R4,R0
+    145          /*          #else // Host_SPI_Interface
+    146          		// reset MAP selection bits
+    147                          read_value = Read_6131LowReg(MASTER_CONFIG_REG,0);
+    148          		Write_6131LowReg(MASTER_CONFIG_REG,(read_value & 0xF3FF),0);
+    149          		// read EEPROM checksum
+    150          		Enable_Mem_Ptr('I',0);	
+    151          		Write_6131LowReg(ISR_MAP, 0x004E,0);
+    152          		read_value = Read_6131_1word(0);
+    153          */                
+    154          	    #endif
+    155          
+    156                      // error trap during development: 
+    157          	    // a repeating 4-blink red LED means EEPROM Checksum Mismatch
+    158                      error_trap(4);
+   \   00000032   0420               MOVS     R0,#+4
+   \   00000034   ........           BL       error_trap
+    159                  }   // end: EEPROM checksum error
+    160          
+    161          	// data mismatch error? (data written to device reads back differently)
+    162          	if (read_value & RAMIF_INT) {
+   \                     ??autoinit_check_2:
+   \   00000038   A004               LSLS     R0,R4,#+18
+   \   0000003A   07D5               BPL.N    ??autoinit_check_3
+    163          
+    164          	    // yes, fetch address of first-occurring EEPROM reg/RAM mismatch from reg 0x0024.
+    165                      // The primary funcion of this register is the RT2 Message Info Word Address.
+    166          	    // The value fetched is not used by this program, simply fetched for convenience.
+    167          
+    168            	    #if (HOST_BUS_INTERFACE)
+    169          		read_value = pH6130->RT2_MSG_INFO_WD_ADDR_REG;
+   \   0000003C   ....               LDR.N    R0,??DataTable11_5
+   \   0000003E   0068               LDR      R0,[R0, #+0]
+   \   00000040   B0F84800           LDRH     R0,[R0, #+72]
+   \   00000044   0400               MOVS     R4,R0
+    170          /*          #else // Host_SPI_Interface
+    171          		Enable_Mem_Ptr('I',0);	
+    172          		Write_6131LowReg(ISR_MAP, 0x0024,0);
+    173          		read_value = Read_6131_1word(0);
+    174          */                
+    175                      #endif
+    176          
+    177                      // error trap during development: repeating 3-blink red LED 
+    178                      // indicates data mismatch error 
+    179                      error_trap(3);
+   \   00000046   0320               MOVS     R0,#+3
+   \   00000048   ........           BL       error_trap
+    180                  }   // end: data mismatch error
+    181          
+    182                  #if(RT1_ena || RT2_ena)
+    183                      // RT address parity error for either RT1 or RT2 Pending
+    184                      // interrupt is only generated if RT is enabled, i.e., pin RTxENA = 1
+    185          	    if (read_value & (RT1APF|RT2APF)) {
+   \                     ??autoinit_check_3:
+   \   0000004C   1820               MOVS     R0,#+24
+   \   0000004E   0442               TST      R4,R0
+   \   00000050   05D0               BEQ.N    ??autoinit_check_4
+    186                          // delay 800ms
+    187          		Delay_x100ms(8);
+   \   00000052   0820               MOVS     R0,#+8
+   \   00000054   ........           BL       Delay_x100ms
+    188          		// error trap during development: repeating 2-blink red LED
+    189          		// indicates RT address parity error
+    190          		error_trap(2);
+   \   00000058   0220               MOVS     R0,#+2
+   \   0000005A   ........           BL       error_trap
+    191                      }   // end: RT1 or RT2 address parity error
+    192          	
+    193                    #endif
+    194          
+    195          	  return 0;
+   \                     ??autoinit_check_4:
+   \   0000005E   0020               MOVS     R0,#+0
+   \                     ??autoinit_check_1:
+   \   00000060   08B0               ADD      SP,SP,#+32
+   \   00000062   10BD               POP      {R4,PC}          ;; return
+    196                  
+    197              }	// end: auto-initialization DID occur after master reset
+    198          }	// end: autoinit_check()
+    199          
+    200          
+    201          //----------------------------------------------------------------------------------------
+    202          // This function initializes parameters	shared by HI-613x BC, RT1, RT2 and/or Bus Monitor.
+    203          //----------------------------------------------------------------------------------------
+    204          // the initialized parameters are time tag setup, hardware interrupts, etc
+    205          //     THIS FUNCTION SHOULD BE CALLED BEFORE CALLING 
+    206          //     THE BC, RT1, RT2 AND/OR BUS MONITOR INIT FUNCTIONS
+    207          
+
+   \                                 In section .text, align 2, keep-with-next
+    208          void initialize_613x_shared(void) {
+    209            
+    210                  // HI-6130 uses host bus interface, HI-6131 uses host SPI interface. From 
+    211          	// here, we use bus interface to initialize HI-6130 registers and RAM tables,
+    212          	// or we use SPI to initialize HI-6131 registers and RAM tables     
+    213          
+    214                  #if (HOST_BUS_INTERFACE) 
+    215          
+    216          		// Select common configuration options that apply to all
+    217          		// BC,MT,RT1,RT2. Terminal-specific options are initialized 
+    218          		// elsewhere. The following options may be selected here:
+    219                          //   TXINHA = Tx inhibit bus A
+    220                          //   TXINHB = Tx inhibit bus B
+    221                          //   SSR8 = single strobe read if 8-bit wide bus 
+    222                          //   (PULSE_INT or LEVEL_INT) select interrupt type
+    223            
+    224                          pH6130->MASTER_CONFIG_REG |= PULSE_INT; // |TXINHA|TXINHB;
+   \                     initialize_613x_shared:
+   \   00000000   ....               LDR.N    R0,??DataTable11_5
+   \   00000002   0068               LDR      R0,[R0, #+0]
+   \   00000004   ....               LDR.N    R1,??DataTable11_5
+   \   00000006   0968               LDR      R1,[R1, #+0]
+   \   00000008   0988               LDRH     R1,[R1, #+0]
+   \   0000000A   0180               STRH     R1,[R0, #+0]
+    225          
+    226          		// enable these hardware interrupts: 
+    227                          // EEPROM checksum error
+    228                          // auto-init RAM init fail (mismatches EEPROM)
+    229                          // bus A and bus B loopback failures
+    230          	        pH6130->HDW_INT_ENABLE_REG = EECKE_INT|RAMIF_INT|LBFA|LBFB;
+   \   0000000C   ....               LDR.N    R0,??DataTable11_5
+   \   0000000E   0068               LDR      R0,[R0, #+0]
+   \   00000010   4FF4F041           MOV      R1,#+30720
+   \   00000014   C183               STRH     R1,[R0, #+30]
+    231          
+    232            	#else // (!HOST_BUS_INTERFACE) = HOST_SPI_INTERFACE
+    233          
+    234                          unsigned short j = Read_6131LowReg(MASTER_CONFIG_REG, 0);
+    235            
+    236          		// Select common configuration options that apply to all
+    237          		// BC,MT,RT1,RT2. Terminal-specific options are initialized 
+    238          		// elsewhere. The following options may be selected here:
+    239                          //   TXINHA = Tx inhibit bus A
+    240                          //   TXINHB = Tx inhibit bus B
+    241                          //   SSR8 = single strobe read if 8-bit wide bus 
+    242                          //   (PULSE_INT or LEVEL_INT) select interrupt type
+    243                          
+    244                          j |= PULSE_INT; // |TXINHA|TXINHB;
+    245          		Write_6131LowReg(MASTER_CONFIG_REG, j, 0);					
+    246          
+    247          		// enable these hardware interrupts: 
+    248                          // EEPROM checksum error
+    249                          // auto-init RAM init fail (mismatches EEPROM)
+    250                          // bus A and bus B loopback failures
+    251          	        j = EECKE_INT|RAMIF_INT|LBFA|LBFB;
+    252                          Write_6131LowReg(HDW_INT_ENABLE_REG, j, 0);
+    253          
+    254          	#endif 
+    255          
+    256          }	// end: initialize_613x_shared()
+   \   00000016   7047               BX       LR               ;; return
+    257          
+    258          
+    259          //------------------------------------------------------------------------------
+    260          // This function initializes Timer Counter 0 (TC0) for use in delay calls.
+    261          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    262          void init_timer(void) {
+   \                     init_timer:
+   \   00000000   10B5               PUSH     {R4,LR}
+    263              
+    264              unsigned int i;
+    265              
+    266              // Enable TC0 peripheral clock
+    267              PMC_EnablePeripheral(AT91C_ID_TC0);
+   \   00000002   1620               MOVS     R0,#+22
+   \   00000004   ........           BL       PMC_EnablePeripheral
+    268          
+    269              // INITIALIZE TIMER-COUNTER 0 FOR POLLED RC COMPARE OPERATION
+    270              // ----------------------------------------------------------
+    271              // Disable timer-counter clock and interrupts
+    272              AT91C_BASE_TC0->TC_CCR = AT91C_TC_CLKDIS;
+   \   00000008   ....               LDR.N    R0,??DataTable11_6  ;; 0x40080000
+   \   0000000A   0221               MOVS     R1,#+2
+   \   0000000C   0160               STR      R1,[R0, #+0]
+    273              AT91C_BASE_TC0->TC_IDR = 0xFFFFFFFF;
+   \   0000000E   ....               LDR.N    R0,??DataTable11_7  ;; 0x40080028
+   \   00000010   5FF0FF31           MOVS     R1,#-1
+   \   00000014   0160               STR      R1,[R0, #+0]
+    274              
+    275              // Clear timer0 status register by reading it
+    276              i = AT91C_BASE_TC0->TC_SR;
+   \   00000016   ....               LDR.N    R0,??DataTable11_8  ;; 0x40080020
+   \   00000018   0068               LDR      R0,[R0, #+0]
+   \   0000001A   0400               MOVS     R4,R0
+    277              // suppress compiler warning: variable "i" was set, never used
+    278              i = i;
+    279              
+    280              // Set Timer Counter mode. In TC_CMR, set the WAVE bit for waveform
+    281              // operating mode and set the CPCSTOP bit so Register C match stops the
+    282              // timer clock. The AT91C_TC_CLKS_TIMER_DIVx_CLOCK field selects clock 
+    283              // prescaler (MCLK div-by-N).  Other bits are reset...
+    284              AT91C_BASE_TC0->TC_CMR = AT91C_TC_WAVE | AT91C_TC_CPCSTOP 
+    285                                                     | AT91C_TC_CLKS_TIMER_DIV1_CLOCK; // for MCLK/2
+   \   0000001C   ....               LDR.N    R0,??DataTable11_9  ;; 0x40080004
+   \   0000001E   48F24001           MOVW     R1,#+32832
+   \   00000022   0160               STR      R1,[R0, #+0]
+    286              //                                     | AT91C_TC_CLKS_TIMER_DIV2_CLOCK; // for MCLK/8
+    287              //                                     | AT91C_TC_CLKS_TIMER_DIV3_CLOCK; // for MCLK/32
+    288              //                                     | AT91C_TC_CLKS_TIMER_DIV4_CLOCK; // for MCLK/128
+    289              
+    290              // Enable TC clock. Timer-counter will not start counting until triggered
+    291              // outside this function
+    292              AT91C_BASE_TC0->TC_CCR = AT91C_TC_CLKEN;
+   \   00000024   ....               LDR.N    R0,??DataTable11_6  ;; 0x40080000
+   \   00000026   0121               MOVS     R1,#+1
+   \   00000028   0160               STR      R1,[R0, #+0]
+    293              
+    294              // No AIC interrupt initialization used for timer0, its status reg is polled.
+    295              //
+    296              // To modify to use a timer0 "RC compare" interrupt, add these steps:
+    297              //IRQ_ConfigureIT(AT91C_ID_TC0, 0, TC0_IrqHandler); // identify int svc function
+    298              //AT91C_BASE_TC0->TC_IER = AT91C_TC_CPCS;
+    299              //IRQ_EnableIT(AT91C_ID_TC0);
+    300          
+    301          }   // end init_timer()
+   \   0000002A   10BD               POP      {R4,PC}          ;; return
+    302          
+    303          /*
+    304          //----------------------------------------------------------------------------
+    305          //  Function Name       : start_timer0(delay_count)
+    306          //  Object              : load register C with compare value then start timer0 
+    307          //  Input Parameters    : delay_count
+    308          //  Output Parameters   : none
+    309          // ----------------------------------------------------------------------------
+    310          // 
+    311          //  This function clears and starts timer0, then returns to calling program. Once
+    312          //  started, timer0 will stop counting and set the timer0 CPCS status flag when
+    313          //  count = <Register C>. Because the CPCS flag is polled by the calling program,
+    314          //  the timer0 interrrupt is not used.
+    315          // 
+    316          //  IMPORTANT valid range for delay_count: delay_count < 65,536 (decimal), 0x10000
+    317          //  See function "Delay_us()" below, for example using start_timer0()  
+    318          
+    319          void start_timer0(unsigned short int delay_count) {
+    320              
+    321              unsigned short int i;
+    322              // Operating mode already loaded for timer0
+    323              // timer0 status is polled so we do not use interrupt
+    324              
+    325              // Load delay_count into the TC_RC register
+    326              AT91C_BASE_TC0->TC_RC = delay_count;
+    327              // Read timer0 status register to reset its CPCS flag
+    328              i = AT91C_BASE_TC0->TC_SR;
+    329              // Suppress warning: variable "i" was set, never used
+    330              i = i;    
+    331              // Start timer0: Clock Enable and software trigger, which clears the timer 
+    332              // and up-count begins. Counting stops when Register C match occurs.
+    333              AT91C_BASE_TC0->TC_CCR = AT91C_TC_CLKEN | AT91C_TC_SWTRG;
+    334          } 
+    335          */
+    336          
+    337          // --------------------------------------------------------------------------------------
+    338          //  Function Name       : Delay_us()
+    339          //  Object              : in-line delay
+    340          //  Input Parameters    : num_us = integer number of microseconds <  2731 
+    341          //  Output Parameters   : none
+    342          // ---------------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    343          void Delay_us(unsigned short int num_us) {
+   \                     Delay_us:
+   \   00000000   30B5               PUSH     {R4,R5,LR}
+   \   00000002   89B0               SUB      SP,SP,#+36
+   \   00000004   0400               MOVS     R4,R0
+    344          
+    345              const Pin pinLEDY = PIN_LEDY;
+   \   00000006   00A8               ADD      R0,SP,#+0
+   \   00000008   ....               LDR.N    R1,??DataTable11_10
+   \   0000000A   2022               MOVS     R2,#+32
+   \   0000000C   ........           BL       __aeabi_memcpy4
+    346              unsigned short i;
+    347              
+    348          //  Previous call for function "init_timer()" is assumed.
+    349          //  Use timer0 to generate an n_uS in-line delay. Can verify delay by pulse on LED4.
+    350          //  In this function, timer0 status is polled, okay for in-line delays.
+    351          //  While less overhead than using a vectored-interrupt delay, the pulse
+    352          //  generated is slightly longer than the set value because we poll timer0 status...
+    353          //    
+    354          //  TC0 Channel Mode Register prescaler selected, 48MHz    Load #     Max t (int)
+    355          //  ----------------------------------------------------   -------    -----------
+    356          //  AT91C_TC_CLKS_TIMER_DIV1_CLOCK for MCLK/2     48/2     24/1us     2,730us     <--- used
+    357          //  AT91C_TC_CLKS_TIMER_DIV2_CLOCK for MCLK/8     48/8     6/1us      10,922us
+    358          //  AT91C_TC_CLKS_TIMER_DIV3_CLOCK for MCLK/32    48K/32   1500/1ms   43ms
+    359          //  AT91C_TC_CLKS_TIMER_DIV4_CLOCK for MCLK/128   48K/128  375/1ms    174ms
+    360             
+    361              // using 48MHz MCLK and div-by-2 prescaler...
+    362              AT91C_BASE_TC0->TC_CMR = AT91C_TC_WAVE | AT91C_TC_CPCSTOP 
+    363                                                     | AT91C_TC_CLKS_TIMER_DIV1_CLOCK; // for MCLK/2
+   \   00000010   ....               LDR.N    R0,??DataTable11_9  ;; 0x40080004
+   \   00000012   48F24001           MOVW     R1,#+32832
+   \   00000016   0160               STR      R1,[R0, #+0]
+    364          
+    365              // Load delay_count into the TC_RC register
+    366              AT91C_BASE_TC0->TC_RC = num_us * (BOARD_MCK / 2000000);
+   \   00000018   A4B2               UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000001A   1820               MOVS     R0,#+24
+   \   0000001C   00FB04F0           MUL      R0,R0,R4
+   \   00000020   ....               LDR.N    R1,??DataTable11_11  ;; 0x4008001c
+   \   00000022   0860               STR      R0,[R1, #+0]
+    367              
+    368              // Read timer0 status register to reset its CPCS flag
+    369              i = AT91C_BASE_TC0->TC_SR;
+   \   00000024   ....               LDR.N    R0,??DataTable11_8  ;; 0x40080020
+   \   00000026   0068               LDR      R0,[R0, #+0]
+   \   00000028   0500               MOVS     R5,R0
+    370              // Suppress warning: variable "i" was set, never used
+    371              i = i;    
+    372              // Start timer0: Clock Enable and software trigger, which clears the timer 
+    373              // and up-count begins. Counting stops when Register C match occurs.
+    374              AT91C_BASE_TC0->TC_CCR = AT91C_TC_CLKEN | AT91C_TC_SWTRG;
+   \   0000002A   ....               LDR.N    R0,??DataTable11_6  ;; 0x40080000
+   \   0000002C   0521               MOVS     R1,#+5
+   \   0000002E   0160               STR      R1,[R0, #+0]
+    375              
+    376             // Turn ON LED, logic-0 
+    377              PIO_Clear(&pinLEDY);
+   \   00000030   00A8               ADD      R0,SP,#+0
+   \   00000032   ........           BL       PIO_Clear
+    378              
+    379              // poll timer0 register C compare status until 0 -> 1 transition
+    380              while (!(AT91C_BASE_TC0->TC_SR & AT91C_TC_CPCS)) ;
+   \                     ??Delay_us_0:
+   \   00000036   ....               LDR.N    R0,??DataTable11_8  ;; 0x40080020
+   \   00000038   0068               LDR      R0,[R0, #+0]
+   \   0000003A   C006               LSLS     R0,R0,#+27
+   \   0000003C   FBD5               BPL.N    ??Delay_us_0
+    381              
+    382              // time-out occurred, turn OFF LED, logic-01
+    383              PIO_Set(&pinLEDY);
+   \   0000003E   00A8               ADD      R0,SP,#+0
+   \   00000040   ........           BL       PIO_Set
+    384          
+    385          }
+   \   00000044   09B0               ADD      SP,SP,#+36
+   \   00000046   30BD               POP      {R4,R5,PC}       ;; return
+    386          
+    387          
+    388          // --------------------------------------------------------------------------------------
+    389          //  Function Name       : Delay_ms()
+    390          //  Object              : in-line delay
+    391          //  Input Parameters    : num_us = integer number of milliseconds < 175
+    392          //  Output Parameters   : none
+    393          // ---------------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    394          void Delay_ms(unsigned short int num_ms) {
+    395          
+    396              unsigned short i;
+    397              
+    398          //  Use timer0 to generate an n_uS in-line delay. Can verify delay by pulse on LED4.
+    399          //  In this example timer0 status is polled, okay for in-line delays.
+    400          //  While less overhead than using a vectored-interrupt delay (below), the pulse
+    401          //  generated is slightly longer than the set value because we poll timer0 status...
+    402          //    
+    403          //  TC0 Channel Mode Register prescaler selected, 48MHz    Load #     Max t (int)
+    404          //  ----------------------------------------------------   -------    -----------
+    405          //  AT91C_TC_CLKS_TIMER_DIV1_CLOCK for MCLK/2     48/2     24/1us     2,730us
+    406          //  AT91C_TC_CLKS_TIMER_DIV2_CLOCK for MCLK/8     48/8     6/1us      10,922us
+    407          //  AT91C_TC_CLKS_TIMER_DIV3_CLOCK for MCLK/32    48K/32   1500/1ms   43ms
+    408          //  AT91C_TC_CLKS_TIMER_DIV4_CLOCK for MCLK/128   48K/128  375/1ms    174ms     <--- used
+    409             
+    410              // using 48MHz MCLK and div-by-2 prescaler...
+    411              AT91C_BASE_TC0->TC_CMR = AT91C_TC_WAVE | AT91C_TC_CPCSTOP 
+    412                                                     | AT91C_TC_CLKS_TIMER_DIV4_CLOCK; // for MCLK/128
+   \                     Delay_ms:
+   \   00000000   ....               LDR.N    R2,??DataTable11_9  ;; 0x40080004
+   \   00000002   48F24303           MOVW     R3,#+32835
+   \   00000006   1360               STR      R3,[R2, #+0]
+    413          
+    414              // Load delay_count into the TC_RC register
+    415              AT91C_BASE_TC0->TC_RC = num_ms * (BOARD_MCK / 128000);	    
+   \   00000008   80B2               UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000000A   40F27712           MOVW     R2,#+375
+   \   0000000E   02FB00F2           MUL      R2,R2,R0
+   \   00000012   ....               LDR.N    R3,??DataTable11_11  ;; 0x4008001c
+   \   00000014   1A60               STR      R2,[R3, #+0]
+    416              
+    417              // Read timer0 status register to reset its CPCS flag
+    418              i = AT91C_BASE_TC0->TC_SR;
+   \   00000016   ....               LDR.N    R2,??DataTable11_8  ;; 0x40080020
+   \   00000018   1268               LDR      R2,[R2, #+0]
+   \   0000001A   1100               MOVS     R1,R2
+    419              // Suppress warning: variable "i" was set, never used
+    420              i = i;    
+    421              // Start timer0: Clock Enable and software trigger, which clears the timer 
+    422              // and up-count begins. Counting stops when Register C match occurs.
+    423              AT91C_BASE_TC0->TC_CCR = AT91C_TC_CLKEN | AT91C_TC_SWTRG;
+   \   0000001C   ....               LDR.N    R2,??DataTable11_6  ;; 0x40080000
+   \   0000001E   0523               MOVS     R3,#+5
+   \   00000020   1360               STR      R3,[R2, #+0]
+    424              
+    425             // Turn ON yellow LED, logic-0, measure pulse time to check delay time 
+    426             // AT91C_BASE_PIOA->PIO_CODR = nLEDY; 
+    427              
+    428              // poll timer0 register C compare status until 0 -> 1 transition
+    429              while (!(AT91C_BASE_TC0->TC_SR & AT91C_TC_CPCS)) ;
+   \                     ??Delay_ms_0:
+   \   00000022   ....               LDR.N    R2,??DataTable11_8  ;; 0x40080020
+   \   00000024   1268               LDR      R2,[R2, #+0]
+   \   00000026   D206               LSLS     R2,R2,#+27
+   \   00000028   FBD5               BPL.N    ??Delay_ms_0
+    430              
+    431              // time-out occurred, turn OFF yellow LED, logic-01
+    432              AT91C_BASE_PIOA->PIO_SODR = nLEDY; 
+   \   0000002A   ....               LDR.N    R2,??DataTable11_12  ;; 0x400e0c30
+   \   0000002C   5FF08043           MOVS     R3,#+1073741824
+   \   00000030   1360               STR      R3,[R2, #+0]
+    433          
+    434          }
+   \   00000032   7047               BX       LR               ;; return
+    435          
+    436          // ---------------------------------------------------------------------------------------
+    437          // multiple 100ms in-line delay
+    438          // ---------------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    439          void Delay_x100ms(char num) {  
+   \                     Delay_x100ms:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    440            for(; 0 < num ; num--) {
+   \                     ??Delay_x100ms_0:
+   \   00000004   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000006   012C               CMP      R4,#+1
+   \   00000008   04D3               BCC.N    ??Delay_x100ms_1
+    441                Delay_ms(100);
+   \   0000000A   6420               MOVS     R0,#+100
+   \   0000000C   ........           BL       Delay_ms
+    442            }
+   \   00000010   641E               SUBS     R4,R4,#+1
+   \   00000012   F7E7               B.N      ??Delay_x100ms_0
+    443          }
+   \                     ??Delay_x100ms_1:
+   \   00000014   10BD               POP      {R4,PC}          ;; return
+    444          
+    445          // ---------------------------------------------------------------------------------------
+    446          // flash red LED for 400ms
+    447          // ---------------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    448          void Flash_Red_LED(void) {
+   \                     Flash_Red_LED:
+   \   00000000   80B5               PUSH     {R7,LR}
+    449              AT91C_BASE_PIOA->PIO_CODR = nLEDR; 
+   \   00000002   ....               LDR.N    R0,??DataTable11_13  ;; 0x400e0c34
+   \   00000004   5FF00041           MOVS     R1,#-2147483648
+   \   00000008   0160               STR      R1,[R0, #+0]
+    450              Delay_x100ms(4);
+   \   0000000A   0420               MOVS     R0,#+4
+   \   0000000C   ........           BL       Delay_x100ms
+    451              AT91C_BASE_PIOA->PIO_SODR = nLEDR; 
+   \   00000010   ....               LDR.N    R0,??DataTable11_12  ;; 0x400e0c30
+   \   00000012   5FF00041           MOVS     R1,#-2147483648
+   \   00000016   0160               STR      R1,[R0, #+0]
+    452          }
+   \   00000018   01BD               POP      {R0,PC}          ;; return
+    453          
+    454          
+    455          // ---------------------------------------------------------------------------------------
+    456          // flash green LED for 400ms
+    457          // ---------------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    458          void Flash_Green_LED(void) {
+   \                     Flash_Green_LED:
+   \   00000000   80B5               PUSH     {R7,LR}
+    459              AT91C_BASE_PIOA->PIO_CODR = nLEDG; 
+   \   00000002   ....               LDR.N    R0,??DataTable11_13  ;; 0x400e0c34
+   \   00000004   5FF00051           MOVS     R1,#+536870912
+   \   00000008   0160               STR      R1,[R0, #+0]
+    460              Delay_x100ms(4);
+   \   0000000A   0420               MOVS     R0,#+4
+   \   0000000C   ........           BL       Delay_x100ms
+    461              AT91C_BASE_PIOA->PIO_SODR = nLEDG; 
+   \   00000010   ....               LDR.N    R0,??DataTable11_12  ;; 0x400e0c30
+   \   00000012   5FF00051           MOVS     R1,#+536870912
+   \   00000016   0160               STR      R1,[R0, #+0]
+    462          }
+   \   00000018   01BD               POP      {R0,PC}          ;; return
+    463          
+    464          
+    465          
+    466          // ---------------------------------------------------------------------------------------
+    467          //\ brief	Next function flashes red LED forever:
+    468          //		groups of N flashes where N = 2-7, else N = 1 
+    469          //		No return to calling function.
+    470          //
+    471          //		# flashes 	Error type
+    472          //		2		Op Status register RT Address parity error
+    473          //		3		auto-init data mismatch error
+    474          //		4		auto-init EEPROM checksum failure
+    475          //		5		Op Status register reads back zero, something broken
+    476          //		6		EECOPY failure: for example an invalid unlock code
+    477          //              7               Terminal(s) enabled in pgm have negated enable pin(s)
+    478          // ---------------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    479          void error_trap(char count) {
+   \                     error_trap:
+   \   00000000   30B5               PUSH     {R4,R5,LR}
+   \   00000002   89B0               SUB      SP,SP,#+36
+   \   00000004   0400               MOVS     R4,R0
+    480          
+    481              const Pin pinLEDR = PIN_LEDR;
+   \   00000006   00A8               ADD      R0,SP,#+0
+   \   00000008   ....               LDR.N    R1,??DataTable11_14
+   \   0000000A   2022               MOVS     R2,#+32
+   \   0000000C   ........           BL       __aeabi_memcpy4
+    482              int i;
+    483          
+    484              // brief delay to separate from auto-init red LED blink after reset
+    485              Delay_x100ms(12);
+   \   00000010   0C20               MOVS     R0,#+12
+   \   00000012   ........           BL       Delay_x100ms
+    486          	
+    487              if ((count > 7)||(count < 2)) {
+   \   00000016   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000018   082C               CMP      R4,#+8
+   \   0000001A   02D2               BCS.N    ??error_trap_0
+   \   0000001C   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000001E   022C               CMP      R4,#+2
+   \   00000020   01D2               BCS.N    ??error_trap_1
+    488                  count = 1;
+   \                     ??error_trap_0:
+   \   00000022   0120               MOVS     R0,#+1
+   \   00000024   0400               MOVS     R4,R0
+    489              }
+    490              
+    491              while(1) {
+    492                  // perpetually blink red LED in groups of N flashes
+    493          	for (i = 0; i < count; i++) {
+   \                     ??error_trap_1:
+   \   00000026   0020               MOVS     R0,#+0
+   \   00000028   0500               MOVS     R5,R0
+   \                     ??error_trap_2:
+   \   0000002A   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000002C   A542               CMP      R5,R4
+   \   0000002E   0DDA               BGE.N    ??error_trap_3
+    494          	    PIO_Set(&pinLEDR);
+   \   00000030   00A8               ADD      R0,SP,#+0
+   \   00000032   ........           BL       PIO_Set
+    495          	    Delay_x100ms(2);  
+   \   00000036   0220               MOVS     R0,#+2
+   \   00000038   ........           BL       Delay_x100ms
+    496          	    PIO_Clear(&pinLEDR);
+   \   0000003C   00A8               ADD      R0,SP,#+0
+   \   0000003E   ........           BL       PIO_Clear
+    497          	    Delay_x100ms(2);
+   \   00000042   0220               MOVS     R0,#+2
+   \   00000044   ........           BL       Delay_x100ms
+    498                  }
+   \   00000048   6D1C               ADDS     R5,R5,#+1
+   \   0000004A   EEE7               B.N      ??error_trap_2
+    499                  // 1.2 sec delay
+    500                  Delay_x100ms(12);
+   \                     ??error_trap_3:
+   \   0000004C   0C20               MOVS     R0,#+12
+   \   0000004E   ........           BL       Delay_x100ms
+   \   00000052   E8E7               B.N      ??error_trap_1
+    501              }
+    502          }
+    503          
+    504          
+    505          
+    506          //--------------------------------------------------------------------------------
+    507          // This function checks states for BC, RT1, RT2, and MT DIP switches. For each 
+    508          // DIP switch = 1 (terminal enabled) the function verifies that the corresponding 
+    509          // compiler run-time switch is also ON. For example: if BCENA DIP switch = 1 
+    510          // then BC_ENA (in file 613x_initialization.h) must be defined ON (non-zero). 
+    511          // If one or more switch-enabled terminals has a compiler run-time switch 
+    512          // defined OFF (or if all 4 DIP switches = 0) an error trap occurs, perpetually
+    513          // flashing the red LED (no return). If error-free, function returns a 16-bit word 
+    514          // with two "run bits" set for each enabled DIP switch, except MT has 1 bit.
+    515          //---------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    516          unsigned short enable_check(void) {
+   \                     enable_check:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   A0B0               SUB      SP,SP,#+128
+    517            short int runbits = 0;
+   \   00000004   0024               MOVS     R4,#+0
+    518              const Pin pinBCENA = PIN_BCENA;
+   \   00000006   18A8               ADD      R0,SP,#+96
+   \   00000008   ....               LDR.N    R1,??DataTable11_15
+   \   0000000A   2022               MOVS     R2,#+32
+   \   0000000C   ........           BL       __aeabi_memcpy4
+    519              const Pin pinMTRUN = PIN_MTRUN;
+   \   00000010   10A8               ADD      R0,SP,#+64
+   \   00000012   ....               LDR.N    R1,??DataTable11_16
+   \   00000014   2022               MOVS     R2,#+32
+   \   00000016   ........           BL       __aeabi_memcpy4
+    520              const Pin pinRT1ENA = PIN_RT1ENA;
+   \   0000001A   08A8               ADD      R0,SP,#+32
+   \   0000001C   ....               LDR.N    R1,??DataTable11_17
+   \   0000001E   2022               MOVS     R2,#+32
+   \   00000020   ........           BL       __aeabi_memcpy4
+    521              const Pin pinRT2ENA = PIN_RT2ENA;
+   \   00000024   00A8               ADD      R0,SP,#+0
+   \   00000026   ....               LDR.N    R1,??DataTable11_18
+   \   00000028   2022               MOVS     R2,#+32
+   \   0000002A   ........           BL       __aeabi_memcpy4
+    522                  
+    523              if(PIO_Get(&pinBCENA)) {
+   \   0000002E   18A8               ADD      R0,SP,#+96
+   \   00000030   ........           BL       PIO_Get
+   \   00000034   0028               CMP      R0,#+0
+   \   00000036   02D0               BEQ.N    ??enable_check_0
+    524                  // BCENA pin high, trap error if compiler runtime switch BC_ena is FALSE
+    525                  #if(!BC_ena) 
+    526                      #if(CONSOLE_IO)
+    527                          printf("\n\r Error: BCENA pin high, but software BC_ena false.\n\r");
+    528                      #endif
+    529                      error_trap(3);
+    530                  #endif
+    531                  runbits |= BCENA|BCSTRT;
+   \   00000038   54F44054           ORRS     R4,R4,#0x3000
+   \   0000003C   05E0               B.N      ??enable_check_1
+    532              }
+    533              else {
+    534                  // BCENA pin low, trap error if compiler runtime switch BC_ena is TRUE
+    535                  #if(BC_ena) 
+    536                      #if(CONSOLE_IO)
+    537                          printf("\n\r Error: BCENA pin low, but software BC_ena true.\n\r");
+   \                     ??enable_check_0:
+   \   0000003E   ....               LDR.N    R0,??DataTable11_19
+   \   00000040   ........           BL       printf
+    538                      #endif
+    539                      error_trap(3);
+   \   00000044   0320               MOVS     R0,#+3
+   \   00000046   ........           BL       error_trap
+    540                  #endif 
+    541              }      
+    542              if(PIO_Get(&pinRT1ENA)) {
+   \                     ??enable_check_1:
+   \   0000004A   08A8               ADD      R0,SP,#+32
+   \   0000004C   ........           BL       PIO_Get
+   \   00000050   0028               CMP      R0,#+0
+   \   00000052   02D0               BEQ.N    ??enable_check_2
+    543                  // RT1ENA pin high, trap error if compiler runtime switch RT1_ena is FALSE
+    544                  #if(!RT1_ena) 
+    545                      #if(CONSOLE_IO)
+    546                          printf("\n\r Error: RT1ENA pin high, but software RT1_ena false.\n\r");
+    547                      #endif 
+    548                      error_trap(3);
+    549                  #endif
+    550                  runbits |= RT1ENA|RT1STEX;
+   \   00000054   54F05004           ORRS     R4,R4,#0x50
+   \   00000058   05E0               B.N      ??enable_check_3
+    551              }
+    552              else {
+    553                  // RT1ENA pin low, trap error if compiler runtime switch RT1_ena is TRUE
+    554                  #if(RT1_ena) 
+    555                      #if(CONSOLE_IO)
+    556                          printf("\n\r Error: RT1ENA pin low, but software RT1_ena true.\n\r");
+   \                     ??enable_check_2:
+   \   0000005A   ....               LDR.N    R0,??DataTable11_20
+   \   0000005C   ........           BL       printf
+    557                      #endif 
+    558                      error_trap(3);
+   \   00000060   0320               MOVS     R0,#+3
+   \   00000062   ........           BL       error_trap
+    559                  #endif 
+    560              }      
+    561              if(PIO_Get(&pinRT2ENA)) {
+   \                     ??enable_check_3:
+   \   00000066   00A8               ADD      R0,SP,#+0
+   \   00000068   ........           BL       PIO_Get
+   \   0000006C   0028               CMP      R0,#+0
+   \   0000006E   02D0               BEQ.N    ??enable_check_4
+    562                  // RT2ENA pin high, trap error if compiler runtime switch RT2_ena is FALSE
+    563                  #if(!RT2_ena) 
+    564                      #if(CONSOLE_IO)
+    565                          printf("\n\r Error: RT2ENA pin high, but software RT2_ena false.\n\r");
+    566                      #endif 
+    567                      error_trap(3);
+    568                  #endif
+    569                  runbits |= RT2ENA|RT2STEX;
+   \   00000070   54F0A004           ORRS     R4,R4,#0xA0
+   \   00000074   05E0               B.N      ??enable_check_5
+    570              }
+    571              else {
+    572                  // RT2ENA pin low, trap error if compiler runtime switch RT2_ena is TRUE
+    573                  #if(RT2_ena) 
+    574                      #if(CONSOLE_IO)
+    575                          printf("\n\r Error: RT2ENA pin low, but software RT2_ena true.\n\r");
+   \                     ??enable_check_4:
+   \   00000076   ....               LDR.N    R0,??DataTable11_21
+   \   00000078   ........           BL       printf
+    576                      #endif 
+    577                      error_trap(3);
+   \   0000007C   0320               MOVS     R0,#+3
+   \   0000007E   ........           BL       error_trap
+    578                  #endif 
+    579              }      
+    580              if(PIO_Get(&pinMTRUN)) {
+   \                     ??enable_check_5:
+   \   00000082   10A8               ADD      R0,SP,#+64
+   \   00000084   ........           BL       PIO_Get
+   \   00000088   0028               CMP      R0,#+0
+   \   0000008A   03D0               BEQ.N    ??enable_check_6
+    581                  // MTENA pin high, trap error if compiler runtime 
+    582                  // switches SMT_ena and IMT_ena are both FALSE
+    583                  #if(!SMT_ena && !IMT_ena) 
+    584                      #if(CONSOLE_IO)
+    585                          printf("\n\r Error: MTRUN pin high, but software SMT_ena & IMT_ena both false.\n\r");
+    586                      #endif 
+    587                     error_trap(3);
+    588                  #endif
+    589                  // monitor does not have separate enable and run bits
+    590                  runbits |= MTENA;
+   \   0000008C   4FF48070           MOV      R0,#+256
+   \   00000090   0443               ORRS     R4,R0,R4
+   \   00000092   05E0               B.N      ??enable_check_7
+    591              }
+    592              else {
+    593                  // MTRUN pin low, trap error if either compiler 
+    594                  // runtime switch SMT_ena or IMT_ena is TRUE
+    595                  #if(SMT_ena || IMT_ena)
+    596                      #if(CONSOLE_IO)
+    597                          printf("\n\r Error: MTRUN pin low, but software SMT_ena or IMT_ena is true.\n\r");
+   \                     ??enable_check_6:
+   \   00000094   ....               LDR.N    R0,??DataTable11_22
+   \   00000096   ........           BL       printf
+    598                      #endif 
+    599                      error_trap(3);
+   \   0000009A   0320               MOVS     R0,#+3
+   \   0000009C   ........           BL       error_trap
+    600                  #endif 
+    601              }      
+    602              // trap error if nothing is enabled
+    603              if(!runbits) {
+   \                     ??enable_check_7:
+   \   000000A0   24B2               SXTH     R4,R4            ;; SignExt  R4,R4,#+16,#+16
+   \   000000A2   002C               CMP      R4,#+0
+   \   000000A4   05D1               BNE.N    ??enable_check_8
+    604                  #if(CONSOLE_IO)
+    605                      printf("\n\r Error: BC, RT1, RT2, IMT, SMT are all disabled.\n\r");
+   \   000000A6   ....               LDR.N    R0,??DataTable11_23
+   \   000000A8   ........           BL       printf
+    606                  #endif 
+    607                  error_trap(2);
+   \   000000AC   0220               MOVS     R0,#+2
+   \   000000AE   ........           BL       error_trap
+    608              }
+    609              
+    610              // write enable bits into the Master Configuration register
+    611              //pH6130->MASTER_CONFIG_REG = runbits[0];
+    612              
+    613              return runbits;
+   \                     ??enable_check_8:
+   \   000000B2   2000               MOVS     R0,R4
+   \   000000B4   80B2               UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   000000B6   20B0               ADD      SP,SP,#+128
+   \   000000B8   10BD               POP      {R4,PC}          ;; return
+    614          }    
+    615          
+    616          //----------------------------------------------------------------------
+    617          // This function copies registers and RAM to the serial EEPROM
+    618          // subsequently used for auto-initialization after master reset. 
+    619          //
+    620          // IMPORTANT: Make sure interrupts are disabled during execution !!!
+    621          //----------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    622          void write_init_eeprom(void) {
+   \                     write_init_eeprom:
+   \   00000000   30B5               PUSH     {R4,R5,LR}
+   \   00000002   99B0               SUB      SP,SP,#+100
+    623            
+    624                  const Pin pinLEDY = PIN_LEDY;
+   \   00000004   10A8               ADD      R0,SP,#+64
+   \   00000006   ....               LDR.N    R1,??DataTable11_24
+   \   00000008   2022               MOVS     R2,#+32
+   \   0000000A   ........           BL       __aeabi_memcpy4
+    625                  const Pin pinREADY = PIN_READY;
+   \   0000000E   08A8               ADD      R0,SP,#+32
+   \   00000010   ....               LDR.N    R1,??DataTable11_25
+   \   00000012   2022               MOVS     R2,#+32
+   \   00000014   ........           BL       __aeabi_memcpy4
+    626                  const Pin pinEECOPY = PIN_EECOPY;
+   \   00000018   00A8               ADD      R0,SP,#+0
+   \   0000001A   ....               LDR.N    R1,??DataTable11_26
+   \   0000001C   2022               MOVS     R2,#+32
+   \   0000001E   ........           BL       __aeabi_memcpy4
+    627          	short unsigned int code1 = 0xA00A, code2 = 0x5FF5;
+   \   00000022   4AF20A04           MOVW     R4,#+40970
+   \   00000026   45F6F575           MOVW     R5,#+24565
+    628          
+    629          	// IMPORTANT: make sure interrupts are disabled !!! 
+    630          	
+    631          	// The default code1/code2 EEPROM unlock values do not start
+    632          	// any of the 4 terminal devices when auto-init is complete, 
+    633          	// following future master reset with the AUTOEN pin asserted.
+    634          	// To start an enabled terminal, the host must then set BCSTRT, 
+    635                  // MTRUN, RT1STEX or RT2STEX in Master Configuration register 0
+    636                  // after READY assertion, following auto-initialization.
+    637                  //
+    638          	// If the EEPROM is written with unlock codes modified below,
+    639          	// selected terminal devices can be auto-enabled without host assist.
+    640          	// To modify these settings, edit file 613x_initialization.h 
+    641          
+    642          	if ((BC_ena==1) && (BC_autostart==1)) {	
+    643          		// IC automatically asserts BCSTRT bit 13 in reg 0, after 
+    644          		// auto-initialization. The copied EEPROM image should already 
+    645          		// have BCENA bit 12 asserted in reg 0, but not BCSTRT bit 13.
+    646          		code1 ^= 0x0C00;
+    647          		code2 ^= 0x0C00;
+    648          	} 
+    649          	if ((RT1_ena==1) && (RT1_autostart==1)) {	
+    650          		// IC automatically asserts RT1STEX bit 4 in reg 0, after 
+    651          		// auto-initialization. The copied EEPROM image should already 
+    652          		// have RT1ENA bit 6 asserted in reg 0, but not RT1STEX bit 4.
+    653          		code1 ^= 0x0030;
+    654          		code2 ^= 0x0030;
+    655          	} 
+    656          	if ((RT2_ena==1) && (RT2_autostart==1)) {	
+    657          		// IC automatically asserts RT2STEX bit 5 in reg 0, after 
+    658          		// auto-initialization. The copied EEPROM image should already 
+    659          		// have RT2ENA bit 7 asserted in reg 0,but not RT2STEX bit 5.
+    660          		code1 ^= 0x00C0;
+    661          		code2 ^= 0x00C0;
+    662          	} 
+    663          	if ((SMT_ena|IMT_ena ==1) && (SMT_IMT_autostart==1)) {	
+    664          		// IC automatically asserts MTENA bit 8 in reg 0, after
+    665          		// auto-initialization. The monitor begins recording bus activity 
+    666          		// upon detecting the next Manchester word (or sync+bits) as 
+    667          		// set by bits 6-5 in the MT Configuration reg 0x0029 
+    668          		code1 ^= 0x0300;
+    669          		code2 ^= 0x0300;
+    670          	}
+    671          
+    672          	#if (HOST_BUS_INTERFACE) 
+    673          
+    674          	    // write unlock code #1 
+    675          	    pH6130->EEPROM_UNLOCK_REG = code1;
+   \   0000002A   ....               LDR.N    R0,??DataTable11_5
+   \   0000002C   0068               LDR      R0,[R0, #+0]
+   \   0000002E   A0F89C40           STRH     R4,[R0, #+156]
+    676          	    // write unlock code #2 
+    677          	    pH6130->EEPROM_UNLOCK_REG = code2;
+   \   00000032   ....               LDR.N    R0,??DataTable11_5
+   \   00000034   0068               LDR      R0,[R0, #+0]
+   \   00000036   A0F89C50           STRH     R5,[R0, #+156]
+    678          
+    679          	#else // using HOST SPI INTERFACE
+    680          
+    681                      // ints should already be disabled, 
+    682                      // main() will re-enable them later
+    683                      __disable_interrupt(); 
+    684                      // enable Memory Address Pointer 1
+    685                      enaMAP(1);
+    686          	    // init memory address pointer
+    687          	    Write_6131LowReg(MAP_1,0x004E,0);
+    688          	    // write unlock code #1 to RAM address 0x004E
+    689          	    Write_6131_1word(code1,0);
+    690          	    // init memory address pointer again (it auto-incremented)
+    691          	    Write_6131LowReg(MAP_1,0x004E,0);
+    692          	    // write unlock code #2 to RAM address 0x004E
+    693          	    Write_6131_1word(code2,0);
+    694          	#endif
+    695          
+    696          	// assert HI-613x EECOPY input for 1 ms minimum,
+    697          	// and EEPROM copy will begin after EECOPY falling edge
+    698          	PIO_Set(&pinEECOPY);
+   \   0000003A   00A8               ADD      R0,SP,#+0
+   \   0000003C   ........           BL       PIO_Set
+    699                  Delay_x100ms(11);
+   \   00000040   0B20               MOVS     R0,#+11
+   \   00000042   ........           BL       Delay_x100ms
+    700          	PIO_Clear(&pinEECOPY);
+   \   00000046   00A8               ADD      R0,SP,#+0
+   \   00000048   ........           BL       PIO_Clear
+    701          
+    702          	// turn on yellow LED while EEPROM programming is underway
+    703                  PIO_Clear(&pinLEDY);
+   \   0000004C   10A8               ADD      R0,SP,#+64
+   \   0000004E   ........           BL       PIO_Clear
+    704          
+    705          	// READY pin should have dropped to 0 after EECOPY pulse ended
+    706                  if(PIO_Get(&pinREADY)) {
+   \   00000052   08A8               ADD      R0,SP,#+32
+   \   00000054   ........           BL       PIO_Get
+   \   00000058   0028               CMP      R0,#+0
+   \   0000005A   05D0               BEQ.N    ??write_init_eeprom_0
+    707                      #if(CONSOLE_IO)
+    708                          printf("\n\r Error: READY pin should have dropped to 0 after EECOPY pulse ended.\n\r");
+   \   0000005C   ....               LDR.N    R0,??DataTable11_27
+   \   0000005E   ........           BL       printf
+    709                      #endif 
+    710                      error_trap(6); // flash red LED 6x groups
+   \   00000062   0620               MOVS     R0,#+6
+   \   00000064   ........           BL       error_trap
+    711                  }
+    712          
+    713          	// wait for READY pin which signifies completion of EEPROM 
+    714          	// copy from HI-613X registers and RAM. The device EE1K 
+    715          	// input pin determines whether 1K or 32K x 16 gets copied 
+    716          	// to EEPROM. The copy process can take up to 3 seconds...
+    717          	while(!PIO_Get(&pinREADY)) ;
+   \                     ??write_init_eeprom_0:
+   \   00000068   08A8               ADD      R0,SP,#+32
+   \   0000006A   ........           BL       PIO_Get
+   \   0000006E   0028               CMP      R0,#+0
+   \   00000070   FAD0               BEQ.N    ??write_init_eeprom_0
+    718          
+    719          	// turn off the yellow LED
+    720                  PIO_Set(&pinLEDY);
+   \   00000072   10A8               ADD      R0,SP,#+64
+   \   00000074   ........           BL       PIO_Set
+    721          
+    722          }	// end: write_init_eeprom()
+   \   00000078   19B0               ADD      SP,SP,#+100
+   \   0000007A   30BD               POP      {R4,R5,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11:
+   \   00000000   ........           DC32     `?<Constant {{131072, (AT91S_PIO *)1074662912, `
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_1:
+   \   00000000   ........           DC32     `?<Constant {32, (AT91S_PIO *)1074662912, 11, 2`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_2:
+   \   00000000   34100E40           DC32     0x400e1034
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_3:
+   \   00000000   30100E40           DC32     0x400e1030
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_4:
+   \   00000000   ........           DC32     `?<Constant {16, (AT91S_PIO *)1074662912, 11, 2`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_5:
+   \   00000000   ........           DC32     pH6130
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_6:
+   \   00000000   00000840           DC32     0x40080000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_7:
+   \   00000000   28000840           DC32     0x40080028
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_8:
+   \   00000000   20000840           DC32     0x40080020
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_9:
+   \   00000000   04000840           DC32     0x40080004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_10:
+   \   00000000   ........           DC32     `?<Constant {1073741824, (AT91S_PIO *)107466240`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_11:
+   \   00000000   1C000840           DC32     0x4008001c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_12:
+   \   00000000   300C0E40           DC32     0x400e0c30
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_13:
+   \   00000000   340C0E40           DC32     0x400e0c34
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_14:
+   \   00000000   ........           DC32     `?<Constant {2147483648, (AT91S_PIO *)107466240`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_15:
+   \   00000000   ........           DC32     `?<Constant {268435456, (AT91S_PIO *)1074663424`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_16:
+   \   00000000   ........           DC32     `?<Constant {134217728, (AT91S_PIO *)1074663424`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_17:
+   \   00000000   ........           DC32     `?<Constant {65536, (AT91S_PIO *)1074663424, 12`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_18:
+   \   00000000   ........           DC32     `?<Constant {67108864, (AT91S_PIO *)1074663424,`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_19:
+   \   00000000   ........           DC32     `?<Constant "\\n\\r Error: BCENA pin l...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_20:
+   \   00000000   ........           DC32     `?<Constant "\\n\\r Error: RT1ENA pin ...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_21:
+   \   00000000   ........           DC32     `?<Constant "\\n\\r Error: RT2ENA pin ...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_22:
+   \   00000000   ........           DC32     `?<Constant "\\n\\r Error: MTRUN pin l...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_23:
+   \   00000000   ........           DC32     `?<Constant "\\n\\r Error: BC, RT1, RT...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_24:
+   \   00000000   ........           DC32     `?<Constant {1073741824, (AT91S_PIO *)107466240_1`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_25:
+   \   00000000   ........           DC32     `?<Constant {32, (AT91S_PIO *)1074662912, 11, 2_1`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_26:
+   \   00000000   ........           DC32     `?<Constant {16777216, (AT91S_PIO *)1074663424,`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable11_27:
+   \   00000000   ........           DC32     `?<Constant "\\n\\r Error: READY pin s...">`
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {{131072, (AT91S_PIO *)1074662912, `:
+   \   00000000   00000200000E       DC32 131072, 400E0E00H
+   \              0E40        
+   \   00000008   0B0202000000       DC8 11, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000020   00000400000E       DC32 262144, 400E0E00H
+   \              0E40        
+   \   00000028   0B0202000000       DC8 11, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000003B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000040   04000000000E       DC32 4, 400E0E00H
+   \              0E40        
+   \   00000048   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000005A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000060   00000001000E       DC32 16777216, 400E0E00H
+   \              0E40        
+   \   00000068   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000007A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000080   08000000000E       DC32 8, 400E0E00H
+   \              0E40        
+   \   00000088   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000009A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   000000A0   10000000000E       DC32 16, 400E0E00H
+   \              0E40        
+   \   000000A8   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   000000BA   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   000000C0   000000080010       DC32 134217728, 400E1000H
+   \              0E40        
+   \   000000C8   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   000000DA   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   000000E0   000000100010       DC32 268435456, 400E1000H
+   \              0E40        
+   \   000000E8   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   000000FA   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000100   000001000010       DC32 65536, 400E1000H
+   \              0E40        
+   \   00000108   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000011A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000120   000000040010       DC32 67108864, 400E1000H
+   \              0E40        
+   \   00000128   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000013A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000140   001000000010       DC32 4096, 400E1000H
+   \              0E40        
+   \   00000148   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000015A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000160   002000000010       DC32 8192, 400E1000H
+   \              0E40        
+   \   00000168   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000017A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000180   004000000010       DC32 16384, 400E1000H
+   \              0E40        
+   \   00000188   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000019A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   000001A0   008000000010       DC32 32768, 400E1000H
+   \              0E40        
+   \   000001A8   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   000001BA   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   000001C0   01000000000C       DC32 1, 400E0C00H
+   \              0E40        
+   \   000001C8   0A0200000000       DC8 10, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   000001DA   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   000001E0   02000000000C       DC32 2, 400E0C00H
+   \              0E40        
+   \   000001E8   0A0200000000       DC8 10, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   000001FA   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000200   01000000000E       DC32 1, 400E0E00H
+   \              0E40        
+   \   00000208   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000021A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000220   02000000000E       DC32 2, 400E0E00H
+   \              0E40        
+   \   00000228   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000023A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000240   20000000000E       DC32 32, 400E0E00H
+   \              0E40        
+   \   00000248   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000025A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000260   000040000010       DC32 4194304, 400E1000H
+   \              0E40        
+   \   00000268   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000027A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   \   00000280   000000400010       DC32 1073741824, 400E1000H
+   \              0E40        
+   \   00000288   0C0400000000       DC8 12, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000029B   0000000000         DC8 0, 0, 0, 0, 0
+   \   000002A0   000000800010       DC32 2147483648, 400E1000H
+   \              0E40        
+   \   000002A8   0C0400000000       DC8 12, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000002BB   0000000000         DC8 0, 0, 0, 0, 0
+   \   000002C0   00000020000C       DC32 536870912, 400E0C00H
+   \              0E40        
+   \   000002C8   0A0400000000       DC8 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000002DB   0000000000         DC8 0, 0, 0, 0, 0
+   \   000002E0   00000080000C       DC32 2147483648, 400E0C00H
+   \              0E40        
+   \   000002E8   0A0400000000       DC8 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000002FB   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000300   00000040000C       DC32 1073741824, 400E0C00H
+   \              0E40        
+   \   00000308   0A0400000000       DC8 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000031B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000320   000002000010       DC32 131072, 400E1000H
+   \              0E40        
+   \   00000328   0C0300000000       DC8 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000033B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000340   000080000010       DC32 8388608, 400E1000H
+   \              0E40        
+   \   00000348   0C0400000000       DC8 12, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000035B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000360   000000010010       DC32 16777216, 400E1000H
+   \              0E40        
+   \   00000368   0C0300000000       DC8 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000037B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000380   000000020010       DC32 33554432, 400E1000H
+   \              0E40        
+   \   00000388   0C0300000000       DC8 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000039B   0000000000         DC8 0, 0, 0, 0, 0
+   \   000003A0   000000200010       DC32 536870912, 400E1000H
+   \              0E40        
+   \   000003A8   0C0300000000       DC8 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000003BB   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {32, (AT91S_PIO *)1074662912, 11, 2`:
+   \   00000000   20000000000E       DC32 32, 400E0E00H
+   \              0E40        
+   \   00000008   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {16, (AT91S_PIO *)1074662912, 11, 2`:
+   \   00000000   10000000000E       DC32 16, 400E0E00H
+   \              0E40        
+   \   00000008   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {1073741824, (AT91S_PIO *)107466240`:
+   \   00000000   00000040000C       DC32 1073741824, 400E0C00H
+   \              0E40        
+   \   00000008   0A0400000000       DC8 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {2147483648, (AT91S_PIO *)107466240`:
+   \   00000000   00000080000C       DC32 2147483648, 400E0C00H
+   \              0E40        
+   \   00000008   0A0400000000       DC8 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {268435456, (AT91S_PIO *)1074663424`:
+   \   00000000   000000100010       DC32 268435456, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {134217728, (AT91S_PIO *)1074663424`:
+   \   00000000   000000080010       DC32 134217728, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {65536, (AT91S_PIO *)1074663424, 12`:
+   \   00000000   000001000010       DC32 65536, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {67108864, (AT91S_PIO *)1074663424,`:
+   \   00000000   000000040010       DC32 67108864, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\r Error: BCENA pin l...">`:
+   \   00000000   0A0D20457272       DC8 0AH, 0DH, 20H, 45H, 72H, 72H, 6FH, 72H
+   \              6F72        
+   \   00000008   3A204243454E       DC8 3AH, 20H, 42H, 43H, 45H, 4EH, 41H, 20H
+   \              4120        
+   \   00000010   70696E206C6F       DC8 70H, 69H, 6EH, 20H, 6CH, 6FH, 77H, 2CH
+   \              772C        
+   \   00000018   206275742073       DC8 20H, 62H, 75H, 74H, 20H, 73H, 6FH, 66H
+   \              6F66        
+   \   00000020   747761726520       DC8 74H, 77H, 61H, 72H, 65H, 20H, 42H, 43H
+   \              4243        
+   \   00000028   5F656E612074       DC8 5FH, 65H, 6EH, 61H, 20H, 74H, 72H, 75H
+   \              7275        
+   \   00000030   652E0A0D00         DC8 65H, 2EH, 0AH, 0DH, 0
+   \   00000035   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\r Error: RT1ENA pin ...">`:
+   \   00000000   0A0D20457272       DC8 0AH, 0DH, 20H, 45H, 72H, 72H, 6FH, 72H
+   \              6F72        
+   \   00000008   3A2052543145       DC8 3AH, 20H, 52H, 54H, 31H, 45H, 4EH, 41H
+   \              4E41        
+   \   00000010   2070696E206C       DC8 20H, 70H, 69H, 6EH, 20H, 6CH, 6FH, 77H
+   \              6F77        
+   \   00000018   2C2062757420       DC8 2CH, 20H, 62H, 75H, 74H, 20H, 73H, 6FH
+   \              736F        
+   \   00000020   667477617265       DC8 66H, 74H, 77H, 61H, 72H, 65H, 20H, 52H
+   \              2052        
+   \   00000028   54315F656E61       DC8 54H, 31H, 5FH, 65H, 6EH, 61H, 20H, 74H
+   \              2074        
+   \   00000030   7275652E0A0D       DC8 72H, 75H, 65H, 2EH, 0AH, 0DH, 0
+   \              00          
+   \   00000037   00                 DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\r Error: RT2ENA pin ...">`:
+   \   00000000   0A0D20457272       DC8 0AH, 0DH, 20H, 45H, 72H, 72H, 6FH, 72H
+   \              6F72        
+   \   00000008   3A2052543245       DC8 3AH, 20H, 52H, 54H, 32H, 45H, 4EH, 41H
+   \              4E41        
+   \   00000010   2070696E206C       DC8 20H, 70H, 69H, 6EH, 20H, 6CH, 6FH, 77H
+   \              6F77        
+   \   00000018   2C2062757420       DC8 2CH, 20H, 62H, 75H, 74H, 20H, 73H, 6FH
+   \              736F        
+   \   00000020   667477617265       DC8 66H, 74H, 77H, 61H, 72H, 65H, 20H, 52H
+   \              2052        
+   \   00000028   54325F656E61       DC8 54H, 32H, 5FH, 65H, 6EH, 61H, 20H, 74H
+   \              2074        
+   \   00000030   7275652E0A0D       DC8 72H, 75H, 65H, 2EH, 0AH, 0DH, 0
+   \              00          
+   \   00000037   00                 DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\r Error: MTRUN pin l...">`:
+   \   00000000   0A0D20457272       DC8 0AH, 0DH, 20H, 45H, 72H, 72H, 6FH, 72H
+   \              6F72        
+   \   00000008   3A204D545255       DC8 3AH, 20H, 4DH, 54H, 52H, 55H, 4EH, 20H
+   \              4E20        
+   \   00000010   70696E206C6F       DC8 70H, 69H, 6EH, 20H, 6CH, 6FH, 77H, 2CH
+   \              772C        
+   \   00000018   206275742073       DC8 20H, 62H, 75H, 74H, 20H, 73H, 6FH, 66H
+   \              6F66        
+   \   00000020   747761726520       DC8 74H, 77H, 61H, 72H, 65H, 20H, 53H, 4DH
+   \              534D        
+   \   00000028   545F656E6120       DC8 54H, 5FH, 65H, 6EH, 61H, 20H, 6FH, 72H
+   \              6F72        
+   \   00000030   20494D545F65       DC8 20H, 49H, 4DH, 54H, 5FH, 65H, 6EH, 61H
+   \              6E61        
+   \   00000038   206973207472       DC8 20H, 69H, 73H, 20H, 74H, 72H, 75H, 65H
+   \              7565        
+   \   00000040   2E0A0D00           DC8 2EH, 0AH, 0DH, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\r Error: BC, RT1, RT...">`:
+   \   00000000   0A0D20457272       DC8 0AH, 0DH, 20H, 45H, 72H, 72H, 6FH, 72H
+   \              6F72        
+   \   00000008   3A2042432C20       DC8 3AH, 20H, 42H, 43H, 2CH, 20H, 52H, 54H
+   \              5254        
+   \   00000010   312C20525432       DC8 31H, 2CH, 20H, 52H, 54H, 32H, 2CH, 20H
+   \              2C20        
+   \   00000018   494D542C2053       DC8 49H, 4DH, 54H, 2CH, 20H, 53H, 4DH, 54H
+   \              4D54        
+   \   00000020   206172652061       DC8 20H, 61H, 72H, 65H, 20H, 61H, 6CH, 6CH
+   \              6C6C        
+   \   00000028   206469736162       DC8 20H, 64H, 69H, 73H, 61H, 62H, 6CH, 65H
+   \              6C65        
+   \   00000030   642E0A0D00         DC8 64H, 2EH, 0AH, 0DH, 0
+   \   00000035   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {1073741824, (AT91S_PIO *)107466240_1`:
+   \   00000000   00000040000C       DC32 1073741824, 400E0C00H
+   \              0E40        
+   \   00000008   0A0400000000       DC8 10, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {32, (AT91S_PIO *)1074662912, 11, 2_1`:
+   \   00000000   20000000000E       DC32 32, 400E0E00H
+   \              0E40        
+   \   00000008   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {16777216, (AT91S_PIO *)1074663424,`:
+   \   00000000   000000010010       DC32 16777216, 400E1000H
+   \              0E40        
+   \   00000008   0C0300000000       DC8 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\r Error: READY pin s...">`:
+   \   00000000   0A0D20457272       DC8 0AH, 0DH, 20H, 45H, 72H, 72H, 6FH, 72H
+   \              6F72        
+   \   00000008   3A2052454144       DC8 3AH, 20H, 52H, 45H, 41H, 44H, 59H, 20H
+   \              5920        
+   \   00000010   70696E207368       DC8 70H, 69H, 6EH, 20H, 73H, 68H, 6FH, 75H
+   \              6F75        
+   \   00000018   6C6420686176       DC8 6CH, 64H, 20H, 68H, 61H, 76H, 65H, 20H
+   \              6520        
+   \   00000020   64726F707065       DC8 64H, 72H, 6FH, 70H, 70H, 65H, 64H, 20H
+   \              6420        
+   \   00000028   746F20302061       DC8 74H, 6FH, 20H, 30H, 20H, 61H, 66H, 74H
+   \              6674        
+   \   00000030   657220454543       DC8 65H, 72H, 20H, 45H, 45H, 43H, 4FH, 50H
+   \              4F50        
+   \   00000038   592070756C73       DC8 59H, 20H, 70H, 75H, 6CH, 73H, 65H, 20H
+   \              6520        
+   \   00000040   656E6465642E       DC8 65H, 6EH, 64H, 65H, 64H, 2EH, 0AH, 0DH
+   \              0A0D        
+   \   00000048   00                 DC8 0
+   \   00000049   000000             DC8 0, 0, 0
+    723          
+    724          
+    725          
+    726          
+    727          
+    728          
+    729          
+    730          
+    731          
+    732          // end of file
+    733          
+
+   Maximum stack usage in bytes:
+
+     Function               .cstack
+     --------               -------
+     ConfigureGpio             968
+     Delay_ms                    0
+     Delay_us                   48
+     Delay_x100ms                8
+     Flash_Green_LED             8
+     Flash_Red_LED               8
+     autoinit_check             40
+     enable_check              136
+     error_trap                 48
+     init_timer                  8
+     initialize_613x_shared      0
+     reset_613x                 40
+     write_init_eeprom         112
+
+
+   Section sizes:
+
+     Function/Label                                   Bytes
+     --------------                                   -----
+     ConfigureGpio                                      34
+     reset_613x                                         56
+     autoinit_check                                    100
+     initialize_613x_shared                             24
+     init_timer                                         44
+     Delay_us                                           72
+     Delay_ms                                           52
+     Delay_x100ms                                       22
+     Flash_Red_LED                                      26
+     Flash_Green_LED                                    26
+     error_trap                                         84
+     enable_check                                      186
+     write_init_eeprom                                 124
+     ??DataTable11                                       4
+     ??DataTable11_1                                     4
+     ??DataTable11_2                                     4
+     ??DataTable11_3                                     4
+     ??DataTable11_4                                     4
+     ??DataTable11_5                                     4
+     ??DataTable11_6                                     4
+     ??DataTable11_7                                     4
+     ??DataTable11_8                                     4
+     ??DataTable11_9                                     4
+     ??DataTable11_10                                    4
+     ??DataTable11_11                                    4
+     ??DataTable11_12                                    4
+     ??DataTable11_13                                    4
+     ??DataTable11_14                                    4
+     ??DataTable11_15                                    4
+     ??DataTable11_16                                    4
+     ??DataTable11_17                                    4
+     ??DataTable11_18                                    4
+     ??DataTable11_19                                    4
+     ??DataTable11_20                                    4
+     ??DataTable11_21                                    4
+     ??DataTable11_22                                    4
+     ??DataTable11_23                                    4
+     ??DataTable11_24                                    4
+     ??DataTable11_25                                    4
+     ??DataTable11_26                                    4
+     ??DataTable11_27                                    4
+     ?<Constant {{131072, (AT91S_PIO *)1074662912,     960
+     ?<Constant {32, (AT91S_PIO *)1074662912, 11, 2     32
+     ?<Constant {16, (AT91S_PIO *)1074662912, 11, 2     32
+     ?<Constant {1073741824, (AT91S_PIO *)107466240     32
+     ?<Constant {2147483648, (AT91S_PIO *)107466240     32
+     ?<Constant {268435456, (AT91S_PIO *)1074663424     32
+     ?<Constant {134217728, (AT91S_PIO *)1074663424     32
+     ?<Constant {65536, (AT91S_PIO *)1074663424, 12     32
+     ?<Constant {67108864, (AT91S_PIO *)1074663424,     32
+     ?<Constant "\n\r Error: BCENA pin l...">           56
+     ?<Constant "\n\r Error: RT1ENA pin ...">           56
+     ?<Constant "\n\r Error: RT2ENA pin ...">           56
+     ?<Constant "\n\r Error: MTRUN pin l...">           68
+     ?<Constant "\n\r Error: BC, RT1, RT...">           56
+     ?<Constant {1073741824, (AT91S_PIO *)107466240_1   32
+     ?<Constant {32, (AT91S_PIO *)1074662912, 11, 2_1   32
+     ?<Constant {16777216, (AT91S_PIO *)1074663424,     32
+     ?<Constant "\n\r Error: READY pin s...">           76
+
+ 
+ 1 680 bytes in section .rodata
+   962 bytes in section .text
+ 
+   962 bytes of CODE  memory
+ 1 680 bytes of CONST memory
+
+Errors: none
+Warnings: none

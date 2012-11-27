@@ -1,0 +1,267 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:42:29 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\boards\at91sam3u- #
+#                    ek\board_cstartup_iar.c                                  #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\boards\at91sam3u- #
+#                    ek\board_cstartup_iar.c" -D at91sam3u4 -D flash -D       #
+#                    TRACE_LEVEL=4 -D BC_ena=1 -D RT2_ena=0 -D RT1_ena=0 -D   #
+#                    SMT_ena=0 -D IMT_ena=0 -lC "C:\Program Files\IAR         #
+#                    Systems\Embedded Workbench 6.0                           #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\List\" --remarks     #
+#                    --diag_suppress Pe826,Pe1375,Pe068 -o "C:\Program        #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\Obj\" --no_cse       #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\List\board_cstartup_ #
+#                    iar.lst                                                  #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\Obj\board_cstartup_i #
+#                    ar.o                                                     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91lib\boards\at91sam3u-ek\board_cstartup_iar.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2008, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          //------------------------------------------------------------------------------
+     31          //         Headers
+     32          //------------------------------------------------------------------------------
+     33          #include "board.h"
+     34          #include "exceptions.h"
+     35          #include "board_lowlevel.h"
+     36          #include <intrinsics.h>
+     37          //------------------------------------------------------------------------------
+     38          //         Types
+     39          //------------------------------------------------------------------------------
+     40          typedef union { IntFunc __fun; void * __ptr; } IntVector;
+     41          
+     42          //------------------------------------------------------------------------------
+     43          //         ProtoTypes
+     44          //------------------------------------------------------------------------------
+     45          
+     46          extern void __iar_program_start( void );
+     47          
+     48          int __low_level_init( void );
+     49          
+     50          //------------------------------------------------------------------------------
+     51          //         Variables
+     52          //------------------------------------------------------------------------------
+     53          extern unsigned int __ICFEDIT_vector_start__;
+     54          
+     55          //------------------------------------------------------------------------------
+     56          //         Exception Table
+     57          //------------------------------------------------------------------------------
+     58          
+     59          #pragma language=extended
+     60          #pragma segment="CSTACK"
+     61          
+     62          // The name "__vector_table" has special meaning for C-SPY:
+     63          // it is where the SP start value is found, and the NVIC vector
+     64          // table register (VTOR) is initialized to this address if != 0.
+     65          
+     66          #pragma section = ".vectors"
+     67          #pragma location = ".vectors"
+
+   \                                 In section .vectors, align 4
+     68          const IntVector __vector_table[] =
+   \                     __vector_table:
+   \   00000000   ............       DC32 SFE(CSTACK), __iar_program_start, NMI_Handler, HardFault_Handler
+   \              ............
+   \              ........    
+   \   00000010   ............       DC32 MemManage_Handler, BusFault_Handler, UsageFault_Handler, 0H, 0H
+   \              ............
+   \              000000000000
+   \              0000        
+   \   00000024   000000000000       DC32 0H, 0H, SVC_Handler, DebugMon_Handler, 0H, PendSV_Handler
+   \              0000........
+   \              ........0000
+   \              0000........
+   \   0000003C   ............       DC32 SysTick_Handler, SUPC_IrqHandler, RSTC_IrqHandler, RTC_IrqHandler
+   \              ............
+   \              ........    
+   \   0000004C   ............       DC32 RTT_IrqHandler, WDT_IrqHandler, PMC_IrqHandler, EFC0_IrqHandler
+   \              ............
+   \              ........    
+   \   0000005C   ............       DC32 EFC1_IrqHandler, DBGU_IrqHandler, HSMC4_IrqHandler
+   \              ............
+   \   00000068   ............       DC32 PIOA_IrqHandler, PIOB_IrqHandler, PIOC_IrqHandler
+   \              ............
+   \   00000074   ............       DC32 USART0_IrqHandler, USART1_IrqHandler, USART2_IrqHandler
+   \              ............
+   \   00000080   ............       DC32 USART3_IrqHandler, MCI0_IrqHandler, TWI0_IrqHandler
+   \              ............
+   \   0000008C   ............       DC32 TWI1_IrqHandler, SPI0_IrqHandler, SSC0_IrqHandler, TC0_IrqHandler
+   \              ............
+   \              ........    
+   \   0000009C   ............       DC32 TC1_IrqHandler, TC2_IrqHandler, PWM_IrqHandler, ADCC0_IrqHandler
+   \              ............
+   \              ........    
+   \   000000AC   ............       DC32 ADCC1_IrqHandler, HDMA_IrqHandler, UDPD_IrqHandler
+   \              ............
+   \   000000B8   ........           DC32 IrqHandlerNotUsed
+     69          {
+     70              { .__ptr = __sfe( "CSTACK" ) },
+     71              __iar_program_start,
+     72          
+     73              NMI_Handler,
+     74              HardFault_Handler,
+     75              MemManage_Handler,
+     76              BusFault_Handler,
+     77              UsageFault_Handler,
+     78              0, 0, 0, 0,             // Reserved
+     79              SVC_Handler,
+     80              DebugMon_Handler,
+     81              0,                      // Reserved
+     82              PendSV_Handler,
+     83              SysTick_Handler,
+     84          
+     85              // Configurable interrupts
+     86              SUPC_IrqHandler,    // 0  SUPPLY CONTROLLER
+     87              RSTC_IrqHandler,    // 1  RESET CONTROLLER
+     88              RTC_IrqHandler,     // 2  REAL TIME CLOCK
+     89              RTT_IrqHandler,     // 3  REAL TIME TIMER
+     90              WDT_IrqHandler,     // 4  WATCHDOG TIMER
+     91              PMC_IrqHandler,     // 5  PMC
+     92              EFC0_IrqHandler,    // 6  EFC0
+     93              EFC1_IrqHandler,    // 7  EFC1
+     94              DBGU_IrqHandler,    // 8  DBGU
+     95              HSMC4_IrqHandler,   // 9  HSMC4
+     96              PIOA_IrqHandler,    // 10 Parallel IO Controller A
+     97              PIOB_IrqHandler,    // 11 Parallel IO Controller B
+     98              PIOC_IrqHandler,    // 12 Parallel IO Controller C
+     99              USART0_IrqHandler,  // 13 USART 0
+    100              USART1_IrqHandler,  // 14 USART 1
+    101              USART2_IrqHandler,  // 15 USART 2
+    102              USART3_IrqHandler,  // 16 USART 3
+    103              MCI0_IrqHandler,    // 17 Multimedia Card Interface
+    104              TWI0_IrqHandler,    // 18 TWI 0
+    105              TWI1_IrqHandler,    // 19 TWI 1
+    106              SPI0_IrqHandler,    // 20 Serial Peripheral Interface
+    107              SSC0_IrqHandler,    // 21 Serial Synchronous Controller 0
+    108              TC0_IrqHandler,     // 22 Timer Counter 0
+    109              TC1_IrqHandler,     // 23 Timer Counter 1
+    110              TC2_IrqHandler,     // 24 Timer Counter 2
+    111              PWM_IrqHandler,     // 25 Pulse Width Modulation Controller
+    112              ADCC0_IrqHandler,   // 26 ADC controller0
+    113              ADCC1_IrqHandler,   // 27 ADC controller1
+    114              HDMA_IrqHandler,    // 28 HDMA
+    115              UDPD_IrqHandler,   // 29 USB Device High Speed UDP_HS
+    116              IrqHandlerNotUsed   // 30 not used
+    117          };
+    118          
+    119          //------------------------------------------------------------------------------
+    120          //         Exported functions
+    121          //------------------------------------------------------------------------------
+    122          
+    123          //------------------------------------------------------------------------------
+    124          /// This is the code that gets called on processor reset. To initialize the
+    125          /// device.
+    126          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 4, keep-with-next
+    127          int __low_level_init( void )
+    128          {
+   \                     __low_level_init:
+   \   00000000   10B5               PUSH     {R4,LR}
+    129              unsigned int * src = __section_begin(".vectors");
+   \   00000002   034C               LDR.N    R4,??__low_level_init_0
+    130          
+    131              LowLevelInit();
+   \   00000004   ........           BL       LowLevelInit
+    132          
+    133              AT91C_BASE_NVIC->NVIC_VTOFFR = ((unsigned int)(src)) | (0x0 << 7);
+   \   00000008   0248               LDR.N    R0,??__low_level_init_0+0x4  ;; 0xe000ed08
+   \   0000000A   0460               STR      R4,[R0, #+0]
+    134             
+    135              return 1; // if return 0, the data sections will not be initialized.
+   \   0000000C   0120               MOVS     R0,#+1
+   \   0000000E   10BD               POP      {R4,PC}          ;; return
+   \                     ??__low_level_init_0:
+   \   00000010   ........           DC32     SFB(`.vectors`)
+   \   00000014   08ED00E0           DC32     0xe000ed08
+    136          }
+
+   Maximum stack usage in bytes:
+
+     Function         .cstack
+     --------         -------
+     __low_level_init      8
+
+
+   Section sizes:
+
+     Function/Label   Bytes
+     --------------   -----
+     __vector_table    188
+     __low_level_init   24
+
+ 
+  24 bytes in section .text
+ 188 bytes in section .vectors
+ 
+  24 bytes of CODE  memory
+ 188 bytes of CONST memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<exampleInfo>
+  <copyDir>..\..\at91lib</copyDir>
+  <copyDir>..\..\resources</copyDir>
+  <copyDir>..\..\external_libs</copyDir>
+</exampleInfo>
+

@@ -1,0 +1,610 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:44:46 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\pmc\p #
+#                    mc.c                                                     #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\pmc\p #
+#                    mc.c" -D at91sam3u4 -D flash -D TRACE_LEVEL=4 -D         #
+#                    BC_ena=0 -D RT2_ena=1 -D RT1_ena=1 -D SMT_ena=0 -D       #
+#                    IMT_ena=1 -lC "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-40 EBI Demo 1_0\ewp\RT_IMT\List\"        #
+#                    --remarks --diag_suppress Pe826,Pe1375,Pe068 -o          #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_IMT\Obj\" --no_cse        #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_IMT\List\pmc.lst          #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_IMT\Obj\pmc.o             #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91lib\peripherals\pmc\pmc.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2008, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          //------------------------------------------------------------------------------
+     31          //         Headers
+     32          //------------------------------------------------------------------------------
+     33          
+     34          #include "pmc.h"
+     35          #include <board.h>
+     36          #include <utility/assert.h>
+     37          #include <utility/trace.h>
+     38          
+     39          #ifdef CP15_PRESENT
+     40          #include <cp15/cp15.h>
+     41          #endif
+     42          
+     43          #define MASK_STATUS 0x3FFFFFFC
+     44          
+     45          //------------------------------------------------------------------------------
+     46          //         Global functions
+     47          //------------------------------------------------------------------------------
+     48          
+     49          #if defined(at91sam7l64) || defined(at91sam7l128)
+     50          //------------------------------------------------------------------------------
+     51          /// Sets the fast wake-up inputs that can get the device out of Wait mode.
+     52          /// \param inputs  Fast wake-up inputs to enable.
+     53          //------------------------------------------------------------------------------
+     54          void PMC_SetFastWakeUpInputs(unsigned int inputs)
+     55          {
+     56              SANITY_CHECK((inputs & ~0xFF) == 0);
+     57              AT91C_BASE_PMC->PMC_FSMR = inputs;
+     58          }
+     59          
+     60          #if !defined(__ICCARM__)
+     61          __attribute__ ((section (".ramfunc"))) // GCC
+     62          #endif
+     63          //------------------------------------------------------------------------------
+     64          /// Disables the main oscillator, making the device enter Wait mode.
+     65          //------------------------------------------------------------------------------
+     66          void PMC_DisableMainOscillatorForWaitMode(void)
+     67          {
+     68              AT91C_BASE_PMC->PMC_MOR = 0x37 << 16;
+     69              while ((AT91C_BASE_PMC->PMC_MOR & AT91C_PMC_MAINSELS) != AT91C_PMC_MAINSELS);
+     70          }
+     71          
+     72          #endif
+     73          
+     74          #if defined(at91sam7l)
+     75          //------------------------------------------------------------------------------
+     76          /// Disables the main oscillator when NOT running on it.
+     77          //------------------------------------------------------------------------------
+     78          void PMC_DisableMainOscillator(void)
+     79          {
+     80              AT91C_BASE_PMC->PMC_MOR = 0x37 << 16;
+     81              while ((AT91C_BASE_PMC->PMC_SR & AT91C_PMC_MAINSELS) == AT91C_PMC_MAINSELS);
+     82          }
+     83          #endif
+     84          
+     85          //------------------------------------------------------------------------------
+     86          /// Disables the processor clock
+     87          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     88          void PMC_DisableProcessorClock(void)
+     89          {    
+     90              AT91C_BASE_PMC->PMC_SCDR = AT91C_PMC_PCK;   
+   \                     PMC_DisableProcessorClock:
+   \   00000000   ....               LDR.N    R0,??DataTable6  ;; 0x400e0404
+   \   00000002   0121               MOVS     R1,#+1
+   \   00000004   0160               STR      R1,[R0, #+0]
+     91              while ((AT91C_BASE_PMC->PMC_SCSR & AT91C_PMC_PCK) != AT91C_PMC_PCK); 
+   \                     ??PMC_DisableProcessorClock_0:
+   \   00000006   ....               LDR.N    R0,??DataTable6_1  ;; 0x400e0408
+   \   00000008   0068               LDR      R0,[R0, #+0]
+   \   0000000A   C007               LSLS     R0,R0,#+31
+   \   0000000C   FBD5               BPL.N    ??PMC_DisableProcessorClock_0
+     92          }
+   \   0000000E   7047               BX       LR               ;; return
+     93          
+     94          //------------------------------------------------------------------------------
+     95          /// Enables the clock of a peripheral. The peripheral ID (AT91C_ID_xxx) is used
+     96          /// to identify which peripheral is targetted.
+     97          /// Note that the ID must NOT be shifted (i.e. 1 << AT91C_ID_xxx).
+     98          /// \param id  Peripheral ID (AT91C_ID_xxx).
+     99          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    100          void PMC_EnablePeripheral(unsigned int id)
+    101          {
+   \                     PMC_EnablePeripheral:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    102              SANITY_CHECK(id < 32);
+   \   00000004   202C               CMP      R4,#+32
+   \   00000006   08D3               BCC.N    ??PMC_EnablePeripheral_0
+   \   00000008   ....               LDR.N    R0,??DataTable6_2
+   \   0000000A   ........           BL       printf
+   \   0000000E   6622               MOVS     R2,#+102
+   \   00000010   ....               LDR.N    R1,??DataTable6_3
+   \   00000012   ....               LDR.N    R0,??DataTable6_4
+   \   00000014   ........           BL       printf
+   \                     ??PMC_EnablePeripheral_1:
+   \   00000018   FEE7               B.N      ??PMC_EnablePeripheral_1
+    103          
+    104              if ((AT91C_BASE_PMC->PMC_PCSR & (1 << id)) == (1 << id)) {
+   \                     ??PMC_EnablePeripheral_0:
+   \   0000001A   ....               LDR.N    R0,??DataTable6_5  ;; 0x400e0418
+   \   0000001C   0068               LDR      R0,[R0, #+0]
+   \   0000001E   0121               MOVS     R1,#+1
+   \   00000020   A140               LSLS     R1,R1,R4
+   \   00000022   0840               ANDS     R0,R1,R0
+   \   00000024   0121               MOVS     R1,#+1
+   \   00000026   A140               LSLS     R1,R1,R4
+   \   00000028   8842               CMP      R0,R1
+   \   0000002A   04D1               BNE.N    ??PMC_EnablePeripheral_2
+    105          
+    106                  TRACE_INFO("PMC_EnablePeripheral: clock of peripheral"
+    107                             " %u is already enabled\n\r",
+    108                             id);
+   \   0000002C   2100               MOVS     R1,R4
+   \   0000002E   ....               LDR.N    R0,??DataTable6_6
+   \   00000030   ........           BL       printf
+   \   00000034   03E0               B.N      ??PMC_EnablePeripheral_3
+    109              }
+    110              else {
+    111          
+    112                  AT91C_BASE_PMC->PMC_PCER = 1 << id;
+   \                     ??PMC_EnablePeripheral_2:
+   \   00000036   0120               MOVS     R0,#+1
+   \   00000038   A040               LSLS     R0,R0,R4
+   \   0000003A   ....               LDR.N    R1,??DataTable6_7  ;; 0x400e0410
+   \   0000003C   0860               STR      R0,[R1, #+0]
+    113              }
+    114          }
+   \                     ??PMC_EnablePeripheral_3:
+   \   0000003E   10BD               POP      {R4,PC}          ;; return
+    115          
+    116          //------------------------------------------------------------------------------
+    117          /// Disables the clock of a peripheral. The peripheral ID (AT91C_ID_xxx) is used
+    118          /// to identify which peripheral is targetted.
+    119          /// Note that the ID must NOT be shifted (i.e. 1 << AT91C_ID_xxx).
+    120          /// \param id  Peripheral ID (AT91C_ID_xxx).
+    121          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    122          void PMC_DisablePeripheral(unsigned int id)
+    123          {
+   \                     PMC_DisablePeripheral:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    124              SANITY_CHECK(id < 32);
+   \   00000004   202C               CMP      R4,#+32
+   \   00000006   08D3               BCC.N    ??PMC_DisablePeripheral_0
+   \   00000008   ....               LDR.N    R0,??DataTable6_2
+   \   0000000A   ........           BL       printf
+   \   0000000E   7C22               MOVS     R2,#+124
+   \   00000010   ....               LDR.N    R1,??DataTable6_3
+   \   00000012   ....               LDR.N    R0,??DataTable6_4
+   \   00000014   ........           BL       printf
+   \                     ??PMC_DisablePeripheral_1:
+   \   00000018   FEE7               B.N      ??PMC_DisablePeripheral_1
+    125          
+    126              if ((AT91C_BASE_PMC->PMC_PCSR & (1 << id)) != (1 << id)) {
+   \                     ??PMC_DisablePeripheral_0:
+   \   0000001A   ....               LDR.N    R0,??DataTable6_5  ;; 0x400e0418
+   \   0000001C   0068               LDR      R0,[R0, #+0]
+   \   0000001E   0121               MOVS     R1,#+1
+   \   00000020   A140               LSLS     R1,R1,R4
+   \   00000022   0840               ANDS     R0,R1,R0
+   \   00000024   0121               MOVS     R1,#+1
+   \   00000026   A140               LSLS     R1,R1,R4
+   \   00000028   8842               CMP      R0,R1
+   \   0000002A   04D0               BEQ.N    ??PMC_DisablePeripheral_2
+    127          
+    128                  TRACE_INFO("PMC_DisablePeripheral: clock of peripheral"
+    129                             " %u is not enabled\n\r",
+    130                             id);
+   \   0000002C   2100               MOVS     R1,R4
+   \   0000002E   ....               LDR.N    R0,??DataTable6_8
+   \   00000030   ........           BL       printf
+   \   00000034   03E0               B.N      ??PMC_DisablePeripheral_3
+    131              }
+    132              else {
+    133          
+    134                  AT91C_BASE_PMC->PMC_PCDR = 1 << id;
+   \                     ??PMC_DisablePeripheral_2:
+   \   00000036   0120               MOVS     R0,#+1
+   \   00000038   A040               LSLS     R0,R0,R4
+   \   0000003A   ....               LDR.N    R1,??DataTable6_9  ;; 0x400e0414
+   \   0000003C   0860               STR      R0,[R1, #+0]
+    135              }
+    136          }
+   \                     ??PMC_DisablePeripheral_3:
+   \   0000003E   10BD               POP      {R4,PC}          ;; return
+    137          
+    138          //------------------------------------------------------------------------------
+    139          /// Enable all the periph clock via PMC
+    140          /// (Becareful of the last 2 bits, it is not periph clock)
+    141          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    142          void PMC_EnableAllPeripherals(void)
+    143          {
+   \                     PMC_EnableAllPeripherals:
+   \   00000000   80B5               PUSH     {R7,LR}
+    144              AT91C_BASE_PMC->PMC_PCER = MASK_STATUS;
+   \   00000002   ....               LDR.N    R0,??DataTable6_7  ;; 0x400e0410
+   \   00000004   ....               LDR.N    R1,??DataTable6_10  ;; 0x3ffffffc
+   \   00000006   0160               STR      R1,[R0, #+0]
+    145              while( (AT91C_BASE_PMC->PMC_PCSR & MASK_STATUS) != MASK_STATUS);
+   \                     ??PMC_EnableAllPeripherals_0:
+   \   00000008   ....               LDR.N    R0,??DataTable6_5  ;; 0x400e0418
+   \   0000000A   0068               LDR      R0,[R0, #+0]
+   \   0000000C   ....               LDR.N    R1,??DataTable6_10  ;; 0x3ffffffc
+   \   0000000E   0840               ANDS     R0,R1,R0
+   \   00000010   ....               LDR.N    R1,??DataTable6_10  ;; 0x3ffffffc
+   \   00000012   8842               CMP      R0,R1
+   \   00000014   F8D1               BNE.N    ??PMC_EnableAllPeripherals_0
+    146              TRACE_INFO("Enable all periph clocks\n\r"); 
+   \   00000016   ....               LDR.N    R0,??DataTable6_11
+   \   00000018   ........           BL       printf
+    147          }
+   \   0000001C   01BD               POP      {R0,PC}          ;; return
+    148          
+    149          //------------------------------------------------------------------------------
+    150          /// Disable all the periph clock via PMC
+    151          /// (Becareful of the last 2 bits, it is not periph clock)
+    152          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    153          void PMC_DisableAllPeripherals(void)
+    154          {
+   \                     PMC_DisableAllPeripherals:
+   \   00000000   80B5               PUSH     {R7,LR}
+    155              AT91C_BASE_PMC->PMC_PCDR = MASK_STATUS;
+   \   00000002   ....               LDR.N    R0,??DataTable6_9  ;; 0x400e0414
+   \   00000004   ....               LDR.N    R1,??DataTable6_10  ;; 0x3ffffffc
+   \   00000006   0160               STR      R1,[R0, #+0]
+    156              while((AT91C_BASE_PMC->PMC_PCSR & MASK_STATUS) != 0);
+   \                     ??PMC_DisableAllPeripherals_0:
+   \   00000008   ....               LDR.N    R0,??DataTable6_5  ;; 0x400e0418
+   \   0000000A   0068               LDR      R0,[R0, #+0]
+   \   0000000C   ....               LDR.N    R1,??DataTable6_10  ;; 0x3ffffffc
+   \   0000000E   0842               TST      R0,R1
+   \   00000010   FAD1               BNE.N    ??PMC_DisableAllPeripherals_0
+    157              TRACE_INFO("Disable all periph clocks\n\r");
+   \   00000012   ....               LDR.N    R0,??DataTable6_12
+   \   00000014   ........           BL       printf
+    158          }
+   \   00000018   01BD               POP      {R0,PC}          ;; return
+    159          
+    160          //-----------------------------------------------------------------------------
+    161          /// Get Periph Status
+    162          //-----------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    163          unsigned int PMC_IsAllPeriphEnabled(void)
+    164          {
+    165              return (AT91C_BASE_PMC->PMC_PCSR == MASK_STATUS);
+   \                     PMC_IsAllPeriphEnabled:
+   \   00000000   ....               LDR.N    R0,??DataTable6_5  ;; 0x400e0418
+   \   00000002   0068               LDR      R0,[R0, #+0]
+   \   00000004   ....               LDR.N    R1,??DataTable6_10  ;; 0x3ffffffc
+   \   00000006   8842               CMP      R0,R1
+   \   00000008   01D1               BNE.N    ??PMC_IsAllPeriphEnabled_0
+   \   0000000A   0120               MOVS     R0,#+1
+   \   0000000C   00E0               B.N      ??PMC_IsAllPeriphEnabled_1
+   \                     ??PMC_IsAllPeriphEnabled_0:
+   \   0000000E   0020               MOVS     R0,#+0
+   \                     ??PMC_IsAllPeriphEnabled_1:
+   \   00000010   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000012   7047               BX       LR               ;; return
+    166          }
+    167          
+    168          //-----------------------------------------------------------------------------
+    169          /// Get Periph Status
+    170          //-----------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    171          unsigned int PMC_IsPeriphEnabled(unsigned int id)
+    172          {
+    173              return (AT91C_BASE_PMC->PMC_PCSR & (1 << id));  
+   \                     PMC_IsPeriphEnabled:
+   \   00000000   ....               LDR.N    R1,??DataTable6_5  ;; 0x400e0418
+   \   00000002   0968               LDR      R1,[R1, #+0]
+   \   00000004   0122               MOVS     R2,#+1
+   \   00000006   12FA00F0           LSLS     R0,R2,R0
+   \   0000000A   0840               ANDS     R0,R0,R1
+   \   0000000C   7047               BX       LR               ;; return
+    174          }
+    175          //------------------------------------------------------------------------------
+    176          /// Put the CPU in Idle Mode for lower consumption
+    177          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    178          void PMC_CPUInIdleMode(void)
+    179          {
+   \                     PMC_CPUInIdleMode:
+   \   00000000   80B5               PUSH     {R7,LR}
+    180          #ifndef CP15_PRESENT	
+    181              PMC_DisableProcessorClock();
+   \   00000002   ........           BL       PMC_DisableProcessorClock
+    182          #else
+    183              AT91C_BASE_PMC->PMC_SCDR = AT91C_PMC_PCK; 
+    184              CP15_WaitForInterrupt();
+    185          #endif
+    186          }
+   \   00000006   01BD               POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6:
+   \   00000000   04040E40           DC32     0x400e0404
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_1:
+   \   00000000   08040E40           DC32     0x400e0408
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_2:
+   \   00000000   ........           DC32     `?<Constant "-F- ASSERT: ">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_3:
+   \   00000000   ........           DC32     `?<Constant "C:\\\\Program Files\\\\IAR ...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_4:
+   \   00000000   ........           DC32     `?<Constant "Sanity check failed a...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_5:
+   \   00000000   18040E40           DC32     0x400e0418
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_6:
+   \   00000000   ........           DC32     `?<Constant "-I- PMC_EnablePeriphe...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_7:
+   \   00000000   10040E40           DC32     0x400e0410
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_8:
+   \   00000000   ........           DC32     `?<Constant "-I- PMC_DisablePeriph...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_9:
+   \   00000000   14040E40           DC32     0x400e0414
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_10:
+   \   00000000   FCFFFF3F           DC32     0x3ffffffc
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_11:
+   \   00000000   ........           DC32     `?<Constant "-I- Enable all periph...">`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable6_12:
+   \   00000000   ........           DC32     `?<Constant "-I- Disable all perip...">`
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "-F- ASSERT: ">`:
+   \   00000000   2D462D204153       DC8 "-F- ASSERT: "
+   \              534552543A20
+   \              00          
+   \   0000000D   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "Sanity check failed a...">`:
+   \   00000000   53616E697479       DC8 "Sanity check failed at %s:%d\012\015"
+   \              20636865636B
+   \              206661696C65
+   \              642061742025
+   \              733A25640A0D
+   \              00          
+   \   0000001F   00                 DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "C:\\\\Program Files\\\\IAR ...">`:
+   \   00000000   433A5C50726F       DC8 43H, 3AH, 5CH, 50H, 72H, 6FH, 67H, 72H
+   \              6772        
+   \   00000008   616D2046696C       DC8 61H, 6DH, 20H, 46H, 69H, 6CH, 65H, 73H
+   \              6573        
+   \   00000010   5C4941522053       DC8 5CH, 49H, 41H, 52H, 20H, 53H, 79H, 73H
+   \              7973        
+   \   00000018   74656D735C45       DC8 74H, 65H, 6DH, 73H, 5CH, 45H, 6DH, 62H
+   \              6D62        
+   \   00000020   656464656420       DC8 65H, 64H, 64H, 65H, 64H, 20H, 57H, 6FH
+   \              576F        
+   \   00000028   726B62656E63       DC8 72H, 6BH, 62H, 65H, 6EH, 63H, 68H, 20H
+   \              6820        
+   \   00000030   362E30204B69       DC8 36H, 2EH, 30H, 20H, 4BH, 69H, 63H, 6BH
+   \              636B        
+   \   00000038   73746172745F       DC8 73H, 74H, 61H, 72H, 74H, 5FH, 32H, 5CH
+   \              325C        
+   \   00000040   61726D5C6578       DC8 61H, 72H, 6DH, 5CH, 65H, 78H, 61H, 6DH
+   \              616D        
+   \   00000048   706C65735C41       DC8 70H, 6CH, 65H, 73H, 5CH, 41H, 74H, 6DH
+   \              746D        
+   \   00000050   656C5C617439       DC8 65H, 6CH, 5CH, 61H, 74H, 39H, 31H, 6CH
+   \              316C        
+   \   00000058   69625C706572       DC8 69H, 62H, 5CH, 70H, 65H, 72H, 69H, 70H
+   \              6970        
+   \   00000060   686572616C73       DC8 68H, 65H, 72H, 61H, 6CH, 73H, 5CH, 70H
+   \              5C70        
+   \   00000068   6D635C706D63       DC8 6DH, 63H, 5CH, 70H, 6DH, 63H, 2EH, 63H
+   \              2E63        
+   \   00000070   00                 DC8 0
+   \   00000071   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "-I- PMC_EnablePeriphe...">`:
+   \   00000000   2D492D20504D       DC8 2DH, 49H, 2DH, 20H, 50H, 4DH, 43H, 5FH
+   \              435F        
+   \   00000008   456E61626C65       DC8 45H, 6EH, 61H, 62H, 6CH, 65H, 50H, 65H
+   \              5065        
+   \   00000010   726970686572       DC8 72H, 69H, 70H, 68H, 65H, 72H, 61H, 6CH
+   \              616C        
+   \   00000018   3A20636C6F63       DC8 3AH, 20H, 63H, 6CH, 6FH, 63H, 6BH, 20H
+   \              6B20        
+   \   00000020   6F6620706572       DC8 6FH, 66H, 20H, 70H, 65H, 72H, 69H, 70H
+   \              6970        
+   \   00000028   686572616C20       DC8 68H, 65H, 72H, 61H, 6CH, 20H, 25H, 75H
+   \              2575        
+   \   00000030   20697320616C       DC8 20H, 69H, 73H, 20H, 61H, 6CH, 72H, 65H
+   \              7265        
+   \   00000038   61647920656E       DC8 61H, 64H, 79H, 20H, 65H, 6EH, 61H, 62H
+   \              6162        
+   \   00000040   6C65640A0D00       DC8 6CH, 65H, 64H, 0AH, 0DH, 0
+   \   00000046   0000               DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "-I- PMC_DisablePeriph...">`:
+   \   00000000   2D492D20504D       DC8 2DH, 49H, 2DH, 20H, 50H, 4DH, 43H, 5FH
+   \              435F        
+   \   00000008   44697361626C       DC8 44H, 69H, 73H, 61H, 62H, 6CH, 65H, 50H
+   \              6550        
+   \   00000010   657269706865       DC8 65H, 72H, 69H, 70H, 68H, 65H, 72H, 61H
+   \              7261        
+   \   00000018   6C3A20636C6F       DC8 6CH, 3AH, 20H, 63H, 6CH, 6FH, 63H, 6BH
+   \              636B        
+   \   00000020   206F66207065       DC8 20H, 6FH, 66H, 20H, 70H, 65H, 72H, 69H
+   \              7269        
+   \   00000028   70686572616C       DC8 70H, 68H, 65H, 72H, 61H, 6CH, 20H, 25H
+   \              2025        
+   \   00000030   75206973206E       DC8 75H, 20H, 69H, 73H, 20H, 6EH, 6FH, 74H
+   \              6F74        
+   \   00000038   20656E61626C       DC8 20H, 65H, 6EH, 61H, 62H, 6CH, 65H, 64H
+   \              6564        
+   \   00000040   0A0D00             DC8 0AH, 0DH, 0
+   \   00000043   00                 DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "-I- Enable all periph...">`:
+   \   00000000   2D492D20456E       DC8 "-I- Enable all periph clocks\012\015"
+   \              61626C652061
+   \              6C6C20706572
+   \              69706820636C
+   \              6F636B730A0D
+   \              00          
+   \   0000001F   00                 DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "-I- Disable all perip...">`:
+   \   00000000   2D492D204469       DC8 "-I- Disable all periph clocks\012\015"
+   \              7361626C6520
+   \              616C6C207065
+   \              726970682063
+   \              6C6F636B730A
+   \              0D00        
+    187          
+    188          
+
+   Maximum stack usage in bytes:
+
+     Function                  .cstack
+     --------                  -------
+     PMC_CPUInIdleMode              8
+     PMC_DisableAllPeripherals      8
+     PMC_DisablePeripheral          8
+     PMC_DisableProcessorClock      0
+     PMC_EnableAllPeripherals       8
+     PMC_EnablePeripheral           8
+     PMC_IsAllPeriphEnabled         0
+     PMC_IsPeriphEnabled            0
+
+
+   Section sizes:
+
+     Function/Label                           Bytes
+     --------------                           -----
+     PMC_DisableProcessorClock                  16
+     PMC_EnablePeripheral                       64
+     PMC_DisablePeripheral                      64
+     PMC_EnableAllPeripherals                   30
+     PMC_DisableAllPeripherals                  26
+     PMC_IsAllPeriphEnabled                     20
+     PMC_IsPeriphEnabled                        14
+     PMC_CPUInIdleMode                           8
+     ??DataTable6                                4
+     ??DataTable6_1                              4
+     ??DataTable6_2                              4
+     ??DataTable6_3                              4
+     ??DataTable6_4                              4
+     ??DataTable6_5                              4
+     ??DataTable6_6                              4
+     ??DataTable6_7                              4
+     ??DataTable6_8                              4
+     ??DataTable6_9                              4
+     ??DataTable6_10                             4
+     ??DataTable6_11                             4
+     ??DataTable6_12                             4
+     ?<Constant "-F- ASSERT: ">                 16
+     ?<Constant "Sanity check failed a...">     32
+     ?<Constant "C:\\Program Files\\IAR ...">  116
+     ?<Constant "-I- PMC_EnablePeriphe...">     72
+     ?<Constant "-I- PMC_DisablePeriph...">     68
+     ?<Constant "-I- Enable all periph...">     32
+     ?<Constant "-I- Disable all perip...">     32
+
+ 
+ 368 bytes in section .rodata
+ 294 bytes in section .text
+ 
+ 294 bytes of CODE  memory
+ 368 bytes of CONST memory
+
+Errors: none
+Warnings: none

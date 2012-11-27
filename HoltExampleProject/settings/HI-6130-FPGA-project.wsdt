@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>at91sam3u-ek/at91sam3u4_flash</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>297</Column0><Column1>0</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+      </Workspace>
+    <Build><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>891</ColumnWidth1><ColumnWidth2>237</ColumnWidth2><ColumnWidth3>59</ColumnWidth3></Build><Find-in-Files><ColumnWidth0>429</ColumnWidth0><ColumnWidth1>61</ColumnWidth1><ColumnWidth2>735</ColumnWidth2></Find-in-Files><TerminalIO/><Debug-Log><ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1189</ColumnWidth1></Debug-Log><Breakpoints><col-names><item>Breakpoint</item><item>_I0</item></col-names><col-widths><item>500</item><item>35</item></col-widths><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows></Breakpoints></Static>
+    <Windows>
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-31854-6912</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>at91sam3u-ek</ExpandedNode><ExpandedNode>at91sam3u-ek/.</ExpandedNode><ExpandedNode>at91sam3u-ek/Holt_HI-6130_or_HI-6131_project</ExpandedNode><ExpandedNode>at91sam3u-ek/at91lib</ExpandedNode><ExpandedNode>at91sam3u-ek/at91lib/peripherals</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1><Tabs><Tab><Identity>TabID-4203-16214</Identity><TabName>Build</TabName><Factory>Build</Factory><Session/></Tab><Tab><Identity>TabID-12115-14597</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab><Tab><Identity>TabID-4463-31849</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\at91lib\boards\at91sam3u-ek\board.h</Filename><XPos>0</XPos><YPos>263</YPos><SelStart>23593</SelStart><SelEnd>23593</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\board_6130.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>9569</SelStart><SelEnd>9569</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\at91lib\boards\at91sam3u-ek\at91sam3u4\AT91SAM3U4.h</Filename><XPos>0</XPos><YPos>2223</YPos><SelStart>168339</SelStart><SelEnd>168339</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\device_6130.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>27324</SelStart><SelEnd>27324</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\613x_initialization.h</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>2702</SelStart><SelEnd>2720</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\613x_bc.h</Filename><XPos>0</XPos><YPos>20</YPos><SelStart>6687</SelStart><SelEnd>6687</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\613x_bc.c</Filename><XPos>0</XPos><YPos>365</YPos><SelStart>15523</SelStart><SelEnd>15531</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\board_6130.c</Filename><XPos>0</XPos><YPos>323</YPos><SelStart>14909</SelStart><SelEnd>14909</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\console.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>1304</SelStart><SelEnd>1304</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\console.c</Filename><XPos>0</XPos><YPos>2064</YPos><SelStart>52422</SelStart><SelEnd>52431</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\at91lib\peripherals\pmc\pmc.c</Filename><XPos>0</XPos><YPos>88</YPos><SelStart>4555</SelStart><SelEnd>4555</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\613x_rt.c</Filename><XPos>0</XPos><YPos>30</YPos><SelStart>1280</SelStart><SelEnd>1329</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\613x_rt.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>7446</SelStart><SelEnd>7446</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\at91lib\peripherals\usart\usart.c</Filename><XPos>0</XPos><YPos>288</YPos><SelStart>10725</SelStart><SelEnd>10725</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>127</YPos><SelStart>5223</SelStart><SelEnd>5223</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\613x_mt.c</Filename><XPos>0</XPos><YPos>777</YPos><SelStart>39275</SelStart><SelEnd>39275</SelEnd></Tab><ActiveTab>15</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-01335428><key>iaridepm.enu1</key></Toolbar-01335428></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>694</Bottom><Right>344</Right><x>-2</x><y>-2</y><xscreen>172</xscreen><yscreen>200</yscreen><sizeHorzCX>131599</sizeHorzCX><sizeHorzCY>213675</sizeHorzCY><sizeVertCX>264728</sizeVertCX><sizeVertCY>743590</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1309</Right><x>-2</x><y>-2</y><xscreen>1311</xscreen><yscreen>200</yscreen><sizeHorzCX>1003060</sizeHorzCX><sizeHorzCY>213675</sizeHorzCY><sizeVertCX>159908</sizeVertCX><sizeVertCY>213675</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

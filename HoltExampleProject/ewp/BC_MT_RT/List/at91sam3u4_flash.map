@@ -1,0 +1,900 @@
+###############################################################################
+#                                                                             #
+# IAR ELF Linker V6.21.1.52794/W32 for ARM              17/May/2012  09:55:11 #
+# Copyright 2007-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Output file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Exe\at91sam3u4_fl #
+#                    ash.out                                                  #
+#    Map file     =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\List\at91sam3u4_f #
+#                    lash.map                                                 #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\613x_bc.o"    #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\613x_mt.o"    #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\613x_rt.o"    #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\board_6130.o" #
+#                     "C:\Program Files\IAR Systems\Embedded Workbench 6.0    #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\board_6131.o" #
+#                     "C:\Program Files\IAR Systems\Embedded Workbench 6.0    #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\board_613x.o" #
+#                     "C:\Program Files\IAR Systems\Embedded Workbench 6.0    #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\board_cstartu #
+#                    p_iar.o" "C:\Program Files\IAR Systems\Embedded          #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-31 Demo 1_3                              #
+#                    Combo\ewp\BC_MT_RT\Obj\board_lowlevel.o" "C:\Program     #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\board_memorie #
+#                    s.o" "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\console.o"    #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\core_cm3.o"   #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\exceptions.o" #
+#                     "C:\Program Files\IAR Systems\Embedded Workbench 6.0    #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\main.o"       #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\nvic.o"       #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\pio.o"        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\pmc.o"        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\printf_usart. #
+#                    o" "C:\Program Files\IAR Systems\Embedded Workbench 6.0  #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\spi.o"        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\tc.o"         #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\usart.o"      #
+#                    --redirect _Printf=_PrintfSmall --redirect               #
+#                    _Scanf=_ScanfSmall -o "C:\Program Files\IAR              #
+#                    Systems\Embedded Workbench 6.0                           #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Exe\at91sam3u4_fl #
+#                    ash.out" --config_def "define symbol HOST_BUS_INTERFACE  #
+#                    = 1" --map "C:\Program Files\IAR Systems\Embedded        #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-31 Demo 1_3                              #
+#                    Combo\ewp\BC_MT_RT\List\at91sam3u4_flash.map" --config   #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib\boards\at #
+#                    91sam3u-ek\at91sam3u4\flash" --diag_suppress             #
+#                    Lp005,Lp006 --semihosting --entry __iar_program_start    #
+#                    --vfe                                                    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__Heap_Handler  = Basic
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00080000 { ro section .vectors };
+"P1":  place in [from 0x00080000 to 0x0009ffff] { ro };
+"P2":  place in [from 0x20000000 to 0x20007fff] { rw, block HEAP };
+"P3":  place in [from 0x20080000 to 0x20083fff] { block CSTACK };
+
+  Section            Kind        Address    Size  Object
+  -------            ----        -------    ----  ------
+"A1":                                       0xbc
+  .vectors                    0x00080000    0xbc  <Block>
+    .vectors         const    0x00080000    0xbc  board_cstartup_iar.o [1]
+                            - 0x000800bc    0xbc
+
+"P1":                                     0x8a5c
+  .text              ro code  0x000800bc  0x2dbc  console.o [1]
+  .text              ro code  0x00082e78    0x70  ABImemcpy.o [4]
+  .text              ro code  0x00082ee8   0x19e  pio.o [1]
+  .text              ro code  0x00083086    0x2e  copy_init3.o [4]
+  .text              ro code  0x000830b4    0x58  pmc.o [1]
+  .text              ro code  0x0008310c    0x90  usart.o [1]
+  .text              ro code  0x0008319c    0x44  printf_usart.o [1]
+  .text              ro code  0x000831e0    0x24  printf.o [3]
+  .text              ro code  0x00083204   0x358  613x_bc.o [1]
+  .text              ro code  0x0008355c   0x3c4  board_613x.o [1]
+  .text              ro code  0x00083920   0x720  xprintfsmall.o [3]
+  .text              ro code  0x00084040    0x20  xmbtowc.o [3]
+  .text              ro code  0x00084060    0x16  strchr.o [4]
+  .text              ro code  0x00084076    0x22  zero_init3.o [4]
+  .text              ro code  0x00084098    0x36  strlen.o [4]
+  .text              ro code  0x000840d0    0x58  memchr.o [4]
+  .text              ro code  0x00084128     0xa  xmbcurmax.o [3]
+  .text              ro code  0x00084134    0xbc  xxmemxmalloc.o [3]
+  .text              ro code  0x000841f0    0x1a  xwctomb.o [3]
+  .text              ro code  0x0008420c    0x88  xxmemxfree.o [3]
+  .text              ro code  0x00084294    0x14  setlocale.o [3]
+  .text              ro code  0x000842a8    0x5c  xencoding_sb.o [3]
+  .text              ro code  0x00084304   0x110  xsyslock.o [3]
+  .text              ro code  0x00084414    0x28  xgetmemchunk.o [3]
+  .text              ro code  0x0008443c     0x2  xtls.o [3]
+  .text              ro code  0x0008443e     0x4  xmtx2.o [3]
+  .text              ro code  0x00084442     0x8  xmtx.o [3]
+  .text              ro code  0x0008444c   0x6d8  613x_rt.o [1]
+  .rodata            const    0x00084b24   0x400  613x_rt.o [1]
+  .rodata            const    0x00084f24   0x400  613x_rt.o [1]
+  .rodata            const    0x00085324   0x3c0  board_613x.o [1]
+  .rodata            const    0x000856e4   0x200  613x_rt.o [1]
+  .rodata            const    0x000858e4   0x200  613x_rt.o [1]
+  .text              ro code  0x00085ae4   0x1bc  main.o [1]
+  .text              ro code  0x00085ca0    0x70  board_6130.o [1]
+  .text              ro code  0x00085d10    0xb8  613x_mt.o [1]
+  .text              ro code  0x00085dc8     0x6  ABImemclr4.o [4]
+  .text              ro code  0x00085dd0    0x38  ABImemset48.o [4]
+  .text              ro code  0x00085e08   0x1a8  board_lowlevel.o [1]
+  .rodata            const    0x00085fb0   0x120  board_6130.o [1]
+  .rodata            const    0x000860d0    0x80  console.o [1]
+  .rodata            const    0x00086150    0x74  pmc.o [1]
+  .rodata            const    0x000861c4    0x5c  613x_bc.o [1]
+  .text              ro code  0x00086220    0x50  exceptions.o [1]
+  .rodata            const    0x00086270    0x4c  board_613x.o [1]
+  .rodata            const    0x000862bc    0x48  console.o [1]
+  .rodata            const    0x00086304    0x48  pmc.o [1]
+  .rodata            const    0x0008634c    0x44  board_613x.o [1]
+  .rodata            const    0x00086390    0x44  console.o [1]
+  .rodata            const    0x000863d4    0x44  console.o [1]
+  .rodata            const    0x00086418    0x44  console.o [1]
+  .rodata            const    0x0008645c    0x44  console.o [1]
+  .rodata            const    0x000864a0    0x40  613x_bc.o [1]
+  .rodata            const    0x000864e0    0x40  613x_rt.o [1]
+  .rodata            const    0x00086520    0x40  613x_rt.o [1]
+  .rodata            const    0x00086560    0x40  613x_rt.o [1]
+  .rodata            const    0x000865a0    0x40  613x_rt.o [1]
+  .rodata            const    0x000865e0    0x40  console.o [1]
+  .rodata            const    0x00086620    0x40  console.o [1]
+  .rodata            const    0x00086660    0x40  console.o [1]
+  .rodata            const    0x000866a0    0x40  console.o [1]
+  .rodata            const    0x000866e0    0x40  console.o [1]
+  .rodata            const    0x00086720    0x40  console.o [1]
+  .rodata            const    0x00086760    0x40  console.o [1]
+  .rodata            const    0x000867a0    0x40  console.o [1]
+  .rodata            const    0x000867e0    0x40  console.o [1]
+  .rodata            const    0x00086820    0x40  console.o [1]
+  .rodata            const    0x00086860    0x40  console.o [1]
+  .rodata            const    0x000868a0    0x40  console.o [1]
+  .rodata            const    0x000868e0    0x3c  console.o [1]
+  .rodata            const    0x0008691c    0x38  board_613x.o [1]
+  .rodata            const    0x00086954    0x38  board_613x.o [1]
+  .rodata            const    0x0008698c    0x38  board_613x.o [1]
+  .rodata            const    0x000869c4    0x38  board_613x.o [1]
+  .rodata            const    0x000869fc    0x38  console.o [1]
+  .rodata            const    0x00086a34    0x38  console.o [1]
+  .rodata            const    0x00086a6c    0x38  console.o [1]
+  .rodata            const    0x00086aa4    0x38  console.o [1]
+  .rodata            const    0x00086adc    0x38  console.o [1]
+  .rodata            const    0x00086b14    0x38  console.o [1]
+  .rodata            const    0x00086b4c    0x38  console.o [1]
+  .rodata            const    0x00086b84    0x38  console.o [1]
+  .rodata            const    0x00086bbc    0x38  main.o [1]
+  .rodata            const    0x00086bf4    0x34  console.o [1]
+  .rodata            const    0x00086c28    0x34  console.o [1]
+  .rodata            const    0x00086c5c    0x34  console.o [1]
+  .rodata            const    0x00086c90    0x30  console.o [1]
+  .rodata            const    0x00086cc0    0x30  console.o [1]
+  .rodata            const    0x00086cf0    0x30  main.o [1]
+  .rodata            const    0x00086d20    0x30  main.o [1]
+  .rodata            const    0x00086d50    0x30  main.o [1]
+  .rodata            const    0x00086d80    0x30  main.o [1]
+  .rodata            const    0x00086db0    0x2c  console.o [1]
+  .rodata            const    0x00086ddc    0x2c  console.o [1]
+  .rodata            const    0x00086e08    0x2c  console.o [1]
+  .rodata            const    0x00086e34    0x2c  console.o [1]
+  .rodata            const    0x00086e60    0x2c  console.o [1]
+  .rodata            const    0x00086e8c    0x2c  console.o [1]
+  .rodata            const    0x00086eb8    0x2c  console.o [1]
+  .rodata            const    0x00086ee4    0x2c  console.o [1]
+  .rodata            const    0x00086f10    0x2c  console.o [1]
+  .text              ro code  0x00086f3c    0x2c  data_init3.o [4]
+  .rodata            const    0x00086f68    0x28  console.o [1]
+  .rodata            const    0x00086f90    0x28  console.o [1]
+  .rodata            const    0x00086fb8    0x28  console.o [1]
+  .rodata            const    0x00086fe0    0x28  console.o [1]
+  .rodata            const    0x00087008    0x28  console.o [1]
+  .rodata            const    0x00087030    0x28  console.o [1]
+  .rodata            const    0x00087058    0x28  console.o [1]
+  .rodata            const    0x00087080    0x28  console.o [1]
+  .rodata            const    0x000870a8    0x24  console.o [1]
+  .rodata            const    0x000870cc    0x24  console.o [1]
+  .rodata            const    0x000870f0    0x24  console.o [1]
+  .rodata            const    0x00087114    0x24  console.o [1]
+  .rodata            const    0x00087138    0x24  console.o [1]
+  .rodata            const    0x0008715c    0x24  console.o [1]
+  .rodata            const    0x00087180    0x24  console.o [1]
+  .rodata            const    0x000871a4    0x24  console.o [1]
+  .rodata            const    0x000871c8    0x24  console.o [1]
+  .rodata            const    0x000871ec    0x24  console.o [1]
+  .rodata            const    0x00087210    0x24  console.o [1]
+  .rodata            const    0x00087234    0x24  console.o [1]
+  .rodata            const    0x00087258    0x24  console.o [1]
+  .rodata            const    0x0008727c    0x24  console.o [1]
+  .rodata            const    0x000872a0    0x24  console.o [1]
+  .rodata            const    0x000872c4    0x24  console.o [1]
+  .rodata            const    0x000872e8    0x24  console.o [1]
+  .rodata            const    0x0008730c    0x24  console.o [1]
+  .rodata            const    0x00087330    0x24  console.o [1]
+  .rodata            const    0x00087354    0x24  console.o [1]
+  .rodata            const    0x00087378    0x24  console.o [1]
+  .rodata            const    0x0008739c    0x24  console.o [1]
+  .rodata            const    0x000873c0    0x24  console.o [1]
+  .rodata            const    0x000873e4    0x24  console.o [1]
+  .rodata            const    0x00087408    0x24  console.o [1]
+  .rodata            const    0x0008742c    0x24  console.o [1]
+  .rodata            const    0x00087450    0x24  console.o [1]
+  .rodata            const    0x00087474    0x24  main.o [1]
+  .iar.init_table    const    0x00087498    0x24  - Linker created -
+  .rodata            const    0x000874bc    0x20  613x_bc.o [1]
+  .rodata            const    0x000874dc    0x20  613x_bc.o [1]
+  .rodata            const    0x000874fc    0x20  613x_bc.o [1]
+  .rodata            const    0x0008751c    0x20  613x_rt.o [1]
+  .rodata            const    0x0008753c    0x20  613x_rt.o [1]
+  .rodata            const    0x0008755c    0x20  613x_rt.o [1]
+  .rodata            const    0x0008757c    0x20  613x_rt.o [1]
+  .rodata            const    0x0008759c    0x20  613x_rt.o [1]
+  .rodata            const    0x000875bc    0x20  board_613x.o [1]
+  .rodata            const    0x000875dc    0x20  board_613x.o [1]
+  .rodata            const    0x000875fc    0x20  board_613x.o [1]
+  .rodata            const    0x0008761c    0x20  board_613x.o [1]
+  .rodata            const    0x0008763c    0x20  board_613x.o [1]
+  .rodata            const    0x0008765c    0x20  board_613x.o [1]
+  .rodata            const    0x0008767c    0x20  board_613x.o [1]
+  .rodata            const    0x0008769c    0x20  board_613x.o [1]
+  .rodata            const    0x000876bc    0x20  board_613x.o [1]
+  .rodata            const    0x000876dc    0x20  board_613x.o [1]
+  .rodata            const    0x000876fc    0x20  board_613x.o [1]
+  .rodata            const    0x0008771c    0x20  console.o [1]
+  .rodata            const    0x0008773c    0x20  console.o [1]
+  .rodata            const    0x0008775c    0x20  console.o [1]
+  .rodata            const    0x0008777c    0x20  console.o [1]
+  .rodata            const    0x0008779c    0x20  console.o [1]
+  .rodata            const    0x000877bc    0x20  console.o [1]
+  .rodata            const    0x000877dc    0x20  console.o [1]
+  .rodata            const    0x000877fc    0x20  console.o [1]
+  .rodata            const    0x0008781c    0x20  console.o [1]
+  .rodata            const    0x0008783c    0x20  console.o [1]
+  .rodata            const    0x0008785c    0x20  console.o [1]
+  .rodata            const    0x0008787c    0x20  console.o [1]
+  .rodata            const    0x0008789c    0x20  console.o [1]
+  .rodata            const    0x000878bc    0x20  console.o [1]
+  .rodata            const    0x000878dc    0x20  console.o [1]
+  .rodata            const    0x000878fc    0x20  console.o [1]
+  .rodata            const    0x0008791c    0x20  console.o [1]
+  .rodata            const    0x0008793c    0x20  main.o [1]
+  .rodata            const    0x0008795c    0x20  main.o [1]
+  .rodata            const    0x0008797c    0x20  main.o [1]
+  .rodata            const    0x0008799c    0x20  main.o [1]
+  .rodata            const    0x000879bc    0x20  pmc.o [1]
+  .rodata            const    0x000879dc    0x20  usart.o [1]
+  .rodata            const    0x000879fc    0x1c  console.o [1]
+  .rodata            const    0x00087a18    0x1c  console.o [1]
+  .rodata            const    0x00087a34    0x1c  console.o [1]
+  .rodata            const    0x00087a50    0x1c  console.o [1]
+  .rodata            const    0x00087a6c    0x1c  console.o [1]
+  .rodata            const    0x00087a88    0x1c  console.o [1]
+  .rodata            const    0x00087aa4    0x1c  console.o [1]
+  .rodata            const    0x00087ac0    0x1c  console.o [1]
+  .rodata            const    0x00087adc    0x1c  console.o [1]
+  .rodata            const    0x00087af8    0x1c  console.o [1]
+  .rodata            const    0x00087b14    0x1c  console.o [1]
+  .rodata            const    0x00087b30    0x1c  console.o [1]
+  .rodata            const    0x00087b4c    0x1c  console.o [1]
+  .rodata            const    0x00087b68    0x1c  console.o [1]
+  .rodata            const    0x00087b84    0x1c  console.o [1]
+  .rodata            const    0x00087ba0    0x1c  console.o [1]
+  .rodata            const    0x00087bbc    0x1c  console.o [1]
+  .rodata            const    0x00087bd8    0x1c  console.o [1]
+  .rodata            const    0x00087bf4    0x1c  console.o [1]
+  .rodata            const    0x00087c10    0x18  console.o [1]
+  .rodata            const    0x00087c28    0x18  console.o [1]
+  .rodata            const    0x00087c40    0x18  console.o [1]
+  .rodata            const    0x00087c58    0x18  console.o [1]
+  .rodata            const    0x00087c70    0x18  console.o [1]
+  .rodata            const    0x00087c88    0x18  console.o [1]
+  .rodata            const    0x00087ca0    0x18  console.o [1]
+  .rodata            const    0x00087cb8    0x18  console.o [1]
+  .rodata            const    0x00087cd0    0x18  console.o [1]
+  .rodata            const    0x00087ce8    0x18  console.o [1]
+  .rodata            const    0x00087d00    0x18  console.o [1]
+  .rodata            const    0x00087d18    0x18  console.o [1]
+  .rodata            const    0x00087d30    0x18  console.o [1]
+  .rodata            const    0x00087d48    0x18  console.o [1]
+  .rodata            const    0x00087d60    0x18  console.o [1]
+  .rodata            const    0x00087d78    0x18  console.o [1]
+  .rodata            const    0x00087d90    0x18  console.o [1]
+  .rodata            const    0x00087da8    0x18  console.o [1]
+  .rodata            const    0x00087dc0    0x18  console.o [1]
+  .rodata            const    0x00087dd8    0x18  console.o [1]
+  .rodata            const    0x00087df0    0x18  console.o [1]
+  .rodata            const    0x00087e08    0x18  console.o [1]
+  .rodata            const    0x00087e20    0x18  console.o [1]
+  .rodata            const    0x00087e38    0x18  console.o [1]
+  .rodata            const    0x00087e50    0x18  console.o [1]
+  .rodata            const    0x00087e68    0x18  console.o [1]
+  .rodata            const    0x00087e80    0x18  console.o [1]
+  .rodata            const    0x00087e98    0x18  console.o [1]
+  .rodata            const    0x00087eb0    0x18  console.o [1]
+  .rodata            const    0x00087ec8    0x18  console.o [1]
+  .rodata            const    0x00087ee0    0x18  console.o [1]
+  .rodata            const    0x00087ef8    0x18  console.o [1]
+  .rodata            const    0x00087f10    0x18  console.o [1]
+  .rodata            const    0x00087f28    0x18  console.o [1]
+  .rodata            const    0x00087f40    0x18  console.o [1]
+  .rodata            const    0x00087f58    0x18  console.o [1]
+  .rodata            const    0x00087f70    0x18  console.o [1]
+  .rodata            const    0x00087f88    0x18  console.o [1]
+  .rodata            const    0x00087fa0    0x18  console.o [1]
+  .rodata            const    0x00087fb8    0x18  console.o [1]
+  .rodata            const    0x00087fd0    0x18  console.o [1]
+  .rodata            const    0x00087fe8    0x18  console.o [1]
+  .rodata            const    0x00088000    0x18  console.o [1]
+  .rodata            const    0x00088018    0x18  console.o [1]
+  .rodata            const    0x00088030    0x18  console.o [1]
+  .rodata            const    0x00088048    0x18  console.o [1]
+  .rodata            const    0x00088060    0x18  console.o [1]
+  .rodata            const    0x00088078    0x18  console.o [1]
+  .rodata            const    0x00088090    0x18  console.o [1]
+  .rodata            const    0x000880a8    0x18  console.o [1]
+  .rodata            const    0x000880c0    0x18  console.o [1]
+  .rodata            const    0x000880d8    0x18  console.o [1]
+  .rodata            const    0x000880f0    0x18  console.o [1]
+  .rodata            const    0x00088108    0x18  console.o [1]
+  .rodata            const    0x00088120    0x18  console.o [1]
+  .rodata            const    0x00088138    0x18  console.o [1]
+  .rodata            const    0x00088150    0x18  console.o [1]
+  .rodata            const    0x00088168    0x18  console.o [1]
+  .rodata            const    0x00088180    0x18  console.o [1]
+  .rodata            const    0x00088198    0x18  console.o [1]
+  .rodata            const    0x000881b0    0x18  console.o [1]
+  .rodata            const    0x000881c8    0x18  console.o [1]
+  .rodata            const    0x000881e0    0x18  console.o [1]
+  .rodata            const    0x000881f8    0x18  console.o [1]
+  .rodata            const    0x00088210    0x18  console.o [1]
+  .rodata            const    0x00088228    0x18  console.o [1]
+  .rodata            const    0x00088240    0x18  console.o [1]
+  .rodata            const    0x00088258    0x18  console.o [1]
+  .rodata            const    0x00088270    0x18  console.o [1]
+  .rodata            const    0x00088288    0x18  console.o [1]
+  .rodata            const    0x000882a0    0x18  console.o [1]
+  .text              ro code  0x000882b8    0x18  board_cstartup_iar.o [1]
+  .text              ro code  0x000882d0    0x16  cmain.o [4]
+  .text              ro code  0x000882e6     0x8  exit.o [3]
+  .text              ro code  0x000882f0     0xe  cexit.o [4]
+  .text              ro code  0x00088300    0x14  exit.o [5]
+  .text              ro code  0x00088314    0x16  xprout.o [3]
+  .rodata            const    0x0008832c    0x14  console.o [1]
+  .rodata            const    0x00088340    0x14  console.o [1]
+  .rodata            const    0x00088354    0x14  console.o [1]
+  .rodata            const    0x00088368    0x14  console.o [1]
+  .rodata            const    0x0008837c    0x14  console.o [1]
+  .rodata            const    0x00088390    0x14  console.o [1]
+  .rodata            const    0x000883a4    0x14  console.o [1]
+  .rodata            const    0x000883b8    0x14  console.o [1]
+  .rodata            const    0x000883cc    0x14  console.o [1]
+  .rodata            const    0x000883e0    0x14  console.o [1]
+  .rodata            const    0x000883f4    0x14  console.o [1]
+  .rodata            const    0x00088408    0x14  console.o [1]
+  .rodata            const    0x0008841c    0x14  console.o [1]
+  .rodata            const    0x00088430    0x14  console.o [1]
+  .rodata            const    0x00088444    0x14  console.o [1]
+  .rodata            const    0x00088458    0x10  613x_bc.o [1]
+  .rodata            const    0x00088468    0x10  613x_bc.o [1]
+  .rodata            const    0x00088478    0x10  613x_bc.o [1]
+  .rodata            const    0x00088488    0x10  613x_bc.o [1]
+  .rodata            const    0x00088498    0x10  613x_bc.o [1]
+  .rodata            const    0x000884a8    0x10  613x_bc.o [1]
+  .rodata            const    0x000884b8    0x10  613x_bc.o [1]
+  .rodata            const    0x000884c8    0x10  613x_bc.o [1]
+  .rodata            const    0x000884d8    0x10  613x_mt.o [1]
+  .rodata            const    0x000884e8    0x10  console.o [1]
+  .rodata            const    0x000884f8    0x10  console.o [1]
+  .rodata            const    0x00088508    0x10  console.o [1]
+  .rodata            const    0x00088518    0x10  console.o [1]
+  .rodata            const    0x00088528    0x10  console.o [1]
+  .rodata            const    0x00088538    0x10  console.o [1]
+  .rodata            const    0x00088548    0x10  console.o [1]
+  .rodata            const    0x00088558    0x10  console.o [1]
+  .rodata            const    0x00088568    0x10  console.o [1]
+  .rodata            const    0x00088578    0x10  console.o [1]
+  .rodata            const    0x00088588    0x10  console.o [1]
+  .rodata            const    0x00088598    0x10  console.o [1]
+  .rodata            const    0x000885a8    0x10  console.o [1]
+  .rodata            const    0x000885b8    0x10  console.o [1]
+  .rodata            const    0x000885c8    0x10  console.o [1]
+  .rodata            const    0x000885d8    0x10  console.o [1]
+  .rodata            const    0x000885e8    0x10  console.o [1]
+  .rodata            const    0x000885f8    0x10  console.o [1]
+  .rodata            const    0x00088608    0x10  console.o [1]
+  .rodata            const    0x00088618    0x10  console.o [1]
+  .rodata            const    0x00088628    0x10  console.o [1]
+  .rodata            const    0x00088638    0x10  console.o [1]
+  .rodata            const    0x00088648    0x10  console.o [1]
+  .rodata            const    0x00088658    0x10  console.o [1]
+  .rodata            const    0x00088668    0x10  pmc.o [1]
+  .rodata            const    0x00088678     0xc  console.o [1]
+  .rodata            const    0x00088684     0xc  console.o [1]
+  .rodata            const    0x00088690     0xc  console.o [1]
+  .rodata            const    0x0008869c     0xc  console.o [1]
+  .rodata            const    0x000886a8     0xc  console.o [1]
+  .rodata            const    0x000886b4     0xc  console.o [1]
+  .rodata            const    0x000886c0     0xc  console.o [1]
+  .rodata            const    0x000886cc     0xc  console.o [1]
+  .rodata            const    0x000886d8     0xc  console.o [1]
+  .rodata            const    0x000886e4     0xc  console.o [1]
+  .rodata            const    0x000886f0     0xc  console.o [1]
+  .rodata            const    0x000886fc     0xc  console.o [1]
+  .rodata            const    0x00088708     0xc  console.o [1]
+  .rodata            const    0x00088714     0xc  console.o [1]
+  .rodata            const    0x00088720     0xc  console.o [1]
+  .rodata            const    0x0008872c     0xc  console.o [1]
+  .rodata            const    0x00088738     0xc  console.o [1]
+  .rodata            const    0x00088744     0xc  console.o [1]
+  .rodata            const    0x00088750     0xc  console.o [1]
+  .rodata            const    0x0008875c     0xc  console.o [1]
+  .rodata            const    0x00088768     0xc  console.o [1]
+  .rodata            const    0x00088774     0xc  console.o [1]
+  .rodata            const    0x00088780     0xc  console.o [1]
+  .rodata            const    0x0008878c     0xc  console.o [1]
+  .rodata            const    0x00088798     0xc  console.o [1]
+  .rodata            const    0x000887a4     0xc  console.o [1]
+  .rodata            const    0x000887b0     0xc  console.o [1]
+  .rodata            const    0x000887bc     0xc  console.o [1]
+  .rodata            const    0x000887c8     0xc  console.o [1]
+  .rodata            const    0x000887d4     0xc  console.o [1]
+  .rodata            const    0x000887e0     0xc  console.o [1]
+  .rodata            const    0x000887ec     0xc  console.o [1]
+  .rodata            const    0x000887f8     0xc  console.o [1]
+  .rodata            const    0x00088804     0xc  console.o [1]
+  .rodata            const    0x00088810     0xc  console.o [1]
+  .rodata            const    0x0008881c     0xc  console.o [1]
+  .rodata            const    0x00088828     0xc  console.o [1]
+  .rodata            const    0x00088834     0xc  console.o [1]
+  .rodata            const    0x00088840     0xc  console.o [1]
+  .rodata            const    0x0008884c     0xc  console.o [1]
+  .rodata            const    0x00088858     0xc  console.o [1]
+  .rodata            const    0x00088864     0xc  console.o [1]
+  .rodata            const    0x00088870     0xc  console.o [1]
+  .rodata            const    0x0008887c     0xc  console.o [1]
+  .rodata            const    0x00088888     0xc  console.o [1]
+  .rodata            const    0x00088894     0xc  console.o [1]
+  .rodata            const    0x000888a0     0xc  console.o [1]
+  .rodata            const    0x000888ac     0xc  console.o [1]
+  .rodata            const    0x000888b8     0xc  main.o [1]
+  .rodata            const    0x000888c4     0xc  main.o [1]
+  .text              ro code  0x000888d0     0xc  cstartup_M.o [4]
+  .rodata            const    0x000888dc     0x8  console.o [1]
+  .rodata            const    0x000888e4     0x8  console.o [1]
+  .rodata            const    0x000888ec     0x8  console.o [1]
+  .rodata            const    0x000888f4     0x8  console.o [1]
+  .rodata            const    0x000888fc     0x8  console.o [1]
+  .rodata            const    0x00088904     0x8  console.o [1]
+  .rodata            const    0x0008890c     0x8  console.o [1]
+  .rodata            const    0x00088914     0x8  console.o [1]
+  .rodata            const    0x0008891c     0x8  console.o [1]
+  .rodata            const    0x00088924     0x8  console.o [1]
+  .rodata            const    0x0008892c     0x8  console.o [1]
+  .rodata            const    0x00088934     0x8  console.o [1]
+  .rodata            const    0x0008893c     0x8  console.o [1]
+  .rodata            const    0x00088944     0x8  console.o [1]
+  .rodata            const    0x0008894c     0x8  console.o [1]
+  .rodata            const    0x00088954     0x8  console.o [1]
+  .rodata            const    0x0008895c     0x8  console.o [1]
+  .rodata            const    0x00088964     0x8  console.o [1]
+  .rodata            const    0x0008896c     0x8  console.o [1]
+  .rodata            const    0x00088974     0x8  console.o [1]
+  .rodata            const    0x0008897c     0x8  console.o [1]
+  .rodata            const    0x00088984     0x8  console.o [1]
+  .rodata            const    0x0008898c     0x8  console.o [1]
+  .rodata            const    0x00088994     0x8  console.o [1]
+  .rodata            const    0x0008899c     0x8  console.o [1]
+  .rodata            const    0x000889a4     0x8  console.o [1]
+  .rodata            const    0x000889ac     0x8  console.o [1]
+  .rodata            const    0x000889b4     0x8  console.o [1]
+  .rodata            const    0x000889bc     0x8  console.o [1]
+  .rodata            const    0x000889c4     0x8  console.o [1]
+  .rodata            const    0x000889cc     0x8  console.o [1]
+  .rodata            const    0x000889d4     0x8  console.o [1]
+  .rodata            const    0x000889dc     0x8  console.o [1]
+  .rodata            const    0x000889e4     0x8  console.o [1]
+  .rodata            const    0x000889ec     0x8  console.o [1]
+  .rodata            const    0x000889f4     0x8  console.o [1]
+  .rodata            const    0x000889fc     0x8  console.o [1]
+  .rodata            const    0x00088a04     0x8  console.o [1]
+  .rodata            const    0x00088a0c     0x8  console.o [1]
+  .rodata            const    0x00088a14     0x8  console.o [1]
+  .rodata            const    0x00088a1c     0x8  console.o [1]
+  .rodata            const    0x00088a24     0x8  console.o [1]
+  .rodata            const    0x00088a2c     0x8  console.o [1]
+  .rodata            const    0x00088a34     0x8  console.o [1]
+  .rodata            const    0x00088a3c     0x8  console.o [1]
+  .rodata            const    0x00088a44     0x8  console.o [1]
+  .rodata            const    0x00088a4c     0x8  console.o [1]
+  .rodata            const    0x00088a54     0x8  console.o [1]
+  .rodata            const    0x00088a5c     0x8  console.o [1]
+  .rodata            const    0x00088a64     0x8  console.o [1]
+  .rodata            const    0x00088a6c     0x8  console.o [1]
+  .rodata            const    0x00088a74     0x8  console.o [1]
+  .rodata            const    0x00088a7c     0x8  console.o [1]
+  .rodata            const    0x00088a84     0x8  console.o [1]
+  .rodata            const    0x00088a8c     0x8  console.o [1]
+  .rodata            const    0x00088a94     0x4  main.o [1]
+  .text              ro code  0x00088a98     0x0  cstart_clearlocks.o [4]
+  .rodata            const    0x00088a98     0x0  bwt_init3c.o [4]
+  Initializer bytes  ro data  0x00088a98    0x80  <for P2 s0>
+                            - 0x00088b18  0x8a5c
+
+"P2", part 1 of 3:                          0x80
+  P2 s0                       0x20000000    0x80  <Init block>
+    .data            inited   0x20000000    0x40  xfiles.o [3]
+    .data            inited   0x20000040    0x40  xfiles.o [3]
+                            - 0x20000080    0x80
+
+"P2", part 2 of 3:                         0x160
+  __DLIB_PERTHREAD   zero     0x20000080    0x74  setlocale.o [3]
+  .bss               zero     0x200000f4    0x50  xfiles.o [3]
+  .bss               zero     0x20000144    0x50  xfiles.o [3]
+  .bss               zero     0x20000194    0x38  xsyslock.o [3]
+  .bss               zero     0x200001cc     0x8  xxmemxmalloc.o [3]
+  .bss               zero     0x200001d4     0x4  xgetmemchunk.o [3]
+  .bss               zero     0x200001d8     0x2  console.o [1]
+  .bss               zero     0x200001da     0x1  console.o [1]
+                            - 0x200001db   0x15b
+
+"P2", part 3 of 3:                         0x200
+  HEAP                        0x200001e0   0x200  <Block>
+    HEAP             uninit   0x200001e0   0x200  <Block tail>
+                            - 0x200003e0   0x200
+
+"P3":                                     0x2000
+  CSTACK                      0x20080000  0x2000  <Block>
+    CSTACK           uninit   0x20080000  0x2000  <Block tail>
+                            - 0x20082000  0x2000
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x15b:
+          0x20000080  0x15b
+
+Copy (__iar_copy_init3)
+    1 source range, total size 0x80:
+          0x00088a98   0x80
+    1 destination range, total size 0x80:
+          0x20000000   0x80
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                ro code  ro data  rw data
+    ------                -------  -------  -------
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj: [1]
+    613x_bc.o                 856      380
+    613x_mt.o                 184       16
+    613x_rt.o               1 752    3 488
+    board_6130.o              112      288
+    board_613x.o              964    1 680
+    board_cstartup_iar.o       24      188
+    board_lowlevel.o          424
+    console.o              11 708    8 168        3
+    exceptions.o               80
+    main.o                    444      440
+    pio.o                     414
+    pmc.o                      88      236
+    printf_usart.o             68
+    usart.o                   144       32
+    -----------------------------------------------
+    Total:                 17 262   14 916        3
+
+command line: [2]
+    -----------------------------------------------
+    Total:
+
+dl7M_tlf.a: [3]
+    exit.o                      8
+    printf.o                   36
+    setlocale.o                20               116
+    xencoding_sb.o             92
+    xfiles.o                           128      288
+    xgetmemchunk.o             40                 4
+    xmbcurmax.o                10
+    xmbtowc.o                  32
+    xmtx.o                      8
+    xmtx2.o                     4
+    xprintfsmall.o          1 824
+    xprout.o                   22
+    xsyslock.o                272                56
+    xtls.o                      2
+    xwctomb.o                  26
+    xxmemxfree.o              136
+    xxmemxmalloc.o            188                 8
+    -----------------------------------------------
+    Total:                  2 720      128      472
+
+rt7M_tl.a: [4]
+    ABImemclr4.o                6
+    ABImemcpy.o               112
+    ABImemset48.o              56
+    bwt_init3c.o
+    cexit.o                    14
+    cmain.o                    22
+    copy_init3.o               46
+    cstart_clearlocks.o
+    cstartup_M.o               12
+    data_init3.o               44
+    memchr.o                   88
+    strchr.o                   22
+    strlen.o                   54
+    zero_init3.o               34
+    -----------------------------------------------
+    Total:                    510
+
+shb_l.a: [5]
+    exit.o                     20
+    -----------------------------------------------
+    Total:                     20
+
+    Gaps                       14        2
+    Linker created                      36    8 704
+---------------------------------------------------
+    Grand Total:           20 526   15 082    9 179
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address   Size  Type      Object
+-----                      -------   ----  ----      ------
+.vectors$$Base          0x00080000          --   Gb  - Linker created -
+.vectors$$Limit         0x000800bc          --   Gb  - Linker created -
+?main                   0x000882d1         Code  Gb  cmain.o [4]
+ADCC0_IrqHandler        0x00086269    0x2  Code  Wk  exceptions.o [1]
+ADCC1_IrqHandler        0x0008626b    0x2  Code  Wk  exceptions.o [1]
+BusFault_Handler        0x00086229    0x2  Code  Wk  exceptions.o [1]
+CSTACK$$Base            0x20080000          --   Gb  - Linker created -
+CSTACK$$Limit           0x20082000          --   Gb  - Linker created -
+ConfigureGpio           0x0008355d   0x22  Code  Gb  board_613x.o [1]
+ConfigureUsart1         0x000800bd   0x48  Code  Gb  console.o [1]
+Configure_ARM_MCU_ExtBus
+                        0x00085ca1   0x70  Code  Gb  board_6130.o [1]
+DBGU_IrqHandler         0x00086245    0x2  Code  Wk  exceptions.o [1]
+DebugMon_Handler        0x0008622f    0x2  Code  Wk  exceptions.o [1]
+Delay_ms                0x000836a7   0x34  Code  Gb  board_613x.o [1]
+Delay_us                0x0008365f   0x48  Code  Gb  board_613x.o [1]
+Delay_x100ms            0x000836db   0x16  Code  Gb  board_613x.o [1]
+EFC0_IrqHandler         0x00086241    0x2  Code  Wk  exceptions.o [1]
+EFC1_IrqHandler         0x00086243    0x2  Code  Wk  exceptions.o [1]
+Flash_Green_LED         0x0008370b   0x1a  Code  Gb  board_613x.o [1]
+Flash_Red_LED           0x000836f1   0x1a  Code  Gb  board_613x.o [1]
+HDMA_IrqHandler         0x0008626d    0x2  Code  Wk  exceptions.o [1]
+HEAP$$Base              0x200001e0          --   Gb  - Linker created -
+HEAP$$Limit             0x200003e0          --   Gb  - Linker created -
+HSMC4_IrqHandler        0x00086247    0x2  Code  Wk  exceptions.o [1]
+HardFault_Handler       0x00086225    0x2  Code  Wk  exceptions.o [1]
+IrqHandlerNotUsed       0x00086221    0x2  Code  Gb  exceptions.o [1]
+LowLevelInit            0x00085e09  0x12c  Code  Gb  board_lowlevel.o [1]
+MCI0_IrqHandler         0x00086257    0x2  Code  Wk  exceptions.o [1]
+MemManage_Handler       0x00086227    0x2  Code  Wk  exceptions.o [1]
+NMI_Handler             0x00086223    0x2  Code  Wk  exceptions.o [1]
+PIOA_IrqHandler         0x00086249    0x2  Code  Wk  exceptions.o [1]
+PIOB_IrqHandler         0x0008624b    0x2  Code  Wk  exceptions.o [1]
+PIOC_IrqHandler         0x0008624d    0x2  Code  Wk  exceptions.o [1]
+PIO_Clear               0x00083055    0x8  Code  Gb  pio.o [1]
+PIO_Configure           0x00082f93   0xb4  Code  Gb  pio.o [1]
+PIO_Get                 0x0008305d   0x2a  Code  Gb  pio.o [1]
+PIO_Set                 0x0008304d    0x8  Code  Gb  pio.o [1]
+PIO_SetFilter           0x00082f2d   0x14  Code  Lc  pio.o [1]
+PIO_SetInput            0x00082f41   0x20  Code  Lc  pio.o [1]
+PIO_SetOutput           0x00082f61   0x32  Code  Lc  pio.o [1]
+PIO_SetPeripheralA      0x00082ee9   0x24  Code  Lc  pio.o [1]
+PIO_SetPeripheralB      0x00082f0d   0x20  Code  Lc  pio.o [1]
+PMC_EnablePeripheral    0x000830b5   0x40  Code  Gb  pmc.o [1]
+PMC_IrqHandler          0x0008623f    0x2  Code  Wk  exceptions.o [1]
+PWM_IrqHandler          0x00086267    0x2  Code  Wk  exceptions.o [1]
+PendSV_Handler          0x00086231    0x2  Code  Wk  exceptions.o [1]
+RSTC_IrqHandler         0x00086237    0x2  Code  Wk  exceptions.o [1]
+RTAddr_okay             0x000849a5   0x3a  Code  Gb  613x_rt.o [1]
+RTC_IrqHandler          0x00086239    0x2  Code  Wk  exceptions.o [1]
+RTT_IrqHandler          0x0008623b    0x2  Code  Wk  exceptions.o [1]
+RTstatusUpdate          0x00084a15   0x94  Code  Gb  613x_rt.o [1]
+Region$$Table$$Base     0x00087498          --   Gb  - Linker created -
+Region$$Table$$Limit    0x000874bc          --   Gb  - Linker created -
+SB                      0x00088a98         Data  Gb  bwt_init3c.o [4]
+SPI0_IrqHandler         0x0008625d    0x2  Code  Wk  exceptions.o [1]
+SSC0_IrqHandler         0x0008625f    0x2  Code  Wk  exceptions.o [1]
+SUPC_IrqHandler         0x00086235    0x2  Code  Wk  exceptions.o [1]
+SVC_Handler             0x0008622d    0x2  Code  Wk  exceptions.o [1]
+SetDefaultMaster        0x00085f35   0x3c  Code  Gb  board_lowlevel.o [1]
+SysTick_Handler         0x00086233    0x2  Code  Wk  exceptions.o [1]
+TC0_IrqHandler          0x00086261    0x2  Code  Wk  exceptions.o [1]
+TC1_IrqHandler          0x00086263    0x2  Code  Wk  exceptions.o [1]
+TC2_IrqHandler          0x00086265    0x2  Code  Wk  exceptions.o [1]
+TWI0_IrqHandler         0x00086259    0x2  Code  Wk  exceptions.o [1]
+TWI1_IrqHandler         0x0008625b    0x2  Code  Wk  exceptions.o [1]
+UDPD_IrqHandler         0x0008626f    0x2  Code  Wk  exceptions.o [1]
+USART0_IrqHandler       0x0008624f    0x2  Code  Wk  exceptions.o [1]
+USART1_IrqHandler       0x00086251    0x2  Code  Wk  exceptions.o [1]
+USART2_IrqHandler       0x00086253    0x2  Code  Wk  exceptions.o [1]
+USART3_IrqHandler       0x00086255    0x2  Code  Wk  exceptions.o [1]
+USART_Configure         0x0008310d   0x1a  Code  Gb  usart.o [1]
+USART_GetChar           0x00083191    0xc  Code  Gb  usart.o [1]
+USART_IsRxReady         0x00083189    0x8  Code  Gb  usart.o [1]
+USART_SetReceiverEnabled
+                        0x00083139   0x12  Code  Gb  usart.o [1]
+USART_SetTransmitterEnabled
+                        0x00083127   0x12  Code  Gb  usart.o [1]
+USART_Write             0x0008314b   0x36  Code  Gb  usart.o [1]
+UsageFault_Handler      0x0008622b    0x2  Code  Wk  exceptions.o [1]
+WDT_IrqHandler          0x0008623d    0x2  Code  Wk  exceptions.o [1]
+_EncodingSb_Mbtowc      0x000842c5   0x30  Code  Gb  xencoding_sb.o [3]
+_EncodingSb_Wctomb      0x000842a9   0x1c  Code  Gb  xencoding_sb.o [3]
+_IsdstStr               0x20000084    0x4  Data  Gb  setlocale.o [3]
+_LitobSmall             0x00083f2b   0xcc  Code  Lc  xprintfsmall.o [3]
+_LocaleEncoding         0x00084295    0xe  Code  Gb  setlocale.o [3]
+_LocaleReturnString     0x200000a4   0x50  Data  Lc  setlocale.o [3]
+_Locale_Profile         0x20000088   0x1c  Data  Gb  setlocale.o [3]
+_Mbtowc                 0x00084041   0x20  Code  Gb  xmbtowc.o [3]
+_PrintfSmall            0x00083921  0x412  Code  Gb  xprintfsmall.o [3]
+_Prout                  0x00088315   0x16  Code  Gb  xprout.o [3]
+_PutcharsSmall          0x00083ff7   0x32  Code  Lc  xprintfsmall.o [3]
+_PutstrSmall            0x00083d33  0x1f8  Code  Lc  xprintfsmall.o [3]
+_TzoneStr               0x20000080    0x4  Data  Gb  setlocale.o [3]
+_Wctomb                 0x000841f1   0x1a  Code  Gb  xwctomb.o [3]
+__ICFEDIT_vector_start__ {Abs}
+                        0x00080000          --   Gb  command line/config [2]
+__aeabi_memclr4         0x00085dc9         Code  Gb  ABImemclr4.o [4]
+__aeabi_memcpy          0x00082e79         Code  Gb  ABImemcpy.o [4]
+__aeabi_memcpy4         0x00082e93         Code  Gb  ABImemcpy.o [4]
+__aeabi_memcpy8         0x00082e93         Code  Gb  ABImemcpy.o [4]
+__aeabi_memset4         0x00085dd1         Code  Gb  ABImemset48.o [4]
+__aeabi_memset8         0x00085dd1         Code  Gb  ABImemset48.o [4]
+__cexit_clearlocks      0x000882f3         Code  Gb  cexit.o [4]
+__cmain                 0x000882d1         Code  Gb  cmain.o [4]
+__cstart_clearlocks     0x00088a99         Code  Gb  cstart_clearlocks.o [4]
+__data_Aldata           0x200001cc    0x8  Data  Gb  xxmemxmalloc.o [3]
+__data_GetMemChunk      0x00084415   0x28  Code  Gb  xgetmemchunk.o [3]
+__exit                  0x00088301   0x14  Code  Gb  exit.o [5]
+__iar_Locksyslock       0x00084375   0x84  Code  Gb  xsyslock.o [3]
+__iar_Mbcurmax          0x00084129    0xa  Code  Gb  xmbcurmax.o [3]
+__iar_Memchr            0x000840d1         Code  Gb  memchr.o [4]
+__iar_Memset4_word      0x00085dd9         Code  Gb  ABImemset48.o [4]
+__iar_Memset8_word      0x00085dd9         Code  Gb  ABImemset48.o [4]
+__iar_Stderr            0x20000040   0x40  Data  Gb  xfiles.o [3]
+__iar_Stdout            0x20000000   0x40  Data  Gb  xfiles.o [3]
+__iar_Strchr            0x00084061         Code  Gb  strchr.o [4]
+__iar_Unlocksyslock     0x000843f9   0x16  Code  Gb  xsyslock.o [3]
+__iar_clearlocks        0x00084305   0x70  Code  Gb  xsyslock.o [3]
+__iar_copy_init3        0x00083087   0x2e  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x00086f3d   0x2c  Code  Gb  data_init3.o [4]
+__iar_default_requirements$$_Printf<unknown>printf {Abs}
+                        0x00000000          --   Gb  printf.o [3]
+__iar_dlib_perthread_access
+                        0x0008443d    0x2  Code  Gb  xtls.o [3]
+__iar_file_Mtxdst       0x00084441    0x2  Code  Gb  xmtx2.o [3]
+__iar_file_Mtxinit      0x0008443f    0x2  Code  Gb  xmtx2.o [3]
+__iar_program_start     0x000888d1         Code  Gb  cstartup_M.o [4]
+__iar_provide$$_Printf<flags,int_specials,multibytes,qualifiers,widths>_PrintfSmall {Abs}
+                        0x00000000          --   Gb  xprintfsmall.o [3]
+__iar_system_Mtxdst     0x00084445    0x2  Code  Gb  xmtx.o [3]
+__iar_system_Mtxinit    0x00084443    0x2  Code  Gb  xmtx.o [3]
+__iar_system_Mtxlock    0x00084447    0x2  Code  Gb  xmtx.o [3]
+__iar_system_Mtxunlock  0x00084449    0x2  Code  Gb  xmtx.o [3]
+__iar_zero_init3        0x00084077   0x22  Code  Gb  zero_init3.o [4]
+__low_level_init        0x000882b9   0x18  Code  Gb  board_cstartup_iar.o [1]
+__vector_table          0x00080000   0xbc  Data  Gb  board_cstartup_iar.o [1]
+_call_main              0x000882dd         Code  Gb  cmain.o [4]
+_exit                   0x000882f1         Code  Gb  cexit.o [4]
+_main                   0x000882e3         Code  Gb  cmain.o [4]
+autoinit_check          0x000835b7   0x64  Code  Gb  board_613x.o [1]
+bc_last_msg_console     0x000801f5  0xbba  Code  Gb  console.o [1]
+bc_trigger              0x000834d7   0x2a  Code  Gb  613x_bc.o [1]
+chk_key_input           0x00082c25   0xe8  Code  Gb  console.o [1]
+ebuf                    0x200000f4   0x50  Data  Lc  xfiles.o [3]
+enable_check            0x00083779   0xba  Code  Gb  board_613x.o [1]
+error_trap              0x00083725   0x54  Code  Gb  board_613x.o [1]
+exit                    0x000882e7    0x8  Code  Gb  exit.o [3]
+file_mtx                0x20000198   0x20  Data  Lc  xsyslock.o [3]
+fputc                   0x0008319d   0x28  Code  Gb  printf_usart.o [1]
+free                    0x0008420d   0x82  Code  Gb  xxmemxfree.o [3]
+init_timer              0x00083633   0x2c  Code  Gb  board_613x.o [1]
+initialize_613x_BC      0x00083501   0x22  Code  Gb  613x_bc.o [1]
+initialize_613x_MT      0x00085d11   0xb0  Code  Gb  613x_mt.o [1]
+initialize_613x_RT1     0x0008444d  0x19e  Code  Gb  613x_rt.o [1]
+initialize_613x_RT2     0x00084703  0x19a  Code  Gb  613x_rt.o [1]
+initialize_613x_shared  0x0008361b   0x18  Code  Gb  board_613x.o [1]
+initialize_bc_instruction_list
+                        0x00083205   0xa8  Code  Gb  613x_bc.o [1]
+initialize_bc_msg_blocks
+                        0x000832ad  0x22a  Code  Gb  613x_bc.o [1]
+list_bc_ccgpf_reg       0x000810ed  0x120  Code  Gb  console.o [1]
+list_bc_config          0x00080e3d  0x298  Code  Gb  console.o [1]
+list_bc_ints_console    0x000812c5  0x314  Code  Gb  console.o [1]
+list_hw_ints_console    0x000825b9  0x31e  Code  Gb  console.o [1]
+list_mt_config          0x00081625  0x254  Code  Gb  console.o [1]
+list_mt_ints_console    0x00082101  0x436  Code  Gb  console.o [1]
+list_rt_ints_console    0x0008292d  0x2e0  Code  Gb  console.o [1]
+main                    0x00085ae5  0x1bc  Code  Gb  main.o [1]
+malloc                  0x00084135   0xb8  Code  Gb  xxmemxmalloc.o [3]
+memchr                  0x000840d1         Code  Gb  memchr.o [4]
+modify_RT_status_bits   0x000849df   0x36  Code  Gb  613x_rt.o [1]
+mt_last_msg_console     0x00081989  0x6c6  Code  Gb  console.o [1]
+mtx                     0x200001b8   0x14  Data  Lc  xsyslock.o [3]
+obuf                    0x20000144   0x50  Data  Lc  xfiles.o [3]
+pH6130                  0x00088a94    0x4  Data  Gb  main.o [1]
+print_b0sp              0x00082d35    0xa  Code  Gb  console.o [1]
+print_b1sp              0x00082d2b    0xa  Code  Gb  console.o [1]
+print_dd0n              0x00082d4f    0xa  Code  Gb  console.o [1]
+print_dd1n              0x00082d59    0xa  Code  Gb  console.o [1]
+print_dddn              0x00082d45    0xa  Code  Gb  console.o [1]
+print_line              0x00082d71    0xa  Code  Gb  console.o [1]
+print_menuprompt        0x00082d63    0xa  Code  Gb  console.o [1]
+print_null              0x00082d11    0xa  Code  Gb  console.o [1]
+print_sp1sp             0x00082d21    0xa  Code  Gb  console.o [1]
+printf                  0x000831e1   0x24  Code  Gb  printf.o [3]
+putchar                 0x000831c5    0xe  Code  Gb  printf_usart.o [1]
+reset_613x              0x0008357f   0x38  Code  Gb  board_613x.o [1]
+show_menu               0x00080105   0x8e  Code  Gb  console.o [1]
+strchr                  0x00084061         Code  Gb  strchr.o [4]
+strlen                  0x00084099         Code  Gb  strlen.o [4]
+syslock_o               0x20000194    0x4  Data  Lc  xsyslock.o [3]
+waddr                   0x200001d8    0x2  Data  Lc  console.o [1]
+watch                   0x200001da    0x1  Data  Lc  console.o [1]
+write_dummy_tx_data_RT1
+                        0x000845eb  0x118  Code  Gb  613x_rt.o [1]
+write_dummy_tx_data_RT2
+                        0x0008489d  0x108  Code  Gb  613x_rt.o [1]
+write_init_eeprom       0x00083833   0x7c  Code  Gb  board_613x.o [1]
+
+
+[1] = C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj
+[2] = command line
+[3] = dl7M_tlf.a
+[4] = rt7M_tl.a
+[5] = shb_l.a
+
+  20 526 bytes of readonly  code memory
+  15 082 bytes of readonly  data memory
+   9 179 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

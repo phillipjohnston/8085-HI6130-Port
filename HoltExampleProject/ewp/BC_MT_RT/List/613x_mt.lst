@@ -1,0 +1,1486 @@
+###############################################################################
+#                                                                             #
+#                                                       17/May/2012  09:55:09 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\613x_mt.c                      #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\613x_mt.c" -D at91sam3u4 -D    #
+#                    flash -D TRACE_LEVEL=4 -D HOST_BUS_INTERFACE=1 -D        #
+#                    BC_ena=1 -D RT2_ena=1 -D RT1_ena=1 -D SMT_ena=1 -D       #
+#                    IMT_ena=0 -lC "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\List\"    #
+#                    --remarks --diag_suppress Pe826,Pe1375,Pe068 -o          #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\" --no_cse    #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib/periphera #
+#                    ls\" -I "C:\Program Files\IAR Systems\Embedded           #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-31 Demo 1_3                              #
+#                    Combo\ewp\..\..\..\at91lib/components\" -I "C:\Program   #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib\" -I      #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\external_libs\"   #
+#                    -I "C:\Program Files\IAR Systems\Embedded Workbench 6.0  #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\..\..\..\at91lib/boards/at #
+#                    91sam3u-ek\" --cpu_mode thumb -On --use_c++_inline       #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\List\613x_mt.lst  #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-31 Demo 1_3 Combo\ewp\BC_MT_RT\Obj\613x_mt.o     #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt HI-6130-31 Demo 1_3 Combo\613x_mt.c
+      1          /*
+      2           *  file	613x_mt.c
+      3           *
+      4           *  brief	This file contains initialization functions and arrays for 
+      5           *		writing initialization values to RAM tables inside the Holt 
+      6           *		HI-6130 or HI-6131 device. 
+      7           *
+      8           *
+      9           *		IMPORTANT: Edit file 613x_initialization.h to define either:
+     10           *
+     11           *		HOST_BUS_INTERFACE  YES  sets compilation for HI-6130 (bus)
+     12           *		                    NO   sets compilation for HI-6131 (SPI)
+     13           *
+     14           *		Most functional procedures in this project are written for
+     15           *		both parallel bus or SPI host interface schemes, this runtime 
+     16           *		switch determines which are procedures are compiled.
+     17           * 
+     18           *
+     19           *		HOLT DISCLAIMER
+     20           *
+     21           *		THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+     22           *		EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+     23           *		OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     24           *		NONINFRINGEMENT. 
+     25           *		IN NO EVENT SHALL HOLT, INC BE LIABLE FOR ANY CLAIM, DAMAGES
+     26           *		OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+     27           *		OTHERWISE,ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+     28           *		SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     29           *
+     30           *		Copyright (C) 2011 by  HOLT, Inc.
+     31           *		All Rights Reserved.
+     32           *
+     33           */
+     34          
+     35          // standard Atmel/IAR headers
+     36          #include <pio/pio.h>
+     37          
+     38          // Holt project headers
+     39          #include "613x_initialization.h"
+     40          #include "613x_regs.h"
+     41          #include "board_613x.h"
+     42          #include "613x_mt.h"
+     43          
+     44          #if (!HOST_BUS_INTERFACE) 
+     45              // HOST SPI INTERFACE
+     46              #include "board_6131.h"
+     47              #include "device_6131.h"
+     48          
+     49          #else // (HOST_BUS_INTERFACE)    
+     50              #include "board_6130.h"
+     51              #include "device_6130.h"
+     52          
+     53              extern const H6130 pH6130;
+     54              extern const MTF pMTF;
+     55              
+     56              #if(SMT_ena)
+     57                  extern DSTK pDSTK;
+     58                  extern const ScSTK pScSTK;
+     59                  extern const AddrList pAddrList;
+     60              #endif // (SMT_ena)
+     61              
+     62              #if(IMT_ena)
+     63                  extern PktHdr pPktHdr;
+     64                  extern IPMB pIPMB;
+     65                  extern const AddrList pAddrList;
+     66              #endif // (IMT_ena)
+     67          
+     68          #endif // (HOST_BUS_INTERFACE)
+     69          
+     70          
+     71          
+     72          
+     73          
+     74          #if (HOST_BUS_INTERFACE && IMT_ena)
+     75          
+     76          void IMT_bus_addressing_examples(void) {
+     77            
+     78              unsigned short j,k;    
+     79            
+     80              // -----------------------------------------
+     81              // IMT Address List bus addressing examples
+     82              // -----------------------------------------
+     83              // all bus addressing destinations for this feature are shown here...
+     84              // The base address for the address list is declared in file 613x_mt.h
+     85              
+     86              // in demo, IMT Address List start addr is 0x00B0
+     87              pAddrList->stkStartAddr = 0x5400; // write stack start address (NOT address list start!)
+     88              k = pAddrList->currPacketAddr;    // read start address for current packet
+     89              j = pAddrList->stkEndAddr;        // read stack end address
+     90              k = pAddrList->stkIntAddr;        // read stack address for optional level-attained interrupt
+     91              j = pAddrList->lastBSWAddr;       // read address of last-written block status word
+     92              k = pAddrList->pktOvrWordsInt;    // number of words to packet overrun, optional warning interrupt
+     93              
+     94              // ------------------------------------------
+     95              // IMT Packet Header bus addressing examples
+     96              // ------------------------------------------
+     97              
+     98              // applies when packet header is enabled
+     99              if (!(pH6130->MT_CONFIG_REG & IMT_HDR_OFF)) {
+    100                
+    101                  // use macro to set bus address pointer value. 
+    102                  // the macro PktBusAddr(n) is defined ((PktHdr)(0x60000000 + (n << 1)))
+    103                
+    104                  // this header address only applies for the first packet after reset!
+    105                  pPktHdr = PktBusAddr(0x5400);
+    106              
+    107                  // alternate way to set bus address to RAM addr 0x5400
+    108                  // without using the macro...
+    109                  // pPktHdr = ((PktHdr)(0x60000000 + (0x5400 << 1)));
+    110              
+    111                  // read the IRIG-106 packet header data
+    112                  // all of the packet header data fields are listed here...
+    113                  j = pPktHdr->pktSync;
+    114                  k = pPktHdr->ChannID;
+    115                  j = pPktHdr->pktLenLo;    // half of 32-bit value: packet length in bytes
+    116                  k = pPktHdr->pktLenHi;    // half of 32-bit value: packet length in bytes
+    117                  j = pPktHdr->dataLenLo;   // half of 32-bit value: data length in bytes
+    118                  k = pPktHdr->dataLenHi;   // half of 32-bit value: data length in bytes
+    119                  j = pPktHdr->word6.dtypeVer;
+    120                  k = pPktHdr->word6.seqNum;
+    121                  j = pPktHdr->word7.pktFlags;
+    122                  k = pPktHdr->word7.dataType;
+    123                  j = pPktHdr->relTimeLow;   // one third of 48-bit value: relative time count
+    124                  k = pPktHdr->relTimeMid;   // one third of 48-bit value: relative time count
+    125                  j = pPktHdr->relTimeHigh;  // one third of 48-bit value: relative time count
+    126                  k = pPktHdr->hdrChecksum;
+    127                  j = pPktHdr->numMsgsLo;        // low 16 bits of 24-bit value
+    128                  k = pPktHdr->word13.numMsgsHi; // high 8 bits of 24-bit value
+    129                  j = pPktHdr->word13.ttagBits;
+    130                  /* write works too, but probably not a good idea
+    131                  pPktHdr->pktSync = 0xEB25;                      */
+    132                  
+    133              }   // end if
+    134                  
+    135              // ---------------------------------------------------
+    136              // IMT Intra-Packet Msg Block bus addressing examples
+    137              // ---------------------------------------------------
+    138              // refer to data sheet for details. This structure consists of 
+    139              // the Intra-Packet Time Stamp (4 words, a 64-bit value) and
+    140              // the Intra-Packet Data Header (3 words, 4 fields)
+    141              
+    142              // use macro MsgBusAddr(n) defined as ((IPMB)(0x60000000 + (n << 1))) 
+    143              // to set bus address pointer value. Example points at first packet after reset.
+    144              
+    145              if (pH6130->MT_CONFIG_REG & IMT_HDR_OFF) {
+    146                  // packet header disabled
+    147                  pIPMB = MsgBusAddr(0x5400);
+    148              }
+    149              else {  
+    150                  // 14-word packet header enabled
+    151                  pIPMB = MsgBusAddr(0x540E);
+    152              }
+    153              
+    154              // all of the intra-packet time stamp and data header fields are listed here...
+    155          
+    156              // Intra-Packet Time Stamp (4 words, most significant word always zero)
+    157              j = pIPMB->msgTime0;  // read 64-bit msg time stamp, bits 0-15
+    158              j = pIPMB->msgTime1;  // read 64-bit msg time stamp, bits 16-31
+    159              j = pIPMB->msgTime2;  // read 64-bit msg time stamp, bits 32-47
+    160              j = pIPMB->msgTime3;  // read 64-bit msg time stamp, bits 48-63, always 0x0000
+    161             // Intra-Packet Data Header (3 words, 4 fields)
+    162              j = pIPMB->blkStatWd; // reaad message block status word
+    163              j = pIPMB->gap._1;    // read message response time, 0.1us res, 25.5us max
+    164              j = pIPMB->gap._2;    // read message response time #2, 0.1us res, 25.5us max, RT-RT only
+    165              j = pIPMB->msgLength; // read # of *BYTES* in msg data block, range 2-72, 1-36 words
+    166          
+    167              
+    168              // ------------------------------------------------
+    169              //     IMT Filter Table bus addressing examples
+    170              // ------------------------------------------------
+    171              // The filter table base address is declared in file 613x_mt.h.
+    172              // in demo, MT filter table start addr 0x0100
+    173              
+    174              //     ____invariant
+    175              //    |     _____RT0 through RT31
+    176              //    |    |   _____Tx or Rx
+    177              //    |    |  |      ____ subadd0 through subadd31
+    178              //    |    |  |     |
+    179              j = pMTF->RT5.Tx.subadd31;   // read MT filter table bit: RT address 5 Tx subaddress 31
+    180              pMTF->RT5.Tx.subadd31 = 1;   // set same bit (this Tx subaddress for RT5 will be ignored by monitor)
+    181              j = pMTF->RT5.Tx.subadd31;   // read same bit again
+    182              j = pMTF->RT19.Tx.subadd4;   // read MT filter table bit: RT address 19 Tx subaddress 4
+    183              pMTF->RT0.Tx.subadd8 = 1;    // set MT filter table bit: RT address 0 Rx subaddress 8
+    184                          
+    185              // preempt warnings: variable was set but never used
+    186              j=j;
+    187              k=k;
+    188          
+    189          }   // end IMT_bus_addressing_examples()
+    190          
+    191          
+    192          #endif // (HOST_BUS_INTERFACE && IMT_ena)
+    193          
+    194          
+    195          //================================================================================================
+    196          
+    197          
+    198          #if(HOST_BUS_INTERFACE && SMT_ena)
+    199          
+
+   \                                 In section .text, align 2, keep-with-next
+    200          void SMT_bus_addressing_examples(void) {
+    201            
+    202              unsigned short j,k;    
+    203          
+    204              // -----------------------------------------
+    205              // SMT Address List bus addressing examples
+    206              // -----------------------------------------
+    207              // all bus addressing destinations for this feature are shown here...
+    208              // The base address for the address list is declared in file 613x_mt.h
+    209          
+    210              // in demo, SMT Address List start addr is 0x0100
+    211              pAddrList->cmdStkStart = 0x5400;  // write command stack start address
+   \                     SMT_bus_addressing_examples:
+   \   00000000   ....               LDR.N    R2,??DataTable1
+   \   00000002   1268               LDR      R2,[R2, #+0]
+   \   00000004   4FF4A843           MOV      R3,#+21504
+   \   00000008   1380               STRH     R3,[R2, #+0]
+    212              k = pAddrList->cmdStkNext;        // command stack next messsage block address
+   \   0000000A   ....               LDR.N    R2,??DataTable1
+   \   0000000C   1268               LDR      R2,[R2, #+0]
+   \   0000000E   5288               LDRH     R2,[R2, #+2]
+   \   00000010   1100               MOVS     R1,R2
+    213              j = pAddrList->cmdStkEnd;         // read command stack end address
+   \   00000012   ....               LDR.N    R2,??DataTable1
+   \   00000014   1268               LDR      R2,[R2, #+0]
+   \   00000016   9288               LDRH     R2,[R2, #+4]
+   \   00000018   1000               MOVS     R0,R2
+    214              k = pAddrList->cmdStkInt;         // read cmd stack address for optional level-attained interrupt
+   \   0000001A   ....               LDR.N    R2,??DataTable1
+   \   0000001C   1268               LDR      R2,[R2, #+0]
+   \   0000001E   D288               LDRH     R2,[R2, #+6]
+   \   00000020   1100               MOVS     R1,R2
+    215              j = pAddrList->dataStkStart;      // read data stack start address
+   \   00000022   ....               LDR.N    R2,??DataTable1
+   \   00000024   1268               LDR      R2,[R2, #+0]
+   \   00000026   1289               LDRH     R2,[R2, #+8]
+   \   00000028   1000               MOVS     R0,R2
+    216              k = pAddrList->dataStkNext;       // read data stack next messsage data address
+   \   0000002A   ....               LDR.N    R2,??DataTable1
+   \   0000002C   1268               LDR      R2,[R2, #+0]
+   \   0000002E   5289               LDRH     R2,[R2, #+10]
+   \   00000030   1100               MOVS     R1,R2
+    217              j = pAddrList->dataStkEnd;        // read data stack end address
+   \   00000032   ....               LDR.N    R2,??DataTable1
+   \   00000034   1268               LDR      R2,[R2, #+0]
+   \   00000036   9289               LDRH     R2,[R2, #+12]
+   \   00000038   1000               MOVS     R0,R2
+    218              k = pAddrList->dataStkInt;        // read data stack address for optional level-attained interrupt
+   \   0000003A   ....               LDR.N    R2,??DataTable1
+   \   0000003C   1268               LDR      R2,[R2, #+0]
+   \   0000003E   D289               LDRH     R2,[R2, #+14]
+   \   00000040   1100               MOVS     R1,R2
+    219          
+    220              // ------------------------------------------
+    221              // SMT Command Stack bus addressing examples
+    222              // ------------------------------------------
+    223              // in demo, SMT command stack start addr 0x5400
+    224              // The stack start and end addresses are declared in file 613x_mt.h
+    225              
+    226              // all bus addressing destinations for this feature are shown here, for msg blk 0,
+    227              // with dfferences shown, based on time tag resolution...
+    228          
+    229              #ifndef SMT_TTAG_HI_RES         // IF SMT IS USING 16-BIT TIME BASE    
+    230              k = (*pScSTK)[0].blockStatus;   // read SMT message block 0 block status word
+    231              (*pScSTK)[0].timeTag = 0x1234;  // read SMT message block 0 16-bit time tag
+    232                                              // (normally would read not write time tag value)
+    233              j = (*pScSTK)[0].dataPtr;       // read SMT message block 0 data pointer
+    234              (*pScSTK)[0].cmdWord = 0xABCD;  // write SMT message block 0 command word
+    235                                              // (normally would read not write command word value)
+    236              
+    237              #else // ifdef SMT_TTAG_HI_RES  // IF SMT IS USING 48-BIT TIME BASE    
+    238              (*pScSTK)[0].ttagLow = 0xBEEF;  // write SMT message block 0 low word of 48-bit time tag
+   \   00000042   ....               LDR.N    R2,??DataTable1_1
+   \   00000044   1268               LDR      R2,[R2, #+0]
+   \   00000046   4BF6EF63           MOVW     R3,#+48879
+   \   0000004A   1380               STRH     R3,[R2, #+0]
+    239                                              // (normally would read not write this time tag value)
+    240              j = (*pScSTK)[0].ttagLow;       // read SMT message block 0 low word of 48-bit time tag
+   \   0000004C   ....               LDR.N    R2,??DataTable1_1
+   \   0000004E   1268               LDR      R2,[R2, #+0]
+   \   00000050   1288               LDRH     R2,[R2, #+0]
+   \   00000052   1000               MOVS     R0,R2
+    241              j = (*pScSTK)[0].ttagMid;       // read SMT message block 0 mid word of 48-bit time tag
+   \   00000054   ....               LDR.N    R2,??DataTable1_1
+   \   00000056   1268               LDR      R2,[R2, #+0]
+   \   00000058   5288               LDRH     R2,[R2, #+2]
+   \   0000005A   1000               MOVS     R0,R2
+    242              j = (*pScSTK)[0].ttagHigh;      // read SMT message block 0 high word of 48-bit time tag
+   \   0000005C   ....               LDR.N    R2,??DataTable1_1
+   \   0000005E   1268               LDR      R2,[R2, #+0]
+   \   00000060   9288               LDRH     R2,[R2, #+4]
+   \   00000062   1000               MOVS     R0,R2
+    243              j = (*pScSTK)[0].blockStatus;   // read SMT message block 0 block status word
+   \   00000064   ....               LDR.N    R2,??DataTable1_1
+   \   00000066   1268               LDR      R2,[R2, #+0]
+   \   00000068   D288               LDRH     R2,[R2, #+6]
+   \   0000006A   1000               MOVS     R0,R2
+    244              j = (*pScSTK)[0].gaptime._1;    // read SMT message block 0 response word (gap 1 byte)
+   \   0000006C   ....               LDR.N    R2,??DataTable1_1
+   \   0000006E   1268               LDR      R2,[R2, #+0]
+   \   00000070   127A               LDRB     R2,[R2, #+8]
+   \   00000072   D2B2               UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000074   1000               MOVS     R0,R2
+    245              (*pScSTK)[0].gaptime._2 = 250;  // write SMT message block 0 response word (gap 2 byte) to 25 us
+   \   00000076   FA22               MOVS     R2,#+250
+   \   00000078   ....               LDR.N    R3,??DataTable1_1
+   \   0000007A   1B68               LDR      R3,[R3, #+0]
+   \   0000007C   9B68               LDR      R3,[R3, #+8]
+   \   0000007E   62F30F23           BFI      R3,R2,#+8,#+8
+   \   00000082   ....               LDR.N    R2,??DataTable1_1
+   \   00000084   1268               LDR      R2,[R2, #+0]
+   \   00000086   9360               STR      R3,[R2, #+8]
+    246                                              // (normally would read not write a gaptime value)
+    247              j = (*pScSTK)[0].msgBytes;      // read SMT message block 0 number of *BYTES*
+   \   00000088   ....               LDR.N    R2,??DataTable1_1
+   \   0000008A   1268               LDR      R2,[R2, #+0]
+   \   0000008C   9289               LDRH     R2,[R2, #+12]
+   \   0000008E   1000               MOVS     R0,R2
+    248              j = (*pScSTK)[0].dataPtr;       // read SMT message block 0 data pointer
+   \   00000090   ....               LDR.N    R2,??DataTable1_1
+   \   00000092   1268               LDR      R2,[R2, #+0]
+   \   00000094   D289               LDRH     R2,[R2, #+14]
+   \   00000096   1000               MOVS     R0,R2
+    249              j = (*pScSTK)[0].cmdWord;       // read SMT message block 0 command word
+   \   00000098   ....               LDR.N    R2,??DataTable1_1
+   \   0000009A   1268               LDR      R2,[R2, #+0]
+   \   0000009C   128A               LDRH     R2,[R2, #+16]
+   \   0000009E   1000               MOVS     R0,R2
+    250              #endif
+    251          
+    252              // or, using a macro, CSTAK(n) defined as (*pScSTK)[n] 
+    253              j = CSTAK(1).blockStatus;        // read SMT message block 1 block status word
+   \   000000A0   ....               LDR.N    R2,??DataTable1_1
+   \   000000A2   1268               LDR      R2,[R2, #+0]
+   \   000000A4   528B               LDRH     R2,[R2, #+26]
+   \   000000A6   1000               MOVS     R0,R2
+    254              k = CSTAK(1).dataPtr;            // read SMT message block 1 data pointer
+   \   000000A8   ....               LDR.N    R2,??DataTable1_1
+   \   000000AA   1268               LDR      R2,[R2, #+0]
+   \   000000AC   528C               LDRH     R2,[R2, #+34]
+   \   000000AE   1100               MOVS     R1,R2
+    255              CSTAK(1).dataPtr = k;            // write SMT message block 1 data pointer
+   \   000000B0   ....               LDR.N    R2,??DataTable1_1
+   \   000000B2   1268               LDR      R2,[R2, #+0]
+   \   000000B4   5184               STRH     R1,[R2, #+34]
+    256          
+    257              
+    258              // ---------------------------------------
+    259              // SMT Data Stack bus addressing examples
+    260              // ---------------------------------------
+    261              // in demo, SMT data stack start addr is 0x6000, 8K (8,192) words are allocated
+    262              // The stack start and end addresses are declared in file 613x_mt.h
+    263              
+    264              // first modify pDSTK to point at word 0 for the message data block of interest, (usually
+    265              // NOT the first word in the allocated stack, as below) then change [index] to access
+    266              // data words for that message. Using this method to retrieve data for a single message,
+    267              // the index range is 1 to 36, but entire stack can be indexed, as demonstrated here...
+    268              
+    269              pDSTK = (DSTK) DSTACK_BASE_BUS_ADDR; // reset pointer to stack word 0
+   \   000000B6   ....               LDR.N    R2,??DataTable1_2
+   \   000000B8   ....               LDR.N    R3,??DataTable1_3  ;; 0x6000c000
+   \   000000BA   1360               STR      R3,[R2, #+0]
+    270              j = (*pDSTK)[2];              // read SMT data stack word 2
+   \   000000BC   ....               LDR.N    R2,??DataTable1_2
+   \   000000BE   1268               LDR      R2,[R2, #+0]
+   \   000000C0   9288               LDRH     R2,[R2, #+4]
+   \   000000C2   1000               MOVS     R0,R2
+    271              (*pDSTK)[2] = 0x4567;         // write SMT data stack word 2
+   \   000000C4   ....               LDR.N    R2,??DataTable1_2
+   \   000000C6   1268               LDR      R2,[R2, #+0]
+   \   000000C8   44F26753           MOVW     R3,#+17767
+   \   000000CC   9380               STRH     R3,[R2, #+4]
+    272              k = (*pDSTK)[2];              // read SMT data stack word 2 again
+   \   000000CE   ....               LDR.N    R2,??DataTable1_2
+   \   000000D0   1268               LDR      R2,[R2, #+0]
+   \   000000D2   9288               LDRH     R2,[R2, #+4]
+   \   000000D4   1100               MOVS     R1,R2
+    273              (*pDSTK)[2] = j;              // restore original SMT data stack word 2
+   \   000000D6   ....               LDR.N    R2,??DataTable1_2
+   \   000000D8   1268               LDR      R2,[R2, #+0]
+   \   000000DA   9080               STRH     R0,[R2, #+4]
+    274              k = (*pDSTK)[8191];           // read last SMT data stack word allocated in demo program
+   \   000000DC   43F6FE72           MOVW     R2,#+16382
+   \   000000E0   ....               LDR.N    R3,??DataTable1_2
+   \   000000E2   1B68               LDR      R3,[R3, #+0]
+   \   000000E4   D25A               LDRH     R2,[R2, R3]
+   \   000000E6   1100               MOVS     R1,R2
+    275          
+    276              // or, using a macro, DSTAK(n) defined as (*pDSTK)[n] where n = 0 to (STACK_SIZE - 1)
+    277              k = DSTAK(25);                // read general purpose queue word 25
+   \   000000E8   ....               LDR.N    R2,??DataTable1_2
+   \   000000EA   1268               LDR      R2,[R2, #+0]
+   \   000000EC   528E               LDRH     R2,[R2, #+50]
+   \   000000EE   1100               MOVS     R1,R2
+    278              DSTAK(2) = j;                 // write general purpose queue word 2
+   \   000000F0   ....               LDR.N    R2,??DataTable1_2
+   \   000000F2   1268               LDR      R2,[R2, #+0]
+   \   000000F4   9080               STRH     R0,[R2, #+4]
+    279          
+    280              
+    281              // ------------------------------------------------
+    282              //     SMT Filter Table bus addressing examples
+    283              // ------------------------------------------------
+    284              // The filter table base address is declared in file 613x_mt.h.
+    285              // in demo, MT filter table start addr 0x0100
+    286              
+    287              //     ____invariant
+    288              //    |     _____RT0 through RT31
+    289              //    |    |   _____Tx or Rx
+    290              //    |    |  |      ____ subadd0 through subadd31
+    291              //    |    |  |     |
+    292              j = pMTF->RT5.Tx.subadd31;   // read MT filter table bit: RT address 5 Tx subaddress 31
+   \   000000F6   ....               LDR.N    R2,??DataTable1_4
+   \   000000F8   1268               LDR      R2,[R2, #+0]
+   \   000000FA   D26A               LDR      R2,[R2, #+44]
+   \   000000FC   D20F               LSRS     R2,R2,#+31
+   \   000000FE   1000               MOVS     R0,R2
+    293              pMTF->RT5.Tx.subadd31 = 1;   // set same bit (this Tx subaddress for RT5 will be ignored by monitor)
+   \   00000100   ....               LDR.N    R2,??DataTable1_4
+   \   00000102   1268               LDR      R2,[R2, #+0]
+   \   00000104   D26A               LDR      R2,[R2, #+44]
+   \   00000106   52F00042           ORRS     R2,R2,#0x80000000
+   \   0000010A   ....               LDR.N    R3,??DataTable1_4
+   \   0000010C   1B68               LDR      R3,[R3, #+0]
+   \   0000010E   DA62               STR      R2,[R3, #+44]
+    294              j = pMTF->RT5.Tx.subadd31;   // read same bit again
+   \   00000110   ....               LDR.N    R2,??DataTable1_4
+   \   00000112   1268               LDR      R2,[R2, #+0]
+   \   00000114   D26A               LDR      R2,[R2, #+44]
+   \   00000116   D20F               LSRS     R2,R2,#+31
+   \   00000118   1000               MOVS     R0,R2
+    295              j = pMTF->RT19.Tx.subadd4;   // read MT filter table bit: RT address 19 Tx subaddress 4
+   \   0000011A   ....               LDR.N    R2,??DataTable1_4
+   \   0000011C   1268               LDR      R2,[R2, #+0]
+   \   0000011E   D2F89C20           LDR      R2,[R2, #+156]
+   \   00000122   C2F30012           UBFX     R2,R2,#+4,#+1
+   \   00000126   1000               MOVS     R0,R2
+    296              pMTF->RT0.Tx.subadd8 = 1;    // set MT filter table bit: RT address 0 Rx subaddress 8
+   \   00000128   ....               LDR.N    R2,??DataTable1_4
+   \   0000012A   1268               LDR      R2,[R2, #+0]
+   \   0000012C   5268               LDR      R2,[R2, #+4]
+   \   0000012E   4FF48073           MOV      R3,#+256
+   \   00000132   1A43               ORRS     R2,R3,R2
+   \   00000134   ....               LDR.N    R3,??DataTable1_4
+   \   00000136   1B68               LDR      R3,[R3, #+0]
+   \   00000138   5A60               STR      R2,[R3, #+4]
+    297              
+    298              // preempt warnings: variable was set but never used
+    299              j=j;
+    300              k=k;
+    301              
+    302          }   // end SMT_bus_addressing_examples()
+   \   0000013A   7047               BX       LR               ;; return
+    303              
+    304          
+    305          #endif  // (HOST_BUS_INTERFACE && SMT_ena)
+    306             
+    307          
+    308          
+    309          
+    310          // The following function initializes either the Simple or IRIG-106 monitor
+    311          // (SMT or IMT) as enabled in file 613x_initialization.h. Same file also
+    312          // specifies HI-6130 (bus) or HI-6131 (SPI) configuration...
+    313          //
+    314          // One of four combinations is initialized:
+    315          // (1) SMT for HI-6130 (bus) applications
+    316          // (2) IMT for HI-6130 (bus) applications
+    317          // (3) SMT for HI-6131 (SPI) applications
+    318          // (4) IMT for HI-6130 (SPI) applications
+    319          //
+
+   \                                 In section .text, align 2, keep-with-next
+    320          void initialize_613x_MT(void) {
+   \                     initialize_613x_MT:
+   \   00000000   F0B5               PUSH     {R4-R7,LR}
+   \   00000002   C4B0               SUB      SP,SP,#+272
+    321          	
+    322              #if (HOST_BUS_INTERFACE) 
+    323              const unsigned long base_6130 = 0x60000000;
+   \   00000004   5FF0C044           MOVS     R4,#+1610612736
+    324              unsigned long addr;
+    325              #endif // (HOST_BUS_INTERFACE) 
+    326                  
+    327              unsigned short i,j;
+    328              
+    329              
+    330              #if(SMT_ena)
+    331              volatile unsigned short smt_addr_list[8] = {
+    332          
+    333              //  =============  Command Stack ==============
+    334              //  Start     Current   End       Interrupt
+    335              //  Address   Address   Address   Address
+    336                  0x5400,   0x5400,   0x5FFF,   0x5DFF, // end - 512 
+    337          		
+    338              //  ==============  Data Stack  ================
+    339              //  Start     Current   End       Interrupt 
+    340              //  Address   Address   Address   Address   
+    341                  0x6000,   0x6000,   0x7FFF,   0x7DFF }; // end - 512 
+   \   00000008   00A8               ADD      R0,SP,#+0
+   \   0000000A   ....               LDR.N    R1,??DataTable1_5
+   \   0000000C   1022               MOVS     R2,#+16
+   \   0000000E   ........           BL       __aeabi_memcpy4
+    342          
+    343              #else // (IMT_ena)
+    344               volatile unsigned short imt_addr_list[8] = {
+    345          
+    346              //  =============  Combined Stack ==============
+    347              //  Start     Current   End       Interrupt
+    348              //  Address   Address   Address   Address
+    349                  0x5400,   0x5400,   0x6400,   0, 
+    350          
+    351              //  =============  Combined Stack ==============
+    352              //  Last Msg  Reserved  Reserved  Interrupt N Words
+    353              //  Address   Address   Address   before End-of-Stack
+    354                  0,        0,        0,        512 };
+    355               
+    356              #endif
+    357          
+    358              volatile unsigned short mt_filter_table[128] = {
+    359          
+    360              // bit = 0: all msgs to that subaddress are recorded, 
+    361              // bit = 1: all messages to that subaddress are ignored.
+    362              // default: (even if table not written) all messages are recorded  
+    363              // RxSA = receive subaddresses,     TxSA = tranmsit subaddresses   
+    364              //====================================================================
+    365              // RT address 0   
+    366          
+    367              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    368              //  |               |               |               |
+    369              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    370              //  ||              ||              ||              ||
+    371              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    372              //  |||             |||             |||             |||
+    373              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    374              //  ||||            ||||            ||||            ||||
+    375                0x0000,         0x0000,         0x0000,         0x0000,
+    376              //====================================================================
+    377              // RT address 1   
+    378          
+    379              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    380              //  |               |               |               |
+    381              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    382              //  ||              ||              ||              ||
+    383              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    384              //  |||             |||             |||             |||
+    385              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    386              //  ||||            ||||            ||||            ||||
+    387                0x0000,         0x0000,         0x0000,         0x0000,
+    388              //====================================================================
+    389              // RT address 2   
+    390          
+    391              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    392              //  |               |               |               |
+    393              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    394              //  ||              ||              ||              ||
+    395              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    396              //  |||             |||             |||             |||
+    397              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    398              //  ||||            ||||            ||||            ||||
+    399                0x0000,         0x0000,         0x0000,         0x0000,
+    400              //====================================================================
+    401              // RT address 3   
+    402          
+    403              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    404              //  |               |               |               |
+    405              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    406              //  ||              ||              ||              ||
+    407              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    408              //  |||             |||             |||             |||
+    409              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    410              //  ||||            ||||            ||||            ||||
+    411                0x0000,         0x0000,         0x0000,         0x0000,
+    412              //====================================================================
+    413              // RT address 4   
+    414          
+    415              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    416              //  |               |               |               |
+    417              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    418              //  ||              ||              ||              ||
+    419              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    420              //  |||             |||             |||             |||
+    421              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    422              //  ||||            ||||            ||||            ||||
+    423                0x0000,         0x0000,         0x0000,         0x0000,
+    424              //====================================================================
+    425              // RT address 5   
+    426          
+    427              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    428              //  |               |               |               |
+    429              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    430              //  ||              ||              ||              ||
+    431              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    432              //  |||             |||             |||             |||
+    433              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    434              //  ||||            ||||            ||||            ||||
+    435                0x0000,         0x0000,         0x0000,         0x0000,
+    436              //====================================================================
+    437              // RT address 6   
+    438          
+    439              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    440              //  |               |               |               |
+    441              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    442              //  ||              ||              ||              ||
+    443              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    444              //  |||             |||             |||             |||
+    445              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    446              //  ||||            ||||            ||||            ||||
+    447                0x0000,         0x0000,         0x0000,         0x0000,
+    448              //====================================================================
+    449              // RT address 7   
+    450          
+    451              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    452              //  |               |               |               |
+    453              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    454              //  ||              ||              ||              ||
+    455              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    456              //  |||             |||             |||             |||
+    457              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    458              //  ||||            ||||            ||||            ||||
+    459                0x0000,         0x0000,         0x0000,         0x0000,
+    460              //====================================================================
+    461              // RT address 8   
+    462          
+    463              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    464              //  |               |               |               |
+    465              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    466              //  ||              ||              ||              ||
+    467              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    468              //  |||             |||             |||             |||
+    469              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    470              //  ||||            ||||            ||||            ||||
+    471                0x0000,         0x0000,         0x0000,         0x0000,
+    472              //====================================================================
+    473              // RT address 9   
+    474          
+    475              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    476              //  |               |               |               |
+    477              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    478              //  ||              ||              ||              ||
+    479              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    480              //  |||             |||             |||             |||
+    481              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    482              //  ||||            ||||            ||||            ||||
+    483                0x0000,         0x0000,         0x0000,         0x0000,
+    484              //====================================================================
+    485              // RT address 10   
+    486          
+    487              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    488              //  |               |               |               |
+    489              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    490              //  ||              ||              ||              ||
+    491              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    492              //  |||             |||             |||             |||
+    493              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    494              //  ||||            ||||            ||||            ||||
+    495                0x0000,         0x0000,         0x0000,         0x0000,
+    496              //====================================================================
+    497              // RT address 11   
+    498          
+    499              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    500              //  |               |               |               |
+    501              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    502              //  ||              ||              ||              ||
+    503              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    504              //  |||             |||             |||             |||
+    505              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    506              //  ||||            ||||            ||||            ||||
+    507                0x0000,         0x0000,         0x0000,         0x0000,
+    508              //====================================================================
+    509              // RT address 12   
+    510          
+    511              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    512              //  |               |               |               |
+    513              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    514              //  ||              ||              ||              ||
+    515              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    516              //  |||             |||             |||             |||
+    517              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    518              //  ||||            ||||            ||||            ||||
+    519                0x0000,         0x0000,         0x0000,         0x0000,
+    520              //====================================================================
+    521              // RT address 13   
+    522          
+    523              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    524              //  |               |               |               |
+    525              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    526              //  ||              ||              ||              ||
+    527              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    528              //  |||             |||             |||             |||
+    529              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    530              //  ||||            ||||            ||||            ||||
+    531                0x0000,         0x0000,         0x0000,         0x0000,
+    532              //====================================================================
+    533              // RT address 14   
+    534          
+    535              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    536              //  |               |               |               |
+    537              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    538              //  ||              ||              ||              ||
+    539              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    540              //  |||             |||             |||             |||
+    541              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    542              //  ||||            ||||            ||||            ||||
+    543                0x0000,         0x0000,         0x0000,         0x0000,
+    544              //====================================================================
+    545              // RT address 15   
+    546          
+    547              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    548              //  |               |               |               |
+    549              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    550              //  ||              ||              ||              ||
+    551              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    552              //  |||             |||             |||             |||
+    553              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    554              //  ||||            ||||            ||||            ||||
+    555                0x0000,         0x0000,         0x0000,         0x0000,
+    556              //====================================================================
+    557              // RT address 16   
+    558          
+    559              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    560              //  |               |               |               |
+    561              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    562              //  ||              ||              ||              ||
+    563              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    564              //  |||             |||             |||             |||
+    565              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    566              //  ||||            ||||            ||||            ||||
+    567                0x0000,         0x0000,         0x0000,         0x0000,
+    568              //====================================================================
+    569              // RT address 17   
+    570          
+    571              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    572              //  |               |               |               |
+    573              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    574              //  ||              ||              ||              ||
+    575              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    576              //  |||             |||             |||             |||
+    577              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    578              //  ||||            ||||            ||||            ||||
+    579                0x0000,         0x0000,         0x0000,         0x0000,
+    580              //====================================================================
+    581              // RT address 18   
+    582          
+    583              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    584              //  |               |               |               |
+    585              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    586              //  ||              ||              ||              ||
+    587              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    588              //  |||             |||             |||             |||
+    589              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    590              //  ||||            ||||            ||||            ||||
+    591                0x0000,         0x0000,         0x0000,         0x0000,
+    592              //====================================================================
+    593              // RT address 19   
+    594          
+    595              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    596              //  |               |               |               |
+    597              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    598              //  ||              ||              ||              ||
+    599              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    600              //  |||             |||             |||             |||
+    601              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    602              //  ||||            ||||            ||||            ||||
+    603                0x0000,         0x0000,         0x0000,         0x0000,
+    604              //====================================================================
+    605              // RT address 20   
+    606          
+    607              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    608              //  |               |               |               |
+    609              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    610              //  ||              ||              ||              ||
+    611              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    612              //  |||             |||             |||             |||
+    613              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    614              //  ||||            ||||            ||||            ||||
+    615                0x0000,         0x0000,         0x0000,         0x0000,
+    616              //====================================================================
+    617              // RT address 21  
+    618          
+    619              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    620              //  |               |               |               |
+    621              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    622              //  ||              ||              ||              ||
+    623              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    624              //  |||             |||             |||             |||
+    625              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    626              //  ||||            ||||            ||||            ||||
+    627                0x0000,         0x0000,         0x0000,         0x0000,
+    628              //====================================================================
+    629              // RT address 22   
+    630          
+    631              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    632              //  |               |               |               |
+    633              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    634              //  ||              ||              ||              ||
+    635              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    636              //  |||             |||             |||             |||
+    637              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    638              //  ||||            ||||            ||||            ||||
+    639                0x0000,         0x0000,         0x0000,         0x0000,
+    640              //====================================================================
+    641              // RT address 23  
+    642          
+    643              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    644              //  |               |               |               |
+    645              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    646              //  ||              ||              ||              ||
+    647              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    648              //  |||             |||             |||             |||
+    649              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    650              //  ||||            ||||            ||||            ||||
+    651                0x0000,         0x0000,         0x0000,         0x0000,
+    652              //====================================================================
+    653              // RT address 24  
+    654          
+    655              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    656              //  |               |               |               |
+    657              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    658              //  ||              ||              ||              ||
+    659              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    660              //  |||             |||             |||             |||
+    661              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    662              //  ||||            ||||            ||||            ||||
+    663                0x0000,         0x0000,         0x0000,         0x0000,
+    664              //====================================================================
+    665              // RT address 25  
+    666          
+    667              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    668              //  |               |               |               |
+    669              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    670              //  ||              ||              ||              ||
+    671              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    672              //  |||             |||             |||             |||
+    673              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    674              //  ||||            ||||            ||||            ||||
+    675                0x0000,         0x0000,         0x0000,         0x0000,
+    676              //====================================================================
+    677              // RT address 26  
+    678          
+    679              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    680              //  |               |               |               |
+    681              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    682              //  ||              ||              ||              ||
+    683              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    684              //  |||             |||             |||             |||
+    685              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    686              //  ||||            ||||            ||||            ||||
+    687                0x0000,         0x0000,         0x0000,         0x0000,
+    688              //====================================================================
+    689              // RT address 27  
+    690          
+    691              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    692              //  |               |               |               |
+    693              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    694              //  ||              ||              ||              ||
+    695              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    696              //  |||             |||             |||             |||
+    697              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    698              //  ||||            ||||            ||||            ||||
+    699                0x0000,         0x0000,         0x0000,         0x0000,
+    700              //====================================================================
+    701              // RT address 28  
+    702          
+    703              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    704              //  |               |               |               |
+    705              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    706              //  ||              ||              ||              ||
+    707              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    708              //  |||             |||             |||             |||
+    709              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    710              //  ||||            ||||            ||||            ||||
+    711                0x0000,         0x0000,         0x0000,         0x0000,
+    712              //====================================================================
+    713              // RT address 29   
+    714          
+    715              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    716              //  |               |               |               |
+    717              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    718              //  ||              ||              ||              ||
+    719              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    720              //  |||             |||             |||             |||
+    721              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    722              //  ||||            ||||            ||||            ||||
+    723                0x0000,         0x0000,         0x0000,         0x0000,
+    724              //====================================================================
+    725              // RT address 30  
+    726          
+    727              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    728              //  |               |               |               |
+    729              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    730              //  ||              ||              ||              ||
+    731              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    732              //  |||             |||             |||             |||
+    733              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    734              //  ||||            ||||            ||||            ||||
+    735                0x0000,         0x0000,         0x0000,         0x0000,
+    736              //====================================================================
+    737              // RT address 31   
+    738          
+    739              //   ____RxSA 15-12  ____TxSA 15-12  ____RxSA 31-28  ____TxSA 31-28
+    740              //  |               |               |               |
+    741              //  | ___RxSA 11-8  | ___TxSA 11-8  | ___RxSA 27-24 | ___TxSA 27-24
+    742              //  ||              ||              ||              ||
+    743              //  || __RxSA 7-4   || __TxSA 7-4   || __RxSA 23-20 || __TxSA 23-20
+    744              //  |||             |||             |||             |||
+    745              //  ||| _RxSA 3-0   ||| _TxSA 3-0   ||| _RxSA 19-16 ||| _TxSA 19-16
+    746              //  ||||            ||||            ||||            ||||
+    747                0x0000,         0x0000,         0x0000,         0x0000  };
+   \   00000012   04A8               ADD      R0,SP,#+16
+   \   00000014   4FF48071           MOV      R1,#+256
+   \   00000018   ........           BL       __aeabi_memclr4
+    748              // ====================================================================
+    749              // end of mt_filter_table[128]
+    750          
+    751             
+    752              // HI-6130 uses host bus interface, HI-6131 uses host SPI interface. From 
+    753              // here, we use bus interface to initialize HI-6130 registers and RAM tables,
+    754              // or we use SPI to initialize HI-6131 registers and RAM tables 
+    755          
+    756              // ======================================================================================
+    757          
+    758              #if (HOST_BUS_INTERFACE) 
+    759          
+    760          	// Initialize MT Filter table in RAM using values in array above.
+    761                  // Skip this if all messages shall be recorded (since reset clears RAM)
+    762          
+    763                  for ( i = 0, addr = base_6130 + (0x0100 << 1); i < 128; i++) {
+   \   0000001C   0020               MOVS     R0,#+0
+   \   0000001E   0600               MOVS     R6,R0
+   \   00000020   04F20020           ADDW     R0,R4,#+512
+   \   00000024   0500               MOVS     R5,R0
+   \                     ??initialize_613x_MT_0:
+   \   00000026   B6B2               UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   00000028   802E               CMP      R6,#+128
+   \   0000002A   07D2               BCS.N    ??initialize_613x_MT_1
+    764          
+    765          	    *((volatile unsigned short *)(addr)) = mt_filter_table[i];
+   \   0000002C   B6B2               UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   0000002E   04A8               ADD      R0,SP,#+16
+   \   00000030   30F81600           LDRH     R0,[R0, R6, LSL #+1]
+   \   00000034   2880               STRH     R0,[R5, #+0]
+    766          	    addr += 2;
+   \   00000036   AD1C               ADDS     R5,R5,#+2
+    767                  }
+   \   00000038   761C               ADDS     R6,R6,#+1
+   \   0000003A   F4E7               B.N      ??initialize_613x_MT_0
+    768          
+    769          	pH6130->MT_ADDR_LIST_POINTER = 0x00B0;
+   \                     ??initialize_613x_MT_1:
+   \   0000003C   ....               LDR.N    R0,??DataTable1_6
+   \   0000003E   0068               LDR      R0,[R0, #+0]
+   \   00000040   B021               MOVS     R1,#+176
+   \   00000042   A0F85E10           STRH     R1,[R0, #+94]
+    770          
+    771          	// ================== Simple Monitor ======================= 
+    772          
+    773                  #if(SMT_ena)
+    774          
+    775          	    // read back address just written and shift left
+    776                      j = (pH6130->MT_ADDR_LIST_POINTER << 1);
+   \   00000046   ....               LDR.N    R0,??DataTable1_6
+   \   00000048   0068               LDR      R0,[R0, #+0]
+   \   0000004A   B0F85E00           LDRH     R0,[R0, #+94]
+   \   0000004E   4000               LSLS     R0,R0,#+1
+   \   00000050   0700               MOVS     R7,R0
+    777          
+    778                      // initialize MT address list using array declared at top of function 
+    779                      for ( i = 0, addr = base_6130 + j; i < 8; i++) {
+   \   00000052   0020               MOVS     R0,#+0
+   \   00000054   0600               MOVS     R6,R0
+   \   00000056   BFB2               UXTH     R7,R7            ;; ZeroExt  R7,R7,#+16,#+16
+   \   00000058   3819               ADDS     R0,R7,R4
+   \   0000005A   0500               MOVS     R5,R0
+   \                     ??initialize_613x_MT_2:
+   \   0000005C   B6B2               UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   0000005E   082E               CMP      R6,#+8
+   \   00000060   07D2               BCS.N    ??initialize_613x_MT_3
+    780                        
+    781                          *((volatile unsigned short *)(addr)) = smt_addr_list[i];
+   \   00000062   B6B2               UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   00000064   00A8               ADD      R0,SP,#+0
+   \   00000066   30F81600           LDRH     R0,[R0, R6, LSL #+1]
+   \   0000006A   2880               STRH     R0,[R5, #+0]
+    782                          
+    783                          addr += 2;
+   \   0000006C   AD1C               ADDS     R5,R5,#+2
+    784                      }
+   \   0000006E   761C               ADDS     R6,R6,#+1
+   \   00000070   F4E7               B.N      ??initialize_613x_MT_2
+    785          
+    786                      // Set up SMT interrupts:
+    787                      //
+    788                      // STKROVR   = command stack end-address written, ptr rolled-over to start address
+    789                      //             (MT address list word 2 contains fixed end address)
+    790                      // DSTKROVR  = data stack end-address written, ptr rolled-over to start address
+    791                      //             (MT address list word 6 contains fixed end address)
+    792                      // STKADRSS  = command stack addr match, level-attained int
+    793                      //             (MT address list word 3 contains fixed int address)
+    794                      // DSTKADRSS = data stack address match,
+    795                      //             (MT address list word 7 contains fixed int address)
+    796                      // MSG_ERR   = detected RT status word with message error
+    797                      // MT_EOM    = end-of-message interrupt
+    798          
+    799                      // Interrupt Enable, both hardware ints and polled ints  
+    800                      pH6130->MT_INT_ENABLE_REG = STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM;
+   \                     ??initialize_613x_MT_3:
+   \   00000072   ....               LDR.N    R0,??DataTable1_6
+   \   00000074   0068               LDR      R0,[R0, #+0]
+   \   00000076   4FF4FC71           MOV      R1,#+504
+   \   0000007A   4184               STRH     R1,[R0, #+34]
+    801          
+    802                      // Output Enable for hardware ints  
+    803                      pH6130->MT_INT_OUTPUT_ENABLE_REG = STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM;
+   \   0000007C   ....               LDR.N    R0,??DataTable1_6
+   \   0000007E   0068               LDR      R0,[R0, #+0]
+   \   00000080   4FF4FC71           MOV      R1,#+504
+   \   00000084   4185               STRH     R1,[R0, #+42]
+    804          
+    805                      // Optional: assert IMTA bit in the Master Config Reg 0 
+    806                      // so the ACTIVE pin reflects MT activity 
+    807                      j = pH6130->MASTER_CONFIG_REG;
+   \   00000086   ....               LDR.N    R0,??DataTable1_6
+   \   00000088   0068               LDR      R0,[R0, #+0]
+   \   0000008A   0088               LDRH     R0,[R0, #+0]
+   \   0000008C   0700               MOVS     R7,R0
+    808                      pH6130->MASTER_CONFIG_REG = j|IMTA;
+   \   0000008E   57F00200           ORRS     R0,R7,#0x2
+   \   00000092   ....               LDR.N    R1,??DataTable1_6
+   \   00000094   0968               LDR      R1,[R1, #+0]
+   \   00000096   0880               STRH     R0,[R1, #+0]
+    809          		
+    810                      // Config options for Simple monitor, "i" will be written to the
+    811                      // MT Configuration Reg. The option bit SELECT_SMT must be 1. 
+    812                      i = SELECT_SMT;
+   \   00000098   0120               MOVS     R0,#+1
+   \   0000009A   0600               MOVS     R6,R0
+    813          
+    814                      // Choose 1 from each of the following choices:
+    815                      //   GAPCHKON or GAPCHKOFF
+    816                      //   STOR_INVWD or STOP_INVWD
+    817                      //   EXTD_STATUS or IRIG_STATUS
+    818                      //   REC_CW or REC_CWDW or REC_CS or REC_CSDS
+    819                      //   TAG_LWLB or TAG_FWFB or TAG_FWLB or TAG_OFF
+    820                      //   MTTO_15U or MTTO_20U or MTTO_58U or MTTO_138U 
+    821                      //  -----------------------------------------------
+    822                      //  Note: SMT time tag clock is selected in main.c,
+    823                      //  as well as this SMT time tag resolution option:
+    824                      //   SMT_TTAG16 or SMT_TTAG48
+    825          
+    826                      i |= GAPCHKOFF|STOR_INVWD|EXTD_STATUS|REC_CSDS|TAG_OFF|MTTO_20U;
+   \   0000009C   46F48646           ORR      R6,R6,#0x4300
+   \   000000A0   56F07406           ORRS     R6,R6,#0x74
+    827          
+    828                      pH6130->MT_CONFIG_REG = i;
+   \   000000A4   ....               LDR.N    R0,??DataTable1_6
+   \   000000A6   0068               LDR      R0,[R0, #+0]
+   \   000000A8   A0F85260           STRH     R6,[R0, #+82]
+    829          
+    830          	// end SMT_ena 
+    831          
+    832                  // ================== IRIG-106 Monitor ======================= 
+    833          
+    834          	#else // (IMT_ena) 
+    835          
+    836                      // read back address just written and shift left 
+    837                      j = (pH6130->MT_ADDR_LIST_POINTER) << 1;
+    838          
+    839                      // initialize MT address list using array declared at top of function 
+    840                      for ( i = 0, addr = base_6130 + j; i < 8; i++) {
+    841          
+    842          		*((volatile unsigned short *)(addr)) = imt_addr_list[i];
+    843          		addr += 2;
+    844                      }
+    845          
+    846                      // In addition to these packet size limits, a stack rollover trips packet finalization... 
+    847                      pH6130->IMT_MAX_1553_MSGS = 4545; // max possible in 100ms = 4,545
+    848                      pH6130->IMT_MAX_1553_WORDS = 0;   // 32320);
+    849                      pH6130->IMT_MAX_PKT_TIME = 0;     // 10000); // 10us resolution
+    850                      pH6130->IMT_MAX_GAP_TIME = 0;     // max deadtime = 10(N-2)us
+    851                      pH6130->IMT_CHANNEL_ID = 0xABCD;
+    852          
+    853                      // Set up IRIG-106 MT interrupts. 
+    854                      // 
+    855                      // FULL_EOP  = stack full, end-of-packet (words left < 64)
+    856                      // FULL_OFS  = stack offset from FULL_EOP interrupt 
+    857                      //             (IRIG-106 HEADER MUST BE ENABLED)
+    858                      //             (MT address list word 7 contains # words offset)
+    859                      // MAXWORDS  = end-of-packet, hit 1553 word count limit per pkt
+    860                      // MAXMSGS   = end-of-packet, hit message count limit per pkt
+    861                      // MAXGAP    = end-of-packet, exceeded max bus deadtime per pkt
+    862                      // MAXTIME   = end-of-packet, hit maximum allowed pkt time
+    863                      // HPKTSTOP  = host packet stop interrupt
+    864                      // MT_EOM    = end-of-message interrupt
+    865                      // STKROVR   = stack end-address written, ptr rolled-over to start address 
+    866                      //             (MT address list word 2 contains stack end address)
+    867                      // STKADRSS  = stack address written, equal to MT address list word 3
+    868                      // PKTRDY    = packet ready interrupt
+    869          		
+    870                      // Interrupt Enable, vectored ints and polled ints  
+    871                      pH6130->MT_INT_ENABLE_REG = FULL_EOP|MAXWORDS|MAXMSGS|MAXGAP|MAXTIME|HPKTSTOP|PKTREADY|STKROVR; 
+    872                                                  // not used: |FULL_OFS|STKADRSS|MT_EOM);
+    873          
+    874                      // Output enable for vectored ints  
+    875                      pH6130->MT_INT_OUTPUT_ENABLE_REG = FULL_EOP|MAXWORDS|MAXMSGS|MAXGAP|MAXTIME|HPKTSTOP|PKTREADY|STKROVR; 
+    876                                                         // not used: |FULL_OFS|STKADRSS|MT_EOM);
+    877          
+    878                      // Optional: assert IMTA bit in the Master Config Reg 0 
+    879                      // so the ACTIVE pin reflects MT activity 
+    880                      j = pH6130->MASTER_CONFIG_REG;
+    881                      pH6130->MASTER_CONFIG_REG = j|IMTA;
+    882          		
+    883                      // Config options for IRIG-106 monitor, "i" will be written to the
+    884                      // MT Configuration Reg. Configure the options for IRIG-106.
+    885                      // The IMT mode automatically uses TTAG48. 
+    886                      i = SELECT_IMT;
+    887          
+    888                      // Choose 1 from each of the following choices:
+    889                      //		 
+    890                      // GAPCHKON or GAPCHKOFF
+    891                      // STOR_INVWD or STOP_INVWD
+    892                      // PKTSTRT_CW or PKTSTRT_ENA
+    893                      // IMT_HDR_ON or IMT_HDR_OFF
+    894                      // EXTD_STATUS or IRIG_STATUS
+    895                      // IMT_CKSUM_ON or IMT_CKSUM_OFF
+    896                      // REC_CW or REC_CWDW or REC_CS or REC_CSDS
+    897                      // TAG_LWLB or TAG_FWFB or TAG_FWLB or TAG_OFF
+    898                      // MTTO_15U or MTTO_20U or MTTO_58U or MTTO_138U 
+    899                      // IMT_DTYPE9 or IMT_DTYPE4 or IMT_DTYPE5 or IMT_DTYPE7  
+    900                      //  -----------------------------------------------
+    901                      //  Note: IMT time tag OFF option is selected in main.c
+    902          
+    903                      i |= GAPCHKOFF|STOR_INVWD|PKTSTRT_CW
+    904                           |IMT_HDR_OFF|EXTD_STATUS|IMT_CKSUM_ON
+    905                           |REC_CSDS|TAG_OFF|MTTO_20U|IMT_DTYPE9;
+    906          
+    907                      pH6130->MT_CONFIG_REG = i;
+    908          
+    909          	#endif // (IMT_ena)
+    910          
+    911              // ====================================================================================== 
+    912          
+    913              #else // (!HOST_BUS_INTERFACE) = HOST_SPI_INTERFACE
+    914          
+    915                  // Here, we use SPI interface to initialize HI-6131 registers and RAM 
+    916                  // The SPI can directly read registers 0-31 decimal, without using the mem address pointer.
+    917                  // The SPI can directly write registers 0-63 decimal, without using the mem address pointer.
+    918                  // For higher addresses, SPI read/write accesses must use a memory address pointer. 
+    919                                              
+    920                  // enable Memory Address Pointer 1
+    921                  enaMAP(1);
+    922          
+    923                  // Initialize MT Filter table in RAM using values in array above.
+    924                  // Skip this if all messages shall be recorded (since Master Reset clears RAM) 
+    925          
+    926                  Write_6131LowReg(MAP_1,0x0100,0);	
+    927                  for ( i = 0; i < 128; i++) {	
+    928                      Write_6131_1word(mt_filter_table[i],0);
+    929                  }
+    930                              
+    931                      
+    932          	// ================== Simple Monitor ======================= 
+    933          
+    934          	#if(SMT_ena)
+    935          
+    936                      // Initialize base address for MT Address List at 0x00B0  
+    937                      Write_6131LowReg(MT_ADDR_LIST_POINTER,0x00B0,0);
+    938          
+    939                      // Load same address to mem address ptr 
+    940                      Write_6131LowReg(MAP_1,0x00B0,0);	
+    941          
+    942                      // initialize MT address list using array declared at top of function 
+    943                      for ( i = 0; i < 8; i++) {
+    944                          Write_6131_1word(smt_addr_list[i],0);
+    945                      }
+    946          
+    947                      // Set up SMT interrupts:
+    948                      //
+    949                      // STKROVR   = command stack end-address written, ptr rolled-over to start address
+    950                      //             (MT address list word 2 contains fixed end address)
+    951                      // DSTKROVR  = data stack end-address written, ptr rolled-over to start address
+    952                      //             (MT address list word 6 contains fixed end address)
+    953                      // STKADRSS  = command stack addr match, level-attained int
+    954                      //             (MT address list word 3 contains fixed int address)
+    955                      // DSTKADRSS = data stack address match,
+    956                      //             (MT address list word 7 contains fixed int address)
+    957                      // MSG_ERR   = detected RT status word with message error
+    958                      // MT_EOM    = end-of-message interrupt
+    959          
+    960                      // Interrupt Enable, both hardware ints and polled ints  
+    961                      Write_6131LowReg(MT_INT_ENABLE_REG,
+    962                      STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM, 0);
+    963          
+    964                      // Output Enable for hardware ints  
+    965                      Write_6131LowReg(MT_INT_OUTPUT_ENABLE_REG,
+    966                      STKROVR|DSTKROVR|STKADRSS|DSTKADRSS|MSG_ERR|MT_EOM, 0);
+    967          
+    968                      // Optional: assert IMTA bit in the Master Config Reg 0 
+    969                      // so the ACTIVE pin reflects MT activity 
+    970                      j = Read_6131LowReg(MASTER_CONFIG_REG, 0);
+    971                      Write_6131LowReg(MASTER_CONFIG_REG, j|IMTA, 0);
+    972          		
+    973                      // Config options for Simple monitor, 
+    974                      // option bit SELECT_SMT must be 1. 
+    975                      i = SELECT_SMT;
+    976                      
+    977                      // Choose 1 from each of the following choices:
+    978                      //   GAPCHKON or GAPCHKOFF
+    979                      //   STOR_INVWD or STOP_INVWD
+    980                      //   EXTD_STATUS or IRIG_STATUS
+    981                      //   REC_CW or REC_CWDW or REC_CS or REC_CSDS
+    982                      //   TAG_LWLB or TAG_FWFB or TAG_FWLB or TAG_OFF
+    983                      //   MTTO_15U or MTTO_20U or MTTO_58U or MTTO_138U 
+    984                      //  -----------------------------------------------
+    985                      //  Note: SMT time tag clock is selected in main.c,
+    986                      //  as well as this SMT time tag resolution option:
+    987                      //   SMT_TTAG16 or SMT_TTAG48
+    988          
+    989                      i |= GAPCHKOFF|STOR_INVWD|EXTD_STATUS|REC_CSDS|TAG_OFF|MTTO_20U;
+    990                                 
+    991                      Write_6131LowReg(MT_CONFIG_REG,i,0);
+    992          
+    993                  // end SMT_ena 
+    994          
+    995                  // ================== IRIG-106 Monitor ======================= 
+    996          
+    997                  #else // (IMT_ena) 
+    998          
+    999                      // Initialize base address for MT Address List at 0x00B0  
+   1000                      Write_6131LowReg(MT_ADDR_LIST_POINTER,0x00B0,0);
+   1001          
+   1002                      // Load same address to mem address ptr 
+   1003                      Write_6131LowReg(MAP_1,0x00B0,0);	
+   1004          
+   1005                      // initialize MT address list using array declared at top of function 
+   1006                      for ( i = 0; i < 8; i++) {
+   1007          		Write_6131_1word(imt_addr_list[i],0);
+   1008                      }
+   1009          
+   1010                      // In addition to these packet size limits, a stack rollover trips packet finalization... 
+   1011                      Write_6131LowReg(IMT_MAX_1553_MSGS,4545,0); // max possible in 100ms = 4,545
+   1012                      Write_6131LowReg(IMT_MAX_1553_WORDS,0,0); 	// 32320,0);
+   1013                      Write_6131LowReg(IMT_MAX_PKT_TIME,0,0);	// 10000,0); // 10us resolution
+   1014                      Write_6131LowReg(IMT_MAX_GAP_TIME,0,0); 	// max deadtime = 10(N-2)us
+   1015                      Write_6131LowReg(IMT_CHANNEL_ID,0xABCD,0);
+   1016          
+   1017                      // Set up IRIG-106 MT interrupts. 
+   1018                      // 
+   1019                      // FULL_EOP  = stack full, end-of-packet (words left < 64)
+   1020                      // FULL_OFS  = stack offset from FULL_EOP interrupt 
+   1021                      //             (IRIG-106 HEADER MUST BE ENABLED)
+   1022                      //             (MT address list word 7 contains # words offset)
+   1023                      // MAXWORDS  = end-of-packet, hit 1553 word count limit per pkt
+   1024                      // MAXMSGS   = end-of-packet, hit message count limit per pkt
+   1025                      // MAXGAP    = end-of-packet, exceeded max bus deadtime per pkt
+   1026                      // MAXTIME   = end-of-packet, hit maximum allowed pkt time
+   1027                      // HPKTSTOP  = host packet stop interrupt
+   1028                      // MT_EOM    = end-of-message interrupt
+   1029                      // STKROVR   = stack end-address written, ptr rolled-over to start address 
+   1030                      //             (MT address list word 2 contains stack end address)
+   1031                      // STKADRSS  = stack address written, equal to MT address list word 3
+   1032                      // PKTRDY    = packet ready interrupt
+   1033          		
+   1034                      // Interrupt Enable, vectored ints and polled ints  
+   1035                      Write_6131LowReg(MT_INT_ENABLE_REG, 
+   1036                      FULL_EOP|MAXWORDS|MAXMSGS|MAXGAP|MAXTIME|HPKTSTOP|PKTREADY|STKROVR, 0); 
+   1037                                     //not used: |FULL_OFS|STKADRSS|MT_EOM);
+   1038          
+   1039                      // Output enable for vectored ints  
+   1040                      Write_6131LowReg(MT_INT_OUTPUT_ENABLE_REG, 
+   1041                      FULL_EOP|MAXWORDS|MAXMSGS|MAXGAP|MAXTIME|HPKTSTOP|PKTREADY|STKROVR, 0); 
+   1042                                     //not used: |FULL_OFS|STKADRSS|MT_EOM);
+   1043          
+   1044                      // Optional: assert IMTA bit in the Master Config Reg 0 
+   1045                      // so the ACTIVE pin reflects MT activity 
+   1046                      j = Read_6131LowReg(MASTER_CONFIG_REG, 0);
+   1047                      Write_6131LowReg(MASTER_CONFIG_REG, j|IMTA, 0);
+   1048          		
+   1049                      // Config options (IMT automatically uses TTAG48) 		 
+   1050                      // for IRIG-106, option SELECT_IMT must be 1. 
+   1051                      i = SELECT_IMT;
+   1052          
+   1053                      // Choose 1 from each of the following choices:
+   1054                      //		 
+   1055                      // GAPCHKON or GAPCHKOFF
+   1056                      // STOR_INVWD or STOP_INVWD
+   1057                      // PKTSTRT_CW or PKTSTRT_ENA
+   1058                      // IMT_HDR_ON or IMT_HDR_OFF
+   1059                      // EXTD_STATUS or IRIG_STATUS
+   1060                      // IMT_CKSUM_ON or IMT_CKSUM_OFF
+   1061                      // REC_CW or REC_CWDW or REC_CS or REC_CSDS
+   1062                      // TAG_LWLB or TAG_FWFB or TAG_FWLB or TAG_OFF
+   1063                      // MTTO_15U or MTTO_20U or MTTO_58U or MTTO_138U 
+   1064                      // IMT_DTYPE9 or IMT_DTYPE4 or IMT_DTYPE5 or IMT_DTYPE7  
+   1065                      
+   1066                      i |= GAPCHKOFF|STOR_INVWD|PKTSTRT_CW
+   1067                           |IMT_HDR_OFF|EXTD_STATUS|IMT_CKSUM_ON
+   1068                           |REC_CSDS|TAG_OFF|MTTO_20U|IMT_DTYPE9;
+   1069          
+   1070                      Write_6131LowReg(MT_CONFIG_REG,i,0);
+   1071          
+   1072                  #endif // end: IMT_ena
+   1073          
+   1074              #endif // end: HOST_SPI_INTERFACE
+   1075          
+   1076              // ====================================================================================== 
+   1077          
+   1078          }   // end initialize_613x_MT(void)
+   \   000000AC   44B0               ADD      SP,SP,#+272
+   \   000000AE   F0BD               POP      {R4-R7,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   ........           DC32     pAddrList
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   ........           DC32     pScSTK
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   ........           DC32     pDSTK
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   00C00060           DC32     0x6000c000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   ........           DC32     pMTF
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   ........           DC32     `?<Constant {21504, 21504, 24575, 24063, 24576,`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   ........           DC32     pH6130
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {21504, 21504, 24575, 24063, 24576,`:
+   \   00000000   00540054FF5F       DC16 21504, 21504, 24575, 24063, 24576, 24576, 32767, 32255
+   \              FF5D00600060
+   \              FF7FFF7D    
+
+   \                                 In section .rodata, align 4
+   \   00000000   000000000000       DC16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              0000        
+   \   0000002C   000000000000       DC16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              0000        
+   \   00000058   000000000000       DC16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              0000        
+   \   00000084   000000000000       DC16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              0000        
+   \   000000B0   000000000000       DC16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              0000        
+   \   000000DC   000000000000       DC16 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   \              000000000000
+   1079          
+   1080          
+   1081          // end of file 
+   1082          
+
+   Maximum stack usage in bytes:
+
+     Function                    .cstack
+     --------                    -------
+     SMT_bus_addressing_examples      0
+     initialize_613x_MT             292
+
+
+   Section sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     SMT_bus_addressing_examples                     316
+     initialize_613x_MT                              176
+     ??DataTable1                                      4
+     ??DataTable1_1                                    4
+     ??DataTable1_2                                    4
+     ??DataTable1_3                                    4
+     ??DataTable1_4                                    4
+     ??DataTable1_5                                    4
+     ??DataTable1_6                                    4
+     ?<Constant {21504, 21504, 24575, 24063, 24576,   16
+     ?<Constant {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0  256
+
+ 
+ 272 bytes in section .rodata
+ 520 bytes in section .text
+ 
+ 520 bytes of CODE  memory
+ 272 bytes of CONST memory
+
+Errors: none
+Warnings: none

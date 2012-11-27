@@ -1,0 +1,437 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:42:31 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\irq\n #
+#                    vic.c                                                    #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\peripherals\irq\n #
+#                    vic.c" -D at91sam3u4 -D flash -D TRACE_LEVEL=4 -D        #
+#                    BC_ena=1 -D RT2_ena=0 -D RT1_ena=0 -D SMT_ena=0 -D       #
+#                    IMT_ena=0 -lC "C:\Program Files\IAR Systems\Embedded     #
+#                    Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-e #
+#                    k\_Holt HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\List\"       #
+#                    --remarks --diag_suppress Pe826,Pe1375,Pe068 -o          #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\Obj\" --no_cse       #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\List\nvic.lst        #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\BC_ONLY\Obj\nvic.o           #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91lib\peripherals\irq\nvic.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2008, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          //------------------------------------------------------------------------------
+     31          //         Headers
+     32          //------------------------------------------------------------------------------
+     33          
+     34          #include "board.h"
+     35          #include "irq.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_EnableIRQ(IRQn_Type)
+   \                     NVIC_EnableIRQ:
+   \   00000000   10B4               PUSH     {R4}
+   \   00000002   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000004   4109               LSRS     R1,R0,#+5
+   \   00000006   ....               LDR.N    R2,??DataTable5  ;; 0xe000e100
+   \   00000008   0123               MOVS     R3,#+1
+   \   0000000A   10F01F04           ANDS     R4,R0,#0x1F
+   \   0000000E   A340               LSLS     R3,R3,R4
+   \   00000010   42F82130           STR      R3,[R2, R1, LSL #+2]
+   \   00000014   10BC               POP      {R4}
+   \   00000016   7047               BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_DisableIRQ(IRQn_Type)
+   \                     NVIC_DisableIRQ:
+   \   00000000   10B4               PUSH     {R4}
+   \   00000002   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000004   4109               LSRS     R1,R0,#+5
+   \   00000006   ....               LDR.N    R2,??DataTable5_1  ;; 0xe000e180
+   \   00000008   0123               MOVS     R3,#+1
+   \   0000000A   10F01F04           ANDS     R4,R0,#0x1F
+   \   0000000E   A340               LSLS     R3,R3,R4
+   \   00000010   42F82130           STR      R3,[R2, R1, LSL #+2]
+   \   00000014   10BC               POP      {R4}
+   \   00000016   7047               BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_SetPendingIRQ(IRQn_Type)
+   \                     NVIC_SetPendingIRQ:
+   \   00000000   10B4               PUSH     {R4}
+   \   00000002   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000004   4109               LSRS     R1,R0,#+5
+   \   00000006   ....               LDR.N    R2,??DataTable5_2  ;; 0xe000e200
+   \   00000008   0123               MOVS     R3,#+1
+   \   0000000A   10F01F04           ANDS     R4,R0,#0x1F
+   \   0000000E   A340               LSLS     R3,R3,R4
+   \   00000010   42F82130           STR      R3,[R2, R1, LSL #+2]
+   \   00000014   10BC               POP      {R4}
+   \   00000016   7047               BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_ClearPendingIRQ(IRQn_Type)
+   \                     NVIC_ClearPendingIRQ:
+   \   00000000   10B4               PUSH     {R4}
+   \   00000002   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000004   4109               LSRS     R1,R0,#+5
+   \   00000006   ....               LDR.N    R2,??DataTable5_3  ;; 0xe000e280
+   \   00000008   0123               MOVS     R3,#+1
+   \   0000000A   10F01F04           ANDS     R4,R0,#0x1F
+   \   0000000E   A340               LSLS     R3,R3,R4
+   \   00000010   42F82130           STR      R3,[R2, R1, LSL #+2]
+   \   00000014   10BC               POP      {R4}
+   \   00000016   7047               BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_SetPriority(IRQn_Type, int32_t)
+   \                     NVIC_SetPriority:
+   \   00000000   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000002   0028               CMP      R0,#+0
+   \   00000004   08D5               BPL.N    ??NVIC_SetPriority_0
+   \   00000006   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000008   10F00F02           ANDS     R2,R0,#0xF
+   \   0000000C   ....               LDR.N    R3,??DataTable5_4  ;; 0xe000ed18
+   \   0000000E   D218               ADDS     R2,R2,R3
+   \   00000010   0B01               LSLS     R3,R1,#+4
+   \   00000012   02F8043C           STRB     R3,[R2, #-4]
+   \   00000016   02E0               B.N      ??NVIC_SetPriority_1
+   \                     ??NVIC_SetPriority_0:
+   \   00000018   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000001A   ....               LDR.N    R2,??DataTable5_5  ;; 0xe000e400
+   \   0000001C   8154               STRB     R1,[R0, R2]
+   \                     ??NVIC_SetPriority_1:
+   \   0000001E   7047               BX       LR               ;; return
+     36          #include "exceptions.h"
+     37          #include <utility/trace.h>
+     38          
+     39          /// The index of IRQ handler in the exception table
+     40          #define NVIC_IRQ_HANDLER_INDEX     16
+     41          
+     42          //------------------------------------------------------------------------------
+     43          //         Global functions
+     44          //------------------------------------------------------------------------------
+     45          
+     46          //------------------------------------------------------------------------------
+     47          /// Configures an interrupt in the NVIC. The interrupt is identified by its
+     48          /// source (AT91C_ID_xxx) and is configured to a specified priority and
+     49          /// interrupt handler function. priority is the value that will be put in NVIC_IPRx
+     50          /// and the function address will be set in "ExceptionTable". The parameter priority
+     51          /// will include the preemptionPriority and the subPriority, where the subPriority
+     52          /// defined in the B[7:0] of the parameter "priority", and the preemptionPriority defined
+     53          /// in the B[15:8] of the parameter "priority". 
+     54          /// The interrupt is disabled before configuration, so it is useless
+     55          /// to do it before calling this function. When NVIC_ConfigureIT returns, the
+     56          /// interrupt will always be disabled and cleared; it must be enabled by a
+     57          /// call to NVIC_EnableIT().
+     58          /// \param source               Interrupt source to configure.
+     59          /// \param priority              Pre-emption priority (B[15:8] )+ subPriority (B[7:0])
+     60          /// \param handler              Interrupt handler function.
+     61          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     62          void IRQ_ConfigureIT(
+     63              unsigned int source,
+     64              //unsigned int preemptionPriority,
+     65              //unsigned int subPriority,
+     66              unsigned int priority,
+     67              IntFunc handler)
+     68          {
+   \                     IRQ_ConfigureIT:
+   \   00000000   2DE9F44F           PUSH     {R2,R4-R11,LR}
+   \   00000004   0400               MOVS     R4,R0
+   \   00000006   0D00               MOVS     R5,R1
+     69              unsigned int priGroup = __NVIC_PRIO_BITS;
+   \   00000008   0426               MOVS     R6,#+4
+     70              unsigned int nPre = 8 - priGroup;
+   \   0000000A   D6F10807           RSBS     R7,R6,#+8
+     71              unsigned int nSub = priGroup;
+   \   0000000E   B046               MOV      R8,R6
+     72              unsigned int preemptionPriority;
+     73              unsigned int subPriority;
+     74              unsigned int IRQpriority;
+     75          
+     76              preemptionPriority = (priority & 0xff00) >> 8;
+   \   00000010   C5F30720           UBFX     R0,R5,#+8,#+8
+   \   00000014   8146               MOV      R9,R0
+     77              subPriority = (priority & 0xff);
+   \   00000016   E8B2               UXTB     R0,R5            ;; ZeroExt  R0,R5,#+24,#+24
+   \   00000018   8246               MOV      R10,R0
+     78          
+     79              // Disable the interrupt first
+     80              NVIC_DisableIRQ((IRQn_Type)source);
+   \   0000001A   2000               MOVS     R0,R4
+   \   0000001C   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000001E   ........           BL       NVIC_DisableIRQ
+     81          
+     82              // Clear any pending status
+     83              NVIC_ClearPendingIRQ((IRQn_Type)source);
+   \   00000022   2000               MOVS     R0,R4
+   \   00000024   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000026   ........           BL       NVIC_ClearPendingIRQ
+     84          
+     85              // Configure interrupt handler
+     86              //if (handler == 0) handler = IrqHandlerNotUsed;
+     87                //  GetExceptionTable()[NVIC_IRQ_HANDLER_INDEX + source] = handler;
+     88          
+     89              if (subPriority >= (0x01 << nSub))
+   \   0000002A   0120               MOVS     R0,#+1
+   \   0000002C   10FA08F0           LSLS     R0,R0,R8
+   \   00000030   8245               CMP      R10,R0
+   \   00000032   04D3               BCC.N    ??IRQ_ConfigureIT_0
+     90                subPriority = (0x01 << nSub) - 1;
+   \   00000034   0120               MOVS     R0,#+1
+   \   00000036   10FA08F0           LSLS     R0,R0,R8
+   \   0000003A   401E               SUBS     R0,R0,#+1
+   \   0000003C   8246               MOV      R10,R0
+     91              if (preemptionPriority >= (0x01 << nPre))
+   \                     ??IRQ_ConfigureIT_0:
+   \   0000003E   0120               MOVS     R0,#+1
+   \   00000040   B840               LSLS     R0,R0,R7
+   \   00000042   8145               CMP      R9,R0
+   \   00000044   03D3               BCC.N    ??IRQ_ConfigureIT_1
+     92                preemptionPriority = (0x01 << nPre) - 1;
+   \   00000046   0120               MOVS     R0,#+1
+   \   00000048   B840               LSLS     R0,R0,R7
+   \   0000004A   401E               SUBS     R0,R0,#+1
+   \   0000004C   8146               MOV      R9,R0
+     93          
+     94              IRQpriority = (subPriority | (preemptionPriority << nSub));
+   \                     ??IRQ_ConfigureIT_1:
+   \   0000004E   19FA08F0           LSLS     R0,R9,R8
+   \   00000052   50EA0A00           ORRS     R0,R0,R10
+   \   00000056   8346               MOV      R11,R0
+     95              NVIC_SetPriority((IRQn_Type)source, IRQpriority);
+   \   00000058   5946               MOV      R1,R11
+   \   0000005A   2000               MOVS     R0,R4
+   \   0000005C   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000005E   ........           BL       NVIC_SetPriority
+     96          }
+   \   00000062   BDE8F18F           POP      {R0,R4-R11,PC}   ;; return
+     97          
+     98          //------------------------------------------------------------------------------
+     99          /// Enables interrupt coming from the given (unique) source (AT91C_ID_xxx).
+    100          /// \param source  Interrupt source to enable.
+    101          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    102          void IRQ_EnableIT(unsigned int source)
+    103          {
+   \                     IRQ_EnableIT:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    104              NVIC_EnableIRQ((IRQn_Type)source);
+   \   00000004   2000               MOVS     R0,R4
+   \   00000006   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000008   ........           BL       NVIC_EnableIRQ
+    105          }
+   \   0000000C   10BD               POP      {R4,PC}          ;; return
+    106          
+    107          //------------------------------------------------------------------------------
+    108          /// Disables interrupt coming from the given (unique) source (AT91C_ID_xxx).
+    109          /// \param source  Interrupt source to disable.
+    110          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    111          void IRQ_DisableIT(unsigned int source)
+    112          {
+   \                     IRQ_DisableIT:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    113              NVIC_DisableIRQ((IRQn_Type)source);
+   \   00000004   2000               MOVS     R0,R4
+   \   00000006   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000008   ........           BL       NVIC_DisableIRQ
+    114          }
+   \   0000000C   10BD               POP      {R4,PC}          ;; return
+    115          
+    116          //------------------------------------------------------------------------------
+    117          /// Set interrupt pending bit from the given (unique) source (AT91C_ID_xxx).
+    118          /// \param source  Interrupt source to set.
+    119          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    120          void NVIC_SetPending(unsigned int source)
+    121          {
+   \                     NVIC_SetPending:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    122              NVIC_SetPendingIRQ((IRQn_Type)source);
+   \   00000004   2000               MOVS     R0,R4
+   \   00000006   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000008   ........           BL       NVIC_SetPendingIRQ
+    123          }
+   \   0000000C   10BD               POP      {R4,PC}          ;; return
+    124          
+    125          //------------------------------------------------------------------------------
+    126          /// Clear interrupt pending bit from the given (unique) source (AT91C_ID_xxx).
+    127          /// \param source  Interrupt source to clear.
+    128          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    129          void NVIC_ClrPending(unsigned int source)
+    130          {
+   \                     NVIC_ClrPending:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    131              NVIC_ClearPendingIRQ((IRQn_Type)source);
+   \   00000004   2000               MOVS     R0,R4
+   \   00000006   40B2               SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000008   ........           BL       NVIC_ClearPendingIRQ
+    132          }
+   \   0000000C   10BD               POP      {R4,PC}          ;; return
+    133          
+    134          #if !defined(USE_CMSIS_on)
+    135          //------------------------------------------------------------------------------
+    136          /// Use the Software Trigger Interrupt Register to pend an interrupt.
+    137          /// \param source Interrupt source to trigger.
+    138          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    139          void NVIC_Swi(unsigned int source)
+    140          {
+    141              AT91C_BASE_NVIC->NVIC_STIR = source;
+   \                     NVIC_Swi:
+   \   00000000   ....               LDR.N    R1,??DataTable5_6  ;; 0xe000ef00
+   \   00000002   0860               STR      R0,[R1, #+0]
+    142          }
+   \   00000004   7047               BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \   00000000   00E100E0           DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \   00000000   80E100E0           DC32     0xe000e180
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \   00000000   00E200E0           DC32     0xe000e200
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \   00000000   80E200E0           DC32     0xe000e280
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \   00000000   18ED00E0           DC32     0xe000ed18
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \   00000000   00E400E0           DC32     0xe000e400
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \   00000000   00EF00E0           DC32     0xe000ef00
+    143          #endif
+    144          
+
+   Maximum stack usage in bytes:
+
+     Function             .cstack
+     --------             -------
+     IRQ_ConfigureIT          40
+     IRQ_DisableIT             8
+     IRQ_EnableIT              8
+     NVIC_ClearPendingIRQ      4
+     NVIC_ClrPending           8
+     NVIC_DisableIRQ           4
+     NVIC_EnableIRQ            4
+     NVIC_SetPending           8
+     NVIC_SetPendingIRQ        4
+     NVIC_SetPriority          0
+     NVIC_Swi                  0
+
+
+   Section sizes:
+
+     Function/Label       Bytes
+     --------------       -----
+     NVIC_EnableIRQ         24
+     NVIC_DisableIRQ        24
+     NVIC_SetPendingIRQ     24
+     NVIC_ClearPendingIRQ   24
+     NVIC_SetPriority       32
+     IRQ_ConfigureIT       102
+     IRQ_EnableIT           14
+     IRQ_DisableIT          14
+     NVIC_SetPending        14
+     NVIC_ClrPending        14
+     NVIC_Swi                6
+     ??DataTable5            4
+     ??DataTable5_1          4
+     ??DataTable5_2          4
+     ??DataTable5_3          4
+     ??DataTable5_4          4
+     ??DataTable5_5          4
+     ??DataTable5_6          4
+
+ 
+ 320 bytes in section .text
+ 
+ 320 bytes of CODE memory
+
+Errors: none
+Warnings: none

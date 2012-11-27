@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<workspace>
+	<project>
+		<path>$WS_DIR$\ewp\at91sam3u-ek.ewp</path>
+	</project>
+	<batchBuild>
+		<batchDefinition>
+			<name>All</name>>
+			<member>
+				<project>at91sam3u-ek</project>
+				<configuration>at91sam3u4_sram</configuration>
+			</member>
+			<member>
+				<project>at91sam3u-ek</project>
+				<configuration>at91sam3u4_flash</configuration>
+			</member>
+		</batchDefinition>
+	</batchBuild>
+</workspace>

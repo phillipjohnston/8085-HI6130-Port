@@ -1,0 +1,426 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:43:21 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\boards\at91sam3u- #
+#                    ek\board_memories.c                                      #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91lib\boards\at91sam3u- #
+#                    ek\board_memories.c" -D at91sam3u4 -D flash -D           #
+#                    TRACE_LEVEL=4 -D BC_ena=0 -D RT2_ena=1 -D RT1_ena=1 -D   #
+#                    SMT_ena=0 -D IMT_ena=0 -lC "C:\Program Files\IAR         #
+#                    Systems\Embedded Workbench 6.0                           #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_ONLY\List\" --remarks     #
+#                    --diag_suppress Pe826,Pe1375,Pe068 -o "C:\Program        #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_ONLY\Obj\" --no_cse       #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_ONLY\List\board_memories. #
+#                    lst                                                      #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\RT_ONLY\Obj\board_memories.o #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91lib\boards\at91sam3u-ek\board_memories.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2009, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          /*
+     31              Title: Memories implementation
+     32          */
+     33          
+     34          //------------------------------------------------------------------------------
+     35          //         Headers
+     36          //------------------------------------------------------------------------------
+     37          
+     38          #include <board.h>
+     39          #include <pio/pio.h>
+     40          
+     41          //------------------------------------------------------------------------------
+     42          //         Exported functions
+     43          //------------------------------------------------------------------------------
+     44          
+     45          //------------------------------------------------------------------------------
+     46          /// Configures the EBI for NandFlash access. Pins must be configured after or
+     47          /// before calling this function.
+     48          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     49          void BOARD_ConfigureNandFlash(unsigned char busWidth)
+     50          {
+     51          #if defined(CHIP_NAND_CTRL)
+     52              AT91PS_HSMC4 pHSMC4 = AT91C_BASE_HSMC4;    
+     53          #endif
+     54              AT91PS_HSMC4_CS pSMC = AT91C_BASE_HSMC4_CS1;
+   \                     BOARD_ConfigureNandFlash:
+   \   00000000   ....               LDR.N    R1,??DataTable1  ;; 0x400e0084
+     55          
+     56              // Open EBI clock
+     57              AT91C_BASE_PMC->PMC_PCER = (1<< AT91C_ID_HSMC4);
+   \   00000002   ....               LDR.N    R2,??DataTable1_1  ;; 0x400e0410
+   \   00000004   4FF40073           MOV      R3,#+512
+   \   00000008   1360               STR      R3,[R2, #+0]
+     58           
+     59          #if defined(CHIP_NAND_CTRL)
+     60              // Enable the Nand Flash Controller
+     61              pHSMC4 ->HSMC4_CTRL = AT91C_HSMC4_NFCEN;
+     62          #endif
+     63              
+     64              pSMC->HSMC4_SETUP = 0
+     65                              | ((0 <<  0) & AT91C_HSMC4_NWE_SETUP)
+     66                              | ((1 <<  8) & AT91C_HSMC4_NCS_WR_SETUP)
+     67                              | ((0 << 16) & AT91C_HSMC4_NRD_SETUP)
+     68                              | ((1 << 24) & AT91C_HSMC4_NCS_RD_SETUP);
+   \   0000000A   5FF00122           MOVS     R2,#+16777472
+   \   0000000E   0A60               STR      R2,[R1, #+0]
+     69          
+     70              pSMC->HSMC4_PULSE = 0
+     71                              | ((2 <<  0) & AT91C_HSMC4_NWE_PULSE)
+     72                              | ((3 <<  8) & AT91C_HSMC4_NCS_WR_PULSE)
+     73                              | ((3 << 16) & AT91C_HSMC4_NRD_PULSE)
+     74                              | ((4 << 24) & AT91C_HSMC4_NCS_RD_PULSE);
+   \   00000010   ....               LDR.N    R2,??DataTable1_2  ;; 0x4030302
+   \   00000012   4A60               STR      R2,[R1, #+4]
+     75          
+     76              pSMC->HSMC4_CYCLE = 0
+     77                            | ((4 <<  0) & AT91C_HSMC4_NWE_CYCLE)
+     78                            | ((7 << 16) & AT91C_HSMC4_NRD_CYCLE);
+   \   00000014   ....               LDR.N    R2,??DataTable1_3  ;; 0x70004
+   \   00000016   8A60               STR      R2,[R1, #+8]
+     79          
+     80              pSMC->HSMC4_TIMINGS = 0
+     81                              | ((1 <<  0) & AT91C_HSMC4_TCLR) // CLE to REN
+     82                              | ((2 <<  4) & AT91C_HSMC4_TADL) // ALE to Data
+     83                              | ((1 <<  8) & AT91C_HSMC4_TAR)  // ALE to REN
+     84                              | ((1 << 16) & AT91C_HSMC4_TRR)  // Ready to REN
+     85                              | ((2 << 24) & AT91C_HSMC4_TWB)  // WEN to REN
+     86                              | (7<<28)
+     87                              |(AT91C_HSMC4_NFSEL)              // Nand Flash Timing
+     88                              ;
+   \   00000018   ....               LDR.N    R2,??DataTable1_4  ;; 0xf2010121
+   \   0000001A   CA60               STR      R2,[R1, #+12]
+     89              
+     90                  
+     91              if (busWidth == 8) {
+   \   0000001C   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000001E   0828               CMP      R0,#+8
+   \   00000020   02D1               BNE.N    ??BOARD_ConfigureNandFlash_0
+     92                  pSMC->HSMC4_MODE = AT91C_HSMC4_DBW_WIDTH_EIGTH_BITS | AT91C_HSMC4_READ_MODE | AT91C_HSMC4_WRITE_MODE;
+   \   00000022   0322               MOVS     R2,#+3
+   \   00000024   0A61               STR      R2,[R1, #+16]
+   \   00000026   05E0               B.N      ??BOARD_ConfigureNandFlash_1
+     93              }
+     94              else if (busWidth == 16) {
+   \                     ??BOARD_ConfigureNandFlash_0:
+   \   00000028   C0B2               UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000002A   1028               CMP      R0,#+16
+   \   0000002C   02D1               BNE.N    ??BOARD_ConfigureNandFlash_1
+     95                  pSMC->HSMC4_MODE = AT91C_HSMC4_DBW_WIDTH_SIXTEEN_BITS | AT91C_HSMC4_READ_MODE | AT91C_HSMC4_WRITE_MODE;
+   \   0000002E   41F20302           MOVW     R2,#+4099
+   \   00000032   0A61               STR      R2,[R1, #+16]
+     96              }
+     97          }
+   \                     ??BOARD_ConfigureNandFlash_1:
+   \   00000034   7047               BX       LR               ;; return
+     98          
+     99          //------------------------------------------------------------------------------
+    100          /// Function to initialize and configure the PSRAM
+    101          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    102          void BOARD_ConfigurePsram(void) 
+    103          {
+   \                     BOARD_ConfigurePsram:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   C8B0               SUB      SP,SP,#+288
+    104              const Pin pinPsram[] = {BOARD_PSRAM_PINS};
+   \   00000004   00A8               ADD      R0,SP,#+0
+   \   00000006   ....               LDR.N    R1,??DataTable1_5
+   \   00000008   4FF49072           MOV      R2,#+288
+   \   0000000C   ........           BL       __aeabi_memcpy4
+    105              unsigned int tmp;
+    106          
+    107              // Open EBI clock
+    108              AT91C_BASE_PMC->PMC_PCER = (1<< AT91C_ID_HSMC4);
+   \   00000010   ....               LDR.N    R0,??DataTable1_1  ;; 0x400e0410
+   \   00000012   4FF40071           MOV      R1,#+512
+   \   00000016   0160               STR      R1,[R0, #+0]
+    109          
+    110              // Configure I/O
+    111              PIO_Configure(pinPsram, PIO_LISTSIZE(pinPsram));
+   \   00000018   0921               MOVS     R1,#+9
+   \   0000001A   00A8               ADD      R0,SP,#+0
+   \   0000001C   ........           BL       PIO_Configure
+    112          
+    113              // Setup the PSRAM (HSMC4_EBI.CS0, 0x60000000 ~ 0x60FFFFFF)
+    114              AT91C_BASE_HSMC4_CS0->HSMC4_SETUP = 0
+    115                                  | ((1 <<  0) & AT91C_HSMC4_NWE_SETUP)
+    116                                  | ((1 <<  8) & AT91C_HSMC4_NCS_WR_SETUP)
+    117                                  | ((1 << 16) & AT91C_HSMC4_NRD_SETUP)
+    118                                  | ((1 << 24) & AT91C_HSMC4_NCS_RD_SETUP)
+    119                                  ;
+   \   00000020   ....               LDR.N    R0,??DataTable1_6  ;; 0x400e0070
+   \   00000022   5FF00131           MOVS     R1,#+16843009
+   \   00000026   0160               STR      R1,[R0, #+0]
+    120              AT91C_BASE_HSMC4_CS0->HSMC4_PULSE = 0
+    121                                  | ((5 <<  0) & AT91C_HSMC4_NWE_PULSE)
+    122                                  | ((5 <<  8) & AT91C_HSMC4_NCS_WR_PULSE)
+    123                                  | ((5 << 16) & AT91C_HSMC4_NRD_PULSE)
+    124                                  | ((5 << 24) & AT91C_HSMC4_NCS_RD_PULSE)
+    125                                  ;
+   \   00000028   ....               LDR.N    R0,??DataTable1_7  ;; 0x400e0074
+   \   0000002A   5FF00531           MOVS     R1,#+84215045
+   \   0000002E   0160               STR      R1,[R0, #+0]
+    126              AT91C_BASE_HSMC4_CS0->HSMC4_CYCLE = 0
+    127                                  | ((6 <<  0) & AT91C_HSMC4_NWE_CYCLE)
+    128                                  | ((6 << 16) & AT91C_HSMC4_NRD_CYCLE)
+    129                                  ;
+   \   00000030   ....               LDR.N    R0,??DataTable1_8  ;; 0x400e0078
+   \   00000032   5FF00611           MOVS     R1,#+393222
+   \   00000036   0160               STR      R1,[R0, #+0]
+    130          
+    131              tmp = AT91C_BASE_HSMC4_CS0->HSMC4_TIMINGS
+    132                  & (AT91C_HSMC4_OCMSEN | AT91C_HSMC4_RBNSEL | AT91C_HSMC4_NFSEL);
+   \   00000038   ....               LDR.N    R0,??DataTable1_9  ;; 0x400e007c
+   \   0000003A   0068               LDR      R0,[R0, #+0]
+   \   0000003C   ....               LDR.N    R1,??DataTable1_10  ;; 0xf0001000
+   \   0000003E   0840               ANDS     R0,R1,R0
+   \   00000040   0400               MOVS     R4,R0
+    133              AT91C_BASE_HSMC4_CS0->HSMC4_TIMINGS = tmp
+    134                                  | ((0 <<  0) & AT91C_HSMC4_TCLR) // CLE to REN
+    135                                  | ((0 <<  4) & AT91C_HSMC4_TADL) // ALE to Data
+    136                                  | ((0 <<  8) & AT91C_HSMC4_TAR)  // ALE to REN
+    137                                  | ((0 << 16) & AT91C_HSMC4_TRR)  // Ready to REN
+    138                                  | ((0 << 24) & AT91C_HSMC4_TWB)  // WEN to REN
+    139                                  ;
+   \   00000042   ....               LDR.N    R0,??DataTable1_9  ;; 0x400e007c
+   \   00000044   0460               STR      R4,[R0, #+0]
+    140              tmp = AT91C_BASE_HSMC4_CS0->HSMC4_MODE & ~(AT91C_HSMC4_DBW);
+   \   00000046   ....               LDR.N    R0,??DataTable1_11  ;; 0x400e0080
+   \   00000048   0068               LDR      R0,[R0, #+0]
+   \   0000004A   30F44050           BICS     R0,R0,#0x3000
+   \   0000004E   0400               MOVS     R4,R0
+    141              AT91C_BASE_HSMC4_CS0->HSMC4_MODE = tmp
+    142                                  | (AT91C_HSMC4_READ_MODE)
+    143                                  | (AT91C_HSMC4_WRITE_MODE)
+    144                                  | (AT91C_HSMC4_DBW_WIDTH_SIXTEEN_BITS)
+    145                                  //| (AT91C_HSMC4_PMEN)
+    146                                  ;
+   \   00000050   44F48050           ORR      R0,R4,#0x1000
+   \   00000054   50F00300           ORRS     R0,R0,#0x3
+   \   00000058   ....               LDR.N    R1,??DataTable1_11  ;; 0x400e0080
+   \   0000005A   0860               STR      R0,[R1, #+0]
+    147          }
+   \   0000005C   48B0               ADD      SP,SP,#+288
+   \   0000005E   10BD               POP      {R4,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   84000E40           DC32     0x400e0084
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   10040E40           DC32     0x400e0410
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   02030304           DC32     0x4030302
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_3:
+   \   00000000   04000700           DC32     0x70004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_4:
+   \   00000000   210101F2           DC32     0xf2010121
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_5:
+   \   00000000   ........           DC32     `?<Constant {{4261543424, (AT91S_PIO *)10746629`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_6:
+   \   00000000   70000E40           DC32     0x400e0070
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_7:
+   \   00000000   74000E40           DC32     0x400e0074
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_8:
+   \   00000000   78000E40           DC32     0x400e0078
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_9:
+   \   00000000   7C000E40           DC32     0x400e007c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_10:
+   \   00000000   001000F0           DC32     0xf0001000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_11:
+   \   00000000   80000E40           DC32     0x400e0080
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {{4261543424, (AT91S_PIO *)10746629`:
+   \   00000000   00FE01FE000E       DC32 4261543424, 400E0E00H
+   \              0E40        
+   \   00000008   0B0001000000       DC8 11, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000020   40000000000E       DC32 64, 400E0E00H
+   \              0E40        
+   \   00000028   0B0101000000       DC8 11, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000003B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000040   00001000000E       DC32 1048576, 400E0E00H
+   \              0E40        
+   \   00000048   0B0001000000       DC8 11, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000005B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000060   00000800000E       DC32 524288, 400E0E00H
+   \              0E40        
+   \   00000068   0B0001000000       DC8 11, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000007B   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000080   00008000000E       DC32 8388608, 400E0E00H
+   \              0E40        
+   \   00000088   0B0001000000       DC8 11, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000009B   0000000000         DC8 0, 0, 0, 0, 0
+   \   000000A0   FF0FF0030010       DC32 66064383, 400E1000H
+   \              0E40        
+   \   000000A8   0C0001000000       DC8 12, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000000BB   0000000000         DC8 0, 0, 0, 0, 0
+   \   000000C0   80000000000E       DC32 128, 400E0E00H
+   \              0E40        
+   \   000000C8   0B0101000000       DC8 11, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000000DB   0000000000         DC8 0, 0, 0, 0, 0
+   \   000000E0   008000000010       DC32 32768, 400E1000H
+   \              0E40        
+   \   000000E8   0C0001000000       DC8 12, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   000000FB   0000000000         DC8 0, 0, 0, 0, 0
+   \   00000100   00010000000E       DC32 256, 400E0E00H
+   \              0E40        
+   \   00000108   0B0101000000       DC8 11, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000011B   0000000000         DC8 0, 0, 0, 0, 0
+    148          
+
+   Maximum stack usage in bytes:
+
+     Function                 .cstack
+     --------                 -------
+     BOARD_ConfigureNandFlash      0
+     BOARD_ConfigurePsram        296
+
+
+   Section sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     BOARD_ConfigureNandFlash                         54
+     BOARD_ConfigurePsram                             96
+     ??DataTable1                                      4
+     ??DataTable1_1                                    4
+     ??DataTable1_2                                    4
+     ??DataTable1_3                                    4
+     ??DataTable1_4                                    4
+     ??DataTable1_5                                    4
+     ??DataTable1_6                                    4
+     ??DataTable1_7                                    4
+     ??DataTable1_8                                    4
+     ??DataTable1_9                                    4
+     ??DataTable1_10                                   4
+     ??DataTable1_11                                   4
+     ?<Constant {{4261543424, (AT91S_PIO *)10746629  288
+
+ 
+ 288 bytes in section .rodata
+ 198 bytes in section .text
+ 
+ 198 bytes of CODE  memory
+ 288 bytes of CONST memory
+
+Errors: none
+Warnings: none

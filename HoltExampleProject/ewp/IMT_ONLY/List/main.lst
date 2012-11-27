@@ -1,0 +1,825 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:43:41 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\main.c                           #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\main.c" -D at91sam3u4 -D flash   #
+#                    -D TRACE_LEVEL=4 -D BC_ena=0 -D RT2_ena=0 -D RT1_ena=0   #
+#                    -D SMT_ena=0 -D IMT_ena=1 -lC "C:\Program Files\IAR      #
+#                    Systems\Embedded Workbench 6.0                           #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\List\" --remarks    #
+#                    --diag_suppress Pe826,Pe1375,Pe068 -o "C:\Program        #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\Obj\" --no_cse      #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\List\main.lst       #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\Obj\main.o          #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt HI-6130-40 EBI Demo 1_0\main.c
+      1          /* ----------------------------------------------------------------------------
+      2           *            HOLT INTEGRATED CIRCUITS Applications Engineering
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2011, Holt Integrated Circuits
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Holt's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY HOLT "AS IS" AND ANY EXPRESSED OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL HOLT BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          
+     31          //------------------------------------------------------------------------------
+     32          //         Headers
+     33          //------------------------------------------------------------------------------
+     34          // standard Atmel/IAR headers
+     35          #include <board.h>
+     36          #include <pio/pio.h>
+     37          #include <tc/tc.h>
+     38          #include <irq/irq.h>
+     39          #include <utility/trace.h>
+     40          #include <intrinsics.h>
+     41          
+     42          // Holt project headers
+     43          #include "board_613x.h"
+     44          #include "613x_bc.h"
+     45          #include "613x_mt.h"
+     46          #include "613x_rt.h"
+     47          #include "613x_regs.h"
+     48          #include "613x_initialization.h"
+     49          
+     50          ///#if (HOST_BUS_INTERFACE)                    
+     51          #include "board_6130.h"
+     52          #include "device_6130.h"
+     53          /*
+     54          #else // HOST SPI INTERFACE
+     55          #include "board_6131.h"
+     56          #include "device_6131.h"
+     57          #endif
+     58          */
+     59          
+     60          #if(CONSOLE_IO)
+     61          #include "console.h"
+     62          #endif
+     63          
+     64          
+     65          //------------------------------------------------------------------------------
+     66          //         Global variables
+     67          //------------------------------------------------------------------------------
+     68          
+     69          ///#if (HOST_BUS_INTERFACE)                    
+     70          // This does not apply to SPI interface HI-6131...
+     71          // HI-6130 register structure base address
+     72          // you can highlight pH6130 below and drag it into a 
+     73          // Watch Window in IAR Embedded Workbench for ARM:
+
+   \                                 In section .rodata, align 4
+     74          const H6130 pH6130 = HI6130_BASE;
+   \                     pH6130:
+   \   00000000   00000060           DC32 60000000H
+     75          
+     76          #if(RT1_ena)
+     77          // you can highlight pRT1d or pRT1i below and drag into a 
+     78          // Watch Window in IAR Embedded Workbench for ARM:
+     79          const RT1d pRT1d = RT1_DTABLE_BASE;
+     80          const RT1i pRT1i = RT1_ITABLE_BASE;
+     81          #endif // (RT1_ena)
+     82          
+     83          #if(RT2_ena)
+     84          // you can highlight pRT2d or pRT2i below and drag into a 
+     85          // Watch Window in IAR Embedded Workbench for ARM:
+     86          const RT2d pRT2d = RT2_DTABLE_BASE;
+     87          const RT2i pRT2i = RT2_ITABLE_BASE;
+     88          #endif // (RT2_ena)
+     89          
+     90          #if(BC_ena)
+     91          // you can highlight pGPQ or pBCil below and drag into a 
+     92          // Watch Window in IAR Embedded Workbench for ARM:
+     93          GPQ pGPQ = (GPQ) GPQ_BASE_BUS_ADDR;
+     94          const BCil pBCil = BC_ILIST_BASE;
+     95          const BCstack pBCstack = BC_STACK_BASE; 
+     96          const BCstack2RT pBCstack2RT = BC_2RTSTACK_BASE; 
+     97          #endif // (BC_ena)
+     98          
+     99          #if(SMT_ena)
+    100          DSTK pDSTK = (DSTK) DSTACK_BASE_BUS_ADDR;
+    101          const ScSTK pScSTK = SMT_CMDSTACK_BASE;
+    102          const MTF pMTF = MT_FTABLE_BASE;
+    103          const AddrList pAddrList = MT_ALIST_BASE;
+    104          #endif // (SMT_ena)
+    105          
+    106          #if(IMT_ena)
+
+   \                                 In section .rodata, align 4
+    107          const MTF pMTF = MT_FTABLE_BASE;
+   \                     pMTF:
+   \   00000000   00020060           DC32 60000200H
+
+   \                                 In section .rodata, align 4
+    108          const AddrList pAddrList = MT_ALIST_BASE;
+   \                     pAddrList:
+   \   00000000   60010060           DC32 60000160H
+
+   \                                 In section .bss, align 4
+    109          PktHdr pPktHdr;
+   \                     pPktHdr:
+   \   00000000                      DS8 4
+
+   \                                 In section .bss, align 4
+    110          IPMB pIPMB;
+   \                     pIPMB:
+   \   00000000                      DS8 4
+    111          #endif // (IMT_ena)
+    112          /*
+    113          #else  // HOST_SPI_INTERFACE
+    114          extern char spi_busy, spi_irq;
+    115          #endif // HOST_SPI_INTERFACE
+    116          */
+    117          
+    118          //------------------------------------------------------------------------------
+    119          //         Functions
+    120          //------------------------------------------------------------------------------
+    121          
+    122          
+    123          //------------------------------------------------------------------------------
+    124          /// Application entry point. ARM I/O and the Holt HI-613x device are configured,
+    125          /// then execution waits in an endless loop.
+    126          
+    127          /// IAR intrinsic functions used in this program:
+    128          ///         __disable_irq();
+    129          ///         __enable_irq();
+    130          /// These require intrinsics.h header file
+    131          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 4, keep-with-next
+    132          void main(void) {
+   \                     main:
+   \   00000000   70B5               PUSH     {R4-R6,LR}
+   \   00000002   98B0               SUB      SP,SP,#+96
+    133            
+    134              unsigned short j, ttconfig = 0, runbits = 0;
+   \   00000004   0025               MOVS     R5,#+0
+   \   00000006   0026               MOVS     R6,#+0
+    135              const Pin pinAUTOEN =  PIN_AUTOEN;
+   \   00000008   10A8               ADD      R0,SP,#+64
+   \   0000000A   3D49               LDR.N    R1,??main_0
+   \   0000000C   2022               MOVS     R2,#+32
+   \   0000000E   ........           BL       __aeabi_memcpy4
+    136              const Pin pinCOPYREQ = PIN_CPYREQ;
+   \   00000012   08A8               ADD      R0,SP,#+32
+   \   00000014   3B49               LDR.N    R1,??main_0+0x4
+   \   00000016   2022               MOVS     R2,#+32
+   \   00000018   ........           BL       __aeabi_memcpy4
+    137              const Pin pinNMR = PIN_NMR;
+   \   0000001C   00A8               ADD      R0,SP,#+0
+   \   0000001E   3A49               LDR.N    R1,??main_0+0x8
+   \   00000020   2022               MOVS     R2,#+32
+   \   00000022   ........           BL       __aeabi_memcpy4
+    138              #if(RT1_ena||RT2_ena)
+    139              const Pin pinNSW1 = PIN_NSW1;
+    140              #endif
+    141              
+    142              __disable_interrupt(); // until initialization is complete
+   \   00000026   72B6               CPSID    I
+    143          
+    144              // first priority: reset pin to 0 for HI-613x nMR, then configure that MCU pin as output
+    145              AT91C_BASE_PIOC->PIO_CODR = nMR;  
+   \   00000028   3848               LDR.N    R0,??main_0+0xC  ;; 0x400e1034
+   \   0000002A   5FF00071           MOVS     R1,#+33554432
+   \   0000002E   0160               STR      R1,[R0, #+0]
+    146              PIO_Configure(&pinNMR,1);
+   \   00000030   0121               MOVS     R1,#+1
+   \   00000032   00A8               ADD      R0,SP,#+0
+   \   00000034   ........           BL       PIO_Configure
+    147                    
+    148              // Configure ARM's other general purpose I/O pins and timer(s) 
+    149              ConfigureGpio();
+   \   00000038   ........           BL       ConfigureGpio
+    150              init_timer();
+   \   0000003C   ........           BL       init_timer
+    151              // enable the MCU nRST external reset
+    152              AT91C_BASE_RSTC->RSTC_RMR= 0xA5000F01; 
+   \   00000040   3348               LDR.N    R0,??main_0+0x10  ;; 0x400e1208
+   \   00000042   3449               LDR.N    R1,??main_0+0x14  ;; 0xa5000f01
+   \   00000044   0160               STR      R1,[R0, #+0]
+    153              
+    154              // Initialize processor for selected interface to HI-613X device,
+    155              // either parallel bus interface (HI-6130) or SPI interface (HI-6131)
+    156           ///   #if (HOST_BUS_INTERFACE)
+    157                  Configure_ARM_MCU_ExtBus();
+   \   00000046   ........           BL       Configure_ARM_MCU_ExtBus
+    158          /*	
+    159              #else  // HOST SPI INTERFACE
+    160          	Configure_ARM_MCU_SPI();        
+    161              #endif
+    162          */
+    163                  
+    164              #if (CONSOLE_IO)
+    165                  ConfigureUsart1();
+   \   0000004A   ........           BL       ConfigureUsart1
+    166                  printf("\n\n\n\n\n\n\r Holt Integrated Circuits HI-6130/31 Project \n\r");
+   \   0000004E   3248               LDR.N    R0,??main_0+0x18
+   \   00000050   ........           BL       printf
+    167                  printf(" Ver: 1.3     Compiled: %s %s    ", __DATE__, __TIME__ );
+   \   00000054   314A               LDR.N    R2,??main_0+0x1C
+   \   00000056   3249               LDR.N    R1,??main_0+0x20
+   \   00000058   3248               LDR.N    R0,??main_0+0x24
+   \   0000005A   ........           BL       printf
+    168              #endif
+    169          
+    170              // Anywhere from 0 to 4 terminals might be enabled by the 4 DIP switches on
+    171              // the evaluation board. Next function call checks states for BC, RT1, RT2,
+    172              // and MT DIP switches. For each switch = 1 (terminal enabled) the function
+    173              // verifies that the corresponding compiler run-time switch is also ON. For
+    174              // example: if BCENA DIP switch = 1 then BC_ENA (in file 613x_initialization.h)
+    175              // must be defined ON (non-zero). Error trap occurs (flashing the red LED) if:
+    176              //
+    177              //  * one or more terminals has switch = 1 but compiler run-time switch defined OFF 
+    178              //  * one or more terminals has switch = 0 but compiler run-time switch defined ON
+    179              //  * all 4 DIP switches = 0, nothing is enabled
+    180              // 
+    181              // If error-free, function writes terminal enable bits into the Master Configuration 
+    182              // register, then returns a 16-bit word having a run bit set for each enabled
+    183              // DIP switch, used later to start terminal operation after initialization.
+    184                  
+    185              // program writes these bits to the Master Configuration register later...
+    186              runbits = enable_check();
+   \   0000005E   ........           BL       enable_check
+   \   00000062   0600               MOVS     R6,R0
+    187                  
+    188              // Next function call uses an in-line delay. This affects completion time for hard reset 
+    189              // (ARM microprocessor power-up reset (POR), or assertion of the board's RESET button. 
+    190              // This delay does not affect time for "HI-613x only" hard reset, or HI-613x soft reset.
+    191          
+    192              //  flash an LED to indicate how initialization will proceed: 
+    193              if(PIO_Get(&pinAUTOEN)){
+   \   00000064   10A8               ADD      R0,SP,#+64
+   \   00000066   ........           BL       PIO_Get
+   \   0000006A   0028               CMP      R0,#+0
+   \   0000006C   05D0               BEQ.N    ??main_1
+    194                 // AUTOEN == 1 (self init from EEPROM)
+    195                 #if (CONSOLE_IO)
+    196                    printf("\n\n\r       Auto-Initializing from EEPROM  \n\n\r");
+   \   0000006E   2E48               LDR.N    R0,??main_0+0x28
+   \   00000070   ........           BL       printf
+    197                 #endif
+    198                 Flash_Red_LED();
+   \   00000074   ........           BL       Flash_Red_LED
+   \   00000078   04E0               B.N      ??main_2
+    199              }    
+    200              else {   
+    201                 // AUTOEN == 0 (host initialization)
+    202                 #if (CONSOLE_IO)
+    203                    printf("\n\n\r       Host is Initializing Regs & RAM \n\n\r");
+   \                     ??main_1:
+   \   0000007A   2C48               LDR.N    R0,??main_0+0x2C
+   \   0000007C   ........           BL       printf
+    204                 #endif
+    205                 Flash_Green_LED();
+   \   00000080   ........           BL       Flash_Green_LED
+    206              }
+    207                  
+    208              // Next actions are determined by states of the AUTOEN (auto-initialize) 
+    209              // DIP switch and EECOPY Request DIP switch (labeled "COPYRQ"). AUTOEN is a 
+    210              // HI-613x input, COPYRQ is a microprocessor input. The two switches COPYRQ and 
+    211              // AUTOEN should never both be high (There is no point in auto-initializing the
+    212              // HI-613x from EEPROM then copying the just-initialized setup to EEPROM again!) 
+    213          
+    214              //           D I P    S W I T C H    S E T T I N G    T A B L E
+    215              //  ------------------------------------------------------------------------		
+    216              //            |      AUTOEN = 0         |          AUTOEN = 1
+    217              //  ----------|-------------------------|-----------------------------------
+    218              //    COPYRQ  | Host initializes 613x   |   EEPROM initializes 613x
+    219              //     = 0    | No EEPROM involvement   |   No Host involvement
+    220              //            | Normal host initialize  |   Normal auto-initialize sequence
+    221              //  ----------|-------------------------|-----------------------------------
+    222              //    COPYRQ  | Host initializes 613x   |   EEPROM initializes 613x
+    223              //      = 1   | then EECOPY to EEPROM   |   then EECOPY to EEPROM 
+    224              //            | (Normal EEPROM copy)    |   (Senseless sequence)
+    225              //	------------------------------------------------------------------------
+    226          		
+    227              // Reset HI-613x. If device AUTOEN pin is high, it will auto-initialize
+    228              // the device registers and RAM from serial EEPROM. In this case, execution
+    229              // comes back here only after the HI-613x READY output goes high...
+    230              reset_613x();
+   \                     ??main_2:
+   \   00000084   ........           BL       reset_613x
+    231          
+    232              // If error-free auto-init occurred after master reset, next function call 
+    233              // returns "0". if auto-initialize occurred with errors, the function call 
+    234              // does NOT return (local error trap). If auto-initialize was not enabled,
+    235              // this program initializes device RAM and registers below.
+    236          	
+    237              // Although possible to do so, "intialize from EEPROM" process in this program 
+    238              // does not automatically start execution for terminal devices. Instead,
+    239              // whether auto-init or host init, the program simulaneously starts execution for 
+    240              // all enabled devices (BC,MT,RT1,RT2) when "runbits" are written into the Master
+    241              // Configuration register below...          
+    242                         
+    243              if(autoinit_check()) {
+   \   00000088   ........           BL       autoinit_check
+   \   0000008C   0028               CMP      R0,#+0
+   \   0000008E   1FD0               BEQ.N    ??main_3
+    244          
+    245                  // if function call above returned with non-zero result, the terminal was 
+    246                  // NOT automatically initialized after reset, BUT numerous registers now
+    247                  // contain non-zero default values. The host will now initialize...
+    248                
+    249                  // having met enable_check() requirements above, write the terminal 
+    250                  // enable bits for BC or RT(s) into the Master Config register 0. (The
+    251                  // MT has only a run bit, not an enable bit.)
+    252           ///       #if (HOST_BUS_INTERFACE)
+    253                  pH6130->MASTER_CONFIG_REG = runbits & (BCENA|RT1ENA|RT2ENA);
+   \   00000090   16F48650           ANDS     R0,R6,#0x10C0
+   \   00000094   2649               LDR.N    R1,??main_0+0x30
+   \   00000096   0968               LDR      R1,[R1, #+0]
+   \   00000098   0880               STRH     R0,[R1, #+0]
+    254           /*       
+    255                  #else  // HOST SPI INTERFACE
+    256                  j = runbits & (BCENA|RT1ENA|RT2ENA);
+    257          	Write_6131LowReg(MASTER_CONFIG_REG, j, 1);
+    258                  #endif
+    259          */
+    260                  
+    261                  // modify runbits to just contain "start execution" bits, to be written last
+    262                  runbits &= ~(BCENA|RT1ENA|RT2ENA);
+   \   0000009A   4EF63F70           MOVW     R0,#+61247
+   \   0000009E   0640               ANDS     R6,R0,R6
+    263                      
+    264                  // Select common configuration options that apply to all BC, MT, RT1, RT2. 
+    265                  initialize_613x_shared();
+   \   000000A0   ........           BL       initialize_613x_shared
+    266                  
+    267                  // Terminal-specific options are initialized next... 
+    268                  // Below, variable "ttconfig" is used for time tag counter configuration. 
+    269          	// If enabled, the MT has a dedicated 16-bit or 48-bit time counter.
+    270          	// MT time tag resolution is selected by MT Configuration Reg, bit 0. 
+    271          	// We select the MT counter clock source below, factored into "ttconfig".
+    272          		
+    273          	// The BC,RT1 and RT2 have independent time tag counters, but share 
+    274          	// a common clock source, selected below, factored into "ttconfig". The RT1 
+    275          	// and RT2 time counters are always 16-bit. The BC time counter is
+    276          	// either 16- or 32-bit, selected below.        
+    277                    
+    278                  //------------------------------------------------------------------------
+    279                  
+    280                  #if(BC_ena)
+    281          
+    282          	    initialize_613x_BC();
+    283                      initialize_bc_msg_blocks();
+    284          	    initialize_bc_instruction_list();
+    285          
+    286                      // select BC time tag resolution, either 16-bit or 32-bit (BTTAG16 or BTTAG32)
+    287                      
+    288                      #ifdef BC_TTAG_HI_RES
+    289                          ttconfig |= BTTAG32;
+    290                      #else
+    291                          ttconfig |= BTTAG16;
+    292                      #endif
+    293          
+    294                      // Select internally-generated time tag clock used by BC,RT1 and RT2
+    295                      // Choices are 2U,4U,8U,16U,32U or 64U (microseconds)
+    296                      ttconfig |= TTAG_64U;
+    297          
+    298                  #endif	// end BC init. 
+    299          
+    300                  //------------------------------------------------------------------------
+    301          
+    302                  #if(RT1_ena)
+    303          	    // verify RT1 Op Status Reg shows a valid RT address. This function call
+    304          	    // does not return if register reflects address parity error or if the
+    305          	    // register reads back zero value, an invalid result (local error trap)
+    306                      
+    307          	    if (RTAddr_okay(1)) {
+    308                     
+    309                          // host now initializes HI-613x regs, RAM tables, for RT1 
+    310                          initialize_613x_RT1();				
+    311                          
+    312          	        // write test data to assigned transmit buffers
+    313          	        write_dummy_tx_data_RT1();
+    314                          
+    315          	        // RT1 and RT2 always use 16-bit time tag resolution.
+    316                          // if not already selected above for BC, (i.e. if BC is not used), 
+    317                          // select RT1 and RT2 time tag clock which otherwise is shared with BC.
+    318                          // Choices are 2U,4U,8U,16U,32U or 64U (microseconds)
+    319          	        if(!ttconfig) ttconfig = TTAG_64U;
+    320                      }			
+    321                   
+    322                  #endif    // end RT1 init. RT1 does not start until the RT1STEX register bit is set
+    323          
+    324                  //------------------------------------------------------------------------
+    325          
+    326                  #if(RT2_ena)
+    327          
+    328          	    // verify RT2 Op Status Reg shows a valid RT address. This function call
+    329          	    // does not return if register reflects address parity error or if the
+    330          	    // register reads back zero value, an invalid result (local error trap)
+    331          	    if (RTAddr_okay(2)) {
+    332                     
+    333                          // host now initializes HI-613x regs, RAM tables, for RT2
+    334                          initialize_613x_RT2();				
+    335          
+    336          	        // write test data to assigned transmit buffers
+    337          	        write_dummy_tx_data_RT2();
+    338          				
+    339          	        // RT1 and RT2 always use 16-bit time tag resolution.
+    340          	        // if not already selected above for BC or RT1, (i.e. if BC & RT1 not used), 
+    341                          // select RT2 time tag clock which otherwise is shared with BC and RT1.
+    342                          // Choices are 2U,4U,8U,16U,32U or 64U (microseconds)
+    343          	        if(!ttconfig) ttconfig = TTAG_64U;
+    344                     }			
+    345                   
+    346                  #endif    // end RT2 init. RT2 does not start until the RT2STEX register bit is set
+    347          
+    348                  //------------------------------------------------------------------------
+    349               
+    350                  #if(SMT_ena||IMT_ena)
+    351          
+    352                      // Host now initializes Simple Monitor or IRIG-106 Bus Monitor, as selected in 
+    353                      // file 613x_initialization.h. Next call traps error if MTRUN pin disables MT.
+    354                      initialize_613x_MT();				
+   \   000000A4   ........           BL       initialize_613x_MT
+    355          
+    356                      // dedicated MT time tag clock selection:
+    357          
+    358                      #if(IMT_ena) 
+    359                          // IRIG-106 monitor (IMT) always uses 48-bit time tag resolution.
+    360                          // two IRIG-106 monitor time tag clock options: MTTAG_OFF or MTTAG_100N (100ns)
+    361                          // "OFF" is helpful in debug, to prevent "maximum packet time" end-of-packet.
+    362                          j = MTTAG_OFF; // MTTAG_100N;
+   \   000000A8   0020               MOVS     R0,#+0
+   \   000000AA   0400               MOVS     R4,R0
+    363                          ttconfig |= j;
+   \   000000AC   2543               ORRS     R5,R4,R5
+    364          
+    365                      #else 
+    366          	        // SMT simple monitor time tag clock options: MTTAG_OFF, MTTAG_100N (100ns)
+    367                          // or MTTAG_2U,4U,8U,16U,32U or 64U (microseconds)
+    368                	        ttconfig |= MTTAG_64U;
+    369                          
+    370                          // SMT can use 16-bit or 48-bit time tag resolution, selected in
+    371                          // the MT Configuration register...
+    372          
+    373                          #ifdef SMT_TTAG_HI_RES
+    374                              j = SMT_TTAG48;
+    375                          #else
+    376                              j= SMT_TTAG16;
+    377                          #endif
+    378          
+    379                          // read-modify-write the MT Configuration Register
+    380            ///              #if (HOST_BUS_INTERFACE) 
+    381                          pH6130->MT_CONFIG_REG |= j;              
+    382          /*
+    383                          #else // HOST_SPI_INTERFACE
+    384                          j |= Read_6131LowReg(MT_CONFIG_REG, 1);
+    385                          Write_6131LowReg(MT_CONFIG_REG, j , 1);
+    386                          #endif                    
+    387           */
+    388                          
+    389                      #endif
+    390          						
+    391                  #endif	// end MT init. Monitor does not start until MTENA register bit is set below
+    392                   
+    393                  //------------------------------------------------------------------------
+    394                  
+    395                  // write the Time Tag Configuration Register
+    396           ///       #if (HOST_BUS_INTERFACE) 
+    397                  pH6130->TTAG_CONFIG_REG = ttconfig;              
+   \   000000AE   2048               LDR.N    R0,??main_0+0x30
+   \   000000B0   0068               LDR      R0,[R0, #+0]
+   \   000000B2   A0F87250           STRH     R5,[R0, #+114]
+    398          /*
+    399                  #else // HOST_SPI_INTERFACE
+    400                  Write_6131LowReg(TTAG_CONFIG_REG, ttconfig, 0);
+    401                  #endif
+    402          */
+    403                  
+    404          	if (PIO_Get(&pinCOPYREQ)) {
+   \   000000B6   08A8               ADD      R0,SP,#+32
+   \   000000B8   ........           BL       PIO_Get
+   \   000000BC   0028               CMP      R0,#+0
+   \   000000BE   07D0               BEQ.N    ??main_3
+    405                      // "COPY REQUEST" DIP switch is high. Write serial EEPROM using parameter 0 
+    406          	    // so the various start bits in the Master Configuraton Register are 
+    407                      // NOT automatically set by subsequent auto-initialization cycles.
+    408                     #if (CONSOLE_IO)
+    409                          printf("       Copying Registers & RAM to EEPROM  \n\r");                       
+   \   000000C0   1C48               LDR.N    R0,??main_0+0x34
+   \   000000C2   ........           BL       printf
+    410                          printf("    Be sure to turn off COPYREQ DIP switch. \n\n\r");                       
+   \   000000C6   1C48               LDR.N    R0,??main_0+0x38
+   \   000000C8   ........           BL       printf
+    411                      #endif
+    412          	    write_init_eeprom();
+   \   000000CC   ........           BL       write_init_eeprom
+    413                  }
+    414                    
+    415              }   // end:if (autoinit_check())
+    416                      
+    417              // flash both green bus LEDs to signify initialization complete
+    418              AT91C_BASE_PIOC->PIO_CODR = nLEDA|nLEDB;  // LEDs ON
+   \                     ??main_3:
+   \   000000D0   0E48               LDR.N    R0,??main_0+0xC  ;; 0x400e1034
+   \   000000D2   5FF04041           MOVS     R1,#-1073741824
+   \   000000D6   0160               STR      R1,[R0, #+0]
+    419              Delay_x100ms(3);
+   \   000000D8   0320               MOVS     R0,#+3
+   \   000000DA   ........           BL       Delay_x100ms
+    420              AT91C_BASE_PIOC->PIO_SODR = nLEDA|nLEDB;  // LEDs OFF
+   \   000000DE   1748               LDR.N    R0,??main_0+0x3C  ;; 0x400e1030
+   \   000000E0   5FF04041           MOVS     R1,#-1073741824
+   \   000000E4   0160               STR      R1,[R0, #+0]
+    421                  
+    422              // we disabled interrupts during initialization, 
+    423              // now enable them before starting terminal execution
+    424              __enable_interrupt();
+   \   000000E6   62B6               CPSIE    I
+    425              
+    426              // write the Master Configuraton Register to start the
+    427              // terminal(s) initialized above, to begin operation.
+    428              // do not overwrite previously initialized common features
+    429           ///   #if (HOST_BUS_INTERFACE)         
+    430          	pH6130->MASTER_CONFIG_REG |= runbits;         
+   \   000000E8   1148               LDR.N    R0,??main_0+0x30
+   \   000000EA   0068               LDR      R0,[R0, #+0]
+   \   000000EC   0088               LDRH     R0,[R0, #+0]
+   \   000000EE   3043               ORRS     R0,R6,R0
+   \   000000F0   0F49               LDR.N    R1,??main_0+0x30
+   \   000000F2   0968               LDR      R1,[R1, #+0]
+   \   000000F4   0880               STRH     R0,[R1, #+0]
+    431          /*
+    432              #else //  HOST_SPI_INTERFACE        
+    433          	spi_busy = 0;
+    434          	spi_irq = 0;
+    435          	j = runbits | Read_6131LowReg(MASTER_CONFIG_REG, 1);
+    436          	Write_6131LowReg(MASTER_CONFIG_REG, j, 1);      
+    437              #endif
+    438          */        
+    439                #if (CONSOLE_IO)
+    440                    show_menu();
+   \   000000F6   ........           BL       show_menu
+    441                    // Infinite loop
+    442                    while (1) {
+    443                        // poll USART1 to detect and act on console key input at computer keyboard...
+    444                        chk_key_input();
+   \                     ??main_4:
+   \   000000FA   ........           BL       chk_key_input
+   \   000000FE   FCE7               B.N      ??main_4
+   \                     ??main_0:
+   \   00000100   ........           DC32     `?<Constant {16, (AT91S_PIO *)1074662912, 11, 2`
+   \   00000104   ........           DC32     `?<Constant {8, (AT91S_PIO *)1074662912, 11, 2}`
+   \   00000108   ........           DC32     `?<Constant {33554432, (AT91S_PIO *)1074663424,`
+   \   0000010C   34100E40           DC32     0x400e1034
+   \   00000110   08120E40           DC32     0x400e1208
+   \   00000114   010F00A5           DC32     0xa5000f01
+   \   00000118   ........           DC32     `?<Constant "\\n\\n\\n\\n\\n\\n\\r Holt Integrat...">`
+   \   0000011C   ........           DC32     `?<Constant "13:43:41">`
+   \   00000120   ........           DC32     `?<Constant "May 22 2012">`
+   \   00000124   ........           DC32     `?<Constant " Ver: 1.3     Compile...">`
+   \   00000128   ........           DC32     `?<Constant "\\n\\n\\r       Auto-Initia...">`
+   \   0000012C   ........           DC32     `?<Constant "\\n\\n\\r       Host is Ini...">`
+   \   00000130   ........           DC32     pH6130
+   \   00000134   ........           DC32     `?<Constant "       Copying Regist...">`
+   \   00000138   ........           DC32     `?<Constant "    Be sure to turn o...">`
+   \   0000013C   30100E40           DC32     0x400e1030
+    445                        
+    446                        #if(RT1_ena||RT2_ena)
+    447                            // if MCU board SW1 button is pressed, update RT1 and RT2 status bits
+    448                            // based on Terminal Flag and Busy DIP switch settings
+    449                            if(!PIO_Get(&pinNSW1)) modify_RT_status_bits();
+    450                        #endif
+    451          
+    452                    }   // end while 
+    453                    
+    454                    
+    455                #else // not using console IO...
+    456                    // Infinite loop
+    457                    while (1) {
+    458                        #if(BC_ena)
+    459                            bc_switch_tests();
+    460                        #endif // BC_ena
+    461                            
+    462                        #if(RT1_ena||RT2_ena)
+    463                            // if MCU board SW1 button is pressed, update RT1 and RT2 status bits
+    464                            // based on Terminal Flag and Busy DIP switch settings
+    465                            if(!PIO_Get(&pinNSW1)) modify_RT_status_bits();
+    466                        #endif
+    467                            
+    468                    }   // end while
+    469          
+    470                #endif
+    471             
+    472          }     // end main()
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {16, (AT91S_PIO *)1074662912, 11, 2`:
+   \   00000000   10000000000E       DC32 16, 400E0E00H
+   \              0E40        
+   \   00000008   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {8, (AT91S_PIO *)1074662912, 11, 2}`:
+   \   00000000   08000000000E       DC32 8, 400E0E00H
+   \              0E40        
+   \   00000008   0B0200000000       DC8 11, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {33554432, (AT91S_PIO *)1074663424,`:
+   \   00000000   000000020010       DC32 33554432, 400E1000H
+   \              0E40        
+   \   00000008   0C0300000000       DC8 12, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\n\\n\\n\\n\\n\\r Holt Integrat...">`:
+   \   00000000   0A0A0A0A0A0A       DC8 0AH, 0AH, 0AH, 0AH, 0AH, 0AH, 0DH, 20H
+   \              0D20        
+   \   00000008   486F6C742049       DC8 48H, 6FH, 6CH, 74H, 20H, 49H, 6EH, 74H
+   \              6E74        
+   \   00000010   656772617465       DC8 65H, 67H, 72H, 61H, 74H, 65H, 64H, 20H
+   \              6420        
+   \   00000018   436972637569       DC8 43H, 69H, 72H, 63H, 75H, 69H, 74H, 73H
+   \              7473        
+   \   00000020   2048492D3631       DC8 20H, 48H, 49H, 2DH, 36H, 31H, 33H, 30H
+   \              3330        
+   \   00000028   2F3331205072       DC8 2FH, 33H, 31H, 20H, 50H, 72H, 6FH, 6AH
+   \              6F6A        
+   \   00000030   656374200A0D       DC8 65H, 63H, 74H, 20H, 0AH, 0DH, 0
+   \              00          
+   \   00000037   00                 DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant " Ver: 1.3     Compile...">`:
+   \   00000000   205665723A20       DC8 " Ver: 1.3     Compiled: %s %s    "
+   \              312E33202020
+   \              2020436F6D70
+   \              696C65643A20
+   \              257320257320
+   \              20202000    
+   \   00000022   0000               DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "May 22 2012">`:
+   \   00000000   4D6179203232       DC8 "May 22 2012"
+   \              203230313200
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "13:43:41">`:
+   \   00000000   31333A34333A       DC8 "13:43:41"
+   \              343100      
+   \   00000009   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\n\\r       Auto-Initia...">`:
+   \   00000000   0A0A0D202020       DC8 "\012\012\015       Auto-Initializing from EEPROM  \012\012\015"
+   \              202020204175
+   \              746F2D496E69
+   \              7469616C697A
+   \              696E67206672
+   \              6F6D20454550
+   \              524F4D20200A
+   \              0A0D00      
+   \   0000002D   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "\\n\\n\\r       Host is Ini...">`:
+   \   00000000   0A0A0D202020       DC8 "\012\012\015       Host is Initializing Regs & RAM \012\012\015"
+   \              20202020486F
+   \              737420697320
+   \              496E69746961
+   \              6C697A696E67
+   \              205265677320
+   \              262052414D20
+   \              0A0A0D00    
+   \   0000002E   0000               DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "       Copying Regist...">`:
+   \   00000000   202020202020       DC8 "       Copying Registers & RAM to EEPROM  \012\015"
+   \              20436F707969
+   \              6E6720526567
+   \              697374657273
+   \              20262052414D
+   \              20746F204545
+   \              50524F4D2020
+   \              0A0D00      
+   \   0000002D   000000             DC8 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant "    Be sure to turn o...">`:
+   \   00000000   202020204265       DC8 "    Be sure to turn off COPYREQ DIP switch. \012\012\015"
+   \              207375726520
+   \              746F20747572
+   \              6E206F666620
+   \              434F50595245
+   \              512044495020
+   \              737769746368
+   \              2E200A0A0D00
+    473          
+    474          
+    475          // end of file
+    476          
+
+   Maximum stack usage in bytes:
+
+     Function .cstack
+     -------- -------
+     main        112
+
+
+   Section sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     pH6130                                            4
+     pMTF                                              4
+     pAddrList                                         4
+     pPktHdr                                           4
+     pIPMB                                             4
+     main                                            320
+     ?<Constant {16, (AT91S_PIO *)1074662912, 11, 2   32
+     ?<Constant {8, (AT91S_PIO *)1074662912, 11, 2}   32
+     ?<Constant {33554432, (AT91S_PIO *)1074663424,   32
+     ?<Constant "\n\n\n\n\n\n\r Holt Integrat...">    56
+     ?<Constant " Ver: 1.3     Compile...">           36
+     ?<Constant "May 22 2012">                        12
+     ?<Constant "13:43:41">                           12
+     ?<Constant "\n\n\r       Auto-Initia...">        48
+     ?<Constant "\n\n\r       Host is Ini...">        48
+     ?<Constant "       Copying Regist...">           48
+     ?<Constant "    Be sure to turn o...">           48
+
+ 
+   8 bytes in section .bss
+ 416 bytes in section .rodata
+ 320 bytes in section .text
+ 
+ 320 bytes of CODE  memory
+ 416 bytes of CONST memory
+   8 bytes of DATA  memory
+
+Errors: none
+Warnings: none

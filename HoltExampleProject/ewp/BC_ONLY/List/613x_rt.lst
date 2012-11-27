@@ -1,0 +1,2688 @@
+###############################################################################
+#                                                                             #
+#                                                       15/May/2012  13:48:29 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\613x_rt.c                                       #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\613x_rt.c" -D at91sam3u4 -D flash -D            #
+#                    TRACE_LEVEL=4 -D HOST_BUS_INTERFACE=1 -D BC_ena=1 -D     #
+#                    RT2_ena=0 -D RT1_ena=0 -D SMT_ena=0 -D IMT_ena=0 -lC     #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\BC_ONLY\List\" --remarks --diag_suppress    #
+#                    Pe826,Pe1375,Pe068 -o "C:\Program Files\IAR              #
+#                    Systems\Embedded Workbench 6.0                           #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\BC_ONLY\Obj\" --no_cse --no_unroll          #
+#                    --no_inline --no_code_motion --no_tbaa --no_clustering   #
+#                    --no_scheduling --debug --endian=little --cpu=Cortex-M3  #
+#                    -e --fpu=None --dlib_config "C:\Program Files\IAR        #
+#                    Systems\Embedded Workbench 6.0                           #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\..\..\..\at91lib/peripherals\" -I           #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\..\..\..\at91lib/components\" -I            #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\..\..\..\at91lib\" -I "C:\Program           #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\..\..\..\external_libs\" -I "C:\Program     #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\..\..\..\at91lib/boards/at91sam3u-ek\"      #
+#                    --cpu_mode thumb -On --use_c++_inline                    #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\BC_ONLY\List\613x_rt.lst                    #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31     #
+#                    Demo 1_3\ewp\BC_ONLY\Obj\613x_rt.o                       #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\HOLT\_Holt HI-6130-31 Demo 1_3\613x_rt.c
+      1          // 
+      2          // file	613x_rt.c
+      3          //
+      4          //      This file contains initialization functions and arrays for 
+      5          //	initializing RT1 and RT2 register and RAM tables inside the 
+      6          //	HI-6130 or HI-6131 device. 
+      7          //
+      8          //
+      9          //	IMPORTANT: Edit file 613x_initialization.h to define either:
+     10          //
+     11          //	HOST_BUS_INTERFACE  YES  sets compilation for HI-6130 (bus)
+     12          //			NO   sets compilation for HI-6131 (SPI)
+     13          //
+     14          //	Most functional procedures in this project are written for
+     15          //	both parallel bus or SPI host interface schemes, this runtime 
+     16          //	switch determines which are procedures are compiled.
+     17          // 
+     18          //
+     19          //	HOLT DISCLAIMER
+     20          //
+     21          //	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+     22          //	EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+     23          //	OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+     24          //	NONINFRINGEMENT. 
+     25          //	IN NO EVENT SHALL HOLT, INC BE LIABLE FOR ANY CLAIM, DAMAGES
+     26          //	OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+     27          //	OTHERWISE,ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+     28          //			SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+     29          //
+     30          //			Copyright (C) 2010 by  HOLT, Inc.
+     31          //			All Rights Reserved.
+     32          //
+     33          //
+     34          
+     35          
+     36          // standard Atmel/IAR headers
+     37          #include <pio/pio.h>
+     38          #include <intrinsics.h>
+     39          
+     40          // Holt project headers
+     41          #include "613x_initialization.h"
+     42          #include "613x_regs.h"
+     43          #include "613x_rt.h"
+     44          #include "board_613x.h"
+     45          
+     46          #if (HOST_BUS_INTERFACE)    
+     47              #include "board_6130.h"
+     48              #include "device_6130.h"
+     49              extern const H6130 pH6130;
+     50              
+     51              #if(RT1_ena)
+     52              extern const RT1d pRT1d;
+     53              extern const RT1i pRT1i;
+     54              #endif // (RT1_ena)
+     55              
+     56              #if(RT2_ena)
+     57              extern const RT2d pRT2d;
+     58              extern const RT2i pRT2i;
+     59              #endif // (RT2_ena)
+     60          
+     61          #else // HOST SPI INTERFACE
+     62              #include "board_6131.h"
+     63              #include "device_6131.h"
+     64          #endif
+     65          
+     66          
+     67          
+     68          
+     69          #if (HOST_BUS_INTERFACE && (RT1_ena||RT2_ena))    
+     70          
+     71          // this function applies for HI-6130 only
+     72          void RT_bus_addressing_examples(void) {
+     73              
+     74              unsigned short j,k;
+     75              volatile unsigned short *address;
+     76                  
+     77              // ----------------------------------------------------------------
+     78              // RT1 or RT2 Command Illegalization Table bus addressing examples
+     79              // ----------------------------------------------------------------
+     80              // see the full breakdown of bus addressing options for this table near the end of file 613x_rt.h
+     81              // The illegalization table base addresses are declared in file 613x_rt.h
+     82              
+     83              // RT command illegalization table addressing examples using nested structure definitions
+     84              #if(RT1_ena)
+     85              j = pRT1i->BTx.SA22._3words;   // read RT1 illegal bit: for broadcast Tx subaddress 22, 3 data words
+     86              k = pRT1i->Rx.SA31._mcode21;   // read RT1 illegal bit: non-broadcast Tx subaddress 31, mode code 21
+     87              #endif // (RT1_ena)
+     88              
+     89              #if(RT2_ena)
+     90              j = pRT2i->BTx.SA5._32words;   // read RT2 illegal bit: for broadcast Tx subaddress 5, 32 data words
+     91              k = pRT2i->Rx.SA0._mcode2;     // read RT2 illegal bit: non-broadcast Tx subaddress 31, mode code 2
+     92              #endif // (RT2_ena)
+     93              
+     94              // ----------------------------------------------------
+     95              // RT1 or RT2 Descriptor Table bus addressing examples
+     96              // ----------------------------------------------------
+     97              // see the full breakdown of bus addressing options for this table near the end of file 613x_rt.h
+     98              // The descriptor table base addresses are declared in file 613x_rt.h
+     99              
+    100              // RT descriptor table addressing examples using nested structure definitions                              
+    101              #if(RT1_ena)
+    102              j = pRT1d->RxS.A0.ctrlWord;           // read descriptor table Control Word for RT1 Rx subaddress 0
+    103              k = pRT1d->RxS.A4.ctrlWord;           // read descriptor table Control Word for RT1 Rx subaddress 4
+    104              pRT1d->RxS.A4.descWord3 = 0x1234;     // write descriptor word 3 for RT1 Rx subaddress 4
+    105              address = &(pRT1d->RxS.A0.descWord4); // get address for descriptor word 4 for RT1 Rx subaddress 0
+    106              *address = 0x5A5A;                    // write addressed descriptor table location
+    107              #endif // (RT1_ena)
+    108              
+    109              #if(RT2_ena)
+    110              pRT2d->RxM.C21.descWord2 = 0x1234;    // write descriptor word 2 for RT2 Rx mode code 21
+    111              pRT2d->TxM.C3.descWord2 = 0x5678;     // write descriptor word 2 for RT2 Tx mode code 2    
+    112              #endif // (RT2_ena)
+    113                  
+    114              // preempt warnings: variable was set but never used
+    115              j=j;
+    116              k=k;
+    117              
+    118          }   // end RT_bus_addressing_examples()
+    119          
+    120          #endif // (HOST_BUS_INTERFACE && (RT1_ena||RT2_ena))    
+    121             
+    122          
+    123          
+    124          
+    125          // the initialization functions below do not use the addressing methods shown above.
+    126          // instead, they demonstrate alternative addressing methods...
+    127          
+    128          
+    129          
+    130          
+    131          #if (RT1_ena)    //------------ RT1 ENABLED ------------
+    132          
+    133          
+    134          // 	This function initializes the Holt HI-613x RT1 by writing 
+    135          //	configuration registers in the device. Only RT1 mode option 
+    136          //	bits are affected. The program has already called function 
+    137          // 	initialize_613x_shared() to initialize the common parameters
+    138          //	shared by BC, RT1, RT2 and/or Bus Monitor
+    139          //
+    140          void initialize_613x_RT1(void) {
+    141          	
+    142                  #if (HOST_BUS_INTERFACE)    
+    143          	unsigned int k;
+    144                  #else // HOST_SPI_INTERFACE
+    145          	unsigned short a, k;
+    146                  #endif
+    147          
+    148          	unsigned short i,j;
+    149                          
+    150          	unsigned short descr_table_RT1[512] = {
+    151          	/* this array is used to initialize the Descriptor Table. For subaddress-
+    152          	receive and subaddress-transmit commands, the array sets the desired data 
+    153          	buffer style and initializes data pointer values. 
+    154          	
+    155          	For mode code commands, use of the "Simplified Mode Command Processing" 
+    156          	option is assumed, so the only potential initialization in the mode 
+    157          	command half of the table is loading mode data word values for transmit 
+    158          	mode commands. 
+    159          	
+    160          	Only 3 defined mode commands actually transmit a mode data word; MC16, 
+    161          	M18 and MC19 decimal. For mode commands MC18 and MC19, the device 
+    162          	automatically transmits the correct data word value, NOT fetched from 
+    163          	this table. The transmitted value is copied into the table after transmit.
+    164          	For MC16, the transmitted value comes from this table.
+    165          	
+    166          	Only 3 defined mode commands actually receive a mode data word: MC17, 
+    167          	MC20 and MC21 decimal. If the terminal is not using "illegal command 
+    168          	detection" it will respond "in form" to all valid undefined, reserved or 
+    169          	unimplemented mode commands. By providing storage for all possible mode
+    170          	commands, the Descriptor Table provides predictable command response to
+    171          	all valid mode code commands, as well as a repository for received data. */
+    172          
+    173          	/* ===================================================================== */
+    174          	/*  R T 1   R E C E I V E    S U B A D D R E S S   C O M M A N D S       */
+    175          	/* ===================================================================== */
+    176          	/*  Note:Subaddresses    ControlWord  DescrWord2  DescrWord3  DescrWord4 */
+    177          	/*  0,31 are not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD, // Ctrl Word offset = 0x0000
+    178          	/*  Rx Subaddress 01  */   0x0004,     0x0800,     0x0822,     0x0844, // ping-pong
+    179          	/*  Rx Subaddress 02  */   0x8000,     0x0A00,     0x0020,     0x0D10, // idx-32 ixeqz  @@ 08D0
+    180          	/*  Rx Subaddress 03  */   0x8001,     0x1176,     0x1176,     0x15B6, // cir1 ixeqz (32 MSG BUFFER)
+    181          	/*  Rx Subaddress 04  */   0x8042,     0x1E00,     0x1E00,     0x1C00, // cir2-8 ixeqz (256 MSG MAX!)
+    182          	/*  Rx Subaddress 05  */   0x0000,     0x1A36,     0x0000,     0x1A36, // ----   
+    183          	/*  Rx Subaddress 06  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    184          	/*  Rx Subaddress 07  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    185          	/*  Rx Subaddress 08  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    186          	/*  Rx Subaddress 09  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    187          	/*  Rx Subaddress 10  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    188          	/*  Rx Subaddress 11  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    189          	/*  Rx Subaddress 12  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    190          	/*  Rx Subaddress 13  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    191          	/*  Rx Subaddress 14  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    192          	/*  Rx Subaddress 15  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    193          	/*  Rx Subaddress 16  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    194          	/*  Rx Subaddress 17  */   0x0000,     0x1A36,     0x0000,     0x1A36, // shared index sgl-msg
+    195          	/*  Rx Subaddress 18  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    196          	/*  Rx Subaddress 19  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    197          	/*  Rx Subaddress 20  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    198          	/*  Rx Subaddress 21  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    199          	/*  Rx Subaddress 22  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    200          	/*  Rx Subaddress 23  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    201          	/*  Rx Subaddress 24  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    202          	/*  Rx Subaddress 25  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    203          	/*  Rx Subaddress 26  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    204          	/*  Rx Subaddress 27  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    205          	/*  Rx Subaddress 28  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+    206          	/*  Rx Subaddress 29  */   0x0000,     0x1A36,     0x0000,     0x1A36, // ----
+    207          	/*  Rx Subaddress 30  */   0x4000,     0x08AE,     0x0000,     0x08AE, // idx sgl-msg IWA irq
+    208          	/*  This row not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD, 
+    209          	/*                                                                       */
+    210          	/* ===================================================================== */
+    211          	/*  R T 1  T R A N S M I T   S U B A D D R E S S   C O M M A N D S       */
+    212          	/* ===================================================================== */
+    213          	/*  NOTE: IF BROADCAST COMMANDS ARE SUPPORTED, ACCIDENTAL BROADCAST-     */
+    214          	/*  TRANSMIT COMMANDS WILL UPDATE MIW + TT WORDS AT THE BROADCAST DATA   */
+    215          	/*  POINTER LOCATION (PING-PONG & INDEXED MODES) SO INITIALIZE B'CAST    */
+    216          	/*  POINTERS TO PREDICTABLE ADDRESSES, BUT NOT 0x0000 (CONFIG.REG 1!)    */
+    217          	/*                                                                       */
+    218          	/*  Note:Subaddresses    ControlWord  DescrWord2  DescrWord3  DescrWord4 */
+    219          	/*  0,31 are not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD, // Ctrl Word offset = 0x0080
+    220          	/*  Tx Subaddress 01  */   0x0004,     0x0866,     0x0888,     0x08AA, // ping-pong
+    221          	/*  Tx Subaddress 02  */   0x8000,     0x0D32,     0x0020,     0x1172, // idx-32 ixeqz
+    222          	/*  Tx Subaddress 03  */   0x8001,     0x15D6,     0x15D6,     0x1A16, // cir1 ixeqz
+    223          	/*  Tx Subaddress 04  */   0x8052,     0x1E00,     0x1E00,     0x1C00, // cir2-16 ixeqz
+    224          	/*  Tx Subaddress 05  */   0x0000,     0x1A58,     0x0000,     0x1A58, // ----
+    225          	/*  Tx Subaddress 06  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    226          	/*  Tx Subaddress 07  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    227          	/*  Tx Subaddress 08  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    228          	/*  Tx Subaddress 09  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    229          	/*  Tx Subaddress 10  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    230          	/*  Tx Subaddress 11  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    231          	/*  Tx Subaddress 12  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    232          	/*  Tx Subaddress 13  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    233          	/*  Tx Subaddress 14  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    234          	/*  Tx Subaddress 15  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    235          	/*  Tx Subaddress 16  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    236          	/*  Tx Subaddress 17  */   0x0000,     0x1A58,     0x0000,     0x1A58, // shared index sgl-msg
+    237          	/*  Tx Subaddress 18  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    238          	/*  Tx Subaddress 19  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    239          	/*  Tx Subaddress 20  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    240          	/*  Tx Subaddress 21  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    241          	/*  Tx Subaddress 22  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    242          	/*  Tx Subaddress 23  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    243          	/*  Tx Subaddress 24  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    244          	/*  Tx Subaddress 25  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    245          	/*  Tx Subaddress 26  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    246          	/*  Tx Subaddress 27  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    247          	/*  Tx Subaddress 28  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+    248          	/*  Tx Subaddress 29  */   0x0000,     0x1A58,     0x0000,     0x1A58, // ----
+    249          	/*  Tx Subaddress 30  */   0x0000,     0x08AE,     0x0000,     0x08AE, // idx sgl-msg
+    250          	/*  This row not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD,
+    251          	/*                                                                       */
+    252          	/* ===================================================================== */
+    253          	/*  R T 1   R E C E I V E   M O D E   C O D E   C O M M A N D S          */
+    254          	/* ===================================================================== */
+    255          	/*                       ControlWord MsgInfoWord  TimeTagWord DataWord   */
+    256          	/* undefined Rx MC 00 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, // ----  // Ctrl Word offset = 0x0100
+    257          	/*     "     Rx MC 01 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    258          	/*     "     Rx MC 02 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    259          	/*     "     Rx MC 03 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |     
+    260          	/*     "     Rx MC 04 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    261          	/*     "     Rx MC 05 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    262          	/*     "     Rx MC 06 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    263          	/*     "     Rx MC 07 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    264          	/*     "     Rx MC 08 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, // shared index sgl-msg
+    265          	/*     "     Rx MC 09 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    266          	/*     "     Rx MC 10 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    267          	/*     "     Rx MC 11 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    268          	/*     "     Rx MC 12 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    269          	/*     "     Rx MC 13 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    270          	/*     "     Rx MC 14 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    271          	/*     "     Rx MC 15 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+    272          	/*     "     Rx MC 16 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // ----
+    273          	/*  DEFINED  Rx MC 17 */   0x0004,     0x1AE4,     0x1AE8,     0x1AEC, /* synchronize with data */
+    274          	/* undefined Rx MC 18 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // shared index sgl-msg
+    275          	/*     "     Rx MC 19 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // shared index sgl-msg
+    276          	/*  DEFINED  Rx MC 20 */   0x0004,     0x1AF0,     0x1AF4,     0x1AF8, /* shutdown selected bus*/
+    277          	/*  DEFINED  Rx MC 21 */   0x0004,     0x1AFC,     0x1B00,     0x1B04, /* override sel bus shutdown*/
+    278          	/*  reserved Rx MC 22 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // ----
+    279          	/*     "     Rx MC 23 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    280          	/*     "     Rx MC 24 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    281          	/*     "     Rx MC 25 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    282          	/*     "     Rx MC 26 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // shared index sgl-msg
+    283          	/*     "     Rx MC 27 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    284          	/*     "     Rx MC 28 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    285          	/*     "     Rx MC 29 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    286          	/*     "     Rx MC 30 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+    287          	/*     "     Rx MC 31 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // ----
+    288          	/*                                                                       */
+    289          	/* ===================================================================== */
+    290          	/*  R T 1  T R A N S M I T   M O D E   C O D E   C O M M A N D S         */
+    291          	/*         using the "Simplified Mode Command Processing" option         */
+    292          	/* ===================================================================== */
+    293          	/*                       ControlWord MsgInfoWord  TimeTagWord DataWord   */ // Ctrl Word offset = 0x0180
+    294          	/*  DEFINED  Tx MC 00 */   0x4004,     0x1ABA,     0x1ABC,     0x1ABE, /* dynamic bus control,, IWA interrupt */
+    295          	/*     "     Tx MC 01 */   0x0004,     0x1A90,     0x1A92,     0x1A94, /* synchronize */
+    296          	/*     "     Tx MC 02 */   0x0004,     0x1A96,     0x1A98,     0x1A9A, /* transmit status */
+    297          	/*     "     Tx MC 03 */   0x0004,     0x1A9C,     0x1A9E,     0x1AA0, /* initiate self test */
+    298          	/*     "     Tx MC 04 */   0x0004,     0x1AA2,     0x1AA4,     0x1AA6, /* shutdown bus */
+    299          	/*     "     Tx MC 05 */   0x0004,     0x1AA8,     0x1AAA,     0x1AAC, /* overrride shutdown bus */
+    300          	/*     "     Tx MC 06 */   0x0004,     0x1AAE,     0x1AB0,     0x1AB2, /* inhibit terminal flag */
+    301          	/*     "     Tx MC 07 */   0x0004,     0x1AB4,     0x1AB6,     0x1AB8, /* override inhibit term flag */
+    302          	/*     "     Tx MC 08 */   0x6004,     0x1ABA,     0x1ABC,     0x1ABE, /* reset terminal */
+    303          	/*  reserved Tx MC 09 */   0x0000,     0x1A82,     0x0000,     0x1A82, // ----
+    304          	/*     "     Tx MC 10 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     |
+    305          	/*     "     Tx MC 11 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     |
+    306          	/*     "     Tx MC 12 */   0x0000,     0x1A82,     0x0000,     0x1A82, // shared index sgl-msg
+    307          	/*     "     Tx MC 13 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     |
+    308          	/*     "     Tx MC 14 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     | 
+    309          	/*     "     Tx MC 15 */   0x0000,     0x1A82,     0x0000,     0x1A82, // ----
+    310          	/*  DEFINED  Tx MC 16 */   0x0004,     0x1AC0,     0x1AC4,     0x1AC8, /* transmit vector word */
+    311          	/* undefined Tx MC 17 */   0x0000,     0x1A86,     0x0000,     0x1A86, // shared index sgl-msg
+    312          	/*  DEFINED  Tx MC 18 */   0x0004,     0x1ACC,     0x1AD0,     0x1AD4, /* transmit last command */
+    313          	/*  DEFINED  Tx MC 19 */   0x0004,     0x1AD8,     0x1ADC,     0x1AE0, /* transmit BIT word */
+    314          	/* undefined Tx MC 20 */   0x0000,     0x1A86,     0x0000,     0x1A86, // ----
+    315          	/*     "     Tx MC 21 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    316          	/*  reserved Tx MC 22 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    317          	/*     "     Tx MC 23 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    318          	/*     "     Tx MC 24 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    319          	/*     "     Tx MC 25 */   0x0000,     0x1A86,     0x0000,     0x1A86, // shared index sgl-msg
+    320          	/*     "     Tx MC 26 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    321          	/*     "     Tx MC 27 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    322          	/*     "     Tx MC 28 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    323          	/*     "     Tx MC 29 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+    324          	/*     "     Tx MC 30 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     | 
+    325          	/*     "     Tx MC 31 */   0x0000,     0x1A86,     0x0000,     0x1A86 }; // -- 
+    326           
+    327          	/* end of descr_table_RT1[512] declaration */
+    328          
+    329          
+    330          	unsigned short illegal_table[256] = {
+    331          	/* This array is loaded by the initialization function only when the terminal
+    332          	uses "illegal command detection", that is, when the macro ILLEGAL_CMD_DETECT 
+    333          	= YES in the header file 613x_initialization.h. 
+    334          	
+    335          	When macro ILLEGAL_CMD_DETECT = NO, the default all-zeros table value after 
+    336          	/MR master reset is retained, so all valid commands	get an "in form" response.
+    337          	Terminals not using "illegal command detection" should preserve the RAM's 
+    338          	(all 0x0000) reset state for the table address range to provide consistent 
+    339          	"in form" response for all valid commands. This function call provides this.
+    340             
+    341          	This template illegalizes all mode code commands that are either undefined 
+    342          	or reserved in MIL-STD-1553B. Also, the 3 transmit mode codes that have a 
+    343          	mode data word are made illegal when broadcast. Mode code 0 (dynamic bus 
+    344          	control) cannot be implemented by the HI-613X and is also made illegal.
+    345          	
+    346          	If using this example as a template, please note that the array below 
+    347          	renders the following list of commands illegal:
+    348          
+    349          	  * All undefined and reserved mode code commands
+    350          	  * Broadcast versions of these transmit mode cmds: MC0 MC2 MC16 MC18 MC19
+    351          	  * All broadcast transmit subaddress commands 
+    352          	  * Tx mode code MC0 "dynamic bus control" because BC switch-over not programmed
+    353          	  * Tx mode code MC3 "initiate self test," entirely application specific 
+    354          	  
+    355          	  ******************** PLEASE NOTE NEXT 2 LINES ! *************************
+    356          	  *    All non-broacast receive commands to subaddress 16, and all        *
+    357          	  * transmit commands to subaddress 17 are illegal for demonstration only *
+    358          	  *************************************************************************/
+    359          
+    360          	/* ====================================================================== */
+    361          	/*       RT1 BROADCAST RECEIVE MODE CODE AND SUBADDRESS COMMANDS          */
+    362          	/* ====================================================================== */
+    363          	/*    Setting legal/illegal mode code commands for subaddresses           */
+    364          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+    365          	/*                                                                        */
+    366          	/*       _____________________ MC15 - MC12 Rx (undefined)                 */
+    367          	/*      |  ____________________ MC11 - MC8 Rx (undefined)                 */
+    368          	/*      | |  ___________________ MC7 - MC4 Rx (undefined)                 */
+    369          	/*      | | |  __________________ MC3 - MC0 Rx (undefined)                */
+    370          	/*      | | | |  _________________ MC31 - MC28 Rx (reserved)              */
+    371          	/*      | | | | |  ________________ MC27 - MC24 Rx (reserved)             */
+    372          	/*      | | | | | |                                                       */
+    373          	/*      | | | | | |       __________ MC23 Rx (reserved)                   */
+    374          	/*      | | | | | |      |  _________ MC22 Rx (reserved)                  */
+    375          	/*      | | | | | |      | |  ________ MC21 Rx (override sel tx shutdown) */ 
+    376          	/*      | | | | | |      | | |  _______ MC20 Rx (selected tx shutdown)    */
+    377          	/*      | | | | | |      | | | |                                          */
+    378          	/*      | | | | | |      | | | |    ____ MC19 Rx (undefined)              */
+    379          	/*      | | | | | |      | | | |   |  ___ MC18 Rx (undefined)             */
+    380          	/*      | | | | | |      | | | |   | |  __ MC17 Rx (sync with data)       */
+    381          	/*      | | | | | |      | | | |   | | |  _ MC16 Rx (undefined)           */
+    382          	/*      | | | | | |      | | | |   | | | |                                */
+    383          	/*      | | | | | |  bin 1 1 0 0   1 1 0 1                                */
+    384          	/*      | | | | | |      -------   -------                                */
+    385          	/*   0x F F F F F F         C         D                                   */
+    386          	/*                                                                        */
+    387          	/*   Broadcast                                                            */
+    388          	/* Rx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+    389          	/*                 mode codes   word counts   word counts   word counts   */
+    390          	/*                Low    High   Low    High   Low    High   Low    High   */
+    391          	/*  RAM address  0x0100 0x0101 0x0102 0x0103 0x0104 0x0105 0x0106 0x0107  */
+    392                                   0xFFFF,0xFFCD,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    393          	/*   Broadcast                                                            */
+    394          	/* Rx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+    395          	/*                word counts   word counts   word counts   word counts   */
+    396          	/*                Low    High   Low    High   Low    High   Low    High   */
+    397          	/*  RAM address	 0x0108 0x0109 0x010A 0x010B 0x010C 0x010D 0x010E 0x010F  */
+    398                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    399          	/*   Broadcast                                                            */
+    400          	/* Rx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+    401          	/*                word counts   word counts   word counts   word counts   */
+    402          	/*                Low    High   Low    High   Low    High   Low    High   */
+    403          	/*  RAM address	 0x0110 0x0111 0x0112 0x0113 0x0114 0x0115 0x0116 0x0117  */
+    404                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    405          	/*   Broadcast                                                            */
+    406          	/* Rx Subaddress -----12-----  -----13-----  -----14-----  -----15-----   */
+    407          	/*                word counts   word counts   word counts   word counts   */
+    408          	/*                Low    High   Low    High   Low    High   Low    High   */
+    409          	/*  RAM address	 0x0118 0x0119 0x011A 0x011B 0x011C 0x011D 0x011E 0x011F  */
+    410                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    411          	/*   Broadcast                                                            */
+    412          	/* Rx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+    413          	/*                word counts   word counts   word counts   word counts   */
+    414          	/*                Low    High   Low    High   Low    High   Low    High   */
+    415          	/*  RAM address	 0x0120 0x0121 0x0122 0x0123 0x0124 0x0125 0x0126 0x0127  */
+    416                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    417          	/*   Broadcast                                                            */
+    418          	/* Rx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+    419          	/*                word counts   word counts   word counts   word counts   */
+    420          	/*                Low    High   Low    High   Low    High   Low    High   */
+    421          	/*  RAM address	 0x0128 0x0129 0x012A 0x012B 0x012C 0x012D 0x012E 0x012F  */
+    422                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    423          	/*   Broadcast                                                            */
+    424          	/* Rx Subaddress -----24-----  -----25-----  -----26-----  -----27-----   */
+    425          	/*                word counts   word counts   word counts   word counts   */
+    426          	/*                Low    High   Low    High   Low    High   Low    High   */
+    427          	/*  RAM address	 0x0130 0x0131 0x0132 0x0133 0x0134 0x0135 0x0136 0x0137  */
+    428                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    429          	/*   Broadcast                                              SA31 = SA0    */
+    430          	/* Rx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+    431          	/*                word counts   word counts   word counts   mode codes    */
+    432          	/*                Low    High   Low    High   Low    High   Low    High   */
+    433          	/*  RAM address	 0x0138 0x0139 0x013A 0x013B 0x013C 0x013D 0x013E 0x013F  */
+    434                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFFFF,0xFFCD,
+    435          				 	
+    436          	/* ====================================================================== */
+    437          	/*       RT1 BROADCAST TRANSMIT MODE CODE AND SUBADDRESS COMMANDS         */
+    438          	/* ====================================================================== */
+    439          	/*    Setting legal/illegal mode code commands for subaddresses           */
+    440          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+    441          	/*                                                                        */
+    442          	/*    _________________ MC15 - MC12 Tx (reserved)                         */
+    443          	/*   |                                                                    */
+    444          	/*   |   ________________ MC11 Tx (reserved)                              */
+    445          	/*   |  |  _______________ MC10 Tx (reserved)                             */
+    446          	/*   |  | |  ______________ MC9 Tx (reserved)                             */
+    447          	/*   |  | | |  _____________ MC8 Tx (reset remote terminal)               */
+    448          	/*   |  | | | |                                                           */
+    449          	/*   |  | | | |   ____________ MC7 Tx (override inhibit term flag bit)    */
+    450          	/*   |  | | | |  |  ___________ MC6 Tx (inhibit term flag bit)            */
+    451          	/*   |  | | | |  | |  __________ MC5 Tx (override transmitter shutdown)   */
+    452          	/*   |  | | | |  | | |  _________ MC4 Tx (transmitter shutdown)           */
+    453          	/*   |  | | | |  | | | |                                                  */
+    454          	/*   |  | | | |  | | | |   _______ MC3 Tx (init self test) NOT IN DEMO PGM*/
+    455          	/*   |  | | | |  | | | |  |  ______ MC2 Tx (transmit status) NO BROADCAST */
+    456          	/*   |  | | | |  | | | |  | |  _____ MC1 Tx (synchronize)                 */
+    457          	/*   |  | | | |  | | | |  | | |  ____ MC0 Tx (dyn bus control)NO BROADCAST*/
+    458          	/*   |  | | | |  | | | |  | | | |                      and NOT IMPLEMENTED*/
+    459          	/*   |  | | | |  | | | |  | | | |   __ MC31 - MC28 Tx (reserved)          */
+    460          	/*   |  | | | |  | | | |  | | | |  |  __ MC27 - MC24 Tx (reserved)        */
+    461          	/*   |  | | | |  | | | |  | | | |  | |  __ MC23-22 (res) & MC21-20 (undef)*/ 
+    462          	/*   |  | | | |  | | | |  | | | |  | | |                                  */
+    463          	/*   |  | | | |  | | | |  | | | |  | | |   ____ MC19 Tx NO BROADCAST      */
+    464          	/*   |  | | | |  | | | |  | | | |  | | |  |  ___ MC18 Tx NO BROADCAST     */
+    465          	/*   |  | | | |  | | | |  | | | |  | | |  | |  __ MC17 Tx (undefined)     */
+    466          	/*   |  | | | |  | | | |  | | | |  | | |  | | |  _ MC16 Tx NO BROADCAST   */
+    467          	/*   |  | | | |  | | | |  | | | |  | | |  | | | |                         */
+    468          	/*   |  1 1 1 0  0 0 0 0  1 1 0 1  | | |  1 1 1 1                         */
+    469          	/*   |  -------  -------  -------  | | |  -------                         */
+    470          	/*  0xF    E        0        D     F F F     F                            */
+    471          	/*                                                                        */
+    472                  /*   Broadcast                                                            */
+    473          	/* Tx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+    474          	/*                 mode codes   word counts   word counts   word counts   */
+    475          	/*                Low    High   Low    High   Low    High   Low    High   */
+    476          	/*  RAM address  0x0140 0x0141 0x0102 0x0143 0x0144 0x0145 0x0146 0x0147  */
+    477                                   0xFE0D,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    478          	/*   Broadcast                                                            */
+    479          	/* Tx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+    480          	/*                word counts   word counts   word counts   word counts   */
+    481          	/*                Low    High   Low    High   Low    High   Low    High   */
+    482          	/*  RAM address	 0x0148 0x0149 0x014A 0x014B 0x014C 0x014D 0x014E 0x014F  */
+    483                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    484          	/*   Broadcast                                                            */
+    485          	/* Tx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+    486          	/*                word counts   word counts   word counts   word counts   */
+    487          	/*                Low    High   Low    High   Low    High   Low    High   */
+    488          	/*  RAM address	 0x0150 0x0151 0x0152 0x0153 0x0154 0x0155 0x0156 0x0157  */
+    489                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    490          	/*   Broadcast                                                            */
+    491          	/* Tx Subaddress -----12-----  -----13-----  -----14-----  -----15-----   */
+    492          	/*                word counts   word counts   word counts   word counts   */
+    493          	/*                Low    High   Low    High   Low    High   Low    High   */
+    494          	/*  RAM address	 0x0158 0x0159 0x015A 0x015B 0x015C 0x015D 0x015E 0x015F  */
+    495                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    496          	/*   Broadcast                                                            */
+    497          	/* Tx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+    498          	/*                word counts   word counts   word counts   word counts   */
+    499          	/*                Low    High   Low    High   Low    High   Low    High   */
+    500          	/*  RAM address	 0x0160 0x0161 0x0162 0x0163 0x0164 0x0165 0x0166 0x0167  */
+    501                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    502          	/*   Broadcast                                                            */
+    503          	/* Tx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+    504          	/*                word counts   word counts   word counts   word counts   */
+    505          	/*                Low    High   Low    High   Low    High   Low    High   */
+    506          	/*  RAM address	 0x0168 0x0169 0x016A 0x016B 0x016C 0x016D 0x016E 0x016F  */
+    507                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    508          	/*   Broadcast                                                            */
+    509          	/* Tx Subaddress -----24-----  -----25-----  -----26-----  -----27-----   */
+    510          	/*                word counts   word counts   word counts   word counts   */
+    511          	/*                Low    High   Low    High   Low    High   Low    High   */
+    512          	/*  RAM address	 0x0170 0x0171 0x0172 0x0173 0x0174 0x0175 0x0176 0x0177  */
+    513                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+    514          	/*   Broadcast                                              SA31 = SA0    */
+    515          	/* Tx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+    516          	/*                word counts   word counts   word counts   mode codes    */
+    517          	/*                Low    High   Low    High   Low    High   Low    High   */
+    518          	/*  RAM address	 0x0178 0x0179 0x017A 0x017B 0x017C 0x017D 0x017E 0x017F  */
+    519                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFE0D,0xFFFF,	
+    520          
+    521          	/* ====================================================================== */
+    522          	/* RT1 "OWN ADDRESS" NON-BROADCAST RECEIVE MODE CODE & SUBADDRESS COMMANDS*/
+    523          	/* ====================================================================== */
+    524          	/*    Setting legal/illegal mode code commands for subaddresses           */
+    525          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+    526          	/*                                                                        */
+    527          	/*       _____________________ MC15 - MC12 Rx (undefined)                 */
+    528          	/*      |  ____________________ MC11 - MC8 Rx (undefined)                 */
+    529          	/*      | |  ___________________ MC7 - MC4 Rx (undefined)                 */
+    530          	/*      | | |  __________________ MC3 - MC0 Rx (undefined)                */
+    531          	/*      | | | |  _________________ MC31 - MC28 Rx (reserved)              */
+    532          	/*      | | | | |  ________________ MC27 - MC24 Rx (reserved)             */
+    533          	/*      | | | | | |                                                       */
+    534          	/*      | | | | | |       __________ MC23 Rx (reserved)                   */
+    535          	/*      | | | | | |      |  _________ MC22 Rx (reserved)                  */
+    536          	/*      | | | | | |      | |  ________ MC21 Rx (override sel tx shutdown) */ 
+    537          	/*      | | | | | |      | | |  _______ MC20 Rx (selected tx shutdown)    */
+    538          	/*      | | | | | |      | | | |                                          */
+    539          	/*      | | | | | |      | | | |    ____ MC19 Rx (undefined)              */
+    540          	/*      | | | | | |      | | | |   |  ___ MC18 Rx (undefined)             */
+    541          	/*      | | | | | |      | | | |   | |  __ MC17 Rx (sync with data)       */
+    542          	/*      | | | | | |      | | | |   | | |  _ MC16 Rx (undefined)           */
+    543          	/*      | | | | | |      | | | |   | | | |                                */
+    544          	/*      | | | | | |  bin 1 1 0 0   1 1 0 1                                */
+    545          	/*      | | | | | |      -------   -------                                */
+    546          	/*   0x F F F F F F         C         D                                   */
+    547          	/*                                                                        */
+    548          	/*  Own Address                                                           */
+    549          	/* Rx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+    550          	/*                 mode codes   word counts   word counts   word counts   */
+    551          	/*                Low    High   Low    High   Low    High   Low    High   */
+    552          	/*  RAM address  0x0180 0x0181 0x0182 0x0183 0x0184 0x0185 0x0186 0x0187  */
+    553                                   0xFFFF,0xFFCD,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    554          	/*  Own Address                                                           */
+    555          	/* Rx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+    556          	/*                word counts   word counts   word counts   word counts   */
+    557          	/*                Low    High   Low    High   Low    High   Low    High   */
+    558          	/*  RAM address	 0x0188 0x0189 0x018A 0x018B 0x018C 0x018D 0x018E 0x018F  */
+    559                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    560          	/*  Own Address                                                           */
+    561          	/* Rx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+    562          	/*                word counts   word counts   word counts   word counts   */
+    563          	/*                Low    High   Low    High   Low    High   Low    High   */
+    564          	/*  RAM address	 0x0190 0x0191 0x0192 0x0193 0x0194 0x0195 0x0196 0x0197  */
+    565                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    566          	/*  Own Address                                                           */
+    567          	/* Rx Subaddress -----12-----  -----13-----  -----14-----  -----15-----   */
+    568          	/*                word counts   word counts   word counts   word counts   */
+    569          	/*                Low    High   Low    High   Low    High   Low    High   */
+    570          	/*  RAM address	 0x0198 0x0199 0x019A 0x019B 0x019C 0x019D 0x019E 0x019F  */
+    571                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    572          	/*  Own Address                                                           */
+    573          	/* Rx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+    574          	/*                word counts   word counts   word counts   word counts   */
+    575          	/*                Low    High   Low    High   Low    High   Low    High   */
+    576          	/*  RAM address	 0x01A0 0x01A1 0x01A2 0x01A3 0x01A4 0x01A5 0x01A6 0x01A7  */
+    577                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    578          	/*  Own Address                                                           */
+    579          	/* Rx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+    580          	/*                word counts   word counts   word counts   word counts   */
+    581          	/*                Low    High   Low    High   Low    High   Low    High   */
+    582          	/*  RAM address	 0x01A8 0x01A9 0x01AA 0x01AB 0x01AC 0x01AD 0x01AE 0x01AF  */
+    583                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    584          	/*  Own Address                                                           */
+    585          	/* Rx Subaddress -----24-----  -----25-----  -----26-----  -----27-----   */
+    586          	/*                word counts   word counts   word counts   word counts   */
+    587          	/*                Low    High   Low    High   Low    High   Low    High   */
+    588          	/*  RAM address	 0x01B0 0x01B1 0x01B2 0x01B3 0x01B4 0x01B5 0x01B6 0x01B7  */
+    589                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    590          	/*  Own Address                                             SA31 = SA0    */
+    591          	/* Rx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+    592          	/*                word counts   word counts   word counts   mode codes    */
+    593          	/*                Low    High   Low    High   Low    High   Low    High   */
+    594          	/*  RAM address	 0x01B8 0x01B9 0x01BA 0x01BB 0x01BC 0x01BD 0x01BE 0x01BF  */
+    595                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFFFF,0xFFCD,
+    596          				 	
+    597          	/* ====================================================================== */
+    598          	/* RT1 "OWN ADDRESS" NON-BROADCAST TRANSMIT MODECODE & SUBADDRESS CMMANDS */
+    599          	/* ====================================================================== */
+    600          	/*    Setting legal/illegal mode code commands for subaddresses           */
+    601          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+    602          	/*                                                                        */
+    603          	/*    _________________ MC15 - MC12 Tx (reserved)                         */
+    604          	/*   |                                                                    */
+    605          	/*   |   ________________ MC11 Tx (reserved)                              */
+    606          	/*   |  |  _______________ MC10 Tx (reserved)                             */
+    607          	/*   |  | |  ______________ MC9 Tx (reserved)                             */
+    608          	/*   |  | | |  _____________ MC8 Tx (reset remote terminal)               */
+    609          	/*   |  | | | |                                                           */
+    610          	/*   |  | | | |   ____________ MC7 Tx (override inhibit term flag bit)    */
+    611          	/*   |  | | | |  |  ___________ MC6 Tx (inhibit term flag bit)            */
+    612          	/*   |  | | | |  | |  __________ MC5 Tx (override transmitter shutdown)   */
+    613          	/*   |  | | | |  | | |  _________ MC4 Tx (transmitter shutdown)           */
+    614          	/*   |  | | | |  | | | |                                                  */
+    615          	/*   |  | | | |  | | | |   _______ MC3 Tx (init self test) NOT IN DEMO PGM*/
+    616          	/*   |  | | | |  | | | |  |  ______ MC2 Tx (transmit status)              */
+    617          	/*   |  | | | |  | | | |  | |  _____ MC1 Tx (synchronize)                 */
+    618          	/*   |  | | | |  | | | |  | | |  ____ MC0 Tx (dyn bus control) CANNOT DO! */
+    619          	/*   |  | | | |  | | | |  | | | |                                         */
+    620          	/*   |  | | | |  | | | |  | | | |   __ MC31 - MC28 Tx (reserved)          */
+    621          	/*   |  | | | |  | | | |  | | | |  |  __ MC27 - MC24 Tx (reserved)        */
+    622          	/*   |  | | | |  | | | |  | | | |  | |  __ MC23-22 (res) & MC21-20 (undef)*/ 
+    623          	/*   |  | | | |  | | | |  | | | |  | | |                                  */
+    624          	/*   |  | | | |  | | | |  | | | |  | | |   ____ MC19 Tx (tx BIT word)     */
+    625          	/*   |  | | | |  | | | |  | | | |  | | |  |  ___ MC18 Tx (tx last command)*/
+    626          	/*   |  | | | |  | | | |  | | | |  | | |  | |  __ MC17 Tx (undefined)     */
+    627          	/*   |  | | | |  | | | |  | | | |  | | |  | | |  _ MC16 (tx vector word)  */
+    628          	/*   |  | | | |  | | | |  | | | |  | | |  | | | |                         */
+    629          	/*   |  1 1 1 0  0 0 0 0  1 0 0 1  | | |  0 0 1 0                         */
+    630          	/*   |  -------  -------  -------  | | |  -------                         */
+    631          	/*  0xF    E        0        9     F F F     2                            */
+    632          	/*                                                                        */
+    633          	/*  Own Address                                                           */
+    634          	/* Tx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+    635          	/*                 mode codes   word counts   word counts   word counts   */
+    636          	/*                Low    High   Low    High   Low    High   Low    High   */
+    637          	/*  RAM address  0x01C0 0x01C1 0x0102 0x01C3 0x01C4 0x01C5 0x01C6 0x01C7  */
+    638                                   0xFE09,0xFFF2,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    639          	/*  Own Address                                                           */
+    640          	/* Tx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+    641          	/*                word counts   word counts   word counts   word counts   */
+    642          	/*                Low    High   Low    High   Low    High   Low    High   */
+    643          	/*  RAM address	 0x01C8 0x01C9 0x01CA 0x01CB 0x01CC 0x01CD 0x01CE 0x01CF  */
+    644                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    645          	/*  Own Address                                                           */
+    646          	/* Tx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+    647          	/*                word counts   word counts   word counts   word counts   */
+    648          	/*                Low    High   Low    High   Low    High   Low    High   */
+    649          	/*  RAM address	 0x01D0 0x01D1 0x01D2 0x01D3 0x01D4 0x01D5 0x01D6 0x01D7  */
+    650                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    651          	/*  Own Address                                                           */
+    652          	/* Tx Subaddress  -----12-----  -----13-----  -----14-----  -----15-----  */
+    653          	/*                word counts   word counts   word counts   word counts   */
+    654          	/*                Low    High   Low    High   Low    High   Low    High   */
+    655          	/*  RAM address	 0x01D8 0x01D9 0x01DA 0x01DB 0x01DC 0x01DD 0x01DE 0x01DF  */
+    656                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    657          	/*  Own Address                                                           */
+    658          	/* Tx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+    659          	/*                word counts   word counts   word counts   word counts   */
+    660          	/*                Low    High   Low    High   Low    High   Low    High   */
+    661          	/*  RAM address	 0x01E0 0x01E1 0x01E2 0x01E3 0x01E4 0x01E5 0x01E6 0x01E7  */
+    662                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    663          	/*  Own Address                                                           */
+    664          	/* Tx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+    665          	/*                word counts   word counts   word counts   word counts   */
+    666          	/*                Low    High   Low    High   Low    High   Low    High   */
+    667          	/*  RAM address	 0x01E8 0x01E9 0x01EA 0x01EB 0x01EC 0x01ED 0x01EE 0x01EF  */
+    668                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    669          	/*  Own Address                                                           */
+    670          	/* Tx Subaddress  -----24-----  -----25-----  -----26-----  -----27-----  */
+    671          	/*                word counts   word counts   word counts   word counts   */
+    672          	/*                Low    High   Low    High   Low    High   Low    High   */
+    673          	/*  RAM address	 0x01F0 0x01F1 0x01F2 0x01F3 0x01F4 0x01F5 0x01F6 0x01F7  */
+    674                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+    675          	/*  Own Address                                             SA31 = SA0    */
+    676          	/* Tx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+    677          	/*                word counts   word counts   word counts   mode codes    */
+    678          	/*                Low    High   Low    High   Low    High   Low    High   */
+    679          	/*  RAM address	 0x01F8 0x01F9 0x01FA 0x01FB 0x01FC 0x01FD 0x01FE 0x01FF  */
+    680                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFE09,0xFFF2 };	
+    681          
+    682          	//  End of illegal_table[256] declaration
+    683          
+    684          
+    685          
+    686          	// ======================================================================================
+    687          
+    688            	// These  parameters are defined in 613x_initialization.h
+    689          
+    690          	i = RTTO_15U|NOTICE2|TRXDB|AUTO_SHUTDN|AUTO_SYNC|MC16OPT|AUTO_MC8_RESET;
+    691          
+    692          	#if (!SUPPORT_BROADCAST)
+    693            	i |= BCASTINV;
+    694            	#endif
+    695          
+    696          	#if (!UNDEF_MCODES_VALID)
+    697            	i |= UMCINV;
+    698            	#endif
+    699          
+    700          	#if (USE_SMCP)
+    701            	i |= SMCP;
+    702          	#endif
+    703          
+    704          	// HI-6130 uses host bus interface, HI-6131 uses host SPI interface. From 
+    705          	// here, we use bus interface to initialize HI-6130 registers and RAM tables,
+    706          	// or we use SPI to initialize HI-6131 registers and RAM tables
+    707          
+    708          	// ======================================================================================
+    709          
+    710          	#if (HOST_BUS_INTERFACE) 
+    711          
+    712          	    pH6130->RT1_CONFIG_REG = i;
+    713          
+    714          	    // do not overwrite previously initialized common features
+    715          	    j = pH6130->MASTER_CONFIG_REG & ~(RT1STEX);
+    716          
+    717          	    // if "bus shutdown" mode codes 4 & 20 disable Tx only but Rx still operates 
+    718                      // normally (NOT RECOMMENDED) then OR in BSDTXO, affecting Remote Terminals:
+    719          	    // pH6130->MASTER_CONFIG_REG = j|RT1ENA|BSDTXO; 
+    720                      // otherwise use this...
+    721          	    pH6130->MASTER_CONFIG_REG = j|RT1ENA;
+    722          
+    723          	    j = pH6130->HDW_INT_ENABLE_REG & ~(RT1TTM);
+    724          	    // enable RT1 address parity fail interrupt, but not time tag match interrupt
+    725          	    pH6130->HDW_INT_ENABLE_REG = j|RT1APF;
+    726          		
+    727          	    j = pH6130->HDW_INT_OUTPUT_ENABLE_REG & ~(RT1TTM);
+    728          	    // enable pin output for selected interrupts 
+    729          	    pH6130->HDW_INT_OUTPUT_ENABLE_REG = j|RT1APF;
+    730          		
+    731          	    // for demo, mode code 8 (reset RT) is handled differently for RT1 and RT2.
+    732          	    // When MC8 occurs for RT1, the RT1_MC8 interrupt is decoded by this program's
+    733          	    // interrupt handler, which asserts RT1RESET in reg 0x0002. When MC8 occurs for 
+    734          	    // RT2, that terminal is configured for AUTO_MC8_RESET to automatically assert 
+    735          	    // the RT2RESET in reg 0x0002 without host intervention.  
+    736          	    j = pH6130->RT_INT_ENABLE_REG & 0xFC00;
+    737          	    // enable RT1 interrupts, except the Message Error interrupt 
+    738          	    pH6130->RT_INT_ENABLE_REG = j|RT1_IXEQZ|RT1_IWA|RT1_IBR|RT1_MC8;
+    739          
+    740          	    j = pH6130->RT_INT_OUTPUT_ENABLE_REG & 0xFC00;
+    741          	    // enable pin output for selected RT1 interrupts
+    742          	    pH6130->RT_INT_OUTPUT_ENABLE_REG = j|RT1_IXEQZ|RT1_IWA|RT1_IBR|RT1_MC8;
+    743          		
+    744          	    pH6130->RT1_DESC_TBL_BASE_ADDR_REG = 0x0400; 
+    745          	    pH6130->RT1_1553_STATUS_BITS_REG = 0x0000;	 
+    746          	    pH6130->RT1_TTAG_UTILITY_REG = 0x0000;	 
+    747          	    pH6130->RT1_BUSA_SELECT_REG = 0xAAAA;		 
+    748          	    pH6130->RT1_BUSB_SELECT_REG = 0xBBBB;		 
+    749          	    pH6130->RT1_BIT_WORD_REG = 0x0000;			 
+    750          	    pH6130->RT1_ALT_BIT_WORD_REG = 0xABCD;			 
+    751          
+    752          
+    753          	    // load the RT1 Descriptor Table
+    754          	    // Starting at the table base address written above, copy the RT1 Descriptor 
+    755          	    // Table array (declared above) into HI-6130 RAM.
+    756          		
+    757          	    j = pH6130->RT1_DESC_TBL_BASE_ADDR_REG << 1;	// left-shift offset
+    758          
+    759          	    // If using simplified mode command processing (SMCP), the program is only 
+    760          	    // required to initialize Descriptor Word 1 (Control Words) for each mode command 
+    761          	    // in the 2nd half of the descriptor table. It is not necessary to initialize 
+    762          	    // Descriptor Words 2,3,4 in the 2nd (mode code) half of the Descriptor Table.
+    763          	    // THE FIRST HALF OF THE TABLE FOR SUBADDRESS COMMANDS MUST BE FULLY INITIALIZED. 
+    764          
+    765          	    #if (USE_SMCP)
+    766           
+    767          		// in subaddress command half of table, every word is written
+    768          		for ( i = 0, k = (0x60000000 + j); i < 256; i++) {
+    769          		    *((volatile unsigned short *)(k)) = descr_table_RT1[i];
+    770          		    k += 2;
+    771          		}
+    772          		// in mode command half of table, just write Control Words, every 4th word
+    773          		for ( ; i < 512; i++) {
+    774          		    //  just write 4 host-maintained Control Word bits
+    775          		    *((volatile unsigned short *)(k)) = descr_table_RT1[i] & 0xF000; // desc word 1
+    776          		    k += 2;
+    777          		    *((volatile unsigned short *)(k)) = 0; // desc word 2 = 0
+    778          		    k += 2;
+    779          		    *((volatile unsigned short *)(k)) = 0; // desc word 3 = 0
+    780          		    k += 2;
+    781          		    *((volatile unsigned short *)(k)) = 0; // desc word 4 = 0
+    782          		    k += 2;
+    783          		    i += 3;
+    784                          }		
+    785          
+    786          	    #else // not using SMCP
+    787          
+    788          		// every word in table is written 
+    789          		for ( i = 0, k = (0x60000000 + j); i < 512; i++) {
+    790          		    *((volatile unsigned short *)(k)) = descr_table_RT1[i];
+    791          		    k += 2;
+    792          		}
+    793          
+    794          	    #endif
+    795          
+    796          	    #if (ILLEGAL_CMD_DETECT)
+    797          		// copy the Illegalization Table array (declared above) into HI-613x.
+    798          		// load Illegalization Table for RT1
+    799                          
+    800          		// write address k starts at table base address 
+    801                          k = 0x60000000 + (RT1_ILLEGAL_TABLE_BASE_ADDR << 1);
+    802                          
+    803                          for ( i = 0; i < 256; i++) {	
+    804                              *((volatile unsigned short *)(k)) = illegal_table[i];
+    805          		    k = k + 2;
+    806          		}
+    807          
+    808          	    #endif // (ILLEGAL_CMD_DETECT)
+    809          
+    810          	// ======================================================================================
+    811          
+    812          	#else // (!HOST_BUS_INTERFACE) = HOST_SPI_INTERFACE
+    813          
+    814          	    // Here, we use SPI interface to initialize HI-6131 registers and RAM 
+    815          	    // The SPI can directly read registers 0-15 decimal, without using the mem address pointer.
+    816          	    // The SPI can directly write registers 0-63 decimal, without using the mem address pointer.
+    817          	    // For higher addresses, SPI read/write accesses must use a memory address pointer.
+    818          
+    819          	    Write_6131LowReg(RT1_CONFIG_REG,i,0);
+    820          
+    821          	    // do not overwrite previously initialized common features 
+    822          	    j = Read_6131LowReg(MASTER_CONFIG_REG,0) & ~(RT1STEX);
+    823          	    
+    824          	    // if "bus shutdown" mode codes 4 & 20 disable Tx only but Rx still operates 
+    825                      // normally (NOT RECOMMENDED) then OR in BSDTXO, affecting Remote Terminals:
+    826          	    // Write_6131LowReg(MASTER_CONFIG_REG,(j|RT1ENA|BSDTXO),0);
+    827                      // otherwise use this...
+    828          	    Write_6131LowReg(MASTER_CONFIG_REG,(j|RT1ENA),0);
+    829          
+    830          	    j = Read_6131LowReg(HDW_INT_ENABLE_REG,0) & ~(RT1TTM);
+    831          	    // enable RT1 address parity fail interrupt, but not time tag match interrupt 
+    832          	    Write_6131LowReg(HDW_INT_ENABLE_REG,(j|RT1APF),0);
+    833          		
+    834          	    j = Read_6131LowReg(HDW_INT_OUTPUT_ENABLE_REG,0) & ~(RT1TTM);
+    835          	    // enable pin putput for selected interrupts  
+    836          	    Write_6131LowReg(HDW_INT_OUTPUT_ENABLE_REG,(j|RT1APF),0);
+    837          		
+    838          	    j = Read_6131LowReg(RT_INT_ENABLE_REG,0) & 0xFE00;
+    839          	    // enable RT1 interrupts, but not the Message Error interrupt 
+    840          	    Write_6131LowReg(RT_INT_ENABLE_REG,(j|RT1_IXEQZ|RT1_IWA|RT1_IBR|RT1_MC8),0);
+    841          
+    842          	    // no fast access read for the rest of these registers, but write is okay... 
+    843          	    enaMAP(1);	
+    844          	    Write_6131LowReg(MAP_1, RT_INT_OUTPUT_ENABLE_REG,0);  
+    845          	    j = Read_6131_1word(0) & 0xFE00;
+    846          	    // enable pin output for selected RT1 interrupts 
+    847          	    Write_6131LowReg(RT_INT_OUTPUT_ENABLE_REG,(j|RT1_IXEQZ|RT1_IWA|RT1_IBR|RT1_MC8),0);
+    848          	    Write_6131LowReg(RT1_1553_STATUS_BITS_REG,0x0000,0);	 
+    849          	    Write_6131LowReg(RT1_TTAG_UTILITY_REG,0x0000,0);	 
+    850          	    Write_6131LowReg(RT1_BUSA_SELECT_REG,0xAAAA,0);		 
+    851          	    Write_6131LowReg(RT1_BUSB_SELECT_REG,0xBBBB,0);		 
+    852          	    Write_6131LowReg(RT1_BIT_WORD_REG,0x0000,0);			 
+    853          	    Write_6131LowReg(RT1_ALT_BIT_WORD_REG,0xABCD,0);			 
+    854          
+    855          	    // load the RT1 Descriptor Table
+    856          	    // SPI read/writes to RAM use indirect addressing, with the access address 
+    857          	    // indicated by a memory address pointer. The HI-6131 provides 4 separate 
+    858          	    // memory address pointers (MAPs), and the active MAP is enabled by bits 
+    859          	    // 11-10 in the Master Status Register 0x0000. Table initialization below 
+    860          	    // uses MAP auto-increment. Starting at the table base address written above, 
+    861          	    // copy the RT1 Descriptor Table array (declared above) into HI-6131 RAM.   
+    862                      enaMAP(1);
+    863          	    // write address of the RT1 d-table base addr reg to MAP so we can read it		
+    864          	    Write_6131LowReg(MAP_1, RT1_DESC_TBL_BASE_ADDR_REG,0); 
+    865          	    // read base address then write base address to MAP  
+    866          	    a = Read_6131_1word(0);
+    867          	    Write_6131LowReg(MAP_1, a, 0);
+    868          
+    869          	    // If using simplified mode command processing (SMCP), the program is only 
+    870          	    // required to initialize Descriptor Word 1 (Control Words) for each mode command 
+    871          	    // in the 2nd half of the descriptor table. It is not necessary to initialize 
+    872          	    // Descriptor Words 2,3,4 in the 2nd (mode code) half of the Descriptor Table.
+    873          	    // THE FIRST HALF OF THE TABLE FOR SUBADDRESS COMMANDS MUST BE FULLY INITIALIZED 
+    874          
+    875          	    #if (USE_SMCP)
+    876          
+    877          		// in subaddress command half of table, every word is written 
+    878                          
+    879          		for ( i=0, j=0; i < 256; i++,j++) {
+    880                                // MAP does not auto-increment if next address is a
+    881                                // RT descriptor table Control Word, every 4th word.
+    882                                // j counts modulo 4
+    883                                if(j==4) j=0;
+    884                                // reload MAP every 4th word
+    885                                if(j==0) Write_6131LowReg(MAP_1, a+i, 0);
+    886                                k = descr_table_RT1[i];
+    887          		      Write_6131_1word(k, 0);
+    888          		}		                                
+    889                                          
+    890                          // in mode command half of table, just write Control Words, every 4th word
+    891          		for ( i=256,j=0; i<512; i++,j++) {
+    892                                // MAP does not auto-increment if next address is a
+    893                                // RT descriptor table Control Word, every 4th word.
+    894                                // j counts modulo 4
+    895                                if(j==4) j=0;
+    896                                if(j==0) {
+    897                                    // reload MAP every 4th word
+    898                                    Write_6131LowReg(MAP_1, a+i, 0);
+    899                                    // write a Control Word, just the host-maintained Control Word bits
+    900                                    k = descr_table_RT1[i] & 0xF000;
+    901                                    Write_6131_1word(k, 0);
+    902                                }
+    903                                else Write_6131_1word(0, 0);
+    904          		}		                                
+    905          
+    906          
+    907          	    #else // not using SMCP
+    908          
+    909          		// every word in table is written 
+    910                          
+    911          		for ( i=0, j=0; i < 512; i++,j++) {
+    912                                // MAP does not auto-increment if next address is a
+    913                                // RT descriptor table Control Word, every 4th word.
+    914                                // j counts modulo 4
+    915                                if(j==4) j=0;
+    916                                // reload MAP every 4th word
+    917                                if(j==0) Write_6131LowReg(MAP_1, a+i, 0);
+    918                                k = descr_table_RT1[i];
+    919          		      Write_6131_1word(k, 0);
+    920          		}		
+    921          
+    922          	    #endif
+    923          
+    924          	    //-----------------------------------------------
+    925          
+    926          	    // If using Illegal Command Detection, now copy the illegalization 
+    927          	    // Table array (declared above) into the HI-6131 RAM for RT1
+    928          
+    929          	    #if (ILLEGAL_CMD_DETECT)
+    930          
+    931          		//-----------------------------------------------
+    932          		// RT1 Illegalization Table 
+    933          
+    934          		// select Memory Address Pointer 
+    935          		enaMAP(1);
+    936          
+    937          		// RT1 table starts at 0x0200 
+    938          		Write_6131LowReg(MAP_1,0x0200,0);	
+    939          
+    940          		for ( i = 0; i < 256; i++) {	
+    941          			Write_6131_1word(illegal_table[i],0);
+    942          		}
+    943          
+    944          	    #endif // (ILLEGAL_CMD_DETECT)
+    945          
+    946          	    #endif // end: HOST_SPI_INTERFACE
+    947          
+    948          }	// end: initialize_613x_RT1()
+    949          
+    950          
+    951          //--------------------------------------------------------------------------------------
+    952          //	This function loads dummy data into the limited set of RT1 transmit buffers 
+    953          //	assigned above during initialization. This is only used for testing.
+    954          //--------------------------------------------------------------------------------------
+    955          void write_dummy_tx_data_RT1(void) {
+    956          	
+    957          	unsigned short i, j;
+    958          	unsigned short a_data[32] = {0x0101,0x0202,0x0303,0x0404,0x0505,0x0606,0x0707,0x0808,
+    959          			             0x0909,0x1010,0x1111,0x1212,0x1313,0x1414,0x1515,0x1616,
+    960          				     0x1717,0x1818,0x1919,0x2020,0x2121,0x2222,0x2323,0x2424,
+    961          				     0x2525,0x2626,0x2727,0x2828,0x2929,0x3030,0x3131,0x3232};
+    962          
+    963          	unsigned short b_data[32] = {0xF001,0xF002,0xF003,0xF004,0xF005,0xF006,0xF007,0xF008,
+    964          				     0xF009,0xF00A,0xF00B,0xF00C,0xF00D,0xF00E,0xF00F,0xF010,
+    965          				     0xF011,0xF012,0xF013,0xF014,0xF015,0xF016,0xF017,0xF018,
+    966          				     0xF019,0xF01A,0xF01B,0xF01C,0xF01D,0xF01E,0xF01F,0xF020};
+    967          
+    968          	#if (HOST_BUS_INTERFACE) 
+    969          
+    970                  	unsigned int k;
+    971          
+    972          		// FOR TESTING PING-PONG, A PAIR OF DPA/DPB Tx BUFFERS: EACH BUFFER RESERVES
+    973                          // SPACE FOR MSG INFO WORD AND TIME TAG WORD, PLUS 32 DATA WORDS 
+    974          	
+    975          		// first a 32-word buffer starting at offset = 0x0866 
+    976          		k = (0x60000000 + (0x0866 << 1));
+    977          		// skip 2 addresses for MsgInfo Word and TimeTag word
+    978          		k = k + 4;
+    979          		// write the 32 data words...
+    980          		for ( i = 0; i < 32; i++) {	
+    981          			*((volatile unsigned short *)(k)) = a_data[i];
+    982          			k = k + 2;
+    983          		}
+    984          		
+    985          		// next a 32-word buffer starting at offset = 0x0888 
+    986          		k = (0x60000000 + (0x0888 << 1));
+    987          		// skip 2 addresses for MsgInfo Word and TimeTag word
+    988          		k = k + 4;
+    989          		// write the 32 data words...
+    990          		for ( i = 0; i < 32; i++) {	
+    991          			*((volatile unsigned short *)(k)) = b_data[i];
+    992          			k = k + 2;
+    993          		}
+    994          
+    995          		// ================================================================================= 
+    996          
+    997          		// FOR TESTING INDEXED MODE, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+    998          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE 
+    999          
+   1000          		// total 1088-word buffer starting at offset = 0x0D32 
+   1001          		// this is 32 contiguous segments of 34 words each, 
+   1002          		k = (0x60000000 + (0x0D32 << 1));
+   1003          		for ( j = 0; j < 32; j++) {
+   1004          			// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
+   1005          			k = k + 4; 
+   1006          			// write the 32 data words...					
+   1007          			for ( i = 0; i < 32; i++) {	
+   1008          				*((volatile unsigned short *)(k)) = b_data[i];
+   1009          				k = k + 2;
+   1010          			}
+   1011          		}
+   1012          
+   1013          		// ================================================================================= 
+   1014          
+   1015          		// FOR TESTING CIRCULAR MODE 1, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   1016          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE  
+   1017          
+   1018          		// total 1088-word buffer starting at offset = 0x15D6 
+   1019          		// this is 32 contiguous segments of 34 words each, 
+   1020          		k = (0x60000000 + (0x15D6 << 1));
+   1021          		for ( j = 0; j < 32; j++) {
+   1022          			// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
+   1023          			k = k + 4; 
+   1024          			// write the 32 data words...					
+   1025          			for ( i = 0; i < 32; i++) {	
+   1026          				*((volatile unsigned short *)(k)) = a_data[i];
+   1027          				k = k + 2;
+   1028          			}
+   1029          		}
+   1030          		// follow with a 32-word safety pad in case of circ-1 buffer overrun
+   1031          		for ( i = 0; i < 32; i++) {	
+   1032          			*((volatile unsigned short *)(k)) = 0xBADD;
+   1033          			k = k + 2;
+   1034          		}
+   1035          		
+   1036          		// ================================================================================= 
+   1037          	
+   1038          		// FOR TESTING CIRCULAR MODE 2, A CONTIGUOUS 32 X 32-WORD DATA BLOCK 
+   1039          	
+   1040          		// total 8192-word buffer with offset range from 0x1E00 to 0x3DFF 
+   1041          		k = (0x60000000 + (0x1E00 << 1));
+   1042          		// write the 8192 data words using incrementing data pattern...
+   1043          		for ( i = 0, j = 0; i < 8192; i++, j++) {	
+   1044          			*((volatile unsigned short *)(k)) = j;
+   1045          			k = k + 2;
+   1046          		}
+   1047          	
+   1048          		// ================================================================================= 
+   1049          
+   1050          		// for unimplemented transmit SA's. a 32-word buffer starting at offset = 0x1A58 
+   1051          		k = (0x60000000 + (0x1A58 << 1));
+   1052          		// skip 2 addresses for MsgInfo Word and TimeTag word
+   1053          		k = k + 4;
+   1054          		// write the 32 data words...
+   1055          		for ( i = 0; i < 32; i++) {	
+   1056          			*((volatile unsigned short *)(k)) = 0xDEAD;
+   1057          			k = k + 2;
+   1058          		}
+   1059          	
+   1060          	#else // using HOST SPI INTERFACE
+   1061          
+   1062          
+   1063          		// FOR TESTING PING-PONG, A PAIR OF DPA/DPB Tx BUFFERS: EACH BUFFER RESERVES
+   1064                          // SPACE FOR MSG INFO WORD AND TIME TAG WORD, PLUS 32 DATA WORDS 
+   1065          	
+   1066          		// first a 32-word buffer starting at offset = 0x0866.
+   1067                          enaMAP(1);
+   1068          		// Init the memory address pointer, skip over 2 addresses 
+   1069          		// reserved for the MsgInfo Word and the TimeTag word 
+   1070          		Write_6131LowReg(MAP_1,(0x0866 + 2),0);
+   1071          
+   1072          		// write the 32 data words...
+   1073          		for ( i = 0; i < 32; i++) {	
+   1074          			// memory address pointer increments after write
+   1075          			Write_6131_1word(a_data[i],0);
+   1076          		}
+   1077          		
+   1078          
+   1079          		// next a 32-word buffer starting at offset = 0x0888 
+   1080          
+   1081          		// Init the memory address pointer, skip over 2 addresses 
+   1082          		// reserved for the MsgInfo Word and the TimeTag word 
+   1083          		Write_6131LowReg(MAP_1,(0x0888 + 2),0);
+   1084          
+   1085          		// write the 32 data words...
+   1086          		for ( i = 0; i < 32; i++) {	
+   1087          			// memory address pointer increments after write
+   1088          			Write_6131_1word(b_data[i],0);
+   1089          		}
+   1090          		
+   1091          
+   1092          		// ================================================================================= 
+   1093          
+   1094          		// FOR TESTING INDEXED MODE, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   1095          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE 
+   1096          
+   1097          		// total 1088-word buffer starting at offset = 0x0D32 
+   1098          		// this is 32 contiguous segments of 34 words each, 
+   1099          
+   1100          		// Init the memory address pointer to buffer start address 
+   1101          		Write_6131LowReg(MAP_1, 0x0D32, 0);
+   1102          
+   1103          		for ( j = 0; j < 32; j++) {
+   1104          
+   1105          			// skip 2 addresses at top of each 32-word segment, 
+   1106          			// reserved for each message's MsgInfo and TimeTag words 
+   1107          			SPIopcode(MAPadd2); 
+   1108          
+   1109          			// write 32 data words for each message...					
+   1110          			for ( i = 0; i < 32; i++) {	
+   1111          				// memory address pointer increments after write
+   1112          				Write_6131_1word(b_data[i],0);
+   1113          			}
+   1114          		}
+   1115          
+   1116          		// ================================================================================= 
+   1117          
+   1118          		// FOR TESTING CIRCULAR MODE 1, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   1119          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE  
+   1120          
+   1121          		// total 1088-word buffer starting at offset = 0x15D6 
+   1122          		// this is 32 contiguous segments of 34 words each, 
+   1123          
+   1124          		// Init the memory address pointer to buffer start address 
+   1125          		Write_6131LowReg(MAP_1,0x15D6,0);
+   1126          
+   1127          		for ( j = 0; j < 32; j++) {
+   1128          
+   1129          			// skip 2 addresses at top of each 32-word segment, 
+   1130          			// reserved for each message's MsgInfo and TimeTag words 
+   1131          			SPIopcode(MAPadd2); 
+   1132          
+   1133          			// write 32 data words for each message...					
+   1134          			for ( i = 0; i < 32; i++) {	
+   1135          				// memory address pointer increments after write
+   1136          				Write_6131_1word(a_data[i],0);
+   1137          			}
+   1138          		}
+   1139          
+   1140          		// reserve a 32-word safety pad in case of circ-1 buffer overrun
+   1141          		for ( i = 0; i < 32; i++) {	
+   1142          			// memory address pointer increments after write
+   1143          			Write_6131_1word(0xBADD,0);
+   1144          		}
+   1145          		
+   1146          
+   1147          		// ================================================================================= 
+   1148          	
+   1149          		// FOR TESTING CIRCULAR MODE 2, A CONTIGUOUS 32 X 32-WORD DATA BLOCK 
+   1150          	
+   1151          		// total 8192-word buffer with offset range from 0x1E00 to 0x3DFF.
+   1152          		// Init the memory address pointer to buffer start address  
+   1153          		Write_6131LowReg(MAP_1,0x1E00,0);
+   1154          
+   1155          		// write the 8192 data words using incrementing data pattern...
+   1156          		for ( i = 0, j = 0; i < 8192; i++, j++) {
+   1157          			// memory address pointer increments after write
+   1158          			Write_6131_1word(j,0);
+   1159          		}
+   1160          	
+   1161          		// ================================================================================= 
+   1162          
+   1163          		// for unimplemented transmit SA's. a 32-word buffer starting at offset 
+   1164          		// of 0x1A58. Init the memory address pointer, skipping over 2 addresses 
+   1165          		// reserved for the MsgInfo Word and the TimeTag word 
+   1166          		Write_6131LowReg(MAP_1,(0x1A58 + 2),0);
+   1167          
+   1168          		// write the 32 data words...
+   1169          		for ( i = 0; i < 32; i++) {	
+   1170          			// memory address pointer increments after write
+   1171          			Write_6131_1word(0xDEAD,0);
+   1172          		}
+   1173          
+   1174          	#endif // end: using HOST SPI INTERFACE
+   1175          
+   1176          	return;
+   1177          
+   1178          }	// end write_dummy_tx_data_RT1()
+   1179          
+   1180          
+   1181          
+   1182          #endif	  //------------ END RT1 ENABLED ------------
+   1183          
+   1184          
+   1185          
+   1186          //==========================================================================
+   1187          
+   1188          
+   1189          
+   1190          #if (RT2_ena)    //------------ RT2 ENABLED ------------
+   1191          
+   1192          
+   1193          //   	This function initializes the Holt HI-613x RT2 by writing 
+   1194          //	configuration registers in the device. Only RT2 mode option 
+   1195          //	bits are affected. The program has already called function 
+   1196          // 	initialize_613x_shared() to initialize the common parameters
+   1197          //	shared by BC, RT1, RT2 and/or Bus Monitor
+   1198          //
+   1199          void initialize_613x_RT2(void) {
+   1200          	        
+   1201                  #if (HOST_BUS_INTERFACE)    
+   1202          	unsigned int k;
+   1203                  #else // HOST_SPI_INTERFACE
+   1204          	unsigned short a,k;
+   1205                  #endif
+   1206          
+   1207          	unsigned short i,j;
+   1208                  
+   1209          	unsigned short descr_table_RT2[512] = {
+   1210          	/* this array is used to initialize the Descriptor Table. For subaddress-
+   1211          	receive and subaddress-transmit commands, the array sets the desired data 
+   1212          	buffer style and initializes data pointer values. 
+   1213          	
+   1214          	For mode code commands, use of the "Simplified Mode Command Processing" 
+   1215          	option is assumed, so the only potential initialization in the mode 
+   1216          	command half of the table is loading mode data word values for transmit 
+   1217          	mode commands. 
+   1218          	
+   1219          	Only 3 defined mode commands actually transmit a mode data word; MC16, 
+   1220          	M18 and MC19 decimal. For mode commands MC18 and MC19, the device 
+   1221          	automatically transmits the correct data word value, NOT fetched from 
+   1222          	this table. The transmitted value is copied into the table after transmit.
+   1223          	For MC16, the transmitted value comes from this table.
+   1224          	
+   1225          	Only 3 defined mode commands actually receive a mode data word: MC17, 
+   1226          	MC20 and MC21 decimal. If the terminal is not using "illegal command 
+   1227          	detection" it will respond "in form" to all valid undefined, reserved or 
+   1228          	unimplemented mode commands. By providing storage for all possible mode
+   1229          	commands, the Descriptor Table provides predictable command response to
+   1230          	all valid mode code commands, as well as a repository for received data. */
+   1231          
+   1232          	/* ===================================================================== */
+   1233          	/*    R T 2   R E C E I V E    S U B A D D R E S S   C O M M A N D S     */
+   1234          	/* ===================================================================== */
+   1235          	/*  Note:Subaddresses    ControlWord  DescrWord2  DescrWord3  DescrWord4 */
+   1236          	/*  0,31 are not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD,
+   1237          	/*  Rx Subaddress 01  */   0x0004,     0x0800,     0x0822,     0x0844, // ping-pong
+   1238          	/*  Rx Subaddress 02  */   0x8000,     0x08D0,     0x0020,     0x0D10, // idx-32 ixeqz
+   1239          	/*  Rx Subaddress 03  */   0x8001,     0x1176,     0x1176,     0x15B6, // cir1 ixeqz (32 MSG BUFFER)
+   1240          	/*  Rx Subaddress 04  */   0x0000,     0x1A36,     0x0000,     0x1A36, // ----
+   1241          	/*  Rx Subaddress 05  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |   
+   1242          	/*  Rx Subaddress 06  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1243          	/*  Rx Subaddress 07  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1244          	/*  Rx Subaddress 08  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1245          	/*  Rx Subaddress 09  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1246          	/*  Rx Subaddress 10  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1247          	/*  Rx Subaddress 11  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1248          	/*  Rx Subaddress 12  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1249          	/*  Rx Subaddress 13  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1250          	/*  Rx Subaddress 14  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1251          	/*  Rx Subaddress 15  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1252          	/*  Rx Subaddress 16  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1253          	/*  Rx Subaddress 17  */   0x0000,     0x1A36,     0x0000,     0x1A36, // shared index sgl-msg
+   1254          	/*  Rx Subaddress 18  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1255          	/*  Rx Subaddress 19  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1256          	/*  Rx Subaddress 20  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1257          	/*  Rx Subaddress 21  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1258          	/*  Rx Subaddress 22  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1259          	/*  Rx Subaddress 23  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1260          	/*  Rx Subaddress 24  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1261          	/*  Rx Subaddress 25  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1262          	/*  Rx Subaddress 26  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1263          	/*  Rx Subaddress 27  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1264          	/*  Rx Subaddress 28  */   0x0000,     0x1A36,     0x0000,     0x1A36, //     |
+   1265          	/*  Rx Subaddress 29  */   0x0000,     0x1A36,     0x0000,     0x1A36, // ----
+   1266          	/*  Rx Subaddress 30  */   0x4000,     0x08AE,     0x0000,     0x08AE, // idx sgl-msg IWA irq
+   1267          	/*  This row not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD, 
+   1268          	/*                                                                       */
+   1269          	/* ===================================================================== */
+   1270          	/*     R T 2   T R A N S M I T   S U B A D D R E S S   C O M M A N D S   */
+   1271          	/* ===================================================================== */
+   1272          	/*  NOTE: IF BROADCAST COMMANDS ARE SUPPORTED, ACCIDENTAL BROADCAST-     */
+   1273          	/*  TRANSMIT COMMANDS WILL UPDATE MIW + TT WORDS AT THE BROADCAST DATA   */
+   1274          	/*  POINTER LOCATION (PING-PONG & INDEXED MODES) SO INITIALIZE B'CAST    */
+   1275          	/*  POINTERS TO PREDICTABLE ADDRESSES, BUT NOT 0x0000 (CONFIG.REG 1!)    */
+   1276          	/*                                                                       */
+   1277          	/*  Note:Subaddresses    ControlWord  DescrWord2  DescrWord3  DescrWord4 */
+   1278          	/*  0,31 are not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD,
+   1279          	/*  Tx Subaddress 01  */   0x0004,     0x0866,     0x0888,     0x08AA, // ping-pong
+   1280          	/*  Tx Subaddress 02  */   0x8000,     0x0D32,     0x0020,     0x1172, // idx-32 ixeqz
+   1281          	/*  Tx Subaddress 03  */   0x8001,     0x15D6,     0x15D6,     0x1A16, // cir1 ixeqz
+   1282          	/*  Tx Subaddress 04  */   0x0000,     0x1A58,     0x0000,     0x1A58, // ----
+   1283          	/*  Tx Subaddress 05  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1284          	/*  Tx Subaddress 06  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1285          	/*  Tx Subaddress 07  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1286          	/*  Tx Subaddress 08  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1287          	/*  Tx Subaddress 09  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1288          	/*  Tx Subaddress 10  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1289          	/*  Tx Subaddress 11  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1290          	/*  Tx Subaddress 12  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1291          	/*  Tx Subaddress 13  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1292          	/*  Tx Subaddress 14  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1293          	/*  Tx Subaddress 15  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1294          	/*  Tx Subaddress 16  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1295          	/*  Tx Subaddress 17  */   0x0000,     0x1A58,     0x0000,     0x1A58, // shared index sgl-msg
+   1296          	/*  Tx Subaddress 18  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1297          	/*  Tx Subaddress 19  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1298          	/*  Tx Subaddress 20  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1299          	/*  Tx Subaddress 21  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1300          	/*  Tx Subaddress 22  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1301          	/*  Tx Subaddress 23  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1302          	/*  Tx Subaddress 24  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1303          	/*  Tx Subaddress 25  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1304          	/*  Tx Subaddress 26  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1305          	/*  Tx Subaddress 27  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1306          	/*  Tx Subaddress 28  */   0x0000,     0x1A58,     0x0000,     0x1A58, //     |
+   1307          	/*  Tx Subaddress 29  */   0x0000,     0x1A58,     0x0000,     0x1A58, // ----
+   1308          	/*  Tx Subaddress 30  */   0x0000,     0x08AE,     0x0000,     0x08AE, // idx sgl-msg
+   1309          	/*  This row not used */   0xDEAD,     0xDEAD,     0xDEAD,     0xDEAD,
+   1310          	/*                                                                       */
+   1311          	/* ===================================================================== */
+   1312          	/*    R T 2  R E C E I V E   M O D E   C O D E   C O M M A N D S         */
+   1313          	/* ===================================================================== */
+   1314          	/*                       ControlWord MsgInfoWord  TimeTagWord DataWord   */
+   1315          	/* undefined Rx MC 00 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, // ----
+   1316          	/*     "     Rx MC 01 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1317          	/*     "     Rx MC 02 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1318          	/*     "     Rx MC 03 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |     
+   1319          	/*     "     Rx MC 04 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1320          	/*     "     Rx MC 05 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1321          	/*     "     Rx MC 06 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1322          	/*     "     Rx MC 07 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1323          	/*     "     Rx MC 08 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, // shared index sgl-msg
+   1324          	/*     "     Rx MC 09 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1325          	/*     "     Rx MC 10 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1326          	/*     "     Rx MC 11 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1327          	/*     "     Rx MC 12 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1328          	/*     "     Rx MC 13 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1329          	/*     "     Rx MC 14 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1330          	/*     "     Rx MC 15 */   0x0000,     0x1A7A,     0x0000,     0x1A7A, //     |
+   1331          	/*     "     Rx MC 16 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // ----
+   1332          	/*  DEFINED  Rx MC 17 */   0x0004,     0x1AE4,     0x1AE8,     0x1AEC, /* synchronize with data */
+   1333          	/* undefined Rx MC 18 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // shared index sgl-msg
+   1334          	/*     "     Rx MC 19 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // shared index sgl-msg
+   1335          	/*  DEFINED  Rx MC 20 */   0x0004,     0x1AF0,     0x1AF4,     0x1AF8, /* shutdown selected bus*/
+   1336          	/*  DEFINED  Rx MC 21 */   0x0004,     0x1AFC,     0x1B00,     0x1B04, /* override sel bus shutdown*/
+   1337          	/*  reserved Rx MC 22 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // ----
+   1338          	/*     "     Rx MC 23 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1339          	/*     "     Rx MC 24 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1340          	/*     "     Rx MC 25 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1341          	/*     "     Rx MC 26 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // shared index sgl-msg
+   1342          	/*     "     Rx MC 27 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1343          	/*     "     Rx MC 28 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1344          	/*     "     Rx MC 29 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1345          	/*     "     Rx MC 30 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, //     |
+   1346          	/*     "     Rx MC 31 */   0x0000,     0x1A7E,     0x0000,     0x1A7E, // ----
+   1347          	/*                                                                       */
+   1348          	/* ===================================================================== */
+   1349          	/*   R T 2  T R A N S M I T   M O D E   C O D E   C O M M A N D S        */
+   1350          	/*         using the "Simplified Mode Command Processing" option         */
+   1351          	/* ===================================================================== */
+   1352          	/*                       ControlWord MsgInfoWord  TimeTagWord DataWord   */
+   1353          	/*  DEFINED  Tx MC 00 */   0x4004,     0x1ABA,     0x1ABC,     0x1ABE, /* dynamic bus control,, IWA interrupt */
+   1354          	/*     "     Tx MC 01 */   0x0004,     0x1A90,     0x1A92,     0x1A94, /* synchronize */
+   1355          	/*     "     Tx MC 02 */   0x0004,     0x1A96,     0x1A98,     0x1A9A, /* transmit status */
+   1356          	/*     "     Tx MC 03 */   0x0004,     0x1A9C,     0x1A9E,     0x1AA0, /* initiate self test */
+   1357          	/*     "     Tx MC 04 */   0x0004,     0x1AA2,     0x1AA4,     0x1AA6, /* shutdown bus */
+   1358          	/*     "     Tx MC 05 */   0x0004,     0x1AA8,     0x1AAA,     0x1AAC, /* overrride shutdown bus */
+   1359          	/*     "     Tx MC 06 */   0x0004,     0x1AAE,     0x1AB0,     0x1AB2, /* inhibit terminal flag */
+   1360          	/*     "     Tx MC 07 */   0x0004,     0x1AB4,     0x1AB6,     0x1AB8, /* override inhibit term flag */
+   1361          	/*     "     Tx MC 08 */   0x0004,     0x1ABA,     0x1ABC,     0x1ABE, /* reset terminal, */
+   1362          	/*  reserved Tx MC 09 */   0x0000,     0x1A82,     0x0000,     0x1A82, // ----
+   1363          	/*     "     Tx MC 10 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     |
+   1364          	/*     "     Tx MC 11 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     |
+   1365          	/*     "     Tx MC 12 */   0x0000,     0x1A82,     0x0000,     0x1A82, // shared index sgl-msg
+   1366          	/*     "     Tx MC 13 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     |
+   1367          	/*     "     Tx MC 14 */   0x0000,     0x1A82,     0x0000,     0x1A82, //     | 
+   1368          	/*     "     Tx MC 15 */   0x0000,     0x1A82,     0x0000,     0x1A82, // ----
+   1369          	/*  DEFINED  Tx MC 16 */   0x0004,     0x1AC0,     0x1AC4,     0x1AC8, /* transmit vector word */
+   1370          	/* undefined Tx MC 17 */   0x0000,     0x1A86,     0x0000,     0x1A86, // shared index sgl-msg
+   1371          	/*  DEFINED  Tx MC 18 */   0x0004,     0x1ACC,     0x1AD0,     0x1AD4, /* transmit last command */
+   1372          	/*  DEFINED  Tx MC 19 */   0x0004,     0x1AD8,     0x1ADC,     0x1AE0, /* transmit BIT word */
+   1373          	/* undefined Tx MC 20 */   0x0000,     0x1A86,     0x0000,     0x1A86, // ----
+   1374          	/*     "     Tx MC 21 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1375          	/*  reserved Tx MC 22 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1376          	/*     "     Tx MC 23 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1377          	/*     "     Tx MC 24 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1378          	/*     "     Tx MC 25 */   0x0000,     0x1A86,     0x0000,     0x1A86, // shared index sgl-msg
+   1379          	/*     "     Tx MC 26 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1380          	/*     "     Tx MC 27 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1381          	/*     "     Tx MC 28 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1382          	/*     "     Tx MC 29 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     |
+   1383          	/*     "     Tx MC 30 */   0x0000,     0x1A86,     0x0000,     0x1A86, //     | 
+   1384          	/*     "     Tx MC 31 */   0x0000,     0x1A86,     0x0000,     0x1A86 }; // -- 
+   1385           
+   1386          	// end of descr_table_RT2[512] declaration
+   1387          
+   1388          
+   1389          	unsigned short illegal_table[256] = {
+   1390          	/* This array is loaded by the initialization function only when the terminal
+   1391          	uses "illegal command detection", that is, when the macro ILLEGAL_CMD_DETECT 
+   1392          	= YES in the header file 613x_initialization.h. 
+   1393          	
+   1394          	When macro ILLEGAL_CMD_DETECT = NO, the default all-zeros table value after 
+   1395          	/MR master reset is retained, so all valid commands	get an "in form" response.
+   1396          	Terminals not using "illegal command detection" should preserve the RAM's 
+   1397          	(all 0x0000) reset state for the table address range to provide consistent 
+   1398          	"in form" response for all valid commands. This function call provides this.
+   1399             
+   1400          	This template illegalizes all mode code commands that are either undefined 
+   1401          	or reserved in MIL-STD-1553B. Also, the 3 transmit mode codes that have a 
+   1402          	mode data word are made illegal when broadcast. Mode code 0 (dynamic bus 
+   1403          	control) cannot be implemented by the HI-613X and is also made illegal.
+   1404          	
+   1405          	If using this example as a template, please note that the array below 
+   1406          	renders the following list of commands illegal:
+   1407          
+   1408          	  * All undefined and reserved mode code commands
+   1409          	  * Broadcast versions of these transmit mode cmds: MC0 MC2 MC16 MC18 MC19
+   1410          	  * All broadcast transmit subaddress commands 
+   1411          	  * Tx mode code MC0 "dynamic bus control" because BC switch-over not programmed
+   1412          	  * Tx mode code MC3 "initiate self test," entirely application specific 
+   1413          	  
+   1414          	  ******************** PLEASE NOTE NEXT 2 LINES ! *************************
+   1415          	  *    All non-broacast receive commands to subaddress 16, and all        *
+   1416          	  * transmit commands to subaddress 17 are illegal for demonstration only *
+   1417          	  *************************************************************************/
+   1418          
+   1419          	/* ====================================================================== */
+   1420          	/*       RT2 BROADCAST RECEIVE MODE CODE AND SUBADDRESS COMMANDS          */
+   1421          	/* ====================================================================== */
+   1422          	/*    Setting legal/illegal mode code commands for subaddresses           */
+   1423          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+   1424          	/*                                                                        */
+   1425          	/*       _____________________ MC15 - MC12 Rx (undefined)                 */
+   1426          	/*      |  ____________________ MC11 - MC8 Rx (undefined)                 */
+   1427          	/*      | |  ___________________ MC7 - MC4 Rx (undefined)                 */
+   1428          	/*      | | |  __________________ MC3 - MC0 Rx (undefined)                */
+   1429          	/*      | | | |  _________________ MC31 - MC28 Rx (reserved)              */
+   1430          	/*      | | | | |  ________________ MC27 - MC24 Rx (reserved)             */
+   1431          	/*      | | | | | |                                                       */
+   1432          	/*      | | | | | |       __________ MC23 Rx (reserved)                   */
+   1433          	/*      | | | | | |      |  _________ MC22 Rx (reserved)                  */
+   1434          	/*      | | | | | |      | |  ________ MC21 Rx (override sel tx shutdown) */ 
+   1435          	/*      | | | | | |      | | |  _______ MC20 Rx (selected tx shutdown)    */
+   1436          	/*      | | | | | |      | | | |                                          */
+   1437          	/*      | | | | | |      | | | |    ____ MC19 Rx (undefined)              */
+   1438          	/*      | | | | | |      | | | |   |  ___ MC18 Rx (undefined)             */
+   1439          	/*      | | | | | |      | | | |   | |  __ MC17 Rx (sync with data)       */
+   1440          	/*      | | | | | |      | | | |   | | |  _ MC16 Rx (undefined)           */
+   1441          	/*      | | | | | |      | | | |   | | | |                                */
+   1442          	/*      | | | | | |  bin 1 1 0 0   1 1 0 1                                */
+   1443          	/*      | | | | | |      -------   -------                                */
+   1444          	/*   0x F F F F F F         C         D                                   */
+   1445          	/*                                                                        */
+   1446          	/*   Broadcast                                                            */
+   1447          	/* Rx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+   1448          	/*                 mode codes   word counts   word counts   word counts   */
+   1449          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1450          	/*  RAM address  0x0100 0x0101 0x0102 0x0103 0x0104 0x0105 0x0106 0x0107  */
+   1451                                   0xFFFF,0xFFCD,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1452          	/*   Broadcast                                                            */
+   1453          	/* Rx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+   1454          	/*                word counts   word counts   word counts   word counts   */
+   1455          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1456          	/*  RAM address	 0x0108 0x0109 0x010A 0x010B 0x010C 0x010D 0x010E 0x010F  */
+   1457                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1458          	/*   Broadcast                                                            */
+   1459          	/* Rx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+   1460          	/*                word counts   word counts   word counts   word counts   */
+   1461          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1462          	/*  RAM address	 0x0110 0x0111 0x0112 0x0113 0x0114 0x0115 0x0116 0x0117  */
+   1463                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1464          	/*   Broadcast                                                            */
+   1465          	/* Rx Subaddress -----12-----  -----13-----  -----14-----  -----15-----   */
+   1466          	/*                word counts   word counts   word counts   word counts   */
+   1467          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1468          	/*  RAM address	 0x0118 0x0119 0x011A 0x011B 0x011C 0x011D 0x011E 0x011F  */
+   1469                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1470          	/*   Broadcast                                                            */
+   1471          	/* Rx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+   1472          	/*                word counts   word counts   word counts   word counts   */
+   1473          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1474          	/*  RAM address	 0x0120 0x0121 0x0122 0x0123 0x0124 0x0125 0x0126 0x0127  */
+   1475                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1476          	/*   Broadcast                                                            */
+   1477          	/* Rx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+   1478          	/*                word counts   word counts   word counts   word counts   */
+   1479          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1480          	/*  RAM address	 0x0128 0x0129 0x012A 0x012B 0x012C 0x012D 0x012E 0x012F  */
+   1481                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1482          	/*   Broadcast                                                            */
+   1483          	/* Rx Subaddress -----24-----  -----25-----  -----26-----  -----27-----   */
+   1484          	/*                word counts   word counts   word counts   word counts   */
+   1485          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1486          	/*  RAM address	 0x0130 0x0131 0x0132 0x0133 0x0134 0x0135 0x0136 0x0137  */
+   1487                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1488          	/*   Broadcast                                              SA31 = SA0    */
+   1489          	/* Rx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+   1490          	/*                word counts   word counts   word counts   mode codes    */
+   1491          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1492          	/*  RAM address	 0x0138 0x0139 0x013A 0x013B 0x013C 0x013D 0x013E 0x013F  */
+   1493                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFFFF,0xFFCD,
+   1494          				 	
+   1495          	/* ====================================================================== */
+   1496          	/*       RT2 BROADCAST TRANSMIT MODE CODE AND SUBADDRESS COMMANDS         */
+   1497          	/* ====================================================================== */
+   1498          	/*    Setting legal/illegal mode code commands for subaddresses           */
+   1499          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+   1500          	/*                                                                        */
+   1501          	/*    _________________ MC15 - MC12 Tx (reserved)                         */
+   1502          	/*   |                                                                    */
+   1503          	/*   |   ________________ MC11 Tx (reserved)                              */
+   1504          	/*   |  |  _______________ MC10 Tx (reserved)                             */
+   1505          	/*   |  | |  ______________ MC9 Tx (reserved)                             */
+   1506          	/*   |  | | |  _____________ MC8 Tx (reset remote terminal)               */
+   1507          	/*   |  | | | |                                                           */
+   1508          	/*   |  | | | |   ____________ MC7 Tx (override inhibit term flag bit)    */
+   1509          	/*   |  | | | |  |  ___________ MC6 Tx (inhibit term flag bit)            */
+   1510          	/*   |  | | | |  | |  __________ MC5 Tx (override transmitter shutdown)   */
+   1511          	/*   |  | | | |  | | |  _________ MC4 Tx (transmitter shutdown)           */
+   1512          	/*   |  | | | |  | | | |                                                  */
+   1513          	/*   |  | | | |  | | | |   _______ MC3 Tx (init self test) NOT IN DEMO PGM*/
+   1514          	/*   |  | | | |  | | | |  |  ______ MC2 Tx (transmit status) NO BROADCAST */
+   1515          	/*   |  | | | |  | | | |  | |  _____ MC1 Tx (synchronize)                 */
+   1516          	/*   |  | | | |  | | | |  | | |  ____ MC0 Tx (dyn bus control)NO BROADCAST*/
+   1517          	/*   |  | | | |  | | | |  | | | |                      and NOT IMPLEMENTED*/
+   1518          	/*   |  | | | |  | | | |  | | | |   __ MC31 - MC28 Tx (reserved)          */
+   1519          	/*   |  | | | |  | | | |  | | | |  |  __ MC27 - MC24 Tx (reserved)        */
+   1520          	/*   |  | | | |  | | | |  | | | |  | |  __ MC23-22 (res) & MC21-20 (undef)*/ 
+   1521          	/*   |  | | | |  | | | |  | | | |  | | |                                  */
+   1522          	/*   |  | | | |  | | | |  | | | |  | | |   ____ MC19 Tx NO BROADCAST      */
+   1523          	/*   |  | | | |  | | | |  | | | |  | | |  |  ___ MC18 Tx NO BROADCAST     */
+   1524          	/*   |  | | | |  | | | |  | | | |  | | |  | |  __ MC17 Tx (undefined)     */
+   1525          	/*   |  | | | |  | | | |  | | | |  | | |  | | |  _ MC16 Tx NO BROADCAST   */
+   1526          	/*   |  | | | |  | | | |  | | | |  | | |  | | | |                         */
+   1527          	/*   |  1 1 1 0  0 0 0 0  1 1 0 1  | | |  1 1 1 1                         */
+   1528          	/*   |  -------  -------  -------  | | |  -------                         */
+   1529          	/*  0xF    E        0        D     F F F     F                            */
+   1530          	/*                                                                        */
+   1531              /*   Broadcast                                                            */
+   1532          	/* Tx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+   1533          	/*                 mode codes   word counts   word counts   word counts   */
+   1534          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1535          	/*  RAM address  0x0140 0x0141 0x0102 0x0143 0x0144 0x0145 0x0146 0x0147  */
+   1536                                   0xFE0D,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1537          	/*   Broadcast                                                            */
+   1538          	/* Tx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+   1539          	/*                word counts   word counts   word counts   word counts   */
+   1540          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1541          	/*  RAM address	 0x0148 0x0149 0x014A 0x014B 0x014C 0x014D 0x014E 0x014F  */
+   1542                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1543          	/*   Broadcast                                                            */
+   1544          	/* Tx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+   1545          	/*                word counts   word counts   word counts   word counts   */
+   1546          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1547          	/*  RAM address	 0x0150 0x0151 0x0152 0x0153 0x0154 0x0155 0x0156 0x0157  */
+   1548                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1549          	/*   Broadcast                                                            */
+   1550          	/* Tx Subaddress -----12-----  -----13-----  -----14-----  -----15-----   */
+   1551          	/*                word counts   word counts   word counts   word counts   */
+   1552          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1553          	/*  RAM address	 0x0158 0x0159 0x015A 0x015B 0x015C 0x015D 0x015E 0x015F  */
+   1554                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1555          	/*   Broadcast                                                            */
+   1556          	/* Tx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+   1557          	/*                word counts   word counts   word counts   word counts   */
+   1558          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1559          	/*  RAM address	 0x0160 0x0161 0x0162 0x0163 0x0164 0x0165 0x0166 0x0167  */
+   1560                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1561          	/*   Broadcast                                                            */
+   1562          	/* Tx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+   1563          	/*                word counts   word counts   word counts   word counts   */
+   1564          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1565          	/*  RAM address	 0x0168 0x0169 0x016A 0x016B 0x016C 0x016D 0x016E 0x016F  */
+   1566                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1567          	/*   Broadcast                                                            */
+   1568          	/* Tx Subaddress -----24-----  -----25-----  -----26-----  -----27-----   */
+   1569          	/*                word counts   word counts   word counts   word counts   */
+   1570          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1571          	/*  RAM address	 0x0170 0x0171 0x0172 0x0173 0x0174 0x0175 0x0176 0x0177  */
+   1572                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,	
+   1573          	/*   Broadcast                                              SA31 = SA0    */
+   1574          	/* Tx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+   1575          	/*                word counts   word counts   word counts   mode codes    */
+   1576          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1577          	/*  RAM address	 0x0178 0x0179 0x017A 0x017B 0x017C 0x017D 0x017E 0x017F  */
+   1578                                   0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFFFF,0xFE0D,0xFFFF,	
+   1579          
+   1580          	/* ====================================================================== */
+   1581          	/* RT2 "OWN ADDRESS" NON-BROADCAST RECEIVE MODE CODE & SUBADDRESS COMMANDS*/
+   1582          	/* ====================================================================== */
+   1583          	/*    Setting legal/illegal mode code commands for subaddresses           */
+   1584          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+   1585          	/*                                                                        */
+   1586          	/*       _____________________ MC15 - MC12 Rx (undefined)                 */
+   1587          	/*      |  ____________________ MC11 - MC8 Rx (undefined)                 */
+   1588          	/*      | |  ___________________ MC7 - MC4 Rx (undefined)                 */
+   1589          	/*      | | |  __________________ MC3 - MC0 Rx (undefined)                */
+   1590          	/*      | | | |  _________________ MC31 - MC28 Rx (reserved)              */
+   1591          	/*      | | | | |  ________________ MC27 - MC24 Rx (reserved)             */
+   1592          	/*      | | | | | |                                                       */
+   1593          	/*      | | | | | |       __________ MC23 Rx (reserved)                   */
+   1594          	/*      | | | | | |      |  _________ MC22 Rx (reserved)                  */
+   1595          	/*      | | | | | |      | |  ________ MC21 Rx (override sel tx shutdown) */ 
+   1596          	/*      | | | | | |      | | |  _______ MC20 Rx (selected tx shutdown)    */
+   1597          	/*      | | | | | |      | | | |                                          */
+   1598          	/*      | | | | | |      | | | |    ____ MC19 Rx (undefined)              */
+   1599          	/*      | | | | | |      | | | |   |  ___ MC18 Rx (undefined)             */
+   1600          	/*      | | | | | |      | | | |   | |  __ MC17 Rx (sync with data)       */
+   1601          	/*      | | | | | |      | | | |   | | |  _ MC16 Rx (undefined)           */
+   1602          	/*      | | | | | |      | | | |   | | | |                                */
+   1603          	/*      | | | | | |  bin 1 1 0 0   1 1 0 1                                */
+   1604          	/*      | | | | | |      -------   -------                                */
+   1605          	/*   0x F F F F F F         C         D                                   */
+   1606          	/*                                                                        */
+   1607          	/*  Own Address                                                           */
+   1608          	/* Rx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+   1609          	/*                 mode codes   word counts   word counts   word counts   */
+   1610          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1611          	/*  RAM address  0x0180 0x0181 0x0182 0x0183 0x0184 0x0185 0x0186 0x0187  */
+   1612                                   0xFFFF,0xFFCD,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1613          	/*  Own Address                                                           */
+   1614          	/* Rx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+   1615          	/*                word counts   word counts   word counts   word counts   */
+   1616          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1617          	/*  RAM address	 0x0188 0x0189 0x018A 0x018B 0x018C 0x018D 0x018E 0x018F  */
+   1618                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1619          	/*  Own Address                                                           */
+   1620          	/* Rx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+   1621          	/*                word counts   word counts   word counts   word counts   */
+   1622          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1623          	/*  RAM address	 0x0190 0x0191 0x0192 0x0193 0x0194 0x0195 0x0196 0x0197  */
+   1624                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1625          	/*  Own Address                                                           */
+   1626          	/* Rx Subaddress -----12-----  -----13-----  -----14-----  -----15-----   */
+   1627          	/*                word counts   word counts   word counts   word counts   */
+   1628          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1629          	/*  RAM address	 0x0198 0x0199 0x019A 0x019B 0x019C 0x019D 0x019E 0x019F  */
+   1630                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1631          	/*  Own Address                                                           */
+   1632          	/* Rx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+   1633          	/*                word counts   word counts   word counts   word counts   */
+   1634          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1635          	/*  RAM address	 0x01A0 0x01A1 0x01A2 0x01A3 0x01A4 0x01A5 0x01A6 0x01A7  */
+   1636                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1637          	/*  Own Address                                                           */
+   1638          	/* Rx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+   1639          	/*                word counts   word counts   word counts   word counts   */
+   1640          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1641          	/*  RAM address	 0x01A8 0x01A9 0x01AA 0x01AB 0x01AC 0x01AD 0x01AE 0x01AF  */
+   1642                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1643          	/*  Own Address                                                           */
+   1644          	/* Rx Subaddress -----24-----  -----25-----  -----26-----  -----27-----   */
+   1645          	/*                word counts   word counts   word counts   word counts   */
+   1646          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1647          	/*  RAM address	 0x01B0 0x01B1 0x01B2 0x01B3 0x01B4 0x01B5 0x01B6 0x01B7  */
+   1648                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1649          	/*  Own Address                                             SA31 = SA0    */
+   1650          	/* Rx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+   1651          	/*                word counts   word counts   word counts   mode codes    */
+   1652          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1653          	/*  RAM address	 0x01B8 0x01B9 0x01BA 0x01BB 0x01BC 0x01BD 0x01BE 0x01BF  */
+   1654                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFFFF,0xFFCD,
+   1655          				 	
+   1656          	/* ====================================================================== */
+   1657          	/* RT2 "OWN ADDRESS" NON-BROADCAST TRANSMIT MODECODE & SUBADDRESS COMMANDS*/
+   1658          	/* ====================================================================== */
+   1659          	/*    Setting legal/illegal mode code commands for subaddresses           */
+   1660          	/*    00 and 31. IMPORTANT: Must repeat values at both locations!         */
+   1661          	/*                                                                        */
+   1662          	/*    _________________ MC15 - MC12 Tx (reserved)                         */
+   1663          	/*   |                                                                    */
+   1664          	/*   |   ________________ MC11 Tx (reserved)                              */
+   1665          	/*   |  |  _______________ MC10 Tx (reserved)                             */
+   1666          	/*   |  | |  ______________ MC9 Tx (reserved)                             */
+   1667          	/*   |  | | |  _____________ MC8 Tx (reset remote terminal)               */
+   1668          	/*   |  | | | |                                                           */
+   1669          	/*   |  | | | |   ____________ MC7 Tx (override inhibit term flag bit)    */
+   1670          	/*   |  | | | |  |  ___________ MC6 Tx (inhibit term flag bit)            */
+   1671          	/*   |  | | | |  | |  __________ MC5 Tx (override transmitter shutdown)   */
+   1672          	/*   |  | | | |  | | |  _________ MC4 Tx (transmitter shutdown)           */
+   1673          	/*   |  | | | |  | | | |                                                  */
+   1674          	/*   |  | | | |  | | | |   _______ MC3 Tx (init self test) NOT IN DEMO PGM*/
+   1675          	/*   |  | | | |  | | | |  |  ______ MC2 Tx (transmit status)              */
+   1676          	/*   |  | | | |  | | | |  | |  _____ MC1 Tx (synchronize)                 */
+   1677          	/*   |  | | | |  | | | |  | | |  ____ MC0 Tx (dyn bus control) CANNOT DO! */
+   1678          	/*   |  | | | |  | | | |  | | | |                                         */
+   1679          	/*   |  | | | |  | | | |  | | | |   __ MC31 - MC28 Tx (reserved)          */
+   1680          	/*   |  | | | |  | | | |  | | | |  |  __ MC27 - MC24 Tx (reserved)        */
+   1681          	/*   |  | | | |  | | | |  | | | |  | |  __ MC23-22 (res) & MC21-20 (undef)*/ 
+   1682          	/*   |  | | | |  | | | |  | | | |  | | |                                  */
+   1683          	/*   |  | | | |  | | | |  | | | |  | | |   ____ MC19 Tx (tx BIT word)     */
+   1684          	/*   |  | | | |  | | | |  | | | |  | | |  |  ___ MC18 Tx (tx last command)*/
+   1685          	/*   |  | | | |  | | | |  | | | |  | | |  | |  __ MC17 Tx (undefined)     */
+   1686          	/*   |  | | | |  | | | |  | | | |  | | |  | | |  _ MC16 (tx vector word)  */
+   1687          	/*   |  | | | |  | | | |  | | | |  | | |  | | | |                         */
+   1688          	/*   |  1 1 1 0  0 0 0 0  1 0 0 1  | | |  0 0 1 0                         */
+   1689          	/*   |  -------  -------  -------  | | |  -------                         */
+   1690          	/*  0xF    E        0        9     F F F     2                            */
+   1691          	/*                                                                        */
+   1692          	/*  Own Address                                                           */
+   1693          	/* Tx Subaddress -----00-----  -----01-----  -----02-----  -----03-----   */
+   1694          	/*                 mode codes   word counts   word counts   word counts   */
+   1695          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1696          	/*  RAM address  0x01C0 0x01C1 0x0102 0x01C3 0x01C4 0x01C5 0x01C6 0x01C7  */
+   1697                                   0xFE09,0xFFF2,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1698          	/*  Own Address                                                           */
+   1699          	/* Tx Subaddress -----04-----  -----05-----  -----06-----  -----07-----   */
+   1700          	/*                word counts   word counts   word counts   word counts   */
+   1701          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1702          	/*  RAM address	 0x01C8 0x01C9 0x01CA 0x01CB 0x01CC 0x01CD 0x01CE 0x01CF  */
+   1703                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1704          	/*  Own Address                                                           */
+   1705          	/* Tx Subaddress -----08-----  -----09-----  -----10-----  -----11-----   */
+   1706          	/*                word counts   word counts   word counts   word counts   */
+   1707          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1708          	/*  RAM address	 0x01D0 0x01D1 0x01D2 0x01D3 0x01D4 0x01D5 0x01D6 0x01D7  */
+   1709                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1710          	/*  Own Address                                                           */
+   1711          	/* Tx Subaddress  -----12-----  -----13-----  -----14-----  -----15-----  */
+   1712          	/*                word counts   word counts   word counts   word counts   */
+   1713          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1714          	/*  RAM address	 0x01D8 0x01D9 0x01DA 0x01DB 0x01DC 0x01DD 0x01DE 0x01DF  */
+   1715                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1716          	/*  Own Address                                                           */
+   1717          	/* Tx Subaddress -----16-----  -----17-----  -----18-----  -----19-----   */
+   1718          	/*                word counts   word counts   word counts   word counts   */
+   1719          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1720          	/*  RAM address	 0x01E0 0x01E1 0x01E2 0x01E3 0x01E4 0x01E5 0x01E6 0x01E7  */
+   1721                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1722          	/*  Own Address                                                           */
+   1723          	/* Tx Subaddress -----20-----  -----21-----  -----22-----  -----23-----   */
+   1724          	/*                word counts   word counts   word counts   word counts   */
+   1725          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1726          	/*  RAM address	 0x01E8 0x01E9 0x01EA 0x01EB 0x01EC 0x01ED 0x01EE 0x01EF  */
+   1727                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1728          	/*  Own Address                                                           */
+   1729          	/* Tx Subaddress  -----24-----  -----25-----  -----26-----  -----27-----  */
+   1730          	/*                word counts   word counts   word counts   word counts   */
+   1731          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1732          	/*  RAM address	 0x01F0 0x01F1 0x01F2 0x01F3 0x01F4 0x01F5 0x01F6 0x01F7  */
+   1733                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,	
+   1734          	/*  Own Address                                             SA31 = SA0    */
+   1735          	/* Tx Subaddress -----28-----  -----29-----  -----30-----  -----31-----   */
+   1736          	/*                word counts   word counts   word counts   mode codes    */
+   1737          	/*                Low    High   Low    High   Low    High   Low    High   */
+   1738          	/*  RAM address	 0x01F8 0x01F9 0x01FA 0x01FB 0x01FC 0x01FD 0x01FE 0x01FF  */
+   1739                                   0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0xFE09,0xFFF2 };	
+   1740          
+   1741          	//  End of illegal_table[256] declaration 
+   1742          
+   1743          
+   1744          	// ====================================================================================== 
+   1745          
+   1746            	// These parameters are defined in 613x_initialization.h
+   1747          
+   1748          	i = RTTO_15U|NOTICE2|TRXDB|AUTO_SHUTDN|AUTO_SYNC|MC16OPT|AUTO_MC8_RESET;
+   1749          
+   1750          	#if (!SUPPORT_BROADCAST)
+   1751          	i |= BCASTINV;
+   1752            	#endif
+   1753          
+   1754          
+   1755          	#if (!UNDEF_MCODES_VALID)
+   1756          	i |= UMCINV;
+   1757            	#endif
+   1758          
+   1759          	#if (USE_SMCP)
+   1760          	i |= SMCP;
+   1761          	#endif
+   1762          
+   1763          	// HI-6130 uses host bus interface, HI-6131 uses host SPI interface. From 
+   1764          	// here, we use bus interface to initialize HI-6130 registers and RAM tables,
+   1765          	// or we use SPI to initialize HI-6131 registers and RAM tables       
+   1766          
+   1767          	// ====================================================================================== 
+   1768          
+   1769          	#if (HOST_BUS_INTERFACE) 
+   1770          
+   1771          	    pH6130->RT2_CONFIG_REG = i;
+   1772          
+   1773          		// do not overwrite previously initialized common features 
+   1774          		j = pH6130->MASTER_CONFIG_REG & ~(RT2STEX);
+   1775          
+   1776          		// if "bus shutdown" mode codes 4 & 20 should disable Tx only but Rx still 
+   1777          		// operates normally (NOT RECOMMENDED) then OR in BSDTXO, affecting RT1 & RT2:
+   1778          	        pH6130->MASTER_CONFIG_REG = j|RT2ENA|BSDTXO; 
+   1779          	        pH6130->MASTER_CONFIG_REG = j|RT2ENA;
+   1780          
+   1781          		j = pH6130->HDW_INT_ENABLE_REG & ~(RT2TTM);
+   1782          		// enable RT2 address parity fail interrupt, but not time tag match interrupt 
+   1783          	        pH6130->HDW_INT_ENABLE_REG = j|RT2APF;
+   1784          		
+   1785          		j = pH6130->HDW_INT_OUTPUT_ENABLE_REG & ~(RT2TTM);
+   1786          		// enable pin output for selected interrupts 
+   1787          	        pH6130->HDW_INT_OUTPUT_ENABLE_REG = j|RT2APF;
+   1788          		
+   1789          		// for demo, mode code 8 (reset RT) is handled differently for RT1 and RT2.
+   1790          		// When MC8 occurs for RT1, the RT1_MC8 interrupt is decoded by this program's
+   1791          		// interrupt handler, which asserts RT1RESET in reg 0x0002. When MC8 occurs for 
+   1792          		// RT2, that terminal is configured for AUTO_MC8_RESET to automatically assert 
+   1793          		// the RT2RESET in reg 0x0002 without host intervention.  
+   1794          		j = pH6130->RT_INT_ENABLE_REG & 0x01F8;
+   1795          		// enable RT2 interrupts, but not the Message Error interrupt 
+   1796          	        pH6130->RT_INT_ENABLE_REG = j|RT2_IXEQZ|RT2_IWA|RT2_IBR|RT2_MC8;
+   1797          
+   1798          		j = pH6130->RT_INT_OUTPUT_ENABLE_REG & 0x01F8;
+   1799          		// enable pin output for selected RT2 interrupts 
+   1800          	        pH6130->RT_INT_OUTPUT_ENABLE_REG = j|RT2_IXEQZ|RT2_IWA|RT2_IBR|RT2_MC8;
+   1801          		
+   1802          		pH6130->RT2_DESC_TBL_BASE_ADDR_REG = 0x0600; 
+   1803          		pH6130->RT2_1553_STATUS_BITS_REG = 0x0000;	 
+   1804          		pH6130->RT2_TTAG_UTILITY_REG = 0x0000;	 
+   1805          		pH6130->RT2_BUSA_SELECT_REG = 0xAAAA;		 
+   1806          		pH6130->RT2_BUSB_SELECT_REG = 0xBBBB;		 
+   1807          		pH6130->RT2_BIT_WORD_REG = 0x0000;			 
+   1808          		pH6130->RT2_ALT_BIT_WORD_REG = 0xABCD;			 
+   1809          
+   1810          
+   1811          		// load the RT2 Descriptor Table
+   1812          		// Starting at the table base address written above, copy the RT2 Descriptor 
+   1813          		// Table array (declared above) into HI-6130 RAM. 
+   1814          		
+   1815          		j = pH6130->RT2_DESC_TBL_BASE_ADDR_REG << 1;	// left-shift offset
+   1816          
+   1817          		// If using simplified mode command processing (SMCP), the program is only 
+   1818          		// required to initialize Descriptor Word 1 (Control Words) for each mode command 
+   1819          		// in the 2nd half of the descriptor table. It is not necessary to initialize 
+   1820          		// Descriptor Words 2,3,4 in the 2nd (mode code) half of the Descriptor Table.
+   1821          		// THE FIRST HALF OF THE TABLE FOR SUBADDRESS COMMANDS MUST BE FULLY INITIALIZED.  
+   1822          
+   1823          		#if (USE_SMCP)
+   1824          
+   1825          			// in subaddress command half of table, every word is written 
+   1826          			for ( i = 0, k = (0x60000000 + j); i < 256; i++) {
+   1827          				*((volatile unsigned short *)(k)) = descr_table_RT2[i];
+   1828          				k += 2;
+   1829          			}
+   1830          			// in mode command half of table, just write Control Words, every 4th word 
+   1831          			for ( ; i < 512; i++) {
+   1832          				//  just write 4 host-maintained Control Word bits 
+   1833          				*((volatile unsigned short *)(k)) = descr_table_RT2[i] & 0xF000; // desc word 1
+   1834          				k += 2;
+   1835          				*((volatile unsigned short *)(k)) = 0; // desc word 2 = 0
+   1836          				k += 2;
+   1837          				*((volatile unsigned short *)(k)) = 0; // desc word 3 = 0
+   1838          				k += 2;
+   1839          				*((volatile unsigned short *)(k)) = 0; // desc word 4 = 0
+   1840          				k += 2;
+   1841          				i += 3;
+   1842          			}		
+   1843          
+   1844          		#else // not using SMCP
+   1845          
+   1846          			// every word in table is written 
+   1847          			for ( i = 0, k = (0x60000000 + j); i < 512; i++) {
+   1848          				*((volatile unsigned short *)(k)) = descr_table_RT2[i];
+   1849          				k += 2;
+   1850          			}
+   1851          
+   1852          		#endif
+   1853          
+   1854          
+   1855          
+   1856          		#if (ILLEGAL_CMD_DETECT)
+   1857          			// copy the Illegalization Table array 
+   1858          			// (declared above) into the HI-6130 RAM for RT2 
+   1859          
+   1860          			// write address k starts at table base address 
+   1861                                  k = 0x60000000 + (RT2_ILLEGAL_TABLE_BASE_ADDR << 1);
+   1862                                  
+   1863          			for ( i = 0; i < 256; i++) {	
+   1864          				*((volatile unsigned short *)(k)) = illegal_table[i];
+   1865          				k += 2;
+   1866          			}
+   1867          
+   1868          		#endif // (ILLEGAL_CMD_DETECT)
+   1869          
+   1870          	// ====================================================================================== 
+   1871          
+   1872          	#else // (!HOST_BUS_INTERFACE) = HOST_SPI_INTERFACE
+   1873          
+   1874          	    // Here, we use SPI interface to initialize HI-6131 registers and RAM 
+   1875          	    // The SPI can directly read registers 0-15 decimal, without using the mem address pointer.
+   1876          	    // The SPI can directly write registers 0-63 decimal, without using the mem address pointer.
+   1877          	    // For higher addresses, SPI read/write accesses must use a memory address pointer.
+   1878          
+   1879          	    Write_6131LowReg(RT2_CONFIG_REG,i,0);
+   1880          
+   1881          	    // do not overwrite previously initialized common features 
+   1882          	    j = Read_6131LowReg(MASTER_CONFIG_REG,0) & ~(RT2STEX);
+   1883          	    
+   1884          	    // if "bus shutdown" mode codes 4 & 20 disable Tx only but Rx still operates 
+   1885                      // normally (NOT RECOMMENDED) then OR in BSDTXO, affecting Remote Terminals:
+   1886          	    // Write_6131LowReg(MASTER_CONFIG_REG,(j|RT2ENA|BSDTXO),0);
+   1887                      // otherwise use this...
+   1888          	    Write_6131LowReg(MASTER_CONFIG_REG,(j|RT2ENA),0);
+   1889          
+   1890          	    j = Read_6131LowReg(HDW_INT_ENABLE_REG,0) & ~(RT2TTM);
+   1891          	    // enable RT2 address parity fail interrupt, but not time tag match interrupt 
+   1892          	    Write_6131LowReg(HDW_INT_ENABLE_REG,(j|RT2APF),0);
+   1893          		
+   1894          	    j = Read_6131LowReg(HDW_INT_OUTPUT_ENABLE_REG,0) & ~(RT2TTM);
+   1895          	    // enable pin putput for selected interrupts  
+   1896          	    Write_6131LowReg(HDW_INT_OUTPUT_ENABLE_REG,(j|RT2APF),0);
+   1897          		
+   1898          	    j = Read_6131LowReg(RT_INT_ENABLE_REG,0) & 0xFE00;
+   1899          	    // enable RT2 interrupts, but not the Message Error interrupt 
+   1900          	    Write_6131LowReg(RT_INT_ENABLE_REG,(j|RT2_IXEQZ|RT2_IWA|RT2_IBR|RT2_MC8),0);
+   1901          
+   1902          	    // no fast access read for the rest of these registers, but write is okay... 
+   1903          	    enaMAP(1);	
+   1904          	    Write_6131LowReg(MAP_1, RT_INT_OUTPUT_ENABLE_REG,0);  
+   1905          	    j = Read_6131_1word(0) & 0xFE00;
+   1906          	    // enable pin output for selected RT2 interrupts 
+   1907          	    Write_6131LowReg(RT_INT_OUTPUT_ENABLE_REG,(j|RT2_IXEQZ|RT2_IWA|RT2_IBR|RT2_MC8),0);
+   1908          	    Write_6131LowReg(RT2_1553_STATUS_BITS_REG,0x0000,0);	 
+   1909          	    Write_6131LowReg(RT2_TTAG_UTILITY_REG,0x0000,0);	 
+   1910          	    Write_6131LowReg(RT2_BUSA_SELECT_REG,0xAAAA,0);		 
+   1911          	    Write_6131LowReg(RT2_BUSB_SELECT_REG,0xBBBB,0);		 
+   1912          	    Write_6131LowReg(RT2_BIT_WORD_REG,0x0000,0);			 
+   1913          	    Write_6131LowReg(RT2_ALT_BIT_WORD_REG,0xABCD,0);			 
+   1914          
+   1915          	    // load the RT2 Descriptor Table
+   1916          	    // SPI read/writes to RAM use indirect addressing, with the access address 
+   1917          	    // indicated by a memory address pointer. The HI-6131 provides 4 separate 
+   1918          	    // memory address pointers (MAPs), and the active MAP is enabled by bits 
+   1919          	    // 11-10 in the Master Status Register 0x0000. Table initialization below 
+   1920          	    // uses MAP auto-increment. Starting at the table base address written above, 
+   1921          	    // copy the RT2 Descriptor Table array (declared above) into HI-6131 RAM.   
+   1922          
+   1923                      enaMAP(1);
+   1924          	    // write address of the RT2 d-table base addr reg to MAP so we can read it		
+   1925          	    Write_6131LowReg(MAP_1, RT2_DESC_TBL_BASE_ADDR_REG,0); 
+   1926          	    // read base address then write base address to MAP  
+   1927          	    a = Read_6131_1word(0);
+   1928          	    Write_6131LowReg(MAP_1, a, 0);
+   1929                                                                     
+   1930          	    // If using simplified mode command processing (SMCP), the program is only 
+   1931          	    // required to initialize Descriptor Word 1 (Control Words) for each mode command 
+   1932          	    // in the 2nd half of the descriptor table. It is not necessary to initialize 
+   1933          	    // Descriptor Words 2,3,4 in the 2nd (mode code) half of the Descriptor Table.
+   1934          	    // THE FIRST HALF OF THE TABLE FOR SUBADDRESS COMMANDS MUST BE FULLY INITIALIZED 
+   1935          
+   1936          	    #if (USE_SMCP)
+   1937          
+   1938          		// in subaddress command half of table, every word is written 
+   1939                          
+   1940          		for ( i=0, j=0; i < 256; i++,j++) {
+   1941                                // MAP does not auto-increment if next address is a
+   1942                                // RT descriptor table Control Word, every 4th word.
+   1943                                // j counts modulo 4
+   1944                                if(j==4) j=0;
+   1945                                // reload MAP every 4th word
+   1946                                if(j==0) Write_6131LowReg(MAP_1, a+i, 0);
+   1947                                k = descr_table_RT2[i];
+   1948          		      Write_6131_1word(k, 0);
+   1949          		}		                                
+   1950                                          
+   1951                          // in mode command half of table, just write Control Words, every 4th word
+   1952          		for ( i=256,j=0; i<512; i++,j++) {
+   1953                                // MAP does not auto-increment if next address is a
+   1954                                // RT descriptor table Control Word, every 4th word.
+   1955                                // j counts modulo 4
+   1956                                if(j==4) j=0;
+   1957                                if(j==0) {
+   1958                                    // reload MAP every 4th word
+   1959                                    Write_6131LowReg(MAP_1, a+i, 0);
+   1960                                    // write a Control Word, just the host-maintained Control Word bits
+   1961                                    k = descr_table_RT2[i] & 0xF000;
+   1962                                    Write_6131_1word(k, 0);
+   1963                                }
+   1964                                else Write_6131_1word(0, 0);
+   1965          		}		                                
+   1966          
+   1967          
+   1968          	    #else // not using SMCP
+   1969          
+   1970          		// every word in table is written 
+   1971                          
+   1972          		for ( i=0, j=0; i < 512; i++,j++) {
+   1973                                // MAP does not auto-increment if next address is a
+   1974                                // RT descriptor table Control Word, every 4th word.
+   1975                                // j counts modulo 4
+   1976                                if(j==4) j=0;
+   1977                                // reload MAP every 4th word
+   1978                                if(j==0) Write_6131LowReg(MAP_1, a+i, 0);
+   1979                                k = descr_table_RT2[i];
+   1980          		      Write_6131_1word(k, 0);
+   1981          		}		
+   1982          
+   1983          	    #endif
+   1984          	    //-----------------------------------------------
+   1985          
+   1986          	    // If using Illegal Command Detection, now copy the illegalization 
+   1987          	    // Table array (declared above) into the HI-6131 RAM for RT2
+   1988          
+   1989          	    #if (ILLEGAL_CMD_DETECT)
+   1990          
+   1991          		//-----------------------------------------------
+   1992          		// RT2 Illegalization Table 
+   1993          
+   1994          		// select Memory Address Pointer 
+   1995          		enaMAP(1);
+   1996          
+   1997          		// RT2 table starts at 0x0300 
+   1998          		Write_6131LowReg(MAP_1,0x0300,0);	
+   1999          
+   2000          		for ( i = 0; i < 256; i++) {	
+   2001          			Write_6131_1word(illegal_table[i],0);
+   2002          		}
+   2003          
+   2004          	    #endif // (ILLEGAL_CMD_DETECT)
+   2005          
+   2006          	    #endif // end: HOST_SPI_INTERFACE
+   2007          
+   2008          }	// initialize_613x_RT2()
+   2009          
+   2010          
+   2011          
+   2012          
+   2013          
+   2014          // 	This function loads dummy data into the limited set of RT2 transmit buffers 
+   2015          //	assigned above during initialization. This is only used for testing.
+   2016           
+   2017          void write_dummy_tx_data_RT2(void) {
+   2018          	
+   2019          	unsigned short i, j;
+   2020          	unsigned short a_data[32] = {0x0101,0x0202,0x0303,0x0404,0x0505,0x0606,0x0707,0x0808,
+   2021          				     0x0909,0x1010,0x1111,0x1212,0x1313,0x1414,0x1515,0x1616,
+   2022          				     0x1717,0x1818,0x1919,0x2020,0x2121,0x2222,0x2323,0x2424,
+   2023          				     0x2525,0x2626,0x2727,0x2828,0x2929,0x3030,0x3131,0x3232};
+   2024          
+   2025          	unsigned short b_data[32] = {0xF001,0xF002,0xF003,0xF004,0xF005,0xF006,0xF007,0xF008,
+   2026          				     0xF009,0xF00A,0xF00B,0xF00C,0xF00D,0xF00E,0xF00F,0xF010,
+   2027          				     0xF011,0xF012,0xF013,0xF014,0xF015,0xF016,0xF017,0xF018,
+   2028          				     0xF019,0xF01A,0xF01B,0xF01C,0xF01D,0xF01E,0xF01F,0xF020};
+   2029          
+   2030          	#if (HOST_BUS_INTERFACE) 
+   2031                          unsigned int k;
+   2032          
+   2033          		// FOR TESTING PING-PONG, A PAIR OF DPA/DPB Tx BUFFERS: EACH BUFFER RESERVES
+   2034                          // SPACE FOR MSG INFO WORD AND TIME TAG WORD, PLUS 32 DATA WORDS 
+   2035          	
+   2036          		// first a 32-word buffer starting at offset = 0x4066 
+   2037          		k = (0x60000000 + (0x4066 << 1));
+   2038          		// skip 2 addresses for MsgInfo Word and TimeTag word
+   2039          		k = k + 4;
+   2040          		// write the 32 data words...
+   2041          		for ( i = 0; i < 32; i++) {	
+   2042          			*((volatile unsigned short *)(k)) = a_data[i];
+   2043          			k = k + 2;
+   2044          		}
+   2045          		
+   2046          		// next a 32-word buffer starting at offset = 0x4088 
+   2047          		k = (0x60000000 + (0x4088 << 1));
+   2048          		// skip 2 addresses for MsgInfo Word and TimeTag word
+   2049          		k = k + 4;
+   2050          		// write the 32 data words...
+   2051          		for ( i = 0; i < 32; i++) {	
+   2052          			*((volatile unsigned short *)(k)) = b_data[i];
+   2053          			k = k + 2;
+   2054          		}
+   2055          
+   2056          		// ================================================================================= 
+   2057          
+   2058          		// FOR TESTING INDEXED MODE, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   2059          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE 
+   2060          
+   2061          		// total 1088-word buffer starting at offset = 0x4532 
+   2062          		// this is 32 contiguous segments of 34 words each, 
+   2063          		k = (0x60000000 + (0x4532 << 1));
+   2064          		for ( j = 0; j < 32; j++) {
+   2065          			// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
+   2066          			k = k + 4; 
+   2067          			// write the 32 data words...					
+   2068          			for ( i = 0; i < 32; i++) {	
+   2069          				*((volatile unsigned short *)(k)) = b_data[i];
+   2070          				k = k + 2;
+   2071          			}
+   2072          		}
+   2073          
+   2074          		// ================================================================================= 
+   2075          
+   2076          		// FOR TESTING CIRCULAR MODE 1, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   2077          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE  
+   2078          
+   2079          		// total 1088-word buffer starting at offset = 0x4DD6 
+   2080          		// this is 32 contiguous segments of 34 words each, 
+   2081          		k = (0x60000000 + (0x4DD6 << 1));
+   2082          		for ( j = 0; j < 32; j++) {
+   2083          			// skip 2 addresses at top of 32-word segment for MsgInfo Word and TimeTag word
+   2084          			k = k + 4; 
+   2085          			// write the 32 data words...					
+   2086          			for ( i = 0; i < 32; i++) {	
+   2087          				*((volatile unsigned short *)(k)) = a_data[i];
+   2088          				k = k + 2;
+   2089          			}
+   2090          		}
+   2091          		// follow with a 32-word safety pad in case of circ-1 buffer overrun
+   2092          		for ( i = 0; i < 32; i++) {	
+   2093          			*((volatile unsigned short *)(k)) = 0xBADD;
+   2094          			k = k + 2;
+   2095          		}
+   2096          		
+   2097          		// ================================================================================= 
+   2098          	
+   2099          		// FOR TESTING CIRCULAR MODE 2, A CONTIGUOUS 32 X 32-WORD DATA BLOCK 
+   2100          	
+   2101          		// total 8192-word buffer with offset range from 0x5600 to 0x75FF 
+   2102          		k = (0x60000000 + (0x5600 << 1));
+   2103          		// write the 8192 data words using incrementing data pattern...
+   2104          		for ( i = 0, j = 0; i < 8192; i++, j++) {	
+   2105          			*((volatile unsigned short *)(k)) = j;
+   2106          			k = k + 2;
+   2107          		}
+   2108          	
+   2109          		// ================================================================================= 
+   2110          
+   2111          		// for unimplemented transmit SA's. a 32-word buffer starting at offset = 0x5258 
+   2112          		k = (0x60000000 + (0x5258 << 1));
+   2113          		// skip 2 addresses for MsgInfo Word and TimeTag word
+   2114          		k = k + 4;
+   2115          		// write the 32 data words...
+   2116          		for ( i = 0; i < 32; i++) {	
+   2117          			*((volatile unsigned short *)(k)) = 0xDEAD;
+   2118          			k = k + 2;
+   2119          		}
+   2120          
+   2121          		
+   2122          	#else // using HOST SPI INTERFACE
+   2123          
+   2124          		// FOR TESTING PING-PONG, A PAIR OF DPA/DPB Tx BUFFERS: EACH BUFFER RESERVES
+   2125                          // SPACE FOR MSG INFO WORD AND TIME TAG WORD, PLUS 32 DATA WORDS 
+   2126          	
+   2127          		// first a 32-word buffer starting at offset = 0x4066.
+   2128                          enaMAP(1);
+   2129          
+   2130          		// Init the memory address pointer, skip over 2 addresses 
+   2131          		// reserved for the MsgInfo Word and the TimeTag word 
+   2132          		Write_6131LowReg(MAP_1,(0x4066 + 2),0);
+   2133          
+   2134          		// write the 32 data words...
+   2135          		for ( i = 0; i < 32; i++) {	
+   2136          			// memory address pointer increments after write
+   2137          			Write_6131_1word(a_data[i],0);
+   2138          		}
+   2139          		
+   2140          
+   2141          		// next a 32-word buffer starting at offset = 0x4088 
+   2142          
+   2143          		// Init the memory address pointer, skip over 2 addresses 
+   2144          		// reserved for the MsgInfo Word and the TimeTag word
+   2145          		Write_6131LowReg(MAP_1,(0x4088 + 2),0);
+   2146          
+   2147          		// write the 32 data words...
+   2148          		for ( i = 0; i < 32; i++) {	
+   2149          			// memory address pointer increments after write
+   2150          			Write_6131_1word(b_data[i],0);
+   2151          		}
+   2152          		
+   2153          
+   2154          		// =================================================================================
+   2155          
+   2156          		// FOR TESTING INDEXED MODE, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   2157          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE 
+   2158          
+   2159          		// total 1088-word buffer starting at offset = 0x4532 
+   2160          		// this is 32 contiguous segments of 34 words each, 
+   2161          
+   2162          		// Init the memory address pointer to buffer start address
+   2163          		Write_6131LowReg(MAP_1,(0x4532),0);
+   2164          
+   2165          		for ( j = 0; j < 32; j++) {
+   2166          
+   2167          			// skip 2 addresses at top of each 32-word segment, 
+   2168          			// reserved for each message's MsgInfo and TimeTag words
+   2169          			SPIopcode(MAPadd2); 
+   2170          
+   2171          			// write 32 data words for each message...					
+   2172          			for ( i = 0; i < 32; i++) {	
+   2173          				// memory address pointer increments after write
+   2174          				Write_6131_1word(b_data[i],0);
+   2175          			}
+   2176          		}
+   2177          
+   2178          		// ================================================================================= 
+   2179          
+   2180          		// FOR TESTING CIRCULAR MODE 1, A BUFFER THAT HOLDS 32 32-WORD MESSAGES,
+   2181          		// REQUIRING INTERLACED MSG INFO AND TIME TAG WORDS FOR EACH MESSAGE 
+   2182          
+   2183          		// total 1088-word buffer starting at offset = 0x4DD6 
+   2184          		// this is 32 contiguous segments of 34 words each, 
+   2185          
+   2186          		// Init the memory address pointer to buffer start address
+   2187          		Write_6131LowReg(MAP_1,0x4DD6,0);
+   2188          
+   2189          		for ( j = 0; j < 32; j++) {
+   2190          
+   2191          			// skip 2 addresses at top of each 32-word segment, 
+   2192          			// reserved for each message's MsgInfo and TimeTag words 
+   2193          			SPIopcode(MAPadd2); 
+   2194          
+   2195          			// write 32 data words for each message...					
+   2196          			for ( i = 0; i < 32; i++) {	
+   2197          				// memory address pointer increments after write
+   2198          				Write_6131_1word(a_data[i],0);
+   2199          			}
+   2200          		}
+   2201          
+   2202          		// reserve a 32-word safety pad in case of circ-1 buffer overrun
+   2203          		for ( i = 0; i < 32; i++) {	
+   2204          			// memory address pointer increments after write
+   2205          			Write_6131_1word(0xBADD,0);
+   2206          		}
+   2207          		
+   2208          
+   2209          		// =================================================================================
+   2210          	
+   2211          		// FOR TESTING CIRCULAR MODE 2, A CONTIGUOUS 32 X 32-WORD DATA BLOCK 
+   2212          	
+   2213          		// total 8192-word buffer with offset range from 0x5600 to 0x75FF.
+   2214          		// Init the memory address pointer to buffer start address 
+   2215          		Write_6131LowReg(MAP_1,0x5600,0);
+   2216          
+   2217          		// write the 8192 data words using incrementing data pattern...
+   2218          		for ( i = 0, j = 0; i < 8192; i++, j++) {
+   2219          			// memory address pointer increments after write
+   2220          			Write_6131_1word(j,0);
+   2221          		}
+   2222          	
+   2223          		// ================================================================================= 
+   2224          
+   2225          		// for unimplemented transmit SA's. a 32-word buffer starting at offset 
+   2226          		// of 0x5258. Init the memory address pointer, skipping over 2 addresses 
+   2227          		// reserved for the MsgInfo Word and the TimeTag word 
+   2228          		Write_6131LowReg(MAP_1,(0x5258 + 2),0);
+   2229          
+   2230          		// write the 32 data words...
+   2231          		for ( i = 0; i < 32; i++) {	
+   2232          			// memory address pointer increments after write
+   2233          			Write_6131_1word(0xDEAD,0);
+   2234          		}
+   2235          		
+   2236          	#endif // end: using HOST SPI INTERFACE
+   2237          
+   2238          }	// end write_dummy_tx_data_RT2()
+   2239          
+   2240          
+   2241          
+   2242          #endif	  //------------ END RT2 ENABLED ------------
+   2243          
+   2244          // 	This function determines whether Op Status register indicates 
+   2245          //	RT address parity error/fail (RTAPF). If parity error, a local
+   2246          //	error trap executes until reset (no return to calling function).
+   2247          //	If RT address in Op Status register does not have parity error,
+   2248          //      function returns "1" to calling routine.
+   2249          //
+   2250          //	parameter indicates "1" or "2" for RT1 or RT2. 
+   2251          //	other parameter values = invalid, local error trap
+   2252           
+
+   \                                 In section .text, align 2, keep-with-next
+   2253          char RTAddr_okay(char RTnum) {
+   \                     RTAddr_okay:
+   \   00000000   70B5               PUSH     {R4-R6,LR}
+   \   00000002   0400               MOVS     R4,R0
+   2254          
+   2255          	unsigned short k,j;
+   2256          
+   2257          	if ((!RTnum)||(RTnum > 2))  error_trap(2); // invalid parameter
+   \   00000004   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000006   002C               CMP      R4,#+0
+   \   00000008   02D0               BEQ.N    ??RTAddr_okay_0
+   \   0000000A   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000000C   032C               CMP      R4,#+3
+   \   0000000E   02D3               BCC.N    ??RTAddr_okay_1
+   \                     ??RTAddr_okay_0:
+   \   00000010   0220               MOVS     R0,#+2
+   \   00000012   ........           BL       error_trap
+   2258          
+   2259          	// Check whether Operational Status register indicates RT 
+   2260          	// address parity error
+   2261          
+   2262          	#if (HOST_BUS_INTERFACE)
+   2263          	    k = pH6130->HDW_PENDING_INT_REG;
+   \                     ??RTAddr_okay_1:
+   \   00000016   ....               LDR.N    R0,??DataTable2
+   \   00000018   0068               LDR      R0,[R0, #+0]
+   \   0000001A   8089               LDRH     R0,[R0, #+12]
+   \   0000001C   0500               MOVS     R5,R0
+   2264          	#else // Host_SPI_Interface
+   2265          	    k = Read_6131LowReg(HDW_PENDING_INT_REG,1);
+   2266          	#endif
+   2267          
+   2268          	// register bits 4-3 are RT2APF-RT1APF 
+   2269                  j = RTnum << 4 ;
+   \   0000001E   E4B2               UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000020   2001               LSLS     R0,R4,#+4
+   \   00000022   0600               MOVS     R6,R0
+   2270          	if (k & j) {
+   \   00000024   2800               MOVS     R0,R5
+   \   00000026   80B2               UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000028   3042               TST      R0,R6
+   \   0000002A   04D0               BEQ.N    ??RTAddr_okay_2
+   2271          
+   2272          		/* The active RT address is found in the Operational Status register.
+   2273          		Check register here for parity error; if yes, a perpetual "error trap". 
+   2274          		is executed. There are four ways parity error can occur:
+   2275          		a) If AUTOEN pin = 0 (no auto-initialization), the DIP switch setting 
+   2276          		   on the board has parity error.
+   2277          		b) If AUTOEN pin = LOCK pin = 1 the DIP switch RT address applies but
+   2278          		   the switch setting has parity error. Coming out of reset, the DIP 
+   2279          		   switch RT address and parity were latched into the Op Status register.
+   2280          		   along with the LOCK bit. When auto-initialize followed, LOCK prevented
+   2281          		   overwrite of the register with the EEPROM value for reg 0x2.
+   2282          		c) If AUTOEN pin = 1 and LOCK pin = 0, when coming out of reset, the DIP 
+   2283          		   switch RT address was latched into the Op Status register.
+   2284          		   along with the LOCK bit. When auto-initialize followed, the register
+   2285          		   was overwritten with the EEPROM value for reg 0x2. The stored EEPROM 
+   2286          		   value for register 0x2 has parity error!
+   2287          		d) If the Op Status register LOCK bit equals 0, the host may have 
+   2288          		   written an RT address with parity error.
+   2289          		For all 4 cases, perpetual red LED double-blink until reset occurs */
+   2290          		error_trap(2);	
+   \   0000002C   0220               MOVS     R0,#+2
+   \   0000002E   ........           BL       error_trap
+   2291          
+   2292          		return 0;	// execution will not get here
+   \   00000032   0020               MOVS     R0,#+0
+   \   00000034   00E0               B.N      ??RTAddr_okay_3
+   2293          	}
+   2294          
+   2295          	else return 1;
+   \                     ??RTAddr_okay_2:
+   \   00000036   0120               MOVS     R0,#+1
+   \                     ??RTAddr_okay_3:
+   \   00000038   70BD               POP      {R4-R6,PC}       ;; return
+   2296          }
+   2297          
+   2298          
+   2299          
+   2300          
+   2301          //
+   2302          //      The next function polls pushbutton SW1 to detect user request for status flag update.	
+   2303          //      It reads BUSYBIT and TFLAG DIP switches, then updates "1553 Status Word Bits Register"
+   2304          // 	*  if (BUSYBIT switch = 1) THEN (set BUSY bit), ELSE (reset BUSY bit)
+   2305          //	*  if (TFLAG switch = 1) THEN (set TERMFLAG bit), ELSE (reset TERMFLAG bit)
+   2306          //	Note: The SSYSF (Subsystem Fail) DIP switch is directly wired to HI-613x SSYSF input pin
+   2307          //	so no button press is required to change this status bit.
+   2308          //
+   2309          //	primary purpose: during RT validation tests, it is desirable to have a simple way
+   2310          //	to set/reset these status bits
+   2311          // 
+
+   \                                 In section .text, align 2, keep-with-next
+   2312          void modify_RT_status_bits(void) {
+   \                     modify_RT_status_bits:
+   \   00000000   00B5               PUSH     {LR}
+   \   00000002   89B0               SUB      SP,SP,#+36
+   2313            
+   2314                  const Pin pinNSW1 = PIN_NSW1;
+   \   00000004   00A8               ADD      R0,SP,#+0
+   \   00000006   ....               LDR.N    R1,??DataTable2_1
+   \   00000008   2022               MOVS     R2,#+32
+   \   0000000A   ........           BL       __aeabi_memcpy4
+   2315          
+   2316          	// SW1 was pressed before this function call 
+   2317          	// turn on green LED 
+   2318          	AT91C_BASE_PIOA->PIO_CODR = nLEDG;
+   \   0000000E   ....               LDR.N    R0,??DataTable2_2  ;; 0x400e0c34
+   \   00000010   5FF00051           MOVS     R1,#+536870912
+   \   00000014   0160               STR      R1,[R0, #+0]
+   2319          
+   2320          	// wait for button release
+   2321          	while (!PIO_Get(&pinNSW1));
+   \                     ??modify_RT_status_bits_0:
+   \   00000016   00A8               ADD      R0,SP,#+0
+   \   00000018   ........           BL       PIO_Get
+   \   0000001C   0028               CMP      R0,#+0
+   \   0000001E   FAD0               BEQ.N    ??modify_RT_status_bits_0
+   2322          
+   2323          	// update the RT1 AND RT2 Status Word Bits registers based on DIP switch
+   2324          	RTstatusUpdate();
+   \   00000020   ........           BL       RTstatusUpdate
+   2325          
+   2326          	// debounce delay then turn off green LED
+   2327          	Delay_x100ms(4);
+   \   00000024   0420               MOVS     R0,#+4
+   \   00000026   ........           BL       Delay_x100ms
+   2328          	AT91C_BASE_PIOA->PIO_SODR = nLEDG;
+   \   0000002A   ....               LDR.N    R0,??DataTable2_3  ;; 0x400e0c30
+   \   0000002C   5FF00051           MOVS     R1,#+536870912
+   \   00000030   0160               STR      R1,[R0, #+0]
+   2329          }
+   \   00000032   09B0               ADD      SP,SP,#+36
+   \   00000034   00BD               POP      {PC}             ;; return
+   2330          
+   2331          
+   2332          //
+   2333          //      The next function tests RT1 and RT2 BUSYBIT and TFLAG DIP switch settings,
+   2334          //	then updates the HI-613X RT1 and RT2 "1553 Status Word Bits Registers"
+   2335          //	IF (BUSYBIT switch = 1) THEN (set BUSY bit), ELSE (reset BUSY bit)
+   2336          //	IF (TFLAG switch = 1) THEN (set TERMFLAG bit), ELSE (reset TERMFLAG bit)
+   2337          //
+   2338          //
+
+   \                                 In section .text, align 2, keep-with-next
+   2339          void RTstatusUpdate(void) {
+   \                     RTstatusUpdate:
+   \   00000000   30B5               PUSH     {R4,R5,LR}
+   \   00000002   A1B0               SUB      SP,SP,#+132
+   2340          
+   2341          	unsigned short out_rt1,out_rt2;
+   2342                  const Pin pinRT1TFLG = PIN_RT1TFLG;
+   \   00000004   18A8               ADD      R0,SP,#+96
+   \   00000006   ....               LDR.N    R1,??DataTable2_4
+   \   00000008   2022               MOVS     R2,#+32
+   \   0000000A   ........           BL       __aeabi_memcpy4
+   2343                  const Pin pinRT1BSY  = PIN_RT1BSY;
+   \   0000000E   10A8               ADD      R0,SP,#+64
+   \   00000010   ....               LDR.N    R1,??DataTable2_5
+   \   00000012   2022               MOVS     R2,#+32
+   \   00000014   ........           BL       __aeabi_memcpy4
+   2344                  const Pin pinRT2TFLG = PIN_RT2TFLG;
+   \   00000018   08A8               ADD      R0,SP,#+32
+   \   0000001A   ....               LDR.N    R1,??DataTable2_6
+   \   0000001C   2022               MOVS     R2,#+32
+   \   0000001E   ........           BL       __aeabi_memcpy4
+   2345                  const Pin pinRT2BSY  = PIN_RT2BSY;        
+   \   00000022   00A8               ADD      R0,SP,#+0
+   \   00000024   ....               LDR.N    R1,??DataTable2_7
+   \   00000026   2022               MOVS     R2,#+32
+   \   00000028   ........           BL       __aeabi_memcpy4
+   2346          
+   2347          	#if (!HOST_BUS_INTERFACE) // Host_SPI_Interface
+   2348                      unsigned char savemap;
+   2349          
+   2350          	    // no fast access read for these registers, but write is okay...
+   2351                      __disable_interrupt();
+   2352                      // we will restore the active MAP when finished
+   2353                      savemap = (char)(getMAPaddr() - 0x000A);
+   2354                      // use MAP3 
+   2355                      enaMAP(3);
+   2356                      Write_6131LowReg(MAP_3, RT1_1553_STATUS_BITS_REG,0);  
+   2357          	    out_rt1 = Read_6131_1word(0) & ~(BUSY|TERMFLAG);
+   2358          	    Write_6131LowReg(MAP_3, RT2_1553_STATUS_BITS_REG,0);  
+   2359          	    out_rt2 = Read_6131_1word(0) & ~(BUSY|TERMFLAG);
+   2360                  
+   2361          	#else // (HOST_BUS_INTERFACE)
+   2362          	    out_rt1 = pH6130->RT1_1553_STATUS_BITS_REG & ~(BUSY|TERMFLAG);
+   \   0000002C   ....               LDR.N    R0,??DataTable2
+   \   0000002E   0068               LDR      R0,[R0, #+0]
+   \   00000030   808E               LDRH     R0,[R0, #+52]
+   \   00000032   4FF6F671           MOVW     R1,#+65526
+   \   00000036   0840               ANDS     R0,R1,R0
+   \   00000038   0400               MOVS     R4,R0
+   2363                	    out_rt2 = pH6130->RT2_1553_STATUS_BITS_REG & ~(BUSY|TERMFLAG);
+   \   0000003A   ....               LDR.N    R0,??DataTable2
+   \   0000003C   0068               LDR      R0,[R0, #+0]
+   \   0000003E   B0F84600           LDRH     R0,[R0, #+70]
+   \   00000042   4FF6F671           MOVW     R1,#+65526
+   \   00000046   0840               ANDS     R0,R1,R0
+   \   00000048   0500               MOVS     R5,R0
+   2364          	#endif
+   2365                  
+   2366          	// set BUSY status bit if "BUSYBIT" switch is high, else reset bit.	        
+   2367                  if(PIO_Get(&pinRT1BSY)) out_rt1 |= BUSY;
+   \   0000004A   10A8               ADD      R0,SP,#+64
+   \   0000004C   ........           BL       PIO_Get
+   \   00000050   0028               CMP      R0,#+0
+   \   00000052   01D0               BEQ.N    ??RTstatusUpdate_0
+   \   00000054   54F00804           ORRS     R4,R4,#0x8
+   2368                  if(PIO_Get(&pinRT2BSY)) out_rt2 |= BUSY;
+   \                     ??RTstatusUpdate_0:
+   \   00000058   00A8               ADD      R0,SP,#+0
+   \   0000005A   ........           BL       PIO_Get
+   \   0000005E   0028               CMP      R0,#+0
+   \   00000060   01D0               BEQ.N    ??RTstatusUpdate_1
+   \   00000062   55F00805           ORRS     R5,R5,#0x8
+   2369          	// set Terminal Flag (TERMFLAG) status bit if "TFLAG" switch is high, else reset bit.	
+   2370          	if(PIO_Get(&pinRT1TFLG)) out_rt1 |= TERMFLAG;
+   \                     ??RTstatusUpdate_1:
+   \   00000066   18A8               ADD      R0,SP,#+96
+   \   00000068   ........           BL       PIO_Get
+   \   0000006C   0028               CMP      R0,#+0
+   \   0000006E   01D0               BEQ.N    ??RTstatusUpdate_2
+   \   00000070   54F00104           ORRS     R4,R4,#0x1
+   2371          	if(PIO_Get(&pinRT2TFLG)) out_rt2 |= TERMFLAG;
+   \                     ??RTstatusUpdate_2:
+   \   00000074   08A8               ADD      R0,SP,#+32
+   \   00000076   ........           BL       PIO_Get
+   \   0000007A   0028               CMP      R0,#+0
+   \   0000007C   01D0               BEQ.N    ??RTstatusUpdate_3
+   \   0000007E   55F00105           ORRS     R5,R5,#0x1
+   2372          
+   2373          	#if (HOST_BUS_INTERFACE)
+   2374          	    pH6130->RT1_1553_STATUS_BITS_REG = out_rt1;
+   \                     ??RTstatusUpdate_3:
+   \   00000082   ....               LDR.N    R0,??DataTable2
+   \   00000084   0068               LDR      R0,[R0, #+0]
+   \   00000086   8486               STRH     R4,[R0, #+52]
+   2375          	    pH6130->RT2_1553_STATUS_BITS_REG = out_rt2;
+   \   00000088   ....               LDR.N    R0,??DataTable2
+   \   0000008A   0068               LDR      R0,[R0, #+0]
+   \   0000008C   A0F84650           STRH     R5,[R0, #+70]
+   2376          
+   2377          	#else  // Host_SPI_Interface
+   2378          	    // fast access write is okay...
+   2379          	    Write_6131LowReg(RT1_1553_STATUS_BITS_REG,out_rt1,0);
+   2380          	    Write_6131LowReg(RT2_1553_STATUS_BITS_REG,out_rt2,0);
+   2381          	    // restore original MAP
+   2382          	    enaMAP(savemap);        
+   2383          	    __enable_interrupt();
+   2384          	#endif      
+   2385                  
+   2386          }  // end RTstatusUpdate()
+   \   00000090   21B0               ADD      SP,SP,#+132
+   \   00000092   30BD               POP      {R4,R5,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \   00000000   ........           DC32     pH6130
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_1:
+   \   00000000   ........           DC32     `?<Constant {131072, (AT91S_PIO *)1074662912, 1`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_2:
+   \   00000000   340C0E40           DC32     0x400e0c34
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_3:
+   \   00000000   300C0E40           DC32     0x400e0c30
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_4:
+   \   00000000   ........           DC32     `?<Constant {4096, (AT91S_PIO *)1074663424, 12,`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_5:
+   \   00000000   ........           DC32     `?<Constant {8192, (AT91S_PIO *)1074663424, 12,`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_6:
+   \   00000000   ........           DC32     `?<Constant {16384, (AT91S_PIO *)1074663424, 12`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2_7:
+   \   00000000   ........           DC32     `?<Constant {32768, (AT91S_PIO *)1074663424, 12`
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {131072, (AT91S_PIO *)1074662912, 1`:
+   \   00000000   00000200000E       DC32 131072, 400E0E00H
+   \              0E40        
+   \   00000008   0B0202000000       DC8 11, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \              00          
+   \   0000001B   0000000000         DC8 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {4096, (AT91S_PIO *)1074663424, 12,`:
+   \   00000000   001000000010       DC32 4096, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {8192, (AT91S_PIO *)1074663424, 12,`:
+   \   00000000   002000000010       DC32 8192, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {16384, (AT91S_PIO *)1074663424, 12`:
+   \   00000000   004000000010       DC32 16384, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     `?<Constant {32768, (AT91S_PIO *)1074663424, 12`:
+   \   00000000   008000000010       DC32 32768, 400E1000H
+   \              0E40        
+   \   00000008   0C0200000000       DC8 12, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              000000000000
+   \              000000000000
+   \   0000001A   000000000000       DC8 0, 0, 0, 0, 0, 0
+   2387          
+   2388          
+   2389          
+   2390          // end of file
+   2391          
+
+   Maximum stack usage in bytes:
+
+     Function              .cstack
+     --------              -------
+     RTAddr_okay               16
+     RTstatusUpdate           144
+     modify_RT_status_bits     40
+
+
+   Section sizes:
+
+     Function/Label                                 Bytes
+     --------------                                 -----
+     RTAddr_okay                                      58
+     modify_RT_status_bits                            54
+     RTstatusUpdate                                  148
+     ??DataTable2                                      4
+     ??DataTable2_1                                    4
+     ??DataTable2_2                                    4
+     ??DataTable2_3                                    4
+     ??DataTable2_4                                    4
+     ??DataTable2_5                                    4
+     ??DataTable2_6                                    4
+     ??DataTable2_7                                    4
+     ?<Constant {131072, (AT91S_PIO *)1074662912, 1   32
+     ?<Constant {4096, (AT91S_PIO *)1074663424, 12,   32
+     ?<Constant {8192, (AT91S_PIO *)1074663424, 12,   32
+     ?<Constant {16384, (AT91S_PIO *)1074663424, 12   32
+     ?<Constant {32768, (AT91S_PIO *)1074663424, 12   32
+
+ 
+ 160 bytes in section .rodata
+ 292 bytes in section .text
+ 
+ 292 bytes of CODE  memory
+ 160 bytes of CONST memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,277 @@
+###############################################################################
+#                                                                             #
+#                                                       22/May/2012  13:43:42 #
+# IAR ANSI C/C++ Compiler V6.21.1.32794/W32 KICKSTART for ARM                 #
+# Copyright 1999-2011 IAR Systems AB.                                         #
+#                                                                             #
+#    Cpu mode     =  thumb                                                    #
+#    Endian       =  little                                                   #
+#    Source file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\printf_usart.c                   #
+#    Command line =  "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\printf_usart.c" -D at91sam3u4    #
+#                    -D flash -D TRACE_LEVEL=4 -D BC_ena=0 -D RT2_ena=0 -D    #
+#                    RT1_ena=0 -D SMT_ena=0 -D IMT_ena=1 -lC "C:\Program      #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\List\" --remarks    #
+#                    --diag_suppress Pe826,Pe1375,Pe068 -o "C:\Program        #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\Obj\" --no_cse      #
+#                    --no_unroll --no_inline --no_code_motion --no_tbaa       #
+#                    --no_clustering --no_scheduling --debug --endian=little  #
+#                    --cpu=Cortex-M3 -e --fpu=None --dlib_config "C:\Program  #
+#                    Files\IAR Systems\Embedded Workbench 6.0                 #
+#                    Kickstart_2\arm\INC\c\DLib_Config_Full.h" -I             #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/peripherals #
+#                    \" -I "C:\Program Files\IAR Systems\Embedded Workbench   #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/components\ #
+#                    " -I "C:\Program Files\IAR Systems\Embedded Workbench    #
+#                    6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt    #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib\" -I        #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\external_libs\" -I  #
+#                    "C:\Program Files\IAR Systems\Embedded Workbench 6.0     #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\..\..\..\at91lib/boards/at91 #
+#                    sam3u-ek\" --cpu_mode thumb -On --use_c++_inline         #
+#    List file    =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\List\printf_usart.l #
+#                    st                                                       #
+#    Object file  =  C:\Program Files\IAR Systems\Embedded Workbench 6.0      #
+#                    Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt        #
+#                    HI-6130-40 EBI Demo 1_0\ewp\IMT_ONLY\Obj\printf_usart.o  #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+C:\Program Files\IAR Systems\Embedded Workbench 6.0 Kickstart_2\arm\examples\Atmel\at91sam3u-ek\_Holt HI-6130-40 EBI Demo 1_0\printf_usart.c
+      1          /* ----------------------------------------------------------------------------
+      2           *         ATMEL Microcontroller Software Support 
+      3           * ----------------------------------------------------------------------------
+      4           * Copyright (c) 2008, Atmel Corporation
+      5           *
+      6           * All rights reserved.
+      7           *
+      8           * Redistribution and use in source and binary forms, with or without
+      9           * modification, are permitted provided that the following conditions are met:
+     10           *
+     11           * - Redistributions of source code must retain the above copyright notice,
+     12           * this list of conditions and the disclaimer below.
+     13           *
+     14           * Atmel's name may not be used to endorse or promote products derived from
+     15           * this software without specific prior written permission.
+     16           *
+     17           * DISCLAIMER: THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR
+     18           * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+     19           * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+     20           * DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR ANY DIRECT, INDIRECT,
+     21           * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     22           * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+     23           * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+     24           * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+     25           * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+     26           * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     27           * ----------------------------------------------------------------------------
+     28           */
+     29          
+     30          //------------------------------------------------------------------------------
+     31          /// \unit
+     32          /// This file contains several function re-implementations to make the standard
+     33          /// printf() method output on USART0.
+     34          ///
+     35          /// The re-implemented functions are fputc(), fputs() and putchar().
+     36          //------------------------------------------------------------------------------
+     37          
+     38          //------------------------------------------------------------------------------
+     39          //         Headers
+     40          //------------------------------------------------------------------------------
+     41          
+     42          #include <board.h>
+     43          #include <usart/usart.h>
+     44          
+     45          #include <stdio.h>
+     46          #include "board_6130.h"
+     47          
+     48          #ifndef NOFPUT
+     49          //------------------------------------------------------------------------------
+     50          //         Global functions
+     51          //------------------------------------------------------------------------------
+     52          
+     53          //------------------------------------------------------------------------------
+     54          /// Implementation of fputc using USART0 as the standard output. Required
+     55          /// for printf().
+     56          /// Returns the character written if successful, or -1 if the output stream is
+     57          /// not stdout or stderr.
+     58          /// \param c  Character to write.
+     59          /// \param pStream  Output stream.
+     60          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     61          signed int fputc(signed int c, FILE *pStream)
+     62          {
+   \                     fputc:
+   \   00000000   38B5               PUSH     {R3-R5,LR}
+   \   00000002   0400               MOVS     R4,R0
+   \   00000004   0D00               MOVS     R5,R1
+     63              if ((pStream == stdout) || (pStream == stderr)) {
+   \   00000006   ....               LDR.N    R0,??DataTable1
+   \   00000008   8542               CMP      R5,R0
+   \   0000000A   02D0               BEQ.N    ??fputc_0
+   \   0000000C   ....               LDR.N    R0,??DataTable1_1
+   \   0000000E   8542               CMP      R5,R0
+   \   00000010   07D1               BNE.N    ??fputc_1
+     64                  USART_Write(BOARD_USART_BASE, c, 0);
+   \                     ??fputc_0:
+   \   00000012   0022               MOVS     R2,#+0
+   \   00000014   2100               MOVS     R1,R4
+   \   00000016   89B2               UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000018   ....               LDR.N    R0,??DataTable1_2  ;; 0x40094000
+   \   0000001A   ........           BL       USART_Write
+     65                  return c;
+   \   0000001E   2000               MOVS     R0,R4
+   \   00000020   01E0               B.N      ??fputc_2
+     66              }
+     67              else {
+     68          
+     69                  return EOF;
+   \                     ??fputc_1:
+   \   00000022   5FF0FF30           MOVS     R0,#-1
+   \                     ??fputc_2:
+   \   00000026   32BD               POP      {R1,R4,R5,PC}    ;; return
+     70              }
+     71          }
+     72          
+     73          //------------------------------------------------------------------------------
+     74          /// Implementation of fputs using USART0 as the standard output. Required
+     75          /// for printf().
+     76          /// Returns the number of characters written if successful, or -1 if the output
+     77          /// stream is not stdout or stderr.
+     78          /// \param pStr  String to write.
+     79          /// \param pStream  Output stream.
+     80          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+     81          signed int fputs(const char *pStr, FILE *pStream)
+     82          {
+   \                     fputs:
+   \   00000000   70B5               PUSH     {R4-R6,LR}
+   \   00000002   0400               MOVS     R4,R0
+   \   00000004   0D00               MOVS     R5,R1
+     83              signed int num = 0;
+   \   00000006   0026               MOVS     R6,#+0
+     84          
+     85              while (*pStr != 0) {
+   \                     ??fputs_0:
+   \   00000008   2078               LDRB     R0,[R4, #+0]
+   \   0000000A   0028               CMP      R0,#+0
+   \   0000000C   0CD0               BEQ.N    ??fputs_1
+     86          
+     87                  if (fputc(*pStr, pStream) == -1) {
+   \   0000000E   2900               MOVS     R1,R5
+   \   00000010   2078               LDRB     R0,[R4, #+0]
+   \   00000012   ........           BL       fputc
+   \   00000016   10F1010F           CMN      R0,#+1
+   \   0000001A   02D1               BNE.N    ??fputs_2
+     88          
+     89                      return -1;
+   \   0000001C   5FF0FF30           MOVS     R0,#-1
+   \   00000020   03E0               B.N      ??fputs_3
+     90                  }
+     91                  num++;
+   \                     ??fputs_2:
+   \   00000022   761C               ADDS     R6,R6,#+1
+     92                  pStr++;
+   \   00000024   641C               ADDS     R4,R4,#+1
+   \   00000026   EFE7               B.N      ??fputs_0
+     93              }
+     94          
+     95              return num;
+   \                     ??fputs_1:
+   \   00000028   3000               MOVS     R0,R6
+   \                     ??fputs_3:
+   \   0000002A   70BD               POP      {R4-R6,PC}       ;; return
+     96          }
+     97          
+     98          #undef putchar
+     99          
+    100          //------------------------------------------------------------------------------
+    101          /// Outputs a character on USART0. Returns the character itself.
+    102          /// \param c  Character to output.
+    103          //------------------------------------------------------------------------------
+
+   \                                 In section .text, align 2, keep-with-next
+    104          signed int putchar(signed int c)
+    105          {
+   \                     putchar:
+   \   00000000   10B5               PUSH     {R4,LR}
+   \   00000002   0400               MOVS     R4,R0
+    106              return fputc(c, stdout);
+   \   00000004   ....               LDR.N    R1,??DataTable1
+   \   00000006   2000               MOVS     R0,R4
+   \   00000008   ........           BL       fputc
+   \   0000000C   10BD               POP      {R4,PC}          ;; return
+    107          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   ........           DC32     __iar_Stdout
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_1:
+   \   00000000   ........           DC32     __iar_Stderr
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1_2:
+   \   00000000   00400940           DC32     0x40094000
+    108          
+    109          #else
+    110          
+    111          //------------------------------------------------------------------------------
+    112          /// Re-implement DBGU_PutChar function to outputs a character through the 
+    113          /// USART0 peripheral
+    114          /// \param c  Character to send.
+    115          //------------------------------------------------------------------------------
+    116          
+    117          void DBGU_PutChar(unsigned char ch)
+    118          { 
+    119              USART_Write(BOARD_USART_BASE, ch, 0);
+    120          }
+    121          
+    122          #endif
+
+   Maximum stack usage in bytes:
+
+     Function .cstack
+     -------- -------
+     fputc        16
+     fputs        16
+     putchar       8
+
+
+   Section sizes:
+
+     Function/Label Bytes
+     -------------- -----
+     fputc            40
+     fputs            44
+     putchar          14
+     ??DataTable1      4
+     ??DataTable1_1    4
+     ??DataTable1_2    4
+
+ 
+ 110 bytes in section .text
+ 
+ 110 bytes of CODE memory
+
+Errors: none
+Warnings: none
